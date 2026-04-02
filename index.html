@@ -520,7 +520,7 @@ tbody tr:hover td { background: #FAFAFA; }
 
     <!-- поиск + ручной ввод -->
     <div style="display:flex;gap:10px;margin-bottom:14px;align-items:center">
-      <input id="cat-search" class="form-input" placeholder="🔍 Поиск по каталогу..." oninput="doSearch(this.value)" style="flex:1"/>
+      <input id="cat-search" class="form-input" placeholder="⚡ Введите работу — ЦА подберёт из каталога..." oninput="doSearch(this.value)" style="flex:1"/>
       <button class="btn btn-ghost" onclick="var p=document.getElementById('manual-row');p.style.display=p.style.display=='none'?'flex':'none'">✏️ Ввести вручную</button>
     </div>
     <div id="search-drop" style="display:none;border:1px solid var(--border);border-radius:8px;margin-bottom:14px;overflow:hidden;background:var(--white)"></div>
@@ -805,6 +805,57 @@ tbody tr:hover td { background: #FAFAFA; }
       <button class="btn btn-ghost btn-sm" onclick="goto('smetchik-inbox')">← Назад</button>
     </div>
     <div class="alert alert-blue">⚡ ЦА сформировал черновик параллельно с заполнением ДВ — проверьте позиции и подтвердите. Жёлтые позиции требуют вашего выбора.</div>
+
+    <!-- Декомпозиция: как ДВ превратилась в смету -->
+    <div class="card mb-16" style="overflow:hidden">
+      <div class="card-header" style="background:#F9FAFB">
+        <div class="card-title">🔀 Как ЦА преобразовал ДВ в смету</div>
+        <span class="text-xs text-muted">2 позиции ДВ → 3 расценки сметы</span>
+      </div>
+      <div style="padding:16px 20px;display:flex;gap:0;align-items:stretch">
+        <!-- Левая колонка — позиции ДВ -->
+        <div style="flex:1;padding-right:16px;border-right:2px dashed #E5E7EB">
+          <div style="font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px">Позиции ДВ (заявитель)</div>
+          <div id="decomp-dv-1" style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:8px;padding:10px 12px;margin-bottom:8px;font-size:13px">
+            <div style="font-weight:600;color:#1E40AF">1. Разборка кровли рулонной</div>
+            <div style="font-size:11px;color:#3B82F6;margin-top:3px">750 м²</div>
+          </div>
+          <div id="decomp-dv-2" style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:8px;padding:10px 12px;font-size:13px">
+            <div style="font-weight:600;color:#1E40AF">2. Разбор стяжки до 50мм</div>
+            <div style="font-size:11px;color:#3B82F6;margin-top:3px">500 м²</div>
+          </div>
+        </div>
+        <!-- Стрелка -->
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 20px;font-size:22px;color:#6B7280">→</div>
+        <!-- Правая колонка — расценки сметы -->
+        <div style="flex:1;padding-left:16px">
+          <div style="font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px">Расценки сметы (ЦА)</div>
+          <!-- Расценка 1 — из позиции 1 ДВ -->
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div style="width:18px;height:18px;border-radius:50%;background:#2563EB;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
+            <div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:8px 12px;flex:1;font-size:12px">
+              <div style="font-weight:600;color:#14532D">1208-0101-0201 · К23=0,00</div>
+              <div style="color:#16A34A;margin-top:2px">Разборка кровли рулонной НР=72% · 750 м²</div>
+            </div>
+          </div>
+          <!-- Расценки 2 и 3 — из позиции 2 ДВ (декомпозиция!) -->
+          <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px">
+            <div style="width:18px;height:18px;border-radius:50%;background:#2563EB;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px">2</div>
+            <div style="flex:1">
+              <div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:8px 12px;font-size:12px;margin-bottom:6px">
+                <div style="font-weight:600;color:#14532D">1207-0101-1802 · Ккл=1,09</div>
+                <div style="color:#16A34A;margin-top:2px">Разборка стяжки цемент. 20мм НР=72% · 500 м²</div>
+              </div>
+              <div style="background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px;padding:8px 12px;font-size:12px">
+                <div style="font-weight:600;color:#92400E">1207-0101-1804 · К0=6</div>
+                <div style="color:#D97706;margin-top:2px">+ Добавлять на каждые 5мм изменения · 500 м²</div>
+                <div style="font-size:10px;color:#92400E;margin-top:4px">⚡ ЦА декомпозировал 1 позицию → 2 расценки</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="two-panel mb-16">
       <div class="panel-left">
         <div class="panel-header">📋 Дефектная ведомость</div>
@@ -866,11 +917,11 @@ tbody tr:hover td { background: #FAFAFA; }
       <div class="card-header"><div class="card-title">Итоговые позиции сметы</div></div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>№</th><th>Шифр нормы</th><th>Наименование работ и затрат</th><th>Ед. изм.</th><th>Кол-во</th><th>Статус</th></tr></thead>
+          <thead><tr><th>№</th><th>№ ДВ</th><th>Шифр нормы</th><th>Наименование работ и затрат</th><th>Ед. изм.</th><th>Кол-во</th><th>Статус</th></tr></thead>
           <tbody>
-            <tr style="background:#F0FDF4"><td style="border-left:3px solid #16A34A">1</td><td class="code-text">1208-0101-0201<br>К23=0,00</td><td>Кровля из рулонных материалов. Разборка покрытий НР=72%</td><td>м² кровли</td><td>750</td><td><span class="badge badge-green">✓ Ок</span></td></tr>
-            <tr style="background:#F0FDF4"><td style="border-left:3px solid #16A34A">2</td><td class="code-text">1207-0101-1802<br>Ккл=1,09</td><td>Разборка стяжек цементных 20мм НР=72%</td><td>м²</td><td>500</td><td><span class="badge badge-green">✓ Ок</span></td></tr>
-            <tr style="background:#FFFBEB"><td style="border-left:3px solid #D97706">3</td><td class="code-text">1207-0101-1804<br>К0=6</td><td>Добавлять на каждые 5мм изменения толщины стяжки</td><td>м²</td><td>500</td><td><span class="badge badge-amber">⚡ Скорр.</span></td></tr>
+            <tr style="background:#F0FDF4"><td style="border-left:3px solid #16A34A">1</td><td><div style="width:22px;height:22px;border-radius:50%;background:#2563EB;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto">1</div></td><td class="code-text">1208-0101-0201<br>К23=0,00</td><td>Кровля из рулонных материалов. Разборка покрытий НР=72%</td><td>м² кровли</td><td>750</td><td><span class="badge badge-green">✓ Ок</span></td></tr>
+            <tr style="background:#F0FDF4"><td style="border-left:3px solid #16A34A">2</td><td><div style="width:22px;height:22px;border-radius:50%;background:#2563EB;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto">2</div></td><td class="code-text">1207-0101-1802<br>Ккл=1,09</td><td>Разборка стяжек цементных 20мм НР=72%</td><td>м²</td><td>500</td><td><span class="badge badge-green">✓ Ок</span></td></tr>
+            <tr style="background:#FFFBEB"><td style="border-left:3px solid #D97706">3</td><td><div style="width:22px;height:22px;border-radius:50%;background:#2563EB;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto">2</div></td><td class="code-text">1207-0101-1804<br>К0=6</td><td>Добавлять на каждые 5мм изменения толщины стяжки</td><td>м²</td><td>500</td><td><span class="badge badge-amber">⚡ Скорр.</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -1087,7 +1138,7 @@ function addWork(id, name, unit, card) {
   tr.innerHTML = `
     <td>${num}</td>
     <td>${name}</td>
-    <td>${unit}</td>
+    <td><select style="border:1px solid var(--border);border-radius:6px;padding:4px 6px;font-size:12px;font-family:inherit;background:var(--white);color:var(--text)"><option value="м²"${unit==='м²'?' selected':''}>м²</option><option value="м³"${unit==='м³'?' selected':''}>м³</option><option value="п.м."${unit==='п.м.'?' selected':''}>п.м.</option><option value="шт"${unit==='шт'?' selected':''}>шт</option><option value="т"${unit==='т'?' selected':''}>т</option><option value="кг"${unit==='кг'?' selected':''}>кг</option></select></td>
     <td><input class="qty-input" placeholder="0"/></td>
     <td id="ca-badge-${id}"><span class="badge badge-amber">⏳ ЦА думает...</span></td>
     <td><button class="btn btn-ghost btn-xs" onclick="this.parentNode.parentNode.remove(); workCount--;">✕</button></td>
@@ -1158,7 +1209,7 @@ function addManual(){
   var tr=document.createElement('tr');
   tr.innerHTML='<td>'+workCount+'</td>'
     +'<td>'+name+' <span style="font-size:10px;background:#FAEEDA;color:#854F0B;padding:1px 6px;border-radius:10px">ручной</span></td>'
-    +'<td>'+unit+'</td>'
+    +'<td><select style="border:1px solid var(--border);border-radius:6px;padding:4px 6px;font-size:12px"><option'+(unit==="м²"?' selected':'')+'>м²</option><option'+(unit==="м³"?' selected':'')+'>м³</option><option'+(unit==="п.м."?' selected':'')+'>п.м.</option><option'+(unit==="шт"?' selected':'')+'>шт</option><option'+(unit==="т"?' selected':'')+'>т</option><option'+(unit==="кг"?' selected':'')+'>кг</option></select></td>'
     +'<td><input class="qty-input" value="'+qty+'"/></td>'
     +'<td><span class="badge badge-amber">? Проверить</span></td>'
     +'<td><button class="btn btn-ghost btn-xs" onclick="this.parentNode.parentNode.remove()">✕</button></td>';
@@ -1228,8 +1279,11 @@ function login(role) {
   // show/hide New DV button
   document.getElementById('btn-new-dv').style.display = 'inline-flex';
 
+  // Перезагружаем данные из localStorage
+  dvData = loadDVData();
+  inboxData = loadInboxData();
   // Подставляем данные ведомостей для этого аккаунта
-  dvList = (dvData[role] || []).slice(); // копия чтобы не мешать
+  dvList = dvData[role] || [];
 
   // hide login screen
   document.getElementById('login-screen').style.display = 'none';
@@ -1246,7 +1300,8 @@ function logout() {
 
 // Список ведомостей — начальные данные
 // Данные ведомостей для каждого аккаунта
-var dvData = {
+// Дефолтные данные
+var defaultDV = {
   zayavitel: [
     {num:'AOK-ES-2026-C-56-144', obj:'Склад УСХ — Кровля', cnt:3, status:'done',     date:'31.03.2026'},
     {num:'AOK-ES-2026-C-55-110', obj:'Цех №3 — Полы',      cnt:5, status:'esed',     date:'30.03.2026'},
@@ -1257,11 +1312,25 @@ var dvData = {
     {num:'AOK-ES-2026-C-52-077', obj:'Гараж — Кровля',           cnt:2, status:'smetchik', date:'25.03.2026'},
   ],
 };
+
+// Загружаем из localStorage или используем дефолт
+function loadDVData() {
+  try {
+    var saved = localStorage.getItem('dvData');
+    return saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(defaultDV));
+  } catch(e) { return JSON.parse(JSON.stringify(defaultDV)); }
+}
+
+function saveDVData(data) {
+  try { localStorage.setItem('dvData', JSON.stringify(data)); } catch(e) {}
+}
+
+var dvData = loadDVData();
 var dvList = dvData.zayavitel;
 
-// Данные входящих смет для каждого аккаунта
-var inboxData = {
-  zayavitel: [], // у заявителя нет входящих смет на проверку
+// Дефолтные входящие сметы
+var defaultInbox = {
+  zayavitel: [],
   smetchik: [
     {id:'card-1', num:'AOK-ES-2026-C-56-144', obj:'Склад УСХ — Кровля',
      sub:'Заявитель: Петрова М.К. · Согласована в ЕСЭД · <strong>Черновик сметы готов (ЦА)</strong>',
@@ -1277,6 +1346,19 @@ var inboxData = {
      status:'green', statusText:'✓ Закрыто', dot:'var(--green)', hasBtn:false, clickable:false},
   ]
 };
+
+function loadInboxData() {
+  try {
+    var saved = localStorage.getItem('inboxData');
+    return saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(defaultInbox));
+  } catch(e) { return JSON.parse(JSON.stringify(defaultInbox)); }
+}
+
+function saveInboxData(data) {
+  try { localStorage.setItem('inboxData', JSON.stringify(data)); } catch(e) {}
+}
+
+var inboxData = loadInboxData();
 
 var statusMap = {
   done:     '<span class="badge badge-green">✓ Смета готова</span>',
@@ -1418,9 +1500,30 @@ function fillSentPage() {
   if (num && num !== '—') {
     var exists = dvList.find(function(d){ return d.num === num; });
     if (!exists) {
-      dvList.unshift({num: num, obj: obj || '—', cnt: cnt, status: 'new', date: today});
+      var newDV = {num: num, obj: obj || '—', cnt: cnt, status: 'new', date: today};
+      dvList.unshift(newDV);
+      dvData[currentUser] = dvList;
+      saveDVData(dvData);
+
+      // Добавляем в входящие сметы Ахметова
+      var userName = users[currentUser] ? users[currentUser].name : 'Иванова С.М.';
+      var newInboxItem = {
+        id: 'card-new-' + Date.now(),
+        num: num,
+        obj: obj || '—',
+        sub: 'Заявитель: ' + userName + ' · Согласована в ЕСЭД · <strong>Черновик сметы готов (ЦА)</strong>',
+        status: 'amber',
+        statusText: 'Ожидает проверки',
+        dot: 'var(--blue)',
+        hasBtn: true,
+        clickable: true
+      };
+      inboxData.smetchik.unshift(newInboxItem);
+      saveInboxData(inboxData);
     } else {
       exists.status = 'new';
+      dvData[currentUser] = dvList;
+      saveDVData(dvData);
     }
   }
 }
