@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Конструктор ДВ — Прототип</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #F5F6FA;
+  --sidebar-bg: #0F1B2D;
+  --sidebar-w: 220px;
+  --blue: #2563EB;
+  --blue-light: #EFF6FF;
+  --green: #16A34A;
+  --green-light: #F0FDF4;
+  --amber: #D97706;
+  --amber-light: #FFFBEB;
+  --red: #DC2626;
+  --red-light: #FEF2F2;
+  --gray: #6B7280;
+  --border: #E5E7EB;
+  --white: #FFFFFF;
+  --text: #111827;
+  --text-2: #374151;
+  --text-3: #6B7280;
+  --radius: 10px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.10);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); display: flex; min-height: 100vh; font-size: 14px; }
+
+/* SIDEBAR */
+.sidebar {
+  width: var(--sidebar-w);
+  background: var(--sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  z-index: 50;
+}
+.sidebar-logo {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.logo-text { font-size: 13px; font-weight: 700; color: #fff; line-height: 1.3; }
+.logo-sub { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 3px; }
+.sidebar-nav { flex: 1; padding: 12px 0; }
+.nav-section { font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 1px; padding: 12px 20px 6px; }
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 20px;
+  font-size: 13px; color: rgba(255,255,255,0.6);
+  cursor: pointer; transition: all 0.15s;
+  border-left: 3px solid transparent;
+}
+.nav-item:hover { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.9); }
+.nav-item.active { background: rgba(37,99,235,0.15); color: #fff; border-left-color: var(--blue); }
+.nav-icon { width: 16px; text-align: center; font-size: 14px; }
+.nav-badge { margin-left: auto; background: var(--blue); color: #fff; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 20px; }
+.sidebar-user {
+  padding: 14px 20px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; gap: 10px;
+}
+.avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--blue); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+.user-name { font-size: 12px; color: rgba(255,255,255,0.8); font-weight: 500; }
+.user-role { font-size: 10px; color: rgba(255,255,255,0.35); }
+
+/* MAIN */
+.main { margin-left: var(--sidebar-w); flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+.topbar {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 0 28px;
+  height: 56px;
+  display: flex; align-items: center; gap: 12px;
+  position: sticky; top: 0; z-index: 40;
+}
+.breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-3); }
+.breadcrumb span { color: var(--text-2); font-weight: 500; }
+.topbar-actions { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+
+/* PAGE */
+.page { padding: 28px; display: none; }
+.page.active { display: block; }
+
+/* CARDS */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.card-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.card-title { font-size: 14px; font-weight: 600; color: var(--text); }
+.card-body { padding: 20px; }
+
+/* STATUS STEPS */
+.status-steps {
+  display: flex; align-items: center; gap: 0;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+.sstep { flex: 1; text-align: center; position: relative; }
+.sstep-dot {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 6px;
+  font-size: 11px; font-weight: 700; color: var(--text-3);
+  position: relative; z-index: 2;
+  transition: all 0.3s;
+}
+.sstep-dot.done { background: var(--green); border-color: var(--green); color: #fff; }
+.sstep-dot.active { background: var(--blue); border-color: var(--blue); color: #fff; box-shadow: 0 0 0 4px rgba(37,99,235,0.15); }
+.sstep-label { font-size: 11px; color: var(--text-3); font-weight: 500; }
+.sstep-label.active { color: var(--blue); font-weight: 600; }
+.sstep-label.done { color: var(--green); }
+.sstep-line {
+  position: absolute; top: 14px; left: 50%; right: -50%;
+  height: 2px; background: var(--border); z-index: 1;
+}
+.sstep-line.done { background: var(--green); }
+
+/* FORM */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 5px; }
+.form-group.full { grid-column: 1 / -1; }
+.form-label { font-size: 12px; font-weight: 500; color: var(--text-2); }
+.req { color: var(--red); }
+.form-input, .form-select, .form-textarea {
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 9px 12px;
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--white);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+.form-input.error { border-color: var(--red); box-shadow: 0 0 0 3px rgba(220,38,38,0.1); }
+.form-textarea { resize: vertical; min-height: 80px; }
+.form-hint { font-size: 11px; color: var(--red); margin-top: 2px; display: none; }
+.form-hint.show { display: block; }
+
+/* BUTTONS */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 18px; border-radius: 7px;
+  font-size: 13px; font-weight: 600; font-family: inherit;
+  cursor: pointer; border: none; transition: all 0.15s;
+  white-space: nowrap;
+}
+.btn-primary { background: var(--blue); color: #fff; }
+.btn-primary:hover { background: #1D4ED8; }
+.btn-success { background: var(--green); color: #fff; }
+.btn-success:hover { background: #15803D; }
+.btn-ghost { background: transparent; color: var(--text-2); border: 1px solid var(--border); }
+.btn-ghost:hover { background: var(--bg); }
+.btn-danger { background: var(--red-light); color: var(--red); border: 1px solid #FECACA; }
+.btn-sm { padding: 6px 12px; font-size: 12px; }
+.btn-xs { padding: 4px 10px; font-size: 11px; border-radius: 6px; }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* BADGES */
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 9px; border-radius: 20px;
+  font-size: 11px; font-weight: 600;
+}
+.badge-green { background: var(--green-light); color: var(--green); }
+.badge-amber { background: var(--amber-light); color: var(--amber); }
+.badge-red { background: var(--red-light); color: var(--red); }
+.badge-blue { background: var(--blue-light); color: var(--blue); }
+.badge-gray { background: #F3F4F6; color: var(--gray); }
+
+/* ALERT */
+.alert {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 12px 16px; border-radius: 8px;
+  font-size: 13px; margin-bottom: 16px;
+}
+.alert-red { background: var(--red-light); border: 1px solid #FECACA; color: #991B1B; }
+.alert-amber { background: var(--amber-light); border: 1px solid #FDE68A; color: #92400E; }
+.alert-green { background: var(--green-light); border: 1px solid #BBF7D0; color: #14532D; }
+.alert-blue { background: var(--blue-light); border: 1px solid #BFDBFE; color: #1E40AF; }
+
+/* TABLE */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead th {
+  background: #F9FAFB; color: var(--text-3);
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+  padding: 10px 14px; text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+tbody td { padding: 12px 14px; border-bottom: 1px solid #F3F4F6; vertical-align: middle; color: var(--text-2); }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover td { background: #FAFAFA; }
+.code-text { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gray); }
+
+/* CATALOG */
+.catalog-layout { display: grid; grid-template-columns: 220px 1fr; gap: 16px; }
+.cat-sidebar { border: 1px solid var(--border); border-radius: var(--radius); background: var(--white); overflow: hidden; }
+.cat-sidebar-title { padding: 12px 16px; font-size: 12px; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border); background: #F9FAFB; }
+.cat-item { display: flex; align-items: center; gap: 10px; padding: 10px 16px; cursor: pointer; font-size: 13px; color: var(--text-2); border-left: 3px solid transparent; transition: all 0.15s; }
+.cat-item:hover { background: var(--bg); }
+.cat-item.active { background: var(--blue-light); color: var(--blue); border-left-color: var(--blue); font-weight: 600; }
+.cat-count { margin-left: auto; font-size: 11px; color: var(--text-3); }
+.work-card {
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px;
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 8px; background: var(--white);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.work-card:hover { border-color: var(--blue); box-shadow: 0 2px 8px rgba(37,99,235,0.08); }
+.work-card.added { border-color: var(--green); background: var(--green-light); }
+.work-card-icon { width: 36px; height: 36px; background: var(--blue-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.work-card-name { font-size: 13px; font-weight: 600; color: var(--text); }
+.work-card-meta { font-size: 11px; color: var(--text-3); margin-top: 3px; }
+
+/* TWO PANEL */
+.two-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--white); box-shadow: var(--shadow); }
+.panel-left { border-right: 1px solid var(--border); }
+.panel-header { padding: 12px 16px; background: #F9FAFB; border-bottom: 1px solid var(--border); font-size: 12px; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 8px; }
+
+/* QTY INPUT */
+.qty-input { width: 70px; border: 1px solid var(--border); border-radius: 6px; padding: 5px 8px; font-size: 12px; text-align: center; font-family: 'JetBrains Mono', monospace; }
+
+/* MODAL OVERLAY */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 200; display: none; align-items: center; justify-content: center; }
+.modal-overlay.open { display: flex; }
+.modal { background: var(--white); border-radius: 12px; width: 520px; max-width: 95vw; box-shadow: var(--shadow-md); overflow: hidden; }
+.modal-header { padding: 18px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.modal-title { font-size: 15px; font-weight: 700; }
+.modal-close { background: none; border: none; cursor: pointer; font-size: 18px; color: var(--text-3); line-height: 1; }
+.modal-body { padding: 20px; }
+.modal-footer { padding: 14px 20px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 8px; }
+
+/* CHOICE CARD */
+.choice-card { border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin-bottom: 8px; cursor: pointer; transition: all 0.15s; display: flex; align-items: flex-start; gap: 10px; }
+.choice-card:hover { border-color: var(--blue); }
+.choice-card.selected { border-color: var(--blue); background: var(--blue-light); }
+.choice-card input[type=radio] { margin-top: 2px; flex-shrink: 0; }
+
+/* DIVIDER */
+.divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+
+/* FLEX UTILS */
+.flex { display: flex; }
+.flex-center { display: flex; align-items: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.gap-8 { gap: 8px; }
+.gap-12 { gap: 12px; }
+.gap-16 { gap: 16px; }
+.mt-4 { margin-top: 4px; }
+.mt-8 { margin-top: 8px; }
+.mt-16 { margin-top: 16px; }
+.mt-20 { margin-top: 20px; }
+.mb-16 { margin-bottom: 16px; }
+.text-sm { font-size: 12px; }
+.text-xs { font-size: 11px; }
+.text-muted { color: var(--text-3); }
+.font-mono { font-family: 'JetBrains Mono', monospace; }
+
+/* NOTIFY LIST */
+.notify-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 10px; display: flex; align-items: center; gap: 16px; box-shadow: var(--shadow); cursor: pointer; transition: all 0.15s; }
+.notify-card:hover { border-color: var(--blue); box-shadow: 0 2px 10px rgba(37,99,235,0.08); }
+.notify-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
+.notify-title { font-size: 14px; font-weight: 600; color: var(--text); }
+.notify-sub { font-size: 12px; color: var(--text-3); margin-top: 3px; }
+
+/* STAT CARDS */
+.stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+.stat-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow); }
+.stat-val { font-size: 24px; font-weight: 700; color: var(--text); }
+.stat-label { font-size: 12px; color: var(--text-3); margin-top: 4px; }
+.stat-trend { font-size: 11px; font-weight: 600; margin-top: 8px; }
+.trend-up { color: var(--green); }
+
+/* SUCCESS PAGE */
+.success-center { text-align: center; padding: 60px 20px; }
+.success-icon { font-size: 56px; margin-bottom: 16px; }
+.success-title { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+.success-sub { font-size: 14px; color: var(--text-3); max-width: 400px; margin: 0 auto 24px; }
+
+/* SECTION TITLE */
+.section-title { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.section-sub { font-size: 13px; color: var(--text-3); margin-bottom: 20px; }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-text">Цифровой сметчик</div>
+    <div class="logo-sub">Конструктор ДВ v1.0</div>
+  </div>
+  <nav class="sidebar-nav" id="sidebar-nav-content"></nav>
+  <div class="sidebar-user" id="sidebar-user-block"></div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- LOGIN SCREEN -->
+  <div id="login-screen" style="position:fixed;inset:0;background:#F5F6FA;display:flex;align-items:center;justify-content:center;z-index:999">
+    <div style="text-align:center;max-width:480px;width:100%;padding:24px">
+      <div style="font-size:13px;font-weight:700;color:#1F4E79;letter-spacing:0.5px;margin-bottom:4px">ЦИФРОВОЙ СМЕТЧИК</div>
+      <div style="font-size:12px;color:#6B7280;margin-bottom:40px">Конструктор дефектных ведомостей v1.0</div>
+      <div style="font-size:15px;font-weight:600;color:#111827;margin-bottom:20px">Выберите аккаунт</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div onclick="login('zayavitel')" style="background:#fff;border:1.5px solid #E5E7EB;border-radius:12px;padding:24px 16px;cursor:pointer;transition:all 0.15s" onmouseenter="this.style.borderColor='#2563EB';this.style.boxShadow='0 4px 12px rgba(37,99,235,0.12)'" onmouseleave="this.style.borderColor='#E5E7EB';this.style.boxShadow=''">
+          <div style="width:52px;height:52px;border-radius:50%;background:#2563EB;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;margin:0 auto 14px">ИС</div>
+          <div style="font-size:14px;font-weight:700;color:#111827">Иванова С.М.</div>
+          <div style="font-size:12px;color:#6B7280;margin-top:4px">Куратор / Заявитель</div>
+
+        </div>
+        <div onclick="login('smetchik')" style="background:#fff;border:1.5px solid #E5E7EB;border-radius:12px;padding:24px 16px;cursor:pointer;transition:all 0.15s" onmouseenter="this.style.borderColor='#16A34A';this.style.boxShadow='0 4px 12px rgba(22,163,74,0.12)'" onmouseleave="this.style.borderColor='#E5E7EB';this.style.boxShadow=''">
+          <div style="width:52px;height:52px;border-radius:50%;background:#16A34A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;margin:0 auto 14px">АС</div>
+          <div style="font-size:14px;font-weight:700;color:#111827">Ахметов С.Б.</div>
+          <div style="font-size:12px;color:#6B7280;margin-top:4px">Сметчик</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="breadcrumb" id="breadcrumb">
+      Главная / <span>Мои ведомости</span>
+    </div>
+    <div class="topbar-actions">
+      <button class="btn btn-ghost btn-sm">🔔 Уведомления</button>
+      <button class="btn btn-primary btn-sm" id="btn-new-dv" onclick="goto('new-dv-1')" style="display:none">+ Новая ДВ</button>
+      <button class="btn btn-ghost btn-sm" onclick="logout()" style="color:var(--text-3)">Выйти →</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- DASHBOARD -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="page" id="dashboard" style="display:none">
+    <div class="section-title">Дашборд</div>
+    <div class="section-sub">Общая статистика по ведомостям и сметам</div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-val">24</div>
+        <div class="stat-label">ДВ за март</div>
+        <div class="stat-trend trend-up">↑ +8 vs февраль</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">18</div>
+        <div class="stat-label">Смет готово</div>
+        <div class="stat-trend trend-up">↑ 75% закрыто</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">1.2д</div>
+        <div class="stat-label">Среднее время осмечивания</div>
+        <div class="stat-trend trend-up">↓ было 5д</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">94%</div>
+        <div class="stat-label">Точность ЦА</div>
+        <div class="stat-trend trend-up">↑ растёт</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Последние ведомости</div></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Номер</th><th>Объект</th><th>Статус</th><th>Дата</th></tr></thead>
+          <tbody>
+            <tr><td class="font-mono">AOK-ES-2026-C-56</td><td>Склад УСХ — Кровля</td><td><span class="badge badge-green">Смета готова</span></td><td>31.03.2026</td></tr>
+            <tr><td class="font-mono">AOK-ES-2026-C-55</td><td>Цех №3 — Полы</td><td><span class="badge badge-amber">На согласовании</span></td><td>30.03.2026</td></tr>
+            <tr><td class="font-mono">AOK-ES-2026-C-54</td><td>АБК 4 — Окна</td><td><span class="badge badge-blue">У сметчика</span></td><td>28.03.2026</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- СПИСОК ДВ -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="page active" id="list-dv">
+    <div class="flex-between mb-16">
+      <div>
+        <div class="section-title">Мои дефектные ведомости</div>
+        <div class="section-sub">Все созданные вами ведомости</div>
+      </div>
+
+    </div>
+    <div class="card">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Номер</th><th>Объект</th><th>Позиций</th><th>Статус</th><th>Дата</th><th></th></tr></thead>
+          <tbody id="dv-list-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- UC-01: НОВАЯ ДВ — ШАГ 1 (ШАПКА) -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="page" id="new-dv-1">
+    <div class="section-title">Создание дефектной ведомости</div>
+    <div class="section-sub">Шаг 1 из 4 — Заполните шапку документа</div>
+
+    <!-- STEPS -->
+    <div class="status-steps">
+      <div class="sstep">
+        <div class="sstep-dot active">1</div>
+        <div class="sstep-label active">Шапка</div>
+        <div class="sstep-line"></div>
+      </div>
+      <div class="sstep">
+        <div class="sstep-dot">2</div>
+        <div class="sstep-label">Работы</div>
+        <div class="sstep-line"></div>
+      </div>
+      <div class="sstep">
+        <div class="sstep-dot">3</div>
+        <div class="sstep-label">Примечания</div>
+        <div class="sstep-line"></div>
+      </div>
+      <div class="sstep">
+        <div class="sstep-dot">4</div>
+        <div class="sstep-label">Согласование</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Шапка ведомости</div>
+        <span class="text-xs text-muted"><span style="color:var(--red)">*</span> — обязательные поля</span>
+      </div>
+      <div class="card-body">
+        <div id="err-banner" class="alert alert-red" style="display:none">
+          ⚠ Заполните все обязательные поля для продолжения
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Номер ведомости <span class="req">*</span></label>
+            <input class="form-input" id="f-num" placeholder="AOK-ES-2026-C-XX-XXX"/>
+            <div class="form-hint" id="h-num">Обязательное поле</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Дата <span class="req">*</span></label>
+            <input class="form-input" id="f-date" type="date" value="2026-03-31"/>
+          </div>
+          <div class="form-group full">
+            <label class="form-label">Объект <span class="req">*</span></label>
+            <input class="form-input" id="f-obj" placeholder="Название объекта и вид работ"/>
+            <div class="form-hint" id="h-obj">Обязательное поле</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Предприятие</label>
+            <input class="form-input" id="f-ent" placeholder="Название предприятия"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Утверждающий</label>
+            <input class="form-input" id="f-appr" placeholder="ФИО утверждающего"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Куратор</label>
+            <input class="form-input" value="Иванова С.М."/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Год сметирования</label>
+            <select class="form-select">
+              <option>2026</option><option>2027</option><option>2028</option>
+            </select>
+          </div>
+        </div>
+        <hr class="divider"/>
+        <div class="flex-between">
+          <button class="btn btn-ghost" onclick="goto('list-dv')">← Отмена</button>
+          <button class="btn btn-primary" onclick="validateStep1()">Далее — добавить работы →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- UC-01: НОВАЯ ДВ — ШАГ 2 (КАТАЛОГ + ПОЗИЦИИ) -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="page" id="new-dv-2">
+    <div class="section-title">Создание дефектной ведомости</div>
+    <div class="section-sub">Шаг 2 из 4 — Добавьте работы из каталога</div>
+
+    <div class="status-steps">
+      <div class="sstep"><div class="sstep-dot done">✓</div><div class="sstep-label done">Шапка</div><div class="sstep-line done"></div></div>
+      <div class="sstep"><div class="sstep-dot active">2</div><div class="sstep-label active">Работы</div><div class="sstep-line"></div></div>
+      <div class="sstep"><div class="sstep-dot">3</div><div class="sstep-label">Примечания</div><div class="sstep-line"></div></div>
+      <div class="sstep"><div class="sstep-dot">4</div><div class="sstep-label">Согласование</div></div>
+    </div>
+
+    <div class="alert alert-blue">⚡ ЦА формирует черновик сметы в реальном времени по мере добавления позиций</div>
+
+    <!-- поиск + ручной ввод -->
+    <div style="display:flex;gap:10px;margin-bottom:14px;align-items:center">
+      <input id="cat-search" class="form-input" placeholder="🔍 Поиск по каталогу..." oninput="doSearch(this.value)" style="flex:1"/>
+      <button class="btn btn-ghost" onclick="var p=document.getElementById('manual-row');p.style.display=p.style.display=='none'?'flex':'none'">✏️ Ввести вручную</button>
+    </div>
+    <div id="search-drop" style="display:none;border:1px solid var(--border);border-radius:8px;margin-bottom:14px;overflow:hidden;background:var(--white)"></div>
+    <div id="manual-row" style="display:none;gap:10px;align-items:flex-end;margin-bottom:14px;background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px;padding:12px">
+      <div style="flex:1"><label class="form-label">Наименование</label><input id="m-name" class="form-input" style="margin-top:4px" placeholder="Опишите работу своими словами..."/></div>
+      <div><label class="form-label">Ед.изм.</label><select id="m-unit" class="form-select" style="margin-top:4px;width:90px"><option>м²</option><option>м³</option><option>п.м.</option><option>шт</option><option>т</option><option>кг</option></select></div>
+      <div><label class="form-label">Кол-во</label><input id="m-qty" class="form-input" style="margin-top:4px;width:80px" placeholder="0"/></div>
+      <button class="btn btn-primary" style="margin-bottom:1px" onclick="addManual()">+ Добавить</button>
+    </div>
+
+    <div class="catalog-layout">
+      <div class="cat-sidebar">
+        <div class="cat-sidebar-title">Разделы работ</div>
+        <div class="cat-item active" onclick="setCat(this,'krovlya')">🏠 Кровля <span class="cat-count">12</span></div>
+        <div class="cat-item" onclick="setCat(this,'poly')">🪵 Полы <span class="cat-count">18</span></div>
+        <div class="cat-item" onclick="setCat(this,'otdelka')">🎨 Отделочные <span class="cat-count">24</span></div>
+        <div class="cat-item" onclick="setCat(this,'oborud')">⚙️ Оборудование <span class="cat-count">31</span></div>
+        <div class="cat-item" onclick="setCat(this,'inzh')">🔧 Инженерные сети <span class="cat-count">15</span></div>
+      </div>
+      <div>
+        <div id="cat-krovlya">
+          <div class="work-card" id="wc1" onclick="addWork(1, 'Разборка покрытий кровли из рулонных материалов', 'м²', this)">
+            <div class="work-card-icon">🏠</div>
+            <div style="flex:1">
+              <div class="work-card-name">Разборка покрытий кровли из рулонных материалов</div>
+              <div class="work-card-meta">Ед. изм.: м²  ·  Состав: снятие покрытия, уборка, вывоз мусора</div>
+            </div>
+            <button class="btn btn-primary btn-sm">+ Добавить</button>
+          </div>
+          <div class="work-card" id="wc2" onclick="addWork(2, 'Устройство кровли из рулонных материалов (2 слоя)', 'м²', this)">
+            <div class="work-card-icon">🏠</div>
+            <div style="flex:1">
+              <div class="work-card-name">Устройство кровли из рулонных материалов (2 слоя)</div>
+              <div class="work-card-meta">Ед. изм.: м²  ·  Состав: огрунтовка, наклейка, обжиг горелкой</div>
+            </div>
+            <button class="btn btn-primary btn-sm">+ Добавить</button>
+          </div>
+          <div class="work-card" id="wc3" onclick="addWork(3, 'Разборка ц/п стяжки толщиной до 50 мм', 'м²', this)">
+            <div class="work-card-icon">🏠</div>
+            <div style="flex:1">
+              <div class="work-card-name">Разборка ц/п стяжки толщиной до 50 мм</div>
+              <div class="work-card-meta">Ед. изм.: м²  ·  Состав: разбивка, уборка и вывоз</div>
+            </div>
+            <button class="btn btn-primary btn-sm">+ Добавить</button>
+          </div>
+          <div class="work-card" id="wc4" onclick="addWork(4, 'Устройство цементно-песчаной стяжки', 'м²', this)">
+            <div class="work-card-icon">🏠</div>
+            <div style="flex:1">
+              <div class="work-card-name">Устройство цементно-песчаной стяжки</div>
+              <div class="work-card-meta">Ед. изм.: м²  ·  Состав: приготовление смеси, укладка, выравнивание</div>
+            </div>
+            <button class="btn btn-primary btn-sm">+ Добавить</button>
+          </div>
+        </div>
+        <div id="cat-poly" style="display:none">
+          <div class="work-card" onclick="addWork(5,'Устройство керамзитобетонной стяжки','м²',this)"><div class="work-card-icon">🪵</div><div style="flex:1"><div class="work-card-name">Устройство керамзитобетонной стяжки</div><div class="work-card-meta">Ед. изм.: м²  ·  Состав: засыпка, укладка, выравнивание</div></div><button class="btn btn-primary btn-sm">+ Добавить</button></div>
+          <div class="work-card" onclick="addWork(6,'Устройство покрытия из керамической плитки','м²',this)"><div class="work-card-icon">🪵</div><div style="flex:1"><div class="work-card-name">Устройство покрытия из керамической плитки</div><div class="work-card-meta">Ед. изм.: м²  ·  Состав: грунтовка, клей, укладка, затирка</div></div><button class="btn btn-primary btn-sm">+ Добавить</button></div>
+        </div>
+        <div id="cat-otdelka" style="display:none">
+          <div class="work-card" onclick="addWork(7,'Штукатурка стен цементным раствором','м²',this)"><div class="work-card-icon">🎨</div><div style="flex:1"><div class="work-card-name">Штукатурка стен цементным раствором</div><div class="work-card-meta">Ед. изм.: м²  ·  Состав: грунтовка, нанесение, выравнивание</div></div><button class="btn btn-primary btn-sm">+ Добавить</button></div>
+        </div>
+        <div id="cat-oborud" style="display:none">
+          <div class="work-card" onclick="addWork(8,'Демонтаж/монтаж опорных роликов конвейера','шт',this)"><div class="work-card-icon">⚙️</div><div style="flex:1"><div class="work-card-name">Демонтаж/монтаж опорных роликов конвейера</div><div class="work-card-meta">Ед. изм.: шт  ·  Состав: демонтаж, замена, монтаж, регулировка</div></div><button class="btn btn-primary btn-sm">+ Добавить</button></div>
+        </div>
+        <div id="cat-inzh" style="display:none">
+          <div class="work-card" onclick="addWork(9,'Замена трубопровода ВК ⌀50','п.м.',this)"><div class="work-card-icon">🔧</div><div style="flex:1"><div class="work-card-name">Замена трубопровода ВК ⌀50</div><div class="work-card-meta">Ед. изм.: п.м.  ·  Состав: демонтаж, прокладка, опрессовка</div></div><button class="btn btn-primary btn-sm">+ Добавить</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADDED WORKS -->
+    <div class="mt-20">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Добавленные позиции</div>
+          <span class="badge badge-blue" id="works-count">0 позиций</span>
+        </div>
+        <div id="works-empty" class="card-body text-muted text-sm" style="text-align:center;padding:32px">Добавьте работы из каталога выше</div>
+        <div id="works-table-wrap" style="display:none">
+          <table>
+            <thead><tr><th>№</th><th>Наименование работы</th><th>Ед. изм.</th><th>Количество</th><th>Статус ЦА</th><th></th></tr></thead>
+            <tbody id="works-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider"/>
+    <div class="flex-between">
+      <button class="btn btn-ghost" onclick="goto('new-dv-1')">← Назад</button>
+      <button class="btn btn-primary" onclick="goto('new-dv-3')">Далее — примечания →</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- UC-01: НОВАЯ ДВ — ШАГ 3 (ПРИМЕЧАНИЯ) -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="page" id="new-dv-3">
+    <div class="section-title">Создание дефектной ведомости</div>
+    <div class="section-sub">Шаг 3 из 4 — Примечания и дополнительные материалы</div>
+    <div class="status-steps">
+      <div class="sstep"><div class="sstep-dot done">✓</div><div class="sstep-label done">Шапка</div><div class="sstep-line done"></div></div>
+      <div class="sstep"><div class="sstep-dot done">✓</div><div class="sstep-label done">Работы</div><div class="sstep-line done"></div></div>
+      <div class="sstep"><div class="sstep-dot active">3</div><div class="sstep-label active">Примечания</div><div class="sstep-line"></div></div>
+      <div class="sstep"><div class="sstep-dot">4</div><div class="sstep-label">Согласование</div></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">Примечания к ведомости</div></div>
+      <div class="card-body">
+        <div class="form-group">
+          <label class="form-label">Общие примечания</label>
+          <textarea class="form-textarea" placeholder="Технические условия, особенности объекта, замена материалов...">Расход пропана принять не менее 0,2 кг на 1 м² кровли (1 слой).</textarea>
+        </div>
+        <div class="mt-16 form-group">
+          <label class="form-label">Материалы заказчика (SAP/ОЗМ)</label>
+          <input class="form-input" placeholder="№ ОЗМ — наименование материала"/>
+        </div>
+        <div class="mt-8 text-xs text-muted">Если требуется включить материал заказчика — укажите номер ОЗМ из МДМ-каталога</div>
+      </div>
+    </div>
+    <hr class="divider"/>
+    <div class="flex-between">
+      <button class="btn btn-ghost" onclick="goto('new-dv-2')">← Назад</button>
+      <button class="btn btn-primary" onclick="goto('new-dv-4')">Далее — отправить на согласование →</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- UC-01: НОВАЯ ДВ — ШАГ 4 (СОГЛАСОВАНИЕ) -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="page" id="new-dv-4">
+    <div class="section-title">Создание дефектной ведомости</div>
+    <div class="section-sub">Шаг 4 из 4 — Согласование и отправка</div>
+    <div class="status-steps">
+      <div class="sstep"><div class="sstep-dot done">✓</div><div class="sstep-label done">Шапка</div><div class="sstep-line done"></div></div>
+      <div class="sstep"><div class="sstep-dot done">✓</div><div class="sstep-label done">Работы</div><div class="sstep-line done"></div></div>
+      <div class="sstep"><div class="sstep-dot done">✓</div><div class="sstep-label done">Примечания</div><div class="sstep-line done"></div></div>
+      <div class="sstep"><div class="sstep-dot active">4</div><div class="sstep-label active">Согласование</div></div>
+    </div>
+    <div class="card mb-16">
+      <div class="card-header"><div class="card-title">Сводка перед отправкой</div></div>
+      <div class="card-body">
+        <div class="form-grid">
+          <div><div class="text-xs text-muted">Номер ведомости</div><div class="mt-4 font-mono" style="font-size:13px;font-weight:600" id="summary-num">—</div></div>
+          <div><div class="text-xs text-muted">Объект</div><div class="mt-4" style="font-size:13px;font-weight:600" id="summary-obj">—</div></div>
+          <div><div class="text-xs text-muted">Позиций работ</div><div class="mt-4" style="font-size:13px;font-weight:600" id="summary-count">—</div></div>
+          <div><div class="text-xs text-muted">Черновик сметы</div><div class="mt-4"><span class="badge badge-green">✓ Готов (ЦА)</span></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="alert alert-blue">📤 После нажатия «Отправить» ведомость уйдёт на согласование в ЕСЭД. После согласования — автоматически направится сметчику через СМАКС.</div>
+    <div style="display:flex;gap:8px;margin:12px 0">
+      <button class="btn btn-ghost" onclick="alert('Файл ДВ.xlsx скачан')">⬇️ Скачать ДВ (.xlsx)</button>
+      <button class="btn btn-ghost" onclick="showPDFPreview()">👁️ Предпросмотр PDF</button>
+      <button class="btn btn-ghost" onclick="window.print()">🖨️ Распечатать</button>
+    </div>
+    <hr class="divider"/>
+    <div class="flex-between">
+      <button class="btn btn-ghost" onclick="goto('new-dv-3')">← Назад</button>
+      <button class="btn btn-success" onclick="goto('dv-sent')">✓ Отправить на согласование в ЕСЭД</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- УСПЕХ — ДВ ОТПРАВЛЕНА -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="page" id="dv-sent">
+    <div class="card" style="max-width:600px;margin:0 auto">
+      <div class="card-body">
+        <div style="text-align:center;padding:32px 20px 20px">
+          <div style="font-size:48px;margin-bottom:16px">✅</div>
+          <div style="font-size:20px;font-weight:700;margin-bottom:8px">Ведомость отправлена!</div>
+          <div style="font-size:13px;color:var(--text-3);margin-bottom:24px">Дефектная ведомость направлена на согласование в ЕСЭД</div>
+        </div>
+        <!-- Детали отправки -->
+        <div style="background:#F9FAFB;border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:13px">
+            <div><div style="color:var(--text-3);font-size:11px;margin-bottom:3px">Номер ведомости</div><div id="sent-num" style="font-weight:600;font-family:monospace">—</div></div>
+            <div><div style="color:var(--text-3);font-size:11px;margin-bottom:3px">Объект</div><div id="sent-obj" style="font-weight:600">—</div></div>
+            <div><div style="color:var(--text-3);font-size:11px;margin-bottom:3px">Позиций работ</div><div id="sent-count" style="font-weight:600">—</div></div>
+            <div><div style="color:var(--text-3);font-size:11px;margin-bottom:3px">Черновик сметы</div><div style="color:var(--green);font-weight:600">✓ Готов (ЦА)</div></div>
+          </div>
+        </div>
+        <!-- Куда отправлено -->
+        <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:20px">
+          <div style="padding:10px 16px;background:#F9FAFB;border-bottom:1px solid var(--border);font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:0.4px">Маршрут согласования</div>
+          <div style="padding:14px 16px;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:12px">
+              <div style="width:32px;height:32px;border-radius:50%;background:#EFF6FF;display:flex;align-items:center;justify-content:center;font-size:14px">1</div>
+              <div>
+                <div style="font-size:13px;font-weight:600">ЕСЭД — согласование</div>
+                <div style="font-size:11px;color:var(--text-3)">Утверждающий: <span id="sent-appr">—</span></div>
+              </div>
+              <span class="badge badge-amber" style="margin-left:auto">⏳ Ожидает</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;opacity:0.5">
+              <div style="width:32px;height:32px;border-radius:50%;background:#F3F4F6;display:flex;align-items:center;justify-content:center;font-size:14px">2</div>
+              <div>
+                <div style="font-size:13px;font-weight:600">СМАКС — передача сметчику</div>
+                <div style="font-size:11px;color:var(--text-3)">После согласования в ЕСЭД</div>
+              </div>
+              <span class="badge badge-gray" style="margin-left:auto">Ожидает</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;opacity:0.5">
+              <div style="width:32px;height:32px;border-radius:50%;background:#F3F4F6;display:flex;align-items:center;justify-content:center;font-size:14px">3</div>
+              <div>
+                <div style="font-size:13px;font-weight:600">Осмечивание</div>
+                <div style="font-size:11px;color:var(--text-3)">Сметчик проверит черновик ЦА</div>
+              </div>
+              <span class="badge badge-gray" style="margin-left:auto">Ожидает</span>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;justify-content:center">
+          <button class="btn btn-ghost" onclick="goto('list-dv')">← Мои ведомости</button>
+          <button class="btn btn-ghost" onclick="viewSentDV()">👁️ Просмотреть ДВ</button>
+          <button class="btn btn-primary" onclick="goto('new-dv-1')">+ Создать ещё одну</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- ПРОСМОТР ДВ -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="page" id="view-dv">
+    <div class="flex-between mb-16">
+      <div>
+        <div class="section-title">AOK-ES-2026-C-56-144</div>
+        <div class="section-sub">Склад УСХ — Кровля · <span class="badge badge-green">✓ Смета готова</span></div>
+      </div>
+      <button class="btn btn-ghost" onclick="goto('list-dv')">← Назад</button>
+    </div>
+    <div class="two-panel mb-16">
+      <div class="panel-left">
+        <div class="panel-header">📋 Дефектная ведомость (заявитель)</div>
+        <table>
+          <thead><tr><th>№</th><th>Наименование</th><th>Кол-во</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Разборка покрытий кровли из рулонных материалов</td><td>750 м²</td></tr>
+            <tr><td>2</td><td>Разборка ц/п стяжки толщиной до 50 мм</td><td>500 м²</td></tr>
+            <tr><td colspan="3" style="color:var(--text-3);font-size:12px;font-style:italic">Примечание: пропан 0,2 кг/м²</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="panel-header" style="background:var(--green-light);color:var(--green)">⚡ Черновик сметы (ЦА)</div>
+        <table>
+          <thead><tr><th>Шифр</th><th>Наименование</th><th>Кол.</th><th></th></tr></thead>
+          <tbody>
+            <tr><td class="code-text">1208-0101-0201<br>К23=0,00</td><td>Разборка кровли рулонной, НР=72%</td><td>750</td><td><span class="badge badge-green">✓</span></td></tr>
+            <tr><td class="code-text">1207-0101-1802<br>Ккл=1,09</td><td>Разборка стяжки 20мм, НР=72%</td><td>500</td><td><span class="badge badge-green">✓</span></td></tr>
+            <tr><td class="code-text">1207-0101-1804<br>К0=6</td><td>Добавлять на каждые 5мм изменения</td><td>500</td><td><span class="badge badge-green">✓</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- UC-02: ВХОДЯЩИЕ СМЕТЧИКА -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="page" id="smetchik-inbox">
+    <div class="flex-between mb-16">
+      <div>
+        <div class="section-title">Входящие сметы</div>
+        <div class="section-sub">Ведомости на осмечивание — черновики сформированы ЦА</div>
+      </div>
+    </div>
+    <div id="inbox-wrap"></div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- UC-02: ЧЕРНОВИК СМЕТЫ (СМЕТЧИК) -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="page" id="smetchik-draft">
+    <div class="flex-between mb-16">
+      <div>
+        <div class="section-title">Смета — черновик</div>
+        <div class="section-sub">AOK-ES-2026-C-56-144 · Склад УСХ — Кровля · сформирован ЦА</div>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="goto('smetchik-inbox')">← Назад</button>
+    </div>
+    <div class="alert alert-blue">⚡ ЦА сформировал черновик параллельно с заполнением ДВ — проверьте позиции и подтвердите. Жёлтые позиции требуют вашего выбора.</div>
+    <div class="two-panel mb-16">
+      <div class="panel-left">
+        <div class="panel-header">📋 Дефектная ведомость</div>
+        <table>
+          <thead><tr><th>№</th><th>Позиция заявителя</th><th>Кол-во</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Разборка покрытий кровли из рулонных материалов</td><td>750 м²</td></tr>
+            <tr><td>2</td><td>Разборка стяжки до 50 мм</td><td>500 м²</td></tr>
+            <tr><td colspan="3" style="color:var(--text-3);font-size:11px;font-style:italic;padding:8px 14px">Примечание: пропан 0,2 кг/м²</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="panel-header" style="background:var(--green-light);color:var(--green)">⚡ Черновик сметы (ЦА)</div>
+        <table>
+          <thead><tr><th>Шифр</th><th>Наименование работ</th><th>Кол.</th><th>Статус</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="code-text">1208-0101-0201<br>К23=0,00</td>
+              <td>Кровля рулонная. Разборка покрытий НР=72%</td>
+              <td>750</td>
+              <td><span class="badge badge-green">✓ Уверен</span></td>
+            </tr>
+            <tr>
+              <td class="code-text">1207-0101-1802<br>Ккл=1,09</td>
+              <td>Разборка стяжек цементных 20мм НР=72%</td>
+              <td>500</td>
+              <td><span class="badge badge-green">✓ Уверен</span></td>
+            </tr>
+            <tr style="background:var(--amber-light)">
+              <td class="code-text">1207-0101-1804<br>К0=6</td>
+              <td>Добавлять на каждые 5мм изменения толщины</td>
+              <td>500</td>
+              <td><button class="btn btn-xs" style="background:var(--amber-light);color:var(--amber);border:1px solid #FDE68A" onclick="openModal()">? Выбрать</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="flex-between">
+      <button class="btn btn-ghost">Редактировать вручную</button>
+      <button class="btn btn-success" onclick="goto('smetchik-confirm')">Подтвердить смету →</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- UC-02: ПОДТВЕРЖДЕНИЕ СМЕТЫ -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="page" id="smetchik-confirm">
+    <div class="flex-between mb-16">
+      <div>
+        <div class="section-title">Смета — финальная проверка</div>
+        <div class="section-sub">AOK-ES-2026-C-56-144 · Склад УСХ — Кровля</div>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="goto('smetchik-draft')">← Назад</button>
+    </div>
+    <div class="alert alert-green">✓ Все позиции проверены — смета готова к согласованию и отправке заявителю</div>
+    <div class="card mb-16">
+      <div class="card-header"><div class="card-title">Итоговые позиции сметы</div></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>№</th><th>Шифр нормы</th><th>Наименование работ и затрат</th><th>Ед. изм.</th><th>Кол-во</th><th>Статус</th></tr></thead>
+          <tbody>
+            <tr style="background:#F0FDF4"><td style="border-left:3px solid #16A34A">1</td><td class="code-text">1208-0101-0201<br>К23=0,00</td><td>Кровля из рулонных материалов. Разборка покрытий НР=72%</td><td>м² кровли</td><td>750</td><td><span class="badge badge-green">✓ Ок</span></td></tr>
+            <tr style="background:#F0FDF4"><td style="border-left:3px solid #16A34A">2</td><td class="code-text">1207-0101-1802<br>Ккл=1,09</td><td>Разборка стяжек цементных 20мм НР=72%</td><td>м²</td><td>500</td><td><span class="badge badge-green">✓ Ок</span></td></tr>
+            <tr style="background:#FFFBEB"><td style="border-left:3px solid #D97706">3</td><td class="code-text">1207-0101-1804<br>К0=6</td><td>Добавлять на каждые 5мм изменения толщины стяжки</td><td>м²</td><td>500</td><td><span class="badge badge-amber">⚡ Скорр.</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="flex-between">
+      <button class="btn btn-ghost" onclick="goto('smetchik-draft')">← Назад</button>
+      <button class="btn btn-success" onclick="confirmSmeta()">📤 Отправить на согласование →</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- UC-02: СМЕТА ОТПРАВЛЕНА -->
+  <!-- ════════════════════════════════════════════ -->
+  <div class="page" id="smetchik-done">
+    <div class="card">
+      <div class="card-body">
+        <div class="success-center">
+          <div class="success-icon">🎉</div>
+          <div class="success-title">Смета согласована и отправлена заявителю!</div>
+          <div class="success-sub">Заявка AOK-ES-2026-C-56-144 закрыта. Решения сметчика сохранены — ЦА будет точнее распознавать похожие позиции в будущем.</div>
+          <div class="flex-center gap-8" style="justify-content:center">
+            <button class="btn btn-ghost" onclick="gotoHome()">← К списку смет</button>
+            <button class="btn btn-success" onclick="gotoHome()">На главную</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- PDF PREVIEW MODAL -->
+  <div id="pdf-modal" style="position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:300;display:none;align-items:center;justify-content:center">
+    <div style="background:#fff;border-radius:12px;width:680px;max-width:95vw;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,0.3)">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #E5E7EB">
+        <div style="font-size:15px;font-weight:700">📄 Предпросмотр — Дефектная ведомость</div>
+        <button onclick="document.getElementById('pdf-modal').style.display='none'" style="background:none;border:none;cursor:pointer;font-size:20px;color:#6B7280;line-height:1">✕</button>
+      </div>
+      <div style="overflow-y:auto;flex:1;padding:28px 32px;font-family:Arial,sans-serif;font-size:13px;line-height:1.6;background:#FAFAFA">
+        <!-- Шапка документа -->
+        <div style="text-align:center;margin-bottom:20px">
+          <div style="font-size:11px;color:#666;margin-bottom:4px" id="pdf-enterprise">АО «АлюминийКазахстана»</div>
+          <div style="font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px">Дефектная ведомость</div>
+          <div style="font-size:12px;color:#444;margin-top:4px">№ <span id="pdf-num" style="font-weight:600">—</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;border:1px solid #ddd;border-radius:6px;padding:12px;background:#fff">
+          <div><span style="color:#888;font-size:11px">Объект:</span><br><span id="pdf-obj" style="font-weight:600">—</span></div>
+          <div><span style="color:#888;font-size:11px">Дата:</span><br><span id="pdf-date">—</span></div>
+          <div><span style="color:#888;font-size:11px">Утверждающий:</span><br><span id="pdf-appr">—</span></div>
+          <div><span style="color:#888;font-size:11px">Куратор:</span><br><span>Иванова С.М.</span></div>
+        </div>
+        <!-- Таблица работ -->
+        <div style="font-weight:700;margin-bottom:8px;font-size:12px;text-transform:uppercase;letter-spacing:0.3px;color:#333">Перечень работ</div>
+        <table style="width:100%;border-collapse:collapse;font-size:12px;background:#fff">
+          <thead>
+            <tr style="background:#1F4E79;color:#fff">
+              <th style="padding:8px 10px;text-align:left;border:1px solid #1F4E79;width:40px">№</th>
+              <th style="padding:8px 10px;text-align:left;border:1px solid #1F4E79">Наименование работы</th>
+              <th style="padding:8px 10px;text-align:center;border:1px solid #1F4E79;width:70px">Ед. изм.</th>
+              <th style="padding:8px 10px;text-align:center;border:1px solid #1F4E79;width:80px">Количество</th>
+            </tr>
+          </thead>
+          <tbody id="pdf-works-tbody">
+            <tr><td colspan="4" style="padding:12px;text-align:center;color:#888;border:1px solid #ddd">Нет добавленных позиций</td></tr>
+          </tbody>
+        </table>
+        <!-- Примечания -->
+        <div style="margin-top:16px;padding:10px 12px;border:1px solid #ddd;border-radius:6px;background:#fff">
+          <div style="font-size:11px;font-weight:700;color:#333;text-transform:uppercase;letter-spacing:0.3px;margin-bottom:4px">Примечания</div>
+          <div id="pdf-note" style="font-size:12px;color:#555">—</div>
+        </div>
+        <div style="margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:20px;font-size:12px">
+          <div style="border-top:1px solid #333;padding-top:6px;text-align:center;color:#666">Составил: Иванова С.М.</div>
+          <div style="border-top:1px solid #333;padding-top:6px;text-align:center;color:#666">Утвердил: <span id="pdf-appr2">—</span></div>
+        </div>
+      </div>
+      <div style="padding:12px 20px;border-top:1px solid #E5E7EB;display:flex;justify-content:flex-end;gap:8px">
+        <button onclick="document.getElementById('pdf-modal').style.display='none'" style="background:#F3F4F6;border:1px solid #E5E7EB;border-radius:7px;padding:8px 18px;font-size:13px;cursor:pointer">Закрыть</button>
+        <button onclick="window.print()" style="background:#1F4E79;color:#fff;border:none;border-radius:7px;padding:8px 18px;font-size:13px;cursor:pointer">🖨️ Распечатать</button>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- MODAL: выбор расценки -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Выбор расценки — Позиция 3</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="alert alert-amber">ЦА нашёл 2 варианта расценки — выберите подходящий. Ваш выбор будет сохранён для обучения.</div>
+      <div class="choice-card selected" onclick="selectChoice(this)">
+        <input type="radio" name="choice" checked/>
+        <div>
+          <div style="font-size:13px;font-weight:600">1207-0101-1804</div>
+          <div style="font-size:12px;color:var(--text-2);margin-top:3px">Добавлять на каждые 5мм изменения толщины стяжки свыше 20мм</div>
+          <div style="font-size:11px;color:var(--green);margin-top:4px">Рекомендован ЦА (уверенность 68%)</div>
+        </div>
+      </div>
+      <div class="choice-card" onclick="selectChoice(this)">
+        <input type="radio" name="choice"/>
+        <div>
+          <div style="font-size:13px;font-weight:600">1207-0101-1806</div>
+          <div style="font-size:12px;color:var(--text-2);margin-top:3px">Разборка стяжек цементных толщиной свыше 50мм</div>
+          <div style="font-size:11px;color:var(--text-3);margin-top:4px">Альтернативный вариант</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Отмена</button>
+      <button class="btn btn-success" onclick="closeModal(); goto('smetchik-draft')">Сохранить выбор</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const breadcrumbs = {
+  'list-dv': 'Главная / <span>Мои ведомости</span>',
+  'new-dv-1': 'Ведомости / <span>Новая ведомость — Шапка</span>',
+  'new-dv-2': 'Ведомости / <span>Новая ведомость — Работы</span>',
+  'new-dv-3': 'Ведомости / <span>Новая ведомость — Примечания</span>',
+  'new-dv-4': 'Ведомости / <span>Новая ведомость — Согласование</span>',
+  'dv-sent': 'Ведомости / <span>Отправлено</span>',
+  'view-dv': 'Ведомости / <span>AOK-ES-2026-C-56-144</span>',
+  'smetchik-inbox': 'Сметчик / <span>Входящие сметы</span>',
+  'smetchik-draft': 'Сметчик / <span>Черновик сметы</span>',
+  'smetchik-confirm': 'Сметчик / <span>Финальная проверка</span>',
+  'smetchik-done': 'Сметчик / <span>Смета отправлена</span>',
+
+};
+
+const navMap = {
+  'list-dv': 0, 'new-dv-1': 1, 'new-dv-2': 1, 'new-dv-3': 1, 'new-dv-4': 1, 'dv-sent': 0, 'view-dv': 0,
+  'smetchik-inbox': 2, 'smetchik-draft': 2, 'smetchik-confirm': 2, 'smetchik-done': 2,
+
+};
+
+let worksAdded = [];
+let workCount = 0;
+
+function goto(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.getElementById('breadcrumb').innerHTML = breadcrumbs[id] || '';
+  const navItems = document.querySelectorAll('.nav-item');
+  navItems.forEach(n => n.classList.remove('active'));
+  if (navMap[id] !== undefined) navItems[navMap[id]].classList.add('active');
+
+  if (id === 'new-dv-4') {
+    document.getElementById('summary-num').textContent = document.getElementById('f-num').value || 'AOK-ES-2026-NEW';
+    document.getElementById('summary-obj').textContent = document.getElementById('f-obj').value || 'Не указан';
+    document.getElementById('summary-count').textContent = worksAdded.length + ' позиций';
+  }
+  window.scrollTo(0, 0);
+}
+
+function validateStep1() {
+  const num = document.getElementById('f-num').value.trim();
+  const obj = document.getElementById('f-obj').value.trim();
+  let ok = true;
+  if (!num) {
+    document.getElementById('f-num').classList.add('error');
+    document.getElementById('h-num').classList.add('show');
+    document.getElementById('err-banner').style.display = 'flex';
+    ok = false;
+  } else {
+    document.getElementById('f-num').classList.remove('error');
+    document.getElementById('h-num').classList.remove('show');
+  }
+  if (!obj) {
+    document.getElementById('f-obj').classList.add('error');
+    document.getElementById('h-obj').classList.add('show');
+    document.getElementById('err-banner').style.display = 'flex';
+    ok = false;
+  } else {
+    document.getElementById('f-obj').classList.remove('error');
+    document.getElementById('h-obj').classList.remove('show');
+  }
+  if (ok) { document.getElementById('err-banner').style.display = 'none'; goto('new-dv-2'); }
+}
+
+function setCat(el, catId) {
+  document.querySelectorAll('.cat-item').forEach(i => i.classList.remove('active'));
+  el.classList.add('active');
+  ['krovlya','poly','otdelka','oborud','inzh'].forEach(c => {
+    const el2 = document.getElementById('cat-' + c);
+    if (el2) el2.style.display = c === catId ? 'block' : 'none';
+  });
+}
+
+const badges = ['badge-green','badge-green','badge-green','badge-amber','badge-green','badge-green','badge-green','badge-amber','badge-green'];
+const bLabels = ['✓ Найдено','✓ Найдено','✓ Найдено','? Уточните','✓ Найдено','✓ Найдено','✓ Найдено','? Уточните','✓ Найдено'];
+
+function addWork(id, name, unit, card) {
+  if (worksAdded.includes(id)) return;
+  worksAdded.push(id);
+  workCount++;
+  if (card.querySelector('button')) {
+    card.classList.add('added');
+    card.querySelector('button').textContent = '⏳ ЦА обрабатывает...';
+    card.querySelector('button').style.background = '#FFFBEB';
+    card.querySelector('button').style.color = '#D97706';
+  }
+
+  document.getElementById('works-empty').style.display = 'none';
+  document.getElementById('works-table-wrap').style.display = 'block';
+  document.getElementById('works-count').textContent = worksAdded.length + ' позиций';
+
+  const tbody = document.getElementById('works-tbody');
+  const tr = document.createElement('tr');
+  const num = workCount;
+  tr.innerHTML = `
+    <td>${num}</td>
+    <td>${name}</td>
+    <td>${unit}</td>
+    <td><input class="qty-input" placeholder="0"/></td>
+    <td id="ca-badge-${id}"><span class="badge badge-amber">⏳ ЦА думает...</span></td>
+    <td><button class="btn btn-ghost btn-xs" onclick="this.parentNode.parentNode.remove(); workCount--;">✕</button></td>
+  `;
+  tbody.appendChild(tr);
+
+  // Через 1.2 сек показываем результат ЦА
+  setTimeout(function() {
+    const badge = badges[id-1] || 'badge-green';
+    const label = bLabels[id-1] || '✓ Найдено';
+    var el = document.getElementById('ca-badge-' + id);
+    if (el) el.innerHTML = '<span class="badge ' + badge + '">' + label + '</span>';
+    if (card.querySelector('button')) {
+      card.querySelector('button').textContent = '✓ Добавлено';
+      card.querySelector('button').style.background = '#F0FDF4';
+      card.querySelector('button').style.color = '#16A34A';
+    }
+  }, 1200);
+}
+
+var allWorks=[
+  {id:1,name:'Разборка покрытий кровли из рулонных материалов',unit:'м²'},
+  {id:2,name:'Устройство кровли из рулонных материалов (2 слоя)',unit:'м²'},
+  {id:3,name:'Разборка ц/п стяжки толщиной до 50 мм',unit:'м²'},
+  {id:4,name:'Устройство цементно-песчаной стяжки',unit:'м²'},
+  {id:5,name:'Устройство керамзитобетонной стяжки',unit:'м²'},
+  {id:6,name:'Устройство покрытия из керамической плитки',unit:'м²'},
+  {id:7,name:'Штукатурка стен цементным раствором',unit:'м²'},
+  {id:8,name:'Демонтаж/монтаж опорных роликов конвейера',unit:'шт'},
+  {id:9,name:'Замена трубопровода ВК ⌀50',unit:'п.м.'}
+];
+
+function doSearch(q){
+  var d=document.getElementById('search-drop');
+  if(!q.trim()){d.style.display='none';return;}
+  var found=allWorks.filter(function(w){return w.name.toLowerCase().indexOf(q.toLowerCase())!==-1;});
+  if(!found.length){d.style.display='block';d.innerHTML='<div style="padding:10px 14px;font-size:12px;color:var(--text-3)">Ничего не найдено — попробуйте ввести вручную</div>';return;}
+  d.style.display='block';
+  d.innerHTML=found.map(function(w){
+    return '<div style="display:flex;align-items:center;gap:12px;padding:9px 14px;border-bottom:1px solid var(--border)">'
+      +'<div style="flex:1;font-size:13px">'+w.name+' <span style="color:var(--text-3);font-size:11px">· '+w.unit+'</span></div>'
+      +'<button class="btn btn-primary btn-sm" onclick="pickSearch('+w.id+')">+ Добавить</button></div>';
+  }).join('');
+}
+
+function pickSearch(id){
+  var w=allWorks.find(function(x){return x.id===id;});
+  if(!w)return;
+  var fake=document.createElement('div');
+  addWork(w.id,w.name,w.unit,fake);
+  document.getElementById('cat-search').value='';
+  document.getElementById('search-drop').style.display='none';
+}
+
+var mIdx=100;
+function addManual(){
+  var name=document.getElementById('m-name').value.trim();
+  var unit=document.getElementById('m-unit').value;
+  var qty=document.getElementById('m-qty').value||'0';
+  if(!name){document.getElementById('m-name').style.borderColor='var(--red)';return;}
+  document.getElementById('m-name').style.borderColor='';
+  mIdx++;
+  worksAdded.push(mIdx);
+  workCount++;
+  document.getElementById('works-empty').style.display='none';
+  document.getElementById('works-table-wrap').style.display='block';
+  document.getElementById('works-count').textContent=worksAdded.length+' позиций';
+  var tr=document.createElement('tr');
+  tr.innerHTML='<td>'+workCount+'</td>'
+    +'<td>'+name+' <span style="font-size:10px;background:#FAEEDA;color:#854F0B;padding:1px 6px;border-radius:10px">ручной</span></td>'
+    +'<td>'+unit+'</td>'
+    +'<td><input class="qty-input" value="'+qty+'"/></td>'
+    +'<td><span class="badge badge-amber">? Проверить</span></td>'
+    +'<td><button class="btn btn-ghost btn-xs" onclick="this.parentNode.parentNode.remove()">✕</button></td>';
+  document.getElementById('works-tbody').appendChild(tr);
+  document.getElementById('m-name').value='';
+  document.getElementById('m-qty').value='';
+  document.getElementById('manual-row').style.display='none';
+}
+
+function openModal() { document.getElementById('modal').classList.add('open'); }
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+
+function selectChoice(card) {
+  document.querySelectorAll('.choice-card').forEach(c => { c.classList.remove('selected'); c.querySelector('input').checked = false; });
+  card.classList.add('selected');
+  card.querySelector('input').checked = true;
+}
+
+var currentUser = null;
+
+var users = {
+  zayavitel: {
+    name: 'Иванова С.М.',
+    role: 'Куратор / Заявитель',
+    initials: 'ИС',
+    color: 'var(--blue)',
+    homeScreen: 'list-dv',
+    nav: [
+      {icon:'📋', label:'Мои ведомости', badge:'3', screen:'list-dv'},
+      {icon:'➕', label:'Новая ведомость', badge:'', screen:'new-dv-1'},
+      {icon:'📥', label:'Входящие сметы', badge:'', screen:'smetchik-inbox'},
+    ]
+  },
+  smetchik: {
+    name: 'Ахметов С.Б.',
+    role: 'Сметчик',
+    initials: 'АС',
+    color: 'var(--green)',
+    homeScreen: 'smetchik-inbox',
+    nav: [
+      {icon:'📋', label:'Мои ведомости', badge:'2', screen:'list-dv'},
+      {icon:'➕', label:'Новая ведомость', badge:'', screen:'new-dv-1'},
+      {icon:'📥', label:'Входящие сметы', badge:'2', screen:'smetchik-inbox'},
+    ]
+  }
+};
+
+function login(role) {
+  currentUser = role;
+  var u = users[role];
+
+  // render sidebar nav
+  var navHtml = '';
+  u.nav.forEach(function(item) {
+    navHtml += '<div class="nav-item" onclick="goto(\'' + item.screen + '\')">'
+      + '<span class="nav-icon">' + item.icon + '</span> ' + item.label
+      + (item.badge ? ' <span class="nav-badge">' + item.badge + '</span>' : '')
+      + '</div>';
+  });
+  document.getElementById('sidebar-nav-content').innerHTML = navHtml;
+
+  // render sidebar user
+  document.getElementById('sidebar-user-block').innerHTML =
+    '<div class="avatar" style="background:' + u.color + '">' + u.initials + '</div>'
+    + '<div><div class="user-name">' + u.name + '</div><div class="user-role">' + u.role + '</div></div>';
+
+  // show/hide New DV button
+  document.getElementById('btn-new-dv').style.display = 'inline-flex';
+
+  // Подставляем данные ведомостей для этого аккаунта
+  dvList = (dvData[role] || []).slice(); // копия чтобы не мешать
+
+  // hide login screen
+  document.getElementById('login-screen').style.display = 'none';
+
+  // go to home screen
+  goto(u.homeScreen);
+}
+
+function logout() {
+  currentUser = null;
+  document.getElementById('login-screen').style.display = 'flex';
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+}
+
+// Список ведомостей — начальные данные
+// Данные ведомостей для каждого аккаунта
+var dvData = {
+  zayavitel: [
+    {num:'AOK-ES-2026-C-56-144', obj:'Склад УСХ — Кровля', cnt:3, status:'done',     date:'31.03.2026'},
+    {num:'AOK-ES-2026-C-55-110', obj:'Цех №3 — Полы',      cnt:5, status:'esed',     date:'30.03.2026'},
+    {num:'AOK-ES-2026-C-54-099', obj:'АБК 4 — Окна',       cnt:2, status:'smetchik', date:'28.03.2026'},
+  ],
+  smetchik: [
+    {num:'AOK-ES-2026-C-53-088', obj:'Котельная — Трубопроводы', cnt:4, status:'done',     date:'27.03.2026'},
+    {num:'AOK-ES-2026-C-52-077', obj:'Гараж — Кровля',           cnt:2, status:'smetchik', date:'25.03.2026'},
+  ],
+};
+var dvList = dvData.zayavitel;
+
+// Данные входящих смет для каждого аккаунта
+var inboxData = {
+  zayavitel: [], // у заявителя нет входящих смет на проверку
+  smetchik: [
+    {id:'card-1', num:'AOK-ES-2026-C-56-144', obj:'Склад УСХ — Кровля',
+     sub:'Заявитель: Петрова М.К. · Согласована в ЕСЭД · <strong>Черновик сметы готов (ЦА)</strong>',
+     status:'amber', statusText:'Ожидает проверки', dot:'var(--blue)', hasBtn:true, clickable:true},
+    {id:'card-2', num:'AOK-ES-2026-C-55-110', obj:'Цех №3 — Полы',
+     sub:'Заявитель: Ахметов Д.Р. · Согласована в ЕСЭД · Черновик готов (ЦА)',
+     status:'blue', statusText:'В работе', dot:'var(--blue)', hasBtn:false, clickable:false},
+    {id:'card-3', num:'AOK-ES-2026-C-54-099', obj:'АБК 4 — Окна',
+     sub:'Заявитель: Смирнова О.В. · На согласовании в ЕСЭД',
+     status:'gray', statusText:'Ожидает согласования', dot:'var(--gray)', hasBtn:false, clickable:false},
+    {id:'card-4', num:'AOK-ES-2026-C-53-088', obj:'Котельная — Трубопроводы',
+     sub:'Заявитель: Нурланов Б.С. · Смета отправлена заявителю',
+     status:'green', statusText:'✓ Закрыто', dot:'var(--green)', hasBtn:false, clickable:false},
+  ]
+};
+
+var statusMap = {
+  done:     '<span class="badge badge-green">✓ Смета готова</span>',
+  esed:     '<span class="badge badge-amber">⏳ На согласовании</span>',
+  smetchik: '<span class="badge badge-blue">📋 У сметчика</span>',
+  new:      '<span class="badge badge-amber">📤 Отправлена в ЕСЭД</span>',
+};
+
+function renderDVList() {
+  var tbody = document.getElementById('dv-list-tbody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  if (dvList.length === 0) {
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td colspan="6" style="text-align:center;padding:32px;color:var(--text-3)">Нет ведомостей — создайте первую</td>';
+    tbody.appendChild(tr);
+    return;
+  }
+  dvList.forEach(function(dv) {
+    var tr = document.createElement('tr');
+    tr.style.cursor = 'pointer';
+    tr.innerHTML = '<td class="font-mono" style="color:var(--blue)">' + dv.num + '</td>'
+      + '<td>' + dv.obj + '</td>'
+      + '<td>' + dv.cnt + '</td>'
+      + '<td>' + (statusMap[dv.status] || '') + '</td>'
+      + '<td>' + dv.date + '</td>'
+      + '<td><button class="btn btn-ghost btn-xs">Открыть →</button></td>';
+    // Все строки открывают карточку просмотра
+    var dvCopy = dv;
+    tr.onclick = function(){ openDVView(dvCopy); };
+    tbody.appendChild(tr);
+  });
+}
+
+function renderInbox() {
+  var wrap = document.getElementById('inbox-wrap');
+  if (!wrap) return;
+  var role = currentUser || 'zayavitel';
+  var items = inboxData[role] || [];
+  if (items.length === 0) {
+    wrap.innerHTML = '<div style="text-align:center;padding:48px;color:var(--text-3);font-size:14px">Входящих смет нет</div>';
+    return;
+  }
+  wrap.innerHTML = '';
+  items.forEach(function(item, idx) {
+    var isFirst = idx === 0 && item.clickable;
+    var card = document.createElement('div');
+    card.className = 'notify-card';
+    card.id = 'inbox-' + item.id;
+    if (!item.clickable) { card.style.opacity = '0.7'; card.style.cursor = 'default'; }
+    else { card.onclick = function(){ openDraft(); }; }
+    var badgeClass = 'badge-' + item.status;
+    var btn = item.hasBtn ? '<button class="btn btn-primary btn-sm" id="btn-' + item.id + '">Открыть →</button>' : '';
+    card.innerHTML = '<div class="notify-dot" id="dot-' + item.id + '" style="background:' + item.dot + '"></div>'
+      + '<div style="flex:1"><div class="notify-title">' + item.num + ' · ' + item.obj + '</div>'
+      + '<div class="notify-sub" id="sub-' + item.id + '">' + item.sub + '</div></div>'
+      + '<span class="badge ' + badgeClass + '" id="status-' + item.id + '">' + item.statusText + '</span>'
+      + btn;
+    wrap.appendChild(card);
+  });
+}
+
+// Перехватываем goto чтобы рендерить список при переходе
+var _baseGoto = goto;
+goto = function(id) {
+  _baseGoto(id);
+  if (id === 'list-dv') renderDVList();
+  if (id === 'smetchik-inbox') renderInbox();
+  if (id === 'dv-sent') fillSentPage();
+  if (id === 'new-dv-1') resetNewDV();
+};
+
+function resetNewDV() {
+  // Сбрасываем массив добавленных работ
+  worksAdded = [];
+  workCount = 0;
+  mIdx = 100;
+
+  // Очищаем поля формы шапки
+  var fields = ['f-num','f-date','f-obj','f-ent','f-appr'];
+  fields.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) { el.value = ''; el.classList.remove('error'); }
+  });
+  var fdate = document.getElementById('f-date');
+  if (fdate) fdate.value = new Date().toISOString().split('T')[0];
+
+  // Скрываем ошибку
+  var eb = document.getElementById('err-banner');
+  if (eb) eb.style.display = 'none';
+
+  // Сбрасываем таблицу позиций
+  var tbody = document.getElementById('works-tbody');
+  if (tbody) tbody.innerHTML = '';
+  var empty = document.getElementById('works-empty');
+  if (empty) empty.style.display = 'block';
+  var wrap = document.getElementById('works-table-wrap');
+  if (wrap) wrap.style.display = 'none';
+  var cnt = document.getElementById('works-count');
+  if (cnt) cnt.textContent = '0 позиций';
+
+  // Сбрасываем все карточки каталога
+  document.querySelectorAll('.work-card').forEach(function(card) {
+    card.classList.remove('added');
+    var btn = card.querySelector('button');
+    if (btn) {
+      btn.textContent = '+ Добавить';
+      btn.style.background = '';
+      btn.style.color = '';
+    }
+  });
+
+  // Сбрасываем поиск и ручной ввод
+  var search = document.getElementById('cat-search');
+  if (search) search.value = '';
+  var drop = document.getElementById('search-drop');
+  if (drop) drop.style.display = 'none';
+  var manual = document.getElementById('manual-row');
+  if (manual) manual.style.display = 'none';
+  var mname = document.getElementById('m-name');
+  if (mname) mname.value = '';
+  var mqty = document.getElementById('m-qty');
+  if (mqty) mqty.value = '';
+}
+
+function fillSentPage() {
+  var num  = document.getElementById('f-num')  ? document.getElementById('f-num').value  || '—' : '—';
+  var obj  = document.getElementById('f-obj')  ? document.getElementById('f-obj').value  || '—' : '—';
+  var appr = document.getElementById('f-appr') ? document.getElementById('f-appr').value || 'Не указан' : '—';
+  var cnt  = worksAdded.length;
+  var today = new Date().toLocaleDateString('ru-RU');
+
+  if(document.getElementById('sent-num'))   document.getElementById('sent-num').textContent  = num;
+  if(document.getElementById('sent-obj'))   document.getElementById('sent-obj').textContent  = obj;
+  if(document.getElementById('sent-appr'))  document.getElementById('sent-appr').textContent = appr;
+  if(document.getElementById('sent-count')) document.getElementById('sent-count').textContent = cnt + ' позиций';
+
+  // Добавляем ведомость в список если номер заполнен
+  if (num && num !== '—') {
+    var exists = dvList.find(function(d){ return d.num === num; });
+    if (!exists) {
+      dvList.unshift({num: num, obj: obj || '—', cnt: cnt, status: 'new', date: today});
+    } else {
+      exists.status = 'new';
+    }
+  }
+}
+
+function showPDFPreview() {
+  var num  = document.getElementById('f-num')  ? document.getElementById('f-num').value  || '—' : '—';
+  var obj  = document.getElementById('f-obj')  ? document.getElementById('f-obj').value  || '—' : '—';
+  var appr = document.getElementById('f-appr') ? document.getElementById('f-appr').value || 'Не указан' : '—';
+  var ent  = document.getElementById('f-ent')  ? document.getElementById('f-ent').value  || 'АО «АлюминийКазахстана»' : '—';
+  var date = document.getElementById('f-date') ? document.getElementById('f-date').value || '—' : '—';
+
+  if(document.getElementById('pdf-num'))        document.getElementById('pdf-num').textContent = num;
+  if(document.getElementById('pdf-obj'))        document.getElementById('pdf-obj').textContent = obj;
+  if(document.getElementById('pdf-date'))       document.getElementById('pdf-date').textContent = date;
+  if(document.getElementById('pdf-appr'))       document.getElementById('pdf-appr').textContent = appr;
+  if(document.getElementById('pdf-appr2'))      document.getElementById('pdf-appr2').textContent = appr;
+  if(document.getElementById('pdf-enterprise')) document.getElementById('pdf-enterprise').textContent = ent;
+
+  // Собираем работы из таблицы
+  var rows = document.querySelectorAll('#works-tbody tr');
+  var tbody = document.getElementById('pdf-works-tbody');
+  if (tbody) {
+    if (rows.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="4" style="padding:12px;text-align:center;color:#888;border:1px solid #ddd">Нет добавленных позиций</td></tr>';
+    } else {
+      tbody.innerHTML = '';
+      rows.forEach(function(row, i) {
+        var cells = row.querySelectorAll('td');
+        if (cells.length < 4) return;
+        var name = cells[1] ? cells[1].textContent.trim() : '—';
+        var unit = cells[2] ? cells[2].textContent.trim() : '—';
+        var qty  = cells[3] ? (cells[3].querySelector('input') ? cells[3].querySelector('input').value || '—' : cells[3].textContent.trim()) : '—';
+        var tr = document.createElement('tr');
+        tr.style.background = i%2===0 ? '#fff' : '#F9FAFB';
+        tr.innerHTML = '<td style="padding:7px 10px;border:1px solid #ddd;text-align:center">' + (i+1) + '</td>'
+          + '<td style="padding:7px 10px;border:1px solid #ddd">' + name + '</td>'
+          + '<td style="padding:7px 10px;border:1px solid #ddd;text-align:center">' + unit + '</td>'
+          + '<td style="padding:7px 10px;border:1px solid #ddd;text-align:center">' + qty + '</td>';
+        tbody.appendChild(tr);
+      });
+    }
+  }
+
+  document.getElementById('pdf-modal').style.display = 'flex';
+}
+
+function viewSentDV() {
+  // Открываем просмотр последней отправленной ДВ
+  var num  = document.getElementById('f-num')  ? document.getElementById('f-num').value  || '' : '';
+  var obj  = document.getElementById('f-obj')  ? document.getElementById('f-obj').value  || '' : '';
+  var found = dvList.find(function(d){ return d.num === num; });
+  if (found) {
+    openDVView(found);
+  } else {
+    goto('list-dv');
+  }
+}
+
+function openDVView(dv) {
+  // Заполняем страницу просмотра данными
+  var titleEl = document.querySelector('#view-dv .section-title');
+  var subEl   = document.querySelector('#view-dv .section-sub');
+  if (titleEl) titleEl.textContent = dv.num;
+  if (subEl)   subEl.innerHTML = dv.obj + ' · ' + (statusMap[dv.status] || '');
+  goto('view-dv');
+}
+
+function gotoHome() {
+  if (currentUser && users[currentUser]) {
+    goto(users[currentUser].homeScreen);
+  } else {
+    goto('list-dv');
+  }
+}
+
+function openDraft() {
+  // Меняем статус первой активной карточки на "В работе"
+  var items = inboxData[currentUser] || [];
+  var first = items[0];
+  if (first && first.status === 'amber') {
+    first.status = 'blue';
+    first.statusText = 'В работе';
+    first.clickable = true;
+  }
+  goto('smetchik-draft');
+}
+
+function confirmSmeta() {
+  // Меняем статус на "Закрыто" после подтверждения
+  var items = inboxData[currentUser] || [];
+  var first = items[0];
+  if (first) {
+    first.status = 'green';
+    first.statusText = '✓ Закрыто';
+    first.sub = 'Заявитель: Петрова М.К. · <strong>Смета отправлена заявителю</strong>';
+    first.hasBtn = false;
+    first.clickable = false;
+  }
+  goto('smetchik-done');
+}
+</script>
+</body>
+</html>
