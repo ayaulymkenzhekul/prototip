@@ -809,9 +809,10 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
                 <th style="padding:6px 10px;text-align:left;border-bottom:1px solid var(--border);font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase">Наименование</th>
                 <th style="padding:6px 10px;text-align:center;border-bottom:1px solid var(--border);font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;white-space:nowrap">Ед.изм.</th>
                 <th style="padding:6px 10px;text-align:center;border-bottom:1px solid var(--border);font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase">ЦА</th>
+                <th style="padding:6px 10px;text-align:center;border-bottom:1px solid var(--border);font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase">Выбрать</th>
               </tr>
             </thead>
-            <tbody id="rates-tbody"></tbody>
+            <tbody id="rates-tbody" style="background:#fff"></tbody>
           </table>
         </div>
 
@@ -823,9 +824,9 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
             <button class="tab-btn" onclick="switchTab('tab-coef',this)" style="padding:7px 14px;font-size:12px;font-weight:600;border:none;background:none;cursor:pointer;color:var(--t3)">Коэффициенты</button>
             <button class="tab-btn" onclick="switchTab('tab-price',this)" style="padding:7px 14px;font-size:12px;font-weight:600;border:none;background:none;cursor:pointer;color:var(--t3)">Стоимость</button>
           </div>
-          <div style="padding:12px 14px;flex:1;overflow-y:auto">
+          <div style="padding:12px 14px;flex:1;overflow-y:auto;background:#fff">
             <div id="tab-comp">
-              <div id="detail-comp" style="font-size:12px;color:var(--t2);line-height:1.8">Выберите расценку из списка выше</div>
+              <div id="detail-comp" style="font-size:12px;color:#374151;line-height:1.8;background:#fff">Выберите расценку из списка выше</div>
             </div>
             <div id="tab-res" style="display:none">
               <div id="detail-res" style="font-size:12px"></div>
@@ -1428,6 +1429,7 @@ function openModal(posNum){
   currentModalPos = posNum || 3;
   document.getElementById('modal').classList.add('open');
   selectedRate = null;
+  selectedCodes = {};
   currentSection = 'rem_stj';
   var addBtn = document.getElementById('btn-add-smeta');
   if (addBtn) { addBtn.disabled = true; addBtn.style.opacity = '.4'; }
@@ -1541,7 +1543,8 @@ var DB_ITEMS = [
 ];
 
 var selectedRate = null;
-var currentSection = 'rem_stj'; // Активный раздел
+var currentSection = 'rem_stj';
+var selectedCodes = {}; // Хранит выбранные коды между разделами
 
 function initModal() {
   renderTree();
@@ -1589,9 +1592,10 @@ function renderRates(sectionId) {
   var tbody = document.getElementById('rates-tbody');
   if (!tbody) return;
   var q = (document.getElementById('db-search')||{}).value || '';
+  var parentSections = {rsrk:true, str:true, rem:true, mont:true};
   var items = DB_ITEMS.filter(function(x){
-    var matchSec = !sectionId || x.section === sectionId || sectionId === 'rsrk' || sectionId === 'str' || sectionId === 'rem' || sectionId === 'mont';
-    var matchQ = !q || x.code.toLowerCase().includes(q.toLowerCase()) || x.name.toLowerCase().includes(q.toLowerCase());
+    var matchSec = (sectionId === null) || !sectionId || x.section === sectionId || !!parentSections[sectionId];
+    var matchQ = !q || x.code.toLowerCase().indexOf(q.toLowerCase()) !== -1 || x.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
     return matchSec && matchQ;
   });
   tbody.innerHTML = '';
@@ -1599,16 +1603,35 @@ function renderRates(sectionId) {
     tbody.innerHTML = '<tr><td colspan="4" style="padding:16px;text-align:center;color:#6B7280;font-size:12px">Расценок не найдено</td></tr>';
     return;
   }
-  items.forEach(function(item){
+  // Сначала показываем рекомендации ЦА, потом остальные
+  var aiItems = items.filter(function(x){ return x.ai; });
+  var otherItems = items.filter(function(x){ return !x.ai; });
+  var sorted = aiItems.concat(otherItems);
+  if (aiItems.length && otherItems.length) {
+    var sepAI = document.createElement('tr');
+    sepAI.innerHTML = '<td colspan="4" style="padding:4px 10px;background:#F0FDF4;font-size:10px;font-weight:700;color:#15803D;text-transform:uppercase;letter-spacing:.3px">⚡ Рекомендовано ЦА</td>';
+    tbody.appendChild(sepAI);
+  }
+  var shownAI = false;
+  sorted.forEach(function(item){
+    if (!item.ai && aiItems.length && !shownAI) {
+      shownAI = true;
+      var sep = document.createElement('tr');
+      sep.innerHTML = '<td colspan="4" style="padding:4px 10px;background:#F9FAFB;font-size:10px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:.3px">Все расценки базы</td>';
+      tbody.appendChild(sep);
+    }
     var tr = document.createElement('tr');
     tr.style.cursor = 'pointer';
     tr.style.transition = 'background .1s';
-    var aiTag = item.ai ? '<span style="font-size:10px;background:#DCFCE7;color:#15803D;padding:1px 5px;border-radius:10px;margin-left:4px">⚡ ЦА '+item.conf+'%</span>' : '';
+    if (item.ai) tr.style.borderLeft = '2px solid #86EFAC';
+    var aiTag = item.ai ? '<span style="font-size:10px;background:#DCFCE7;color:#15803D;padding:1px 5px;border-radius:10px;margin-left:6px">⚡ ЦА '+item.conf+'%</span>' : '';
+    var selCell = '<td style="padding:6px 10px;border-bottom:1px solid #F3F4F6;text-align:center" class="sel-td-'+item.code.replace(/-/g,'_')+'"></td>';
     tr.innerHTML = '<td style="padding:6px 10px;border-bottom:1px solid #F3F4F6;font-family:monospace;font-size:11px;color:#6B7280;white-space:nowrap">'+item.code+'</td>'
       +'<td style="padding:6px 10px;border-bottom:1px solid #F3F4F6;font-size:12px">'+item.name+aiTag+'</td>'
       +'<td style="padding:6px 10px;border-bottom:1px solid #F3F4F6;font-size:12px;text-align:center;color:#6B7280;white-space:nowrap">'+item.unit+'</td>'
       +'<td style="padding:6px 10px;border-bottom:1px solid #F3F4F6;text-align:center">'
-      +(item.ai ? '<span style="font-size:10px;color:#D97706">●</span>' : '<span style="font-size:10px;color:#6B7280">○</span>')+'</td>';
+      +(item.ai ? '<span style="font-size:10px;color:#16A34A;font-weight:700">●</span>' : '<span style="font-size:10px;color:#6B7280">○</span>')+'</td>'
+      +selCell;
     (function(it, row){
       row.onmouseenter = function(){ if(selectedRate !== it) row.style.background='#F0F9FF'; };
       row.onmouseleave = function(){ if(selectedRate !== it) row.style.background=''; };
@@ -1624,74 +1647,119 @@ function renderRates(sectionId) {
         if (addBtn) { addBtn.disabled = false; addBtn.style.opacity = '1'; }
       };
     })(item, tr);
+    (function(it, row){
+      var td = row.querySelector('.sel-td-'+it.code.replace(/-/g,'_'));
+      if (td) {
+        var btn = document.createElement('button');
+        btn.className = 'btn btn-xs';
+        var alreadySel = !!selectedCodes[it.code];
+        btn.style.cssText = alreadySel ? 'background:#16A34A;color:#fff;border:1px solid #15803D' : 'background:#F0FDF4;color:#16A34A;border:1px solid #BBF7D0';
+        btn.textContent = alreadySel ? '✓ Выбрано' : '+ Выбрать';
+        btn.setAttribute('data-code', it.code);
+        btn.setAttribute('data-sel', alreadySel ? '1' : '0');
+        btn.onclick = function(e) {
+          e.stopPropagation();
+          var sel = btn.getAttribute('data-sel') === '1' ? '0' : '1';
+          btn.setAttribute('data-sel', sel);
+          if (sel === '1') {
+            btn.textContent = '✓ Выбрано';
+            btn.style.background = '#16A34A';
+            btn.style.color = '#fff';
+            selectedCodes[it.code] = it; // сохраняем
+          } else {
+            btn.textContent = '+ Выбрать';
+            btn.style.background = '#F0FDF4';
+            btn.style.color = '#16A34A';
+            delete selectedCodes[it.code]; // убираем
+          }
+          selectedRate = it;
+          showAllSelectedDetails();
+          var cnt = Object.keys(selectedCodes).length;
+          var addBtn = document.getElementById('btn-add-smeta');
+          if (addBtn) { addBtn.disabled = cnt === 0; addBtn.style.opacity = cnt > 0 ? '1' : '.4'; }
+          var sc = document.getElementById('sel-code');
+          if (sc) sc.textContent = cnt > 1 ? cnt + ' расценки выбраны' : it.code;
+        };
+        td.appendChild(btn);
+      }
+    })(item, tr);
     tbody.appendChild(tr);
-    // Если это рекомендованная ЦА — выбираем автоматически
+    // Если это рекомендованная ЦА с наивысшей уверенностью — выбираем автоматически
     if (item.ai && item.conf >= 60 && !selectedRate) {
-      setTimeout(function(){ tr.click(); }, 50);
+      (function(r){ setTimeout(function(){ r.click(); }, 80); })(tr);
     }
   });
 }
 
 function searchDB(q) {
-  // При поиске показываем из всех разделов
-  if (q && q.trim()) {
-    var tbody = document.getElementById('rates-tbody');
-    if (!tbody) return;
-    var items = DB_ITEMS.filter(function(x){
-      return x.code.toLowerCase().includes(q.toLowerCase()) || x.name.toLowerCase().includes(q.toLowerCase());
+  // Поиск по всей базе — используем renderRates с пустым sectionId
+  renderRates(q && q.trim() ? null : currentSection);
+}
+
+function showAllSelectedDetails() {
+  var selected = Object.values(selectedCodes);
+  if (!selected.length && selectedRate) selected.push(selectedRate);
+  if (!selected.length) return;
+
+  // Если одна — показываем как обычно
+  if (selected.length === 1) { showRateDetail(selected[0]); return; }
+
+  // Если несколько — показываем все в detail-comp
+  var comp = document.getElementById('detail-comp');
+  if (comp) {
+    var html = '';
+    selected.forEach(function(item, i){
+      html += '<div style="margin-bottom:12px;padding:10px 12px;background:'+(item.ai?'#F0FDF4':'#F9FAFB')+';border:1px solid '+(item.ai?'#BBF7D0':'#E5E7EB')+';border-radius:8px">'
+        +'<div style="font-size:11px;font-family:monospace;font-weight:700;color:#374151;margin-bottom:4px">'+(i+1)+'. '+item.code+(item.ai?' <span style="font-size:10px;background:#DCFCE7;color:#15803D;padding:1px 6px;border-radius:10px">ЦА '+item.conf+'%</span>':'')+'</div>'
+        +'<div style="font-size:12px;font-weight:600;color:#111827;margin-bottom:4px">'+item.name+'</div>'
+        +'<div style="font-size:11px;color:#6B7280"><b>Состав:</b> '+item.comp+'</div>'
+        +'<div style="font-size:11px;color:#6B7280;margin-top:3px"><b>Коэффициенты:</b> '+item.coefs+'</div>'
+        +'<div style="font-size:11px;color:#6B7280;margin-top:3px"><b>Стоимость:</b> '+item.price+' / '+item.unit+'</div>'
+        +'</div>';
     });
-    tbody.innerHTML = '';
-    if (!items.length) {
-      tbody.innerHTML = '<tr><td colspan="4" style="padding:16px;text-align:center;color:#6B7280;font-size:12px">Ничего не найдено</td></tr>';
-      return;
-    }
-    items.forEach(function(item){
-      var tr = document.createElement('tr');
-      tr.style.cursor = 'pointer';
-      var aiTag = item.ai ? '<span style="font-size:10px;background:#DCFCE7;color:#15803D;padding:1px 5px;border-radius:10px;margin-left:4px">ЦА '+item.conf+'%</span>' : '';
-      tr.innerHTML = '<td style="padding:6px 10px;border-bottom:1px solid #F3F4F6;font-family:monospace;font-size:11px;color:#6B7280">'+item.code+'</td>'
-        +'<td style="padding:6px 10px;border-bottom:1px solid #F3F4F6;font-size:12px">'+item.name+aiTag+'</td>'
-        +'<td style="padding:6px 10px;border-bottom:1px solid #F3F4F6;font-size:12px;text-align:center;color:#6B7280">'+item.unit+'</td>'
-        +'<td style="padding:6px 10px;border-bottom:1px solid #F3F4F6;text-align:center">'+(item.ai?'<span style="color:#D97706">●</span>':'<span style="color:#6B7280">○</span>')+'</td>';
-      (function(it, row){
-        row.onclick = function(){
-          document.querySelectorAll('#rates-tbody tr').forEach(function(r){r.style.background='';});
-          row.style.background='#EFF6FF';
-          selectedRate = it;
-          showRateDetail(it);
-          var sc = document.getElementById('sel-code');
-          if(sc) sc.textContent = it.code;
-          var addBtn = document.getElementById('btn-add-smeta');
-          if(addBtn){addBtn.disabled=false;addBtn.style.opacity='1';}
-        };
-      })(item, tr);
-      tbody.appendChild(tr);
-    });
-  } else {
-    renderRates(currentSection);
+    comp.innerHTML = html;
   }
+  switchTab('tab-comp', document.querySelector('.tab-btn'));
 }
 
 function showRateDetail(item) {
+  // Всегда переключаем на первую вкладку при выборе новой расценки
+  switchTab('tab-comp', document.querySelector('.tab-btn'));
+
   // Состав работ
   var comp = document.getElementById('detail-comp');
-  if (comp) comp.innerHTML = '<div style="line-height:1.8;color:#374151">'+item.comp+'</div>';
+  if (comp) {
+    comp.style.cssText = 'font-size:12px;color:#374151;line-height:1.8;background:none';
+    comp.innerHTML = item.comp;
+  }
 
   // Ресурсы
   var res = document.getElementById('detail-res');
   if (res) {
     var html = '<table style="width:100%;border-collapse:collapse;font-size:12px">'
-      +'<thead><tr style="background:#F9FAFB"><th style="padding:5px 8px;text-align:left;border-bottom:1px solid #E5E7EB;font-size:10px;color:#6B7280">Тип</th><th style="padding:5px 8px;text-align:left;border-bottom:1px solid #E5E7EB;font-size:10px;color:#6B7280">Наименование</th><th style="padding:5px 8px;text-align:right;border-bottom:1px solid #E5E7EB;font-size:10px;color:#6B7280">Норма</th></tr></thead><tbody>';
+      +'<thead><tr style="background:#F9FAFB">'
+      +'<th style="padding:5px 8px;text-align:left;border-bottom:1px solid #E5E7EB;font-size:10px;color:#6B7280">Тип</th>'
+      +'<th style="padding:5px 8px;text-align:left;border-bottom:1px solid #E5E7EB;font-size:10px;color:#6B7280">Наименование</th>'
+      +'<th style="padding:5px 8px;text-align:right;border-bottom:1px solid #E5E7EB;font-size:10px;color:#6B7280">Норма</th>'
+      +'</tr></thead><tbody>';
     item.res.forEach(function(r){
       var ic = r.t==='труд' ? '👷' : '⚙️';
-      html += '<tr><td style="padding:5px 8px;border-bottom:1px solid #F3F4F6;color:#6B7280">'+ic+' '+r.t+'</td><td style="padding:5px 8px;border-bottom:1px solid #F3F4F6">'+r.name+'</td><td style="padding:5px 8px;border-bottom:1px solid #F3F4F6;text-align:right;font-family:monospace">'+r.norm+'</td></tr>';
+      html += '<tr style="background:#fff">'
+        +'<td style="padding:5px 8px;border-bottom:1px solid #F3F4F6;color:#6B7280">'+ic+' '+r.t+'</td>'
+        +'<td style="padding:5px 8px;border-bottom:1px solid #F3F4F6">'+r.name+'</td>'
+        +'<td style="padding:5px 8px;border-bottom:1px solid #F3F4F6;text-align:right;font-family:monospace">'+r.norm+'</td>'
+        +'</tr>';
     });
     if (item.mats && item.mats.length) {
       item.mats.forEach(function(m){
-        html += '<tr id="mat-row-'+m.name.replace(/\s/g,'_')+'"><td style="padding:5px 8px;border-bottom:1px solid #F3F4F6;color:#6B7280">📦 матер.</td><td style="padding:5px 8px;border-bottom:1px solid #F3F4F6">'+m.name+'</td><td style="padding:5px 8px;border-bottom:1px solid #F3F4F6;text-align:right;font-family:monospace">'+m.norm+' '+m.unit+'</td></tr>';
+        html += '<tr style="background:#FFFBEB" class="mat-row">'
+          +'<td style="padding:5px 8px;border-bottom:1px solid #F3F4F6;color:#6B7280">📦 матер.</td>'
+          +'<td style="padding:5px 8px;border-bottom:1px solid #F3F4F6">'+m.name+'</td>'
+          +'<td style="padding:5px 8px;border-bottom:1px solid #F3F4F6;text-align:right;font-family:monospace">'+m.norm+' '+m.unit+'</td>'
+          +'</tr>';
       });
     } else {
-      html += '<tr><td colspan="3" style="padding:8px;color:#6B7280;font-style:italic">Материалы не предусмотрены расценкой</td></tr>';
+      html += '<tr style="background:#fff"><td colspan="3" style="padding:8px;color:#6B7280;font-style:italic">Материалы не предусмотрены расценкой</td></tr>';
     }
     html += '</tbody></table>';
     res.innerHTML = html;
@@ -1705,23 +1773,22 @@ function showRateDetail(item) {
           return '<span style="background:#EFF6FF;color:#1D4ED8;padding:4px 10px;border-radius:6px;font-size:12px;font-family:monospace">'+k+'</span>';
         }).join('')
       + '</div>'
-      + '<div style="font-size:11px;color:#6B7280">Коэффициенты применяются в соответствии с РСН РК и нормативными документами</div>';
+      + '<div style="font-size:11px;color:#6B7280;margin-top:8px">Применяются в соответствии с РСН РК</div>';
   }
 
   // Стоимость
   var price = document.getElementById('detail-price');
   if (price) {
     price.innerHTML = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">'
-      +'<div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:10px">'
+      +'<div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:12px">'
       +'<div style="font-size:10px;color:#6B7280;margin-bottom:4px">Единичная стоимость</div>'
       +'<div style="font-size:16px;font-weight:700;color:#15803D">'+item.price+'</div></div>'
-      +'<div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:8px;padding:10px">'
+      +'<div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:8px;padding:12px">'
       +'<div style="font-size:10px;color:#6B7280;margin-bottom:4px">Ед. измерения</div>'
       +'<div style="font-size:16px;font-weight:700;color:#1D4ED8">'+item.unit+'</div></div>'
       +'</div>';
   }
 
-  // Применяем демонтаж если включён
   if (document.getElementById('demontaj-check') && document.getElementById('demontaj-check').checked) {
     applyDemontaj(true);
   }
@@ -1780,31 +1847,20 @@ function selectRate(item) {
 }
 
 function addToSmeta() {
-  if (!selectedRate) return;
   var vol = (document.getElementById('modal-vol')||{}).value || '—';
   var demontaj = document.getElementById('demontaj-check') && document.getElementById('demontaj-check').checked;
   var pos = currentModalPos;
-  var nameText = selectedRate.name + (demontaj ? ' (демонтаж ×0.8)' : '');
-  var codeText = selectedRate.code + ' ' + selectedRate.coefs.split(' · ')[0];
 
-  if (pos === 0) {
-    // Новая расценка — добавляем строку в конец tbody
-    var tbody = document.getElementById('draft-tbody');
-    if (tbody) {
-      var newIdx = 'new-' + Date.now();
-      var tr = document.createElement('tr');
-      tr.id = 'draft-row-' + newIdx;
-      tr.style.background = 'var(--green-l)';
-      tr.innerHTML = '<td class="mono" id="draft-code-'+newIdx+'">' + selectedRate.code + '<br>' + selectedRate.coefs.split(' · ')[0] + '</td>'
-        + '<td id="draft-name-'+newIdx+'">' + nameText + '</td>'
-        + '<td id="draft-qty-'+newIdx+'">' + vol + '</td>'
-        + '<td><span class="badge b-green">✓ Добавлено</span></td>'
-        + '<td class="draft-edit-btns"></td>';
-        + ' <button class="btn btn-xs" style="color:var(--red);border:1px solid #FEE2E2" onclick="this.parentNode.parentNode.remove()">&#x2715;</button></td>';
-      tbody.appendChild(tr);
-    }
-  } else {
-    // Обновляем существующую строку
+  // Берём все выбранные из глобального хранилища
+  var toAdd = Object.values(selectedCodes);
+  if (!toAdd.length && selectedRate) toAdd.push(selectedRate);
+  if (!toAdd.length) return;
+
+  var tbody = document.getElementById('draft-tbody');
+
+  // Если это конкретная позиция (не 0) — первую расценку ставим на место
+  if (pos !== 0 && pos !== '0') {
+    var first = toAdd[0];
     var row = document.getElementById('draft-row-' + pos);
     var codeEl = document.getElementById('draft-code-' + pos);
     var nameEl = document.getElementById('draft-name-' + pos);
@@ -1812,37 +1868,65 @@ function addToSmeta() {
     var btnEl  = document.getElementById('draft-btn-' + pos);
     if (row) {
       row.style.background = 'var(--green-l)';
-      if (codeEl) codeEl.innerHTML = selectedRate.code + '<br>' + selectedRate.coefs.split(' · ')[0];
-      if (nameEl) nameEl.textContent = nameText;
+      if (codeEl) codeEl.innerHTML = first.code + '<br>' + first.coefs.split(' · ')[0];
+      if (nameEl) nameEl.textContent = first.name + (demontaj ? ' (демонтаж)' : '');
       if (qtyEl && vol !== '—') qtyEl.textContent = vol;
       if (btnEl) {
+        btnEl.textContent = '✓ Выбрано';
         btnEl.style.background = 'var(--green-l)';
         btnEl.style.color = 'var(--green)';
         btnEl.style.border = '1px solid #BBF7D0';
-        btnEl.textContent = '✓ Выбрано';
-        btnEl.onclick = function(){ openModal(pos); };
       }
     }
+    // Остальные — добавляем как новые строки
+    toAdd = toAdd.slice(1);
   }
 
-  // Добавляем в чат
+  // Все оставшиеся (или все если pos=0) — добавляем новыми строками
+  toAdd.forEach(function(item) {
+    if (!tbody) return;
+    var tr = document.createElement('tr');
+    tr.style.background = 'var(--green-l)';
+    tr.innerHTML = '<td class="mono">' + item.code + '<br>' + item.coefs.split(' · ')[0] + '</td>'
+      + '<td>' + item.name + (demontaj ? ' (демонтаж)' : '') + '</td>'
+      + '<td>' + vol + '</td>'
+      + '<td><span class="badge b-green">✓ Добавлено</span></td>'
+      + '<td class="new-row-btns"></td>';
+    var btd = tr.querySelector('.new-row-btns');
+    if (btd) {
+      var eb1 = document.createElement('button');
+      eb1.className = 'btn btn-xs btn-o';
+      eb1.textContent = '✏️';
+      (function(it){ eb1.onclick = function(){ selectedRate = it; openModal(0); }; })(item);
+      var eb2 = document.createElement('button');
+      eb2.className = 'btn btn-xs';
+      eb2.style.cssText = 'color:var(--red);border:1px solid #FEE2E2;margin-left:4px';
+      eb2.textContent = '✕';
+      (function(r){ eb2.onclick = function(){ r.remove(); }; })(tr);
+      btd.appendChild(eb1);
+      btd.appendChild(eb2);
+    }
+    tbody.appendChild(tr);
+  });
+
+  // Запись в чат
   var u = currentUser ? USERS[currentUser] : null;
-  var msgObj = {
+  var allCodes = document.querySelectorAll('#rates-tbody button[data-sel="1"]');
+  var codesText = [];
+  allCodes.forEach(function(b){ if(b.getAttribute('data-code')) codesText.push(b.getAttribute('data-code')); });
+  if (!codesText.length && selectedRate) codesText.push(selectedRate.code);
+  var msgs = loadChat(currentDVId);
+  msgs.push({
     initials: u ? u.initials : 'АС',
     name: u ? u.name : 'Ахметов С.Б.',
     role: u ? u.role : 'Сметчик',
-    text: (pos === 0 ? 'Добавлена новая расценка: ' : 'Расценка позиции ' + pos + ' изменена: ')
-      + selectedRate.code + ' — ' + selectedRate.name
-      + (vol !== '—' ? '. Объём: ' + vol + ' ' + selectedRate.unit : '')
-      + (demontaj ? '. Демонтаж ×0.8.' : '.'),
+    text: 'Добавлены расценки: ' + codesText.join(', ') + (vol !== '—' ? '. Объём: ' + vol : '') + (demontaj ? '. Демонтаж ×0.8.' : '.'),
     time: new Date().toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}),
     isSmetchik: true
-  };
-  var msgs = loadChat(currentDVId);
-  msgs.push(msgObj);
+  });
   saveChat(currentDVId, msgs);
   var wrap = document.getElementById('chat-messages');
-  if (wrap) { renderChatMessages(currentDVId); }
+  if (wrap) renderChatMessages(currentDVId);
 
   closeModal();
 }
