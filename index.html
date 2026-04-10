@@ -413,7 +413,7 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
       <div id="works-empty" style="text-align:center;padding:28px;color:var(--t3);font-size:13px">Добавьте работы из каталога выше</div>
       <div id="works-wrap" style="display:none">
         <table>
-          <thead><tr><th>№</th><th>Наименование работы</th><th>№ чертежа</th><th>Материал</th><th>Вид обработки</th><th>Подлежит смене (кол-во)</th><th>Ед. изм.</th><th>Количество</th><th>Потребные материалы</th><th>Примечание</th><th>Статус ЦА</th><th></th></tr></thead>
+          <thead><tr><th>№</th><th>Наименование работы</th><th>Ед. изм.</th><th>Количество</th><th>Вес единицы, кг</th><th>Общий вес, т</th><th>Потребные материалы</th><th>Примечание</th><th>Статус ЦА</th><th></th></tr></thead>
           <tbody id="works-tbody"></tbody>
         </table>
       </div>
@@ -1241,17 +1241,17 @@ function addWork(id, name, unit, card) {
   var tr=document.createElement('tr');
   var n=workCount;
   var unitOpts='<option>м²</option><option>м³</option><option>п.м.</option><option>шт</option><option>т</option><option>кг</option>';
+  // Потребные материалы из карточки
+  var matsHtml = buildMatsTable(id, unit);
   tr.innerHTML='<td>'+n+'</td><td>'+name+'</td>'
-    +'<td><input class="qty-i" style="width:60px" placeholder="—"/></td>'
+    +'<td><select class="unit-s" id="unit-'+id+'" onchange="recalcMats('+id+')">'+unitOpts+'</select></td>'
+    +'<td><input class="qty-i" id="ca-q-'+id+'" placeholder="0" oninput="recalcMats('+id+')" style="width:70px"/></td>'
     +'<td><input class="qty-i" style="width:80px" placeholder="—"/></td>'
     +'<td><input class="qty-i" style="width:80px" placeholder="—"/></td>'
-    +'<td><input class="qty-i" style="width:70px" placeholder="0"/></td>'
-    +'<td><select class="unit-s">'+unitOpts+'</select></td>'
-    +'<td><input class="qty-i" id="ca-q-'+id+'" placeholder="0"/></td>'
-    +'<td><input class="fi" style="width:140px;font-size:11px;padding:3px 7px" placeholder="Назв. — ед. — кол-во"/></td>'
+    +'<td id="mats-td-'+id+'">'+matsHtml+'</td>'
     +'<td><input class="fi" style="width:100px;font-size:11px;padding:3px 7px" placeholder="—"/></td>'
     +'<td id="ca-b-'+id+'"><span class="badge b-amber">⏳ ЦА думает...</span></td>'
-    +'<td><button class="btn btn-o btn-xs" onclick="this.parentNode.parentNode.remove();workCount--;">✕</button></td>';
+    +'<td><button class="btn btn-o btn-xs" onclick="this.parentNode.parentNode.remove();workCount--;">&#x2715;</button></td>';
   // Устанавливаем нужную ед.изм.
   var sel=tr.querySelector('select');
   for(var i=0;i<sel.options.length;i++){if(sel.options[i].value===unit||sel.options[i].text===unit){sel.selectedIndex=i;break;}}
@@ -1265,6 +1265,225 @@ function addWork(id, name, unit, card) {
 }
 
 // Поиск
+// ─── Каталог материалов (внутренний справочник) ──────────────────────────
+var MAT_CATALOG = [
+  {ozm:'ОЗМ-00123', name:'Рулонный материал (стеклоизол)', unit:'м²'},
+  {ozm:'ОЗМ-00124', name:'Праймер битумный', unit:'л'},
+  {ozm:'ОЗМ-00125', name:'Пропан (горелка)', unit:'кг'},
+  {ozm:'ОЗМ-00201', name:'Цемент М400', unit:'т'},
+  {ozm:'ОЗМ-00202', name:'Песок строительный', unit:'м³'},
+  {ozm:'ОЗМ-00210', name:'Керамзит фр.10-20', unit:'м³'},
+  {ozm:'ОЗМ-00301', name:'Плитка керамическая', unit:'м²'},
+  {ozm:'ОЗМ-00302', name:'Клей плиточный', unit:'кг'},
+  {ozm:'ОЗМ-00303', name:'Затирка', unit:'кг'},
+  {ozm:'ОЗМ-00401', name:'Грунтовка', unit:'л'},
+  {ozm:'ОЗМ-00402', name:'Краска ВД', unit:'кг'},
+  {ozm:'ОЗМ-00501', name:'Ролик опорный', unit:'шт'},
+  {ozm:'ОЗМ-00502', name:'Болт М12×40', unit:'шт'},
+  {ozm:'ОЗМ-00601', name:'Уплотнительные кольца', unit:'шт'},
+  {ozm:'ОЗМ-00602', name:'Смазка', unit:'кг'},
+  {ozm:'ОЗМ-00701', name:'Труба ВК ⌀50', unit:'п.м.'},
+  {ozm:'ОЗМ-00702', name:'Муфта ⌀50', unit:'шт'},
+  {ozm:'ОЗМ-00703', name:'Лён сантехнический', unit:'кг'},
+  {ozm:'—', name:'Бикрост', unit:'м²'},
+  {ozm:'—', name:'Мастика битумная', unit:'кг'},
+  {ozm:'—', name:'Пеноплэкс кровля', unit:'м³'},
+  {ozm:'—', name:'Фартук из оцинкованной стали', unit:'м²'},
+  {ozm:'—', name:'Дюбель 8×80', unit:'шт'},
+  {ozm:'—', name:'Техноэласт СОЛО', unit:'м²'},
+];
+
+// Нормы расхода: {workId: [{matName, norm, unit, ozm, supply}]}
+var WORK_MATS = {
+  1: [{name:'Рулонный материал (стеклоизол)', norm:1.05, unit:'м²', ozm:'ОЗМ-00123', supply:'Заказчик'},
+      {name:'Праймер битумный', norm:0.3, unit:'л', ozm:'ОЗМ-00124', supply:'Подрядчик'}],
+  2: [{name:'Рулонный материал (2 слоя)', norm:2.1, unit:'м²', ozm:'ОЗМ-00123', supply:'Заказчик'},
+      {name:'Пропан (горелка)', norm:0.2, unit:'кг', ozm:'ОЗМ-00125', supply:'Подрядчик'},
+      {name:'Праймер битумный', norm:0.3, unit:'л', ozm:'ОЗМ-00124', supply:'Подрядчик'}],
+  3: [{name:'Мусорный мешок', norm:0.1, unit:'шт', ozm:'—', supply:'Подрядчик'}],
+  4: [{name:'Цемент М400', norm:0.006, unit:'т', ozm:'ОЗМ-00201', supply:'Заказчик'},
+      {name:'Песок строительный', norm:0.012, unit:'м³', ozm:'ОЗМ-00202', supply:'Заказчик'}],
+  5: [{name:'Керамзит фр.10-20', norm:0.15, unit:'м³', ozm:'ОЗМ-00210', supply:'Заказчик'},
+      {name:'Цемент М400', norm:0.004, unit:'т', ozm:'ОЗМ-00201', supply:'Заказчик'}],
+  6: [{name:'Плитка керамическая', norm:1.05, unit:'м²', ozm:'ОЗМ-00301', supply:'Заказчик'},
+      {name:'Клей плиточный', norm:5.5, unit:'кг', ozm:'ОЗМ-00302', supply:'Подрядчик'},
+      {name:'Затирка', norm:0.2, unit:'кг', ozm:'ОЗМ-00303', supply:'Подрядчик'}],
+  7: [{name:'Цемент М400', norm:0.009, unit:'т', ozm:'ОЗМ-00201', supply:'Заказчик'},
+      {name:'Песок строительный', norm:0.018, unit:'м³', ozm:'ОЗМ-00202', supply:'Заказчик'},
+      {name:'Грунтовка', norm:0.15, unit:'л', ozm:'ОЗМ-00401', supply:'Подрядчик'}],
+  8: [{name:'Краска ВД', norm:0.3, unit:'кг', ozm:'ОЗМ-00402', supply:'Подрядчик'},
+      {name:'Грунтовка', norm:0.1, unit:'л', ozm:'ОЗМ-00401', supply:'Подрядчик'}],
+  9: [{name:'Ролик опорный', norm:1, unit:'шт', ozm:'ОЗМ-00501', supply:'Заказчик'},
+      {name:'Болт М12×40', norm:4, unit:'шт', ozm:'ОЗМ-00502', supply:'Подрядчик'}],
+  10:[{name:'Уплотнительные кольца', norm:2, unit:'шт', ozm:'ОЗМ-00601', supply:'Заказчик'},
+      {name:'Смазка', norm:0.05, unit:'кг', ozm:'ОЗМ-00602', supply:'Подрядчик'}],
+  11:[{name:'Труба ВК ⌀50', norm:1.05, unit:'п.м.', ozm:'ОЗМ-00701', supply:'Заказчик'},
+      {name:'Муфта ⌀50', norm:2, unit:'шт', ozm:'ОЗМ-00702', supply:'Подрядчик'},
+      {name:'Лён сантехнический', norm:0.02, unit:'кг', ozm:'ОЗМ-00703', supply:'Подрядчик'}],
+};
+
+function buildMatsTable(workId, workUnit, customMats) {
+  var mats = (WORK_MATS[workId] || []).map(function(m){ return Object.assign({}, m); });
+  if (customMats) mats = mats.concat(customMats);
+  var html = '<div style="min-width:520px">'
+    +'<table style="width:100%;border-collapse:collapse;font-size:11px" id="mat-tbl-'+workId+'">'
+    +'<thead><tr style="background:#F0F4FF">'
+    +'<th style="padding:3px 6px;text-align:left;color:#374151;font-weight:600">№ ОЗМ</th>'
+    +'<th style="padding:3px 6px;text-align:left;color:#374151;font-weight:600">Наименование</th>'
+    +'<th style="padding:3px 6px;text-align:center;color:#374151;font-weight:600">Поставка</th>'
+    +'<th style="padding:3px 6px;text-align:center;color:#374151;font-weight:600">Ед.изм.</th>'
+    +'<th style="padding:3px 6px;text-align:center;color:#374151;font-weight:600">Норма расхода</th>'
+    +'<th style="padding:3px 6px;text-align:center;color:#374151;font-weight:600">Количество (авто)</th>'
+    +'<th style="padding:3px 6px"></th>'
+    +'</tr></thead>'
+    +'<tbody id="mat-rows-'+workId+'">';
+  mats.forEach(function(m, i){
+    html += buildMatRow(workId, i, m, 0);
+  });
+  html += '</tbody></table>'
+    +'<button class="btn btn-o btn-xs" style="margin-top:5px;font-size:10px" onclick="addMatRow('+workId+')">'
+    +'+ Добавить материал</button></div>';
+  return html;
+}
+
+function buildMatRow(workId, idx, mat, qty) {
+  var ozm = mat.ozm || '—';
+  var supplyOpts = ['Заказчик','Подрядчик'].map(function(s){
+    return '<option'+(mat.supply===s?' selected':'')+'>'+s+'</option>';
+  }).join('');
+  var ozmReq = mat.supply === 'Заказчик' ? 'style="border-color:var(--blue)"' : '';
+  return '<tr id="mat-row-'+workId+'-'+idx+'" style="border-bottom:1px solid #F3F4F6">'
+    +'<td style="padding:3px 4px"><input class="qty-i" style="width:80px;font-size:10px" value="'+ozm+'" '+ozmReq+' placeholder="ОЗМ-XXXXX" title="Обязателен для материала заказчика"/></td>'
+    +'<td style="padding:3px 4px"><div style="position:relative"><input class="fi mat-name-inp" style="width:160px;font-size:10px;padding:2px 6px" value="'+mat.name+'" placeholder="Поиск из каталога..." oninput="matSearch(this,'+workId+','+idx+')" autocomplete="off"/><div class="mat-drop" id="mat-drop-'+workId+'-'+idx+'" style="display:none;position:absolute;top:100%;left:0;width:220px;background:#fff;border:1px solid var(--border);border-radius:6px;z-index:99;max-height:160px;overflow-y:auto;box-shadow:0 4px 12px rgba(0,0,0,.1)"></div></div></td>'
+    +'<td style="padding:3px 4px"><select class="fs" style="font-size:10px;padding:2px 5px" onchange="onSupplyChange(this,'+workId+','+idx+')">'+supplyOpts+'</select></td>'
+    +'<td style="padding:3px 4px;text-align:center"><span id="mat-unit-'+workId+'-'+idx+'" style="font-size:10px;color:#6B7280">'+mat.unit+'</span></td>'
+    +'<td style="padding:3px 4px"><input class="qty-i" id="mat-norm-'+workId+'-'+idx+'" style="width:60px;font-size:10px" value="'+mat.norm+'" placeholder="0.0" oninput="recalcMats('+workId+')"/></td>'
+    +'<td style="padding:3px 4px;text-align:center"><span id="mat-qty-'+workId+'-'+idx+'" class="badge b-blue" style="font-size:10px">'+(qty||'—')+'</span></td>'
+    +'<td style="padding:3px 4px"><button class="btn btn-o btn-xs" style="color:var(--red);border-color:#FECACA;font-size:10px" onclick="this.parentNode.parentNode.remove();recalcMats('+workId+')">&#x2715;</button></td>'
+    +'</tr>';
+}
+
+function addMatRow(workId) {
+  var tbody = document.getElementById('mat-rows-'+workId);
+  if (!tbody) return;
+  var idx = tbody.querySelectorAll('tr').length;
+  var newRow = document.createElement('tr');
+  newRow.id = 'mat-row-'+workId+'-'+idx;
+  newRow.style.borderBottom = '1px solid #F3F4F6';
+  newRow.innerHTML = buildMatRow(workId, idx, {name:'',norm:0,unit:'',ozm:'—',supply:'Подрядчик'}, 0).replace(/<tr[^>]*>/,'').replace(/<\/tr>$/,'');
+  // Кнопка «Добавить из каталога»
+  tbody.appendChild(newRow);
+}
+
+function matSearch(inp, workId, idx) {
+  var q = inp.value.trim().toLowerCase();
+  var drop = document.getElementById('mat-drop-'+workId+'-'+idx);
+  if (!drop) return;
+  if (!q) { drop.style.display='none'; return; }
+  // Умный поиск — частичное совпадение + похожие
+  var found = MAT_CATALOG.filter(function(m){
+    return m.name.toLowerCase().indexOf(q) !== -1 || m.ozm.toLowerCase().indexOf(q) !== -1;
+  });
+  // Если не нашли точно — ищем по символам (похожие слова)
+  if (!found.length) {
+    found = MAT_CATALOG.filter(function(m){
+      var name = m.name.toLowerCase();
+      var hits = 0;
+      for (var i=0; i<q.length; i++) { if (name.indexOf(q[i]) !== -1) hits++; }
+      return hits >= Math.floor(q.length * 0.7);
+    });
+  }
+  if (!found.length) {
+    drop.style.display = 'block';
+    drop.innerHTML = '<div style="padding:6px 10px;font-size:11px;color:#6B7280">Не найдено — <button class="btn btn-o btn-xs" onclick="addNewMat(this,'+workId+','+idx+')">+ Добавить в справочник</button></div>';
+    return;
+  }
+  drop.style.display = 'block';
+  drop.innerHTML = '';
+  found.slice(0,8).forEach(function(m){
+    var div = document.createElement('div');
+    div.style.cssText = 'padding:6px 10px;cursor:pointer;border-bottom:1px solid #F3F4F6;font-size:11px';
+    div.innerHTML = '<div style="font-weight:600">'+m.name+'</div><div style="color:#6B7280;font-size:10px">'+m.ozm+' · '+m.unit+'</div>';
+    div.addEventListener('mousedown', (function(mat){ return function(e){ pickMat(e, workId, idx, mat.name, mat.unit, mat.ozm); }; })(m));
+    drop.appendChild(div);
+  });
+  var addDiv = document.createElement('div');
+  addDiv.style.cssText = 'padding:6px 10px;border-top:1px solid #E5E7EB';
+  addDiv.innerHTML = '<button class="btn btn-o btn-xs" style="font-size:10px">+ Добавить новый в справочник</button>';
+  addDiv.querySelector('button').onclick = function(){ addNewMat(this, workId, idx); };
+  drop.appendChild(addDiv);
+}
+
+function pickMat(e, workId, idx, name, unit, ozm) {
+  e.preventDefault();
+  var row = document.getElementById('mat-row-'+workId+'-'+idx);
+  if (!row) return;
+  var nameInp = row.querySelector('.mat-name-inp');
+  if (nameInp) nameInp.value = name;
+  var unitSpan = document.getElementById('mat-unit-'+workId+'-'+idx);
+  if (unitSpan) unitSpan.textContent = unit;
+  var ozmInp = row.querySelector('input[placeholder="ОЗМ-XXXXX"]');
+  if (ozmInp) ozmInp.value = ozm;
+  var drop = document.getElementById('mat-drop-'+workId+'-'+idx);
+  if (drop) drop.style.display = 'none';
+  recalcMats(workId);
+}
+
+function addNewMat(btn, workId, idx) {
+  var row = document.getElementById('mat-row-'+workId+'-'+idx);
+  var nameInp = row ? row.querySelector('.mat-name-inp') : null;
+  var val = nameInp ? nameInp.value.trim() : '';
+  if (!val) return;
+  // Добавляем во внутренний каталог
+  var exists = MAT_CATALOG.find(function(m){ return m.name.toLowerCase() === val.toLowerCase(); });
+  if (!exists) {
+    MAT_CATALOG.push({ozm:'—', name:val, unit:'шт'});
+    alert('✓ Материал «'+val+'» добавлен в справочник. После проверки сметчиком будет доступен всем пользователям.');
+  }
+  var drop = document.getElementById('mat-drop-'+workId+'-'+idx);
+  if (drop) drop.style.display = 'none';
+}
+
+function onSupplyChange(sel, workId, idx) {
+  var row = document.getElementById('mat-row-'+workId+'-'+idx);
+  if (!row) return;
+  var ozmInp = row.querySelector('input[placeholder="ОЗМ-XXXXX"]');
+  if (ozmInp) {
+    if (sel.value === 'Заказчик') {
+      ozmInp.style.borderColor = 'var(--blue)';
+      ozmInp.title = 'Обязателен для материала заказчика';
+    } else {
+      ozmInp.style.borderColor = '';
+      ozmInp.title = '';
+    }
+  }
+}
+
+function recalcMats(workId) {
+  var qtyInp = document.getElementById('ca-q-'+workId);
+  var vol = qtyInp ? parseFloat(qtyInp.value) || 0 : 0;
+  var tbody = document.getElementById('mat-rows-'+workId);
+  if (!tbody) return;
+  var rows = tbody.querySelectorAll('tr');
+  rows.forEach(function(row, i){
+    var normInp = row.querySelector('[id^="mat-norm-"]');
+    var qtySpan = row.querySelector('[id^="mat-qty-"]');
+    if (!normInp || !qtySpan) return;
+    var norm = parseFloat(normInp.value) || 0;
+    var total = vol * norm;
+    var unitSpan = row.querySelector('[id^="mat-unit-"]');
+    var unit = unitSpan ? unitSpan.textContent : '';
+    qtySpan.textContent = total > 0 ? (Math.round(total*1000)/1000) + ' ' + unit : '—';
+  });
+}
+
+// Закрытие выпадающих при клике вне
+document.addEventListener('click', function(e){
+  if (!e.target.classList.contains('mat-name-inp')) {
+    document.querySelectorAll('.mat-drop').forEach(function(d){ d.style.display='none'; });
+  }
+});
+
 var ALL_WORKS=[
   {id:1,name:'Разборка покрытий кровли из рулонных материалов',unit:'м²'},
   {id:2,name:'Устройство кровли из рулонных материалов (2 слоя)',unit:'м²'},
@@ -1320,18 +1539,17 @@ function addManual() {
   var tbody=document.getElementById('works-tbody');
   var tr=document.createElement('tr');
   var unitOpts='<option>м²</option><option>м³</option><option>п.м.</option><option>шт</option><option>т</option><option>кг</option>';
+  var manualId = mIdx;
   tr.innerHTML='<td>'+workCount+'</td>'
     +'<td>'+name+' <span style="font-size:10px;background:var(--amber-l);color:var(--amber);padding:1px 6px;border-radius:10px">ручной</span></td>'
-    +'<td><input class="qty-i" style="width:60px" placeholder="—"/></td>'
+    +'<td><select class="unit-s" id="unit-'+manualId+'" onchange="recalcMats('+manualId+')">'+unitOpts+'</select></td>'
+    +'<td><input class="qty-i" id="ca-q-'+manualId+'" value="'+qty+'" oninput="recalcMats('+manualId+')" style="width:70px"/></td>'
     +'<td><input class="qty-i" style="width:80px" placeholder="—"/></td>'
     +'<td><input class="qty-i" style="width:80px" placeholder="—"/></td>'
-    +'<td><input class="qty-i" style="width:70px" placeholder="0"/></td>'
-    +'<td><select class="unit-s">'+unitOpts+'</select></td>'
-    +'<td><input class="qty-i" value="'+qty+'"/></td>'
-    +'<td><input class="fi" style="width:140px;font-size:11px;padding:3px 7px" placeholder="—"/></td>'
+    +'<td>'+buildMatsTable(manualId, unit, [])+'</td>'
     +'<td><input class="fi" style="width:100px;font-size:11px;padding:3px 7px" placeholder="—"/></td>'
     +'<td><span class="badge b-amber">? Требует проверки</span></td>'
-    +'<td><button class="btn btn-o btn-xs" onclick="this.parentNode.parentNode.remove();workCount--;">✕</button></td>';
+    +'<td><button class="btn btn-o btn-xs" onclick="this.parentNode.parentNode.remove();workCount--;">&#x2715;</button></td>';
   var sel=tr.querySelector('select');
   for(var i=0;i<sel.options.length;i++){if(sel.options[i].text===unit){sel.selectedIndex=i;break;}}
   tbody.appendChild(tr);
