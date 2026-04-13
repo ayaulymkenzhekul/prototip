@@ -253,12 +253,17 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
     <!-- Фильтры -->
     <div class="fc gap8 mb14" style="flex-wrap:wrap">
       <input class="fi" id="flt-search" placeholder="🔍 Поиск по номеру / объекту..." oninput="filterDV()" style="width:260px"/>
-      <select class="fs" id="flt-status" onchange="filterDV()" style="width:180px">
+      <select class="fs" id="flt-status" onchange="filterDV()" style="width:220px">
         <option value="">Все статусы</option>
+        <option value="created">📝 Создаётся</option>
+        <option value="approval">⏳ На утверждении</option>
+        <option value="rework">↩ На доработке</option>
+        <option value="comment">💬 Запрошен комментарий</option>
+        <option value="approved">✓ Утверждена</option>
+        <option value="smetchik">📋 На осмечивании</option>
         <option value="done">✓ Смета готова</option>
-        <option value="esed">⏳ На согласовании</option>
-        <option value="smetchik">📋 У сметчика</option>
-        <option value="new">📤 Отправлена в ЕСЭД</option>
+        <option value="closed">🎉 Завершена</option>
+        <option value="cancelled">✕ Аннулирована</option>
       </select>
       <input class="fi" id="flt-from" type="date" onchange="filterDV()" style="width:150px" title="Дата от"/>
       <input class="fi" id="flt-to" type="date" onchange="filterDV()" style="width:150px" title="Дата до"/>
@@ -300,8 +305,22 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
           </div>
           <div class="f full">
             <label class="fl">Объект <span class="req">*</span></label>
-            <input class="fi" id="f-obj" placeholder="Название объекта и вид работ"/>
-            <div class="fhint" id="h-obj">Обязательное поле</div>
+            <div style="position:relative">
+              <div class="fi" id="f-obj-display" onclick="toggleObjTree()" style="cursor:pointer;user-select:none;min-height:36px;display:flex;align-items:center;flex-wrap:wrap;gap:4px;padding:6px 11px"
+                   id="f-obj-display">
+                <span id="f-obj-placeholder" style="color:#9CA3AF;font-size:13px">Нажмите для выбора объекта...</span>
+              </div>
+              <input type="hidden" id="f-obj" value=""/>
+              <!-- Дерево объектов -->
+              <div id="obj-tree-drop" style="display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid var(--border);border-radius:8px;z-index:100;box-shadow:0 8px 24px rgba(0,0,0,.12);max-height:320px;overflow-y:auto;margin-top:4px">
+                <div style="padding:8px 12px;background:#F9FAFB;border-bottom:1px solid var(--border);font-size:11px;color:#6B7280">
+                  Выберите один или несколько объектов
+                  <button class="btn btn-o btn-xs" style="float:right;font-size:10px" onclick="clearObjSelection()">Сбросить</button>
+                </div>
+                <div id="obj-tree-body" style="padding:8px 0"></div>
+              </div>
+            </div>
+            <div class="fhint" id="h-obj">Выберите хотя бы один объект</div>
           </div>
           <div class="f">
             <label class="fl">Предприятие</label>
@@ -413,7 +432,7 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
       <div id="works-empty" style="text-align:center;padding:28px;color:var(--t3);font-size:13px">Добавьте работы из каталога выше</div>
       <div id="works-wrap" style="display:none">
         <table>
-          <thead><tr><th>№</th><th>Наименование работы</th><th>Ед. изм.</th><th>Количество</th><th>Вес единицы, кг</th><th>Общий вес, т</th><th>Потребные материалы</th><th>Примечание</th><th>Статус ЦА</th><th></th></tr></thead>
+          <thead><tr><th>№</th><th>Наименование работы</th><th>Ед. изм.</th><th>Объём работ</th><th>Вес единицы, кг</th><th>Общий вес, т (авто)</th><th>Потребные материалы</th><th>Примечание</th><th>Статус ЦА</th><th></th></tr></thead>
           <tbody id="works-tbody"></tbody>
         </table>
       </div>
@@ -443,10 +462,25 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
           <label class="fl">Общие примечания</label>
           <textarea class="ft" id="f-note" placeholder="Технические условия, особенности объекта, замена материалов..." style="margin-top:4px"></textarea>
         </div>
-        <div class="f">
-          <label class="fl">Материалы заказчика (SAP/ОЗМ)</label>
-          <input class="fi" id="f-ozm" placeholder="№ ОЗМ — наименование материала" style="margin-top:4px"/>
-          <div class="t-xs t3 mt8">Если требуется материал заказчика — укажите номер ОЗМ из МДМ-каталога</div>
+        <div class="alert a-blue" style="margin-top:14px">
+          📦 Все потребные материалы добавляются на шаге 2 — в карточке каждой работы.<br>
+          Материал без привязки к работе добавить нельзя.
+        </div>
+      </div>
+    </div>
+    <!-- Тотал материалов -->
+    <div class="card mt12">
+      <div class="card-h" style="background:#F9FAFB">
+        <div class="card-t">📦 Итого по материалам</div>
+        <div class="fc gap8">
+          <button class="btn btn-o btn-xs" onclick="filterMatsTotal('all')" id="mf-all" style="background:var(--blue);color:#fff;border-color:var(--blue)">Все</button>
+          <button class="btn btn-o btn-xs" onclick="filterMatsTotal('zakazchik')" id="mf-zak">Заказчик</button>
+          <button class="btn btn-o btn-xs" onclick="filterMatsTotal('podryadchik')" id="mf-pod">Подрядчик</button>
+        </div>
+      </div>
+      <div id="mats-total-wrap" style="padding:14px 18px">
+        <div style="text-align:center;color:var(--t3);font-size:13px;padding:20px">
+          Добавьте работы и материалы на шаге 2 — здесь появится сводка
         </div>
       </div>
     </div>
@@ -906,9 +940,9 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
 // ═══ ДАННЫЕ ═══
 var USERS = {
   zayavitel: {name:'Иванова С.М.',role:'Куратор / Заявитель',initials:'ИС',color:'var(--blue)',home:'list',
-    nav:[{ic:'📋',label:'Мои ведомости',badge:'3',pg:'list'},{ic:'➕',label:'Новая ведомость',badge:'',pg:'new1'},{ic:'📥',label:'Входящие сметы',badge:'',pg:'inbox'}]},
+    nav:[{ic:'📋',label:'Мои ведомости',badge:'3',pg:'list'}]},
   smetchik: {name:'Ахметов С.Б.',role:'Сметчик',initials:'АС',color:'var(--green)',home:'inbox',
-    nav:[{ic:'📋',label:'Мои ведомости',badge:'2',pg:'list'},{ic:'➕',label:'Новая ведомость',badge:'',pg:'new1'},{ic:'📥',label:'Входящие сметы',badge:'2',pg:'inbox'}]}
+    nav:[{ic:'📥',label:'Входящие сметы',badge:'2',pg:'inbox'}]}
 };
 
 var BREAD = {
@@ -928,8 +962,10 @@ var BREAD = {
 var DEFAULT_DV = {
   zayavitel:[
     {num:'AOK-ES-2026-C-56-144',obj:'Склад УСХ — Кровля',cnt:3,status:'done',date:'31.03.2026'},
-    {num:'AOK-ES-2026-C-55-110',obj:'Цех №3 — Полы',cnt:5,status:'esed',date:'30.03.2026'},
-    {num:'AOK-ES-2026-C-54-099',obj:'АБК 4 — Окна',cnt:2,status:'smetchik',date:'28.03.2026'}
+    {num:'AOK-ES-2026-C-55-110',obj:'Цех №3 — Полы',cnt:5,status:'approval',date:'30.03.2026'},
+    {num:'AOK-ES-2026-C-54-099',obj:'АБК 4 — Окна',cnt:2,status:'rework',date:'28.03.2026'},
+    {num:'AOK-ES-2026-C-51-066',obj:'Насосная станция — Трубы',cnt:4,status:'comment',date:'25.03.2026'},
+    {num:'AOK-ES-2026-C-50-055',obj:'Склад №2 — Кровля',cnt:1,status:'cancelled',date:'20.03.2026'}
   ],
   smetchik:[
     {num:'AOK-ES-2026-C-53-088',obj:'Котельная — Трубопроводы',cnt:4,status:'done',date:'27.03.2026'},
@@ -948,12 +984,24 @@ var DEFAULT_INBOX = {
 };
 
 var STATUS_MAP = {
-  done:'<span class="badge b-green">✓ Смета готова</span>',
+  created:    '<span class="badge b-gray">📝 Создаётся</span>',
+  approval:   '<span class="badge b-amber">⏳ На утверждении</span>',
+  rework:     '<span class="badge b-red">↩ На доработке</span>',
+  comment:    '<span class="badge b-amber">💬 Запрошен комментарий</span>',
+  approved:   '<span class="badge b-blue">✓ Утверждена</span>',
+  smetchik:   '<span class="badge b-blue">📋 На осмечивании</span>',
+  done:       '<span class="badge b-green">✓ Смета готова</span>',
+  closed:     '<span class="badge b-green">🎉 Завершена</span>',
+  cancelled:  '<span class="badge b-red">✕ Аннулирована</span>',
+  // legacy
   esed:'<span class="badge b-amber">⏳ На согласовании</span>',
-  smetchik:'<span class="badge b-blue">📋 У сметчика</span>',
   new:'<span class="badge b-amber">📤 Отправлена в ЕСЭД</span>'
 };
-var STATUS_COLOR = { done:'#16A34A', esed:'#D97706', smetchik:'#2563EB', new:'#D97706' };
+var STATUS_COLOR = {
+  created:'#6B7280', approval:'#D97706', rework:'#DC2626', comment:'#D97706',
+  approved:'#2563EB', smetchik:'#2563EB', done:'#16A34A', closed:'#16A34A',
+  cancelled:'#DC2626', esed:'#D97706', new:'#D97706'
+};
 
 // Загрузка/сохранение
 function loadData(key, def) { try { var s=localStorage.getItem(key); return s?JSON.parse(s):JSON.parse(JSON.stringify(def)); } catch(e){return JSON.parse(JSON.stringify(def));} }
@@ -988,6 +1036,7 @@ function gotoPage(pg) {
   if (pg==='inbox') renderInbox();
   if (pg==='new1') resetForm();
   if (pg==='new4') fillPreview();
+  if (pg==='new3') { setTimeout(function(){ renderMatsTotal(); }, 50); }
   if (pg==='sent') fillSent();
 
   window.scrollTo(0,0);
@@ -1184,7 +1233,8 @@ function confirmSmeta() {
 // ═══ UC-01 ФОРМА ═══
 function resetForm() {
   worksAdded=[]; workCount=0; mIdx=100;
-  ['f-num','f-obj','f-ent','f-appr','f-cur','f-note','f-ozm'].forEach(function(id){
+  selectedObjs = {}; updateObjDisplay();
+  ['f-num','f-ent','f-appr','f-cur','f-note'].forEach(function(id){
     var el=document.getElementById(id); if(el){el.value='';el.classList.remove('err');}
   });
   var fd=document.getElementById('f-date'); if(fd) fd.value=new Date().toISOString().split('T')[0];
@@ -1208,8 +1258,17 @@ function validateStep1() {
   var ok=true;
   if(!num){document.getElementById('f-num').classList.add('err');document.getElementById('h-num').classList.add('show');document.getElementById('err-banner').style.display='flex';ok=false;}
   else{document.getElementById('f-num').classList.remove('err');document.getElementById('h-num').classList.remove('show');}
-  if(!obj){document.getElementById('f-obj').classList.add('err');document.getElementById('h-obj').classList.add('show');document.getElementById('err-banner').style.display='flex';ok=false;}
-  else{document.getElementById('f-obj').classList.remove('err');document.getElementById('h-obj').classList.remove('show');}
+  // Объект теперь через дерево выбора
+  var objDisplay = document.getElementById('f-obj-display');
+  if(!obj || !Object.keys(selectedObjs).length){
+    if(objDisplay) objDisplay.style.borderColor='var(--red)';
+    document.getElementById('h-obj').classList.add('show');
+    document.getElementById('err-banner').style.display='flex';
+    ok=false;
+  } else {
+    if(objDisplay) objDisplay.style.borderColor='';
+    document.getElementById('h-obj').classList.remove('show');
+  }
   if(ok){document.getElementById('err-banner').style.display='none';gotoPage('new2');}
 }
 
@@ -1244,10 +1303,10 @@ function addWork(id, name, unit, card) {
   // Потребные материалы из карточки
   var matsHtml = buildMatsTable(id, unit);
   tr.innerHTML='<td>'+n+'</td><td>'+name+'</td>'
-    +'<td><select class="unit-s" id="unit-'+id+'" onchange="recalcMats('+id+')">'+unitOpts+'</select></td>'
-    +'<td><input class="qty-i" id="ca-q-'+id+'" placeholder="0" oninput="recalcMats('+id+')" style="width:70px"/></td>'
-    +'<td><input class="qty-i" style="width:80px" placeholder="—"/></td>'
-    +'<td><input class="qty-i" style="width:80px" placeholder="—"/></td>'
+    +'<td><select class="unit-s" id="unit-'+id+'" onchange="recalcMats('+id+');recalcWeight('+id+')">'+unitOpts+'</select></td>'
+    +'<td><input class="qty-i" id="ca-q-'+id+'" placeholder="0" oninput="recalcMats('+id+');recalcWeight('+id+')" style="width:70px"/></td>'
+    +'<td><input class="qty-i" id="wt-unit-'+id+'" style="width:80px" placeholder="0" oninput="recalcWeight('+id+')"/></td>'
+    +'<td><span id="wt-total-'+id+'" class="badge b-gray" style="font-size:11px">—</span></td>'
     +'<td id="mats-td-'+id+'">'+matsHtml+'</td>'
     +'<td><input class="fi" style="width:100px;font-size:11px;padding:3px 7px" placeholder="—"/></td>'
     +'<td id="ca-b-'+id+'"><span class="badge b-amber">⏳ ЦА думает...</span></td>'
@@ -1352,9 +1411,18 @@ function buildMatRow(workId, idx, mat, qty) {
     return '<option'+(mat.supply===s?' selected':'')+'>'+s+'</option>';
   }).join('');
   var ozmReq = mat.supply === 'Заказчик' ? 'style="border-color:var(--blue)"' : '';
-  return '<tr id="mat-row-'+workId+'-'+idx+'" style="border-bottom:1px solid #F3F4F6">'
+  // Визуальное выделение: из каталога (fromCatalog=true) — зелёная, ручной — жёлтая
+  var fromCatalog = mat.fromCatalog !== false && mat.name; // все из WORK_MATS считаются из каталога
+  var rowBg = fromCatalog ? 'background:#F0FDF4' : 'background:#FFFBEB';
+  var rowBorder = fromCatalog ? 'border-left:3px solid #16A34A' : 'border-left:3px solid #D97706';
+  var srcTag = fromCatalog
+    ? '<span title="Из справочника" style="font-size:9px;background:#DCFCE7;color:#15803D;padding:1px 4px;border-radius:4px;margin-left:3px">📋 каталог</span>'
+    : '<span title="Добавлен вручную" style="font-size:9px;background:#FEF3C7;color:#92400E;padding:1px 4px;border-radius:4px;margin-left:3px">✏️ вручную</span>';
+  return '<tr id="mat-row-'+workId+'-'+idx+'" style="border-bottom:1px solid #F3F4F6;'+rowBg+';'+rowBorder+'">'
     +'<td style="padding:3px 4px"><input class="qty-i" style="width:80px;font-size:10px" value="'+ozm+'" '+ozmReq+' placeholder="ОЗМ-XXXXX" title="Обязателен для материала заказчика"/></td>'
-    +'<td style="padding:3px 4px"><div style="position:relative"><input class="fi mat-name-inp" style="width:160px;font-size:10px;padding:2px 6px" value="'+mat.name+'" placeholder="Поиск из каталога..." oninput="matSearch(this,'+workId+','+idx+')" autocomplete="off"/><div class="mat-drop" id="mat-drop-'+workId+'-'+idx+'" style="display:none;position:absolute;top:100%;left:0;width:220px;background:#fff;border:1px solid var(--border);border-radius:6px;z-index:99;max-height:160px;overflow-y:auto;box-shadow:0 4px 12px rgba(0,0,0,.1)"></div></div></td>'
+    +'<td style="padding:3px 4px"><div style="position:relative">'
+    +'<input class="fi mat-name-inp" style="width:150px;font-size:10px;padding:2px 6px" value="'+mat.name+'" placeholder="Поиск из каталога..." oninput="matSearch(this,'+workId+','+idx+')" autocomplete="off"/>'+srcTag
+    +'<div class="mat-drop" id="mat-drop-'+workId+'-'+idx+'" style="display:none;position:absolute;top:100%;left:0;width:220px;background:#fff;border:1px solid var(--border);border-radius:6px;z-index:99;max-height:160px;overflow-y:auto;box-shadow:0 4px 12px rgba(0,0,0,.1)"></div></div></td>'
     +'<td style="padding:3px 4px"><select class="fs" style="font-size:10px;padding:2px 5px" onchange="onSupplyChange(this,'+workId+','+idx+')">'+supplyOpts+'</select></td>'
     +'<td style="padding:3px 4px;text-align:center"><span id="mat-unit-'+workId+'-'+idx+'" style="font-size:10px;color:#6B7280">'+mat.unit+'</span></td>'
     +'<td style="padding:3px 4px"><input class="qty-i" id="mat-norm-'+workId+'-'+idx+'" style="width:60px;font-size:10px" value="'+mat.norm+'" placeholder="0.0" oninput="recalcMats('+workId+')"/></td>'
@@ -1367,11 +1435,9 @@ function addMatRow(workId) {
   var tbody = document.getElementById('mat-rows-'+workId);
   if (!tbody) return;
   var idx = tbody.querySelectorAll('tr').length;
-  var newRow = document.createElement('tr');
-  newRow.id = 'mat-row-'+workId+'-'+idx;
-  newRow.style.borderBottom = '1px solid #F3F4F6';
-  newRow.innerHTML = buildMatRow(workId, idx, {name:'',norm:0,unit:'',ozm:'—',supply:'Подрядчик'}, 0).replace(/<tr[^>]*>/,'').replace(/<\/tr>$/,'');
-  // Кнопка «Добавить из каталога»
+  var tmp = document.createElement('tbody');
+  tmp.innerHTML = buildMatRow(workId, idx, {name:'',norm:0,unit:'шт',ozm:'—',supply:'Подрядчик',fromCatalog:false}, 0);
+  var newRow = tmp.firstChild;
   tbody.appendChild(newRow);
 }
 
@@ -1426,6 +1492,16 @@ function pickMat(e, workId, idx, name, unit, ozm) {
   if (ozmInp) ozmInp.value = ozm;
   var drop = document.getElementById('mat-drop-'+workId+'-'+idx);
   if (drop) drop.style.display = 'none';
+  // Пометить как из каталога — зелёная подсветка
+  row.style.background = '#F0FDF4';
+  row.style.borderLeft = '3px solid #16A34A';
+  var srcTag = row.querySelector('span[title]');
+  if (srcTag) {
+    srcTag.textContent = '📋 каталог';
+    srcTag.style.background = '#DCFCE7';
+    srcTag.style.color = '#15803D';
+    srcTag.title = 'Из справочника';
+  }
   recalcMats(workId);
 }
 
@@ -1477,12 +1553,323 @@ function recalcMats(workId) {
   });
 }
 
+function recalcWeight(workId) {
+  var vol = parseFloat((document.getElementById('ca-q-'+workId)||{}).value) || 0;
+  var wtUnit = parseFloat((document.getElementById('wt-unit-'+workId)||{}).value) || 0;
+  var total = document.getElementById('wt-total-'+workId);
+  if (total) {
+    if (vol > 0 && wtUnit > 0) {
+      var t = Math.round(vol * wtUnit / 1000 * 1000) / 1000;
+      total.textContent = t + ' т';
+      total.className = 'badge b-blue';
+    } else {
+      total.textContent = '—';
+      total.className = 'badge b-gray';
+    }
+  }
+}
+
 // Закрытие выпадающих при клике вне
 document.addEventListener('click', function(e){
   if (!e.target.classList.contains('mat-name-inp')) {
     document.querySelectorAll('.mat-drop').forEach(function(d){ d.style.display='none'; });
   }
 });
+
+// ─── Дерево объектов ERG ──────────────────────────────────────────────────
+var OBJ_TREE = [
+  {id:'erg', label:'ERG', children:[
+    {id:'aok', label:'АлюминийКазахстана (АОК)', children:[
+      {id:'aok-sklad', label:'Склад УСХ', children:[]},
+      {id:'aok-ceh1', label:'Цех №1 — Электролиз', children:[]},
+      {id:'aok-ceh2', label:'Цех №2 — Анодный', children:[]},
+      {id:'aok-ceh3', label:'Цех №3 — Литейный', children:[]},
+      {id:'aok-abk', label:'АБК — Административный корпус', children:[]},
+      {id:'aok-kotel', label:'Котельная', children:[]},
+      {id:'aok-garazh', label:'Гараж', children:[]},
+    ]},
+    {id:'dgok', label:'ДГОК — Донской ГОК', children:[
+      {id:'dgok-nasosn', label:'Насосная станция', children:[]},
+      {id:'dgok-drob', label:'Дробильный цех', children:[]},
+      {id:'dgok-sklad', label:'Склад руды', children:[]},
+    ]},
+    {id:'erg-center', label:'Сервисный центр ERG', children:[
+      {id:'erg-abk', label:'АБК — Главный офис', children:[]},
+      {id:'erg-sklad', label:'Склад №2', children:[]},
+    ]},
+  ]}
+];
+
+var selectedObjs = {}; // {id: label}
+
+function toggleObjTree() {
+  var drop = document.getElementById('obj-tree-drop');
+  if (!drop) return;
+  if (drop.style.display === 'none') {
+    renderObjTree();
+    drop.style.display = 'block';
+  } else {
+    drop.style.display = 'none';
+  }
+}
+
+function renderObjTree() {
+  var body = document.getElementById('obj-tree-body');
+  if (!body) return;
+  body.innerHTML = '';
+  function renderNode(node, depth) {
+    var div = document.createElement('div');
+    div.style.paddingLeft = (depth * 16 + 8) + 'px';
+    div.style.paddingRight = '8px';
+    div.style.paddingTop = '5px';
+    div.style.paddingBottom = '5px';
+    div.style.cursor = 'pointer';
+    div.style.display = 'flex';
+    div.style.alignItems = 'center';
+    div.style.gap = '8px';
+    div.style.fontSize = '13px';
+    div.style.color = '#374151';
+    div.onmouseenter = function(){ div.style.background = '#F3F4F6'; };
+    div.onmouseleave = function(){ div.style.background = ''; };
+
+    var hasChildren = node.children && node.children.length > 0;
+    var isLeaf = !hasChildren;
+
+    if (isLeaf) {
+      // Объект — показываем чекбокс
+      var cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.checked = !!selectedObjs[node.id];
+      cb.style.cursor = 'pointer';
+      cb.onchange = function(e) {
+        e.stopPropagation();
+        if (cb.checked) {
+          selectedObjs[node.id] = node.label;
+        } else {
+          delete selectedObjs[node.id];
+        }
+        updateObjDisplay();
+      };
+      div.appendChild(cb);
+      var lbl = document.createElement('span');
+      lbl.textContent = node.label;
+      if (selectedObjs[node.id]) lbl.style.fontWeight = '600';
+      div.appendChild(lbl);
+      div.onclick = function() { cb.click(); };
+    } else {
+      // Группа — показываем стрелку
+      var arrow = document.createElement('span');
+      arrow.textContent = '▾';
+      arrow.style.color = '#6B7280';
+      arrow.style.fontSize = '11px';
+      div.appendChild(arrow);
+      var lbl = document.createElement('span');
+      lbl.textContent = node.label;
+      lbl.style.fontWeight = '600';
+      lbl.style.color = '#1F2937';
+      div.appendChild(lbl);
+    }
+
+    body.appendChild(div);
+    if (node.children) node.children.forEach(function(ch){ renderNode(ch, depth+1); });
+  }
+  OBJ_TREE.forEach(function(n){ renderNode(n, 0); });
+}
+
+function updateObjDisplay() {
+  var display = document.getElementById('f-obj-display');
+  var placeholder = document.getElementById('f-obj-placeholder');
+  var hidden = document.getElementById('f-obj');
+  var keys = Object.keys(selectedObjs);
+  if (!display) return;
+
+  // Убираем старые теги
+  Array.from(display.querySelectorAll('.obj-tag')).forEach(function(t){ t.remove(); });
+
+  if (!keys.length) {
+    if (placeholder) placeholder.style.display = 'inline';
+    if (hidden) hidden.value = '';
+  } else {
+    if (placeholder) placeholder.style.display = 'none';
+    keys.forEach(function(id){
+      var tag = document.createElement('span');
+      tag.className = 'obj-tag';
+      tag.style.cssText = 'background:var(--blue-l);color:var(--blue);padding:2px 8px;border-radius:12px;font-size:12px;font-weight:500;display:inline-flex;align-items:center;gap:4px';
+      var span = document.createElement('span'); span.style.cssText='cursor:pointer;font-size:14px;line-height:1'; span.textContent='×'; (function(oid){ span.onclick=function(e){e.stopPropagation();removeObj(oid);}; })(id); tag.textContent=''; tag.appendChild(document.createTextNode(selectedObjs[id]+' ')); tag.appendChild(span);
+      display.insertBefore(tag, placeholder || null);
+    });
+    if (hidden) hidden.value = keys.map(function(id){ return selectedObjs[id]; }).join('; ');
+  }
+}
+
+function removeObj(id) {
+  delete selectedObjs[id];
+  updateObjDisplay();
+}
+
+function clearObjSelection() {
+  selectedObjs = {};
+  updateObjDisplay();
+  renderObjTree();
+}
+
+// Закрытие дерева при клике вне
+document.addEventListener('click', function(e) {
+  var drop = document.getElementById('obj-tree-drop');
+  var display = document.getElementById('f-obj-display');
+  if (drop && display && !drop.contains(e.target) && !display.contains(e.target)) {
+    drop.style.display = 'none';
+  }
+});
+
+// ─── Тотал материалов (шаг 3) ─────────────────────────────────────────────
+var matsFilter = 'all';
+
+function filterMatsTotal(f) {
+  matsFilter = f;
+  ['all','zakazchik','podryadchik'].forEach(function(k){
+    var btn = document.getElementById('mf-'+k);
+    if (btn) {
+      btn.style.background = k===f ? 'var(--blue)' : '';
+      btn.style.color = k===f ? '#fff' : '';
+      btn.style.borderColor = k===f ? 'var(--blue)' : '';
+    }
+  });
+  renderMatsTotal();
+}
+
+function renderMatsTotal() {
+  var wrap = document.getElementById('mats-total-wrap');
+  if (!wrap) return;
+
+  // Собираем все материалы из всех строк таблицы работ
+  var allMats = {};
+  var rows = document.querySelectorAll('#works-tbody tr');
+  rows.forEach(function(tr){
+    var workName = tr.cells[1] ? tr.cells[1].textContent.trim() : '—';
+    var matsTd = tr.querySelector('[id^="mats-td-"]');
+    if (!matsTd) return;
+    var matRows = matsTd.querySelectorAll('[id^="mat-row-"]');
+    matRows.forEach(function(mr){
+      var nameInp = mr.querySelector('.mat-name-inp');
+      var name = nameInp ? nameInp.value.trim() : '';
+      if (!name) return;
+
+      var supplyEl = mr.querySelector('select');
+      var supply = supplyEl ? supplyEl.value : 'Подрядчик';
+
+      var unitEl = mr.querySelector('[id^="mat-unit-"]');
+      var unit = unitEl ? unitEl.textContent.trim() : '';
+
+      var qtyEl = mr.querySelector('[id^="mat-qty-"]');
+      var qty = qtyEl ? qtyEl.textContent.trim() : '—';
+
+      var ozmInp = mr.querySelector('input[placeholder="ОЗМ-XXXXX"]');
+      var ozm = ozmInp ? ozmInp.value.trim() : '—';
+
+      var fromCatalog = mr.style.borderLeft.indexOf('#16A34A') !== -1;
+
+      if (matsFilter === 'zakazchik' && supply !== 'Заказчик') return;
+      if (matsFilter === 'podryadchik' && supply !== 'Подрядчик') return;
+
+      var key = name + '||' + unit + '||' + supply;
+      if (!allMats[key]) {
+        allMats[key] = {name:name, unit:unit, supply:supply, ozm:ozm, fromCatalog:fromCatalog, works:[], totalQty:0};
+      }
+      allMats[key].works.push(workName);
+      // Пробуем суммировать количество
+      var numQty = parseFloat(qty);
+      if (!isNaN(numQty)) allMats[key].totalQty += numQty;
+    });
+  });
+
+  var keys = Object.keys(allMats);
+  if (!keys.length) {
+    wrap.innerHTML = '<div style="text-align:center;color:var(--t3);font-size:13px;padding:20px">Нет материалов — добавьте работы на шаге 2</div>';
+    return;
+  }
+
+  wrap.innerHTML = '';
+  var table = document.createElement('table');
+  table.style.cssText = 'width:100%;border-collapse:collapse;font-size:13px';
+  table.innerHTML = '<thead><tr style="background:#F9FAFB">'
+    +'<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);font-size:11px;color:var(--t3);text-transform:uppercase">Наименование</th>'
+    +'<th style="padding:8px 12px;text-align:center;border-bottom:1px solid var(--border);font-size:11px;color:var(--t3);text-transform:uppercase">Поставка</th>'
+    +'<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);font-size:11px;color:var(--t3);text-transform:uppercase">№ ОЗМ</th>'
+    +'<th style="padding:8px 12px;text-align:center;border-bottom:1px solid var(--border);font-size:11px;color:var(--t3);text-transform:uppercase">Ед.изм.</th>'
+    +'<th style="padding:8px 12px;text-align:center;border-bottom:1px solid var(--border);font-size:11px;color:var(--t3);text-transform:uppercase">Общее количество</th>'
+    +'<th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);font-size:11px;color:var(--t3);text-transform:uppercase">Работы</th>'
+    +'<th style="padding:8px 12px;border-bottom:1px solid var(--border)"></th>'
+    +'</tr></thead>';
+  var tbody = document.createElement('tbody');
+  table.appendChild(tbody);
+
+  keys.forEach(function(k){
+    var m = allMats[k];
+    var supplyBadge = m.supply === 'Заказчик'
+      ? '<span class="badge b-blue">Заказчик</span>'
+      : '<span class="badge b-gray">Подрядчик</span>';
+    var qty = m.totalQty > 0 ? (Math.round(m.totalQty*1000)/1000) + ' ' + m.unit : '—';
+
+    var tr = document.createElement('tr');
+    tr.style.borderBottom = '1px solid #F3F4F6';
+
+    // Наименование + бейдж источника
+    var tdName = document.createElement('td');
+    tdName.style.cssText = 'padding:8px 12px;font-weight:500';
+    tdName.appendChild(document.createTextNode(m.name));
+    tr.appendChild(tdName);
+
+    // Поставка
+    var tdSupply = document.createElement('td');
+    tdSupply.style.cssText = 'padding:8px 12px;text-align:center';
+    tdSupply.innerHTML = supplyBadge;
+    tr.appendChild(tdSupply);
+
+    // ОЗМ
+    var tdOzm = document.createElement('td');
+    tdOzm.style.cssText = 'padding:8px 12px;font-family:monospace;font-size:11px;color:var(--t3)';
+    tdOzm.textContent = m.ozm;
+    tr.appendChild(tdOzm);
+
+    // Ед.изм.
+    var tdUnit = document.createElement('td');
+    tdUnit.style.cssText = 'padding:8px 12px;text-align:center;color:var(--t3)';
+    tdUnit.textContent = m.unit;
+    tr.appendChild(tdUnit);
+
+    // Количество
+    var tdQty = document.createElement('td');
+    tdQty.style.cssText = 'padding:8px 12px;text-align:center';
+    tdQty.innerHTML = '<strong>' + qty + '</strong>';
+    tr.appendChild(tdQty);
+
+    // Работы
+    var tdWorks = document.createElement('td');
+    tdWorks.style.cssText = 'padding:8px 12px;font-size:11px;color:var(--t3)';
+    tdWorks.textContent = m.works.join(', ');
+    tr.appendChild(tdWorks);
+
+    // Кнопка редактирования
+    var tdBtn = document.createElement('td');
+    tdBtn.style.cssText = 'padding:8px 12px;text-align:center';
+    var editBtn = document.createElement('button');
+    editBtn.className = 'btn btn-o btn-xs';
+    editBtn.title = 'Редактировать материал';
+    editBtn.textContent = '✏️';
+    (function(mat, row){
+      editBtn.onclick = function(){
+        openMatEditModal(mat);
+      };
+    })(m, tr);
+    tdBtn.appendChild(editBtn);
+    tr.appendChild(tdBtn);
+
+    tbody.appendChild(tr);
+  });
+
+  wrap.appendChild(table);
+}
 
 var ALL_WORKS=[
   {id:1,name:'Разборка покрытий кровли из рулонных материалов',unit:'м²'},
@@ -1542,10 +1929,10 @@ function addManual() {
   var manualId = mIdx;
   tr.innerHTML='<td>'+workCount+'</td>'
     +'<td>'+name+' <span style="font-size:10px;background:var(--amber-l);color:var(--amber);padding:1px 6px;border-radius:10px">ручной</span></td>'
-    +'<td><select class="unit-s" id="unit-'+manualId+'" onchange="recalcMats('+manualId+')">'+unitOpts+'</select></td>'
-    +'<td><input class="qty-i" id="ca-q-'+manualId+'" value="'+qty+'" oninput="recalcMats('+manualId+')" style="width:70px"/></td>'
-    +'<td><input class="qty-i" style="width:80px" placeholder="—"/></td>'
-    +'<td><input class="qty-i" style="width:80px" placeholder="—"/></td>'
+    +'<td><select class="unit-s" id="unit-'+manualId+'" onchange="recalcMats('+manualId+');recalcWeight('+manualId+')">'+unitOpts+'</select></td>'
+    +'<td><input class="qty-i" id="ca-q-'+manualId+'" value="'+qty+'" oninput="recalcMats('+manualId+');recalcWeight('+manualId+')" style="width:70px"/></td>'
+    +'<td><input class="qty-i" id="wt-unit-'+manualId+'" style="width:80px" placeholder="0" oninput="recalcWeight('+manualId+')"/></td>'
+    +'<td><span id="wt-total-'+manualId+'" class="badge b-gray" style="font-size:11px">—</span></td>'
     +'<td>'+buildMatsTable(manualId, unit, [])+'</td>'
     +'<td><input class="fi" style="width:100px;font-size:11px;padding:3px 7px" placeholder="—"/></td>'
     +'<td><span class="badge b-amber">? Требует проверки</span></td>'
@@ -1615,7 +2002,7 @@ function sendDV() {
   if(!dvData[currentUser]) dvData[currentUser]=[];
   var exists=dvData[currentUser].find(function(d){return d.num===num;});
   if(!exists) {
-    dvData[currentUser].unshift({num:num,obj:obj,cnt:cnt,status:'new',date:today});
+    dvData[currentUser].unshift({num:num,obj:obj,cnt:cnt,status:'approval',date:today});
   } else {
     exists.status='new';
   }
@@ -2393,6 +2780,108 @@ gotoPage = function(pg) {
   }
 };
 
+// ─── Редактирование материала из итоговой таблицы ────────────────────────
+var currentMatEdit = null; // ссылка на объект материала
+
+function openMatEditModal(mat) {
+  currentMatEdit = mat;
+  document.getElementById('mat-edit-modal').classList.add('open');
+  document.getElementById('mat-edit-name').value = mat.name || '';
+  document.getElementById('mat-edit-ozm').value = mat.ozm || '—';
+  document.getElementById('mat-edit-unit').value = mat.unit || '';
+  document.getElementById('mat-edit-norm').value = mat.norm || '';
+  document.getElementById('mat-edit-supply').value = mat.supply || 'Подрядчик';
+  document.getElementById('mat-edit-work-name').textContent = 'Работы: ' + (mat.works ? mat.works.join(', ') : '—');
+  document.getElementById('mat-edit-drop').style.display = 'none';
+  onMatEditSupplyChange();
+}
+
+function closeMatEditModal() {
+  document.getElementById('mat-edit-modal').classList.remove('open');
+  currentMatEdit = null;
+}
+
+function onMatEditSupplyChange() {
+  var supply = document.getElementById('mat-edit-supply').value;
+  var ozmInp = document.getElementById('mat-edit-ozm');
+  if (ozmInp) {
+    ozmInp.style.borderColor = supply === 'Заказчик' ? 'var(--blue)' : '';
+  }
+}
+
+function matEditSearch(q) {
+  var drop = document.getElementById('mat-edit-drop');
+  if (!drop) return;
+  if (!q.trim()) { drop.style.display = 'none'; return; }
+  var found = MAT_CATALOG.filter(function(m){
+    return m.name.toLowerCase().indexOf(q.toLowerCase()) !== -1 || m.ozm.toLowerCase().indexOf(q.toLowerCase()) !== -1;
+  });
+  if (!found.length) {
+    drop.style.display = 'block';
+    drop.innerHTML = '<div style="padding:8px 12px;font-size:12px;color:var(--t3)">Не найдено в каталоге</div>';
+    return;
+  }
+  drop.style.display = 'block';
+  drop.innerHTML = '';
+  found.slice(0,8).forEach(function(m){
+    var div = document.createElement('div');
+    div.style.cssText = 'padding:8px 12px;cursor:pointer;border-bottom:1px solid #F3F4F6;font-size:13px';
+    div.onmouseenter = function(){ div.style.background='#F3F4F6'; };
+    div.onmouseleave = function(){ div.style.background=''; };
+    div.innerHTML = '<div style="font-weight:500">'+m.name+'</div><div style="font-size:11px;color:var(--t3)">'+m.ozm+' · '+m.unit+'</div>';
+    div.onclick = function(){
+      document.getElementById('mat-edit-name').value = m.name;
+      document.getElementById('mat-edit-ozm').value = m.ozm;
+      document.getElementById('mat-edit-unit').value = m.unit;
+      drop.style.display = 'none';
+    };
+    drop.appendChild(div);
+  });
+}
+
+function saveMatEdit() {
+  if (!currentMatEdit) return;
+  var newName = document.getElementById('mat-edit-name').value.trim();
+  var newOzm = document.getElementById('mat-edit-ozm').value.trim();
+  var newUnit = document.getElementById('mat-edit-unit').value.trim();
+  var newNorm = parseFloat(document.getElementById('mat-edit-norm').value) || 0;
+  var newSupply = document.getElementById('mat-edit-supply').value;
+
+  if (!newName) { alert('Укажите наименование материала'); return; }
+
+  // Применяем изменения ко всем строкам с таким же именем в таблице работ
+  var allNameInps = document.querySelectorAll('.mat-name-inp');
+  allNameInps.forEach(function(inp){
+    if (inp.value.trim() === currentMatEdit.name) {
+      var row = inp.closest('tr');
+      if (!row) return;
+      inp.value = newName;
+      // ОЗМ
+      var ozmInp = row.querySelector('input[placeholder="ОЗМ-XXXXX"]');
+      if (ozmInp) ozmInp.value = newOzm;
+      // Поставка
+      var supplyEl = row.querySelector('select');
+      if (supplyEl) supplyEl.value = newSupply;
+      // Ед.изм.
+      var unitSpan = row.querySelector('[id^="mat-unit-"]');
+      if (unitSpan) unitSpan.textContent = newUnit;
+      // Норма
+      var normInp = row.querySelector('[id^="mat-norm-"]');
+      if (normInp) { normInp.value = newNorm; }
+      // Подсветка цвета строки
+      row.style.background = '#F0FDF4';
+      row.style.borderLeft = '3px solid #16A34A';
+      // Пересчитываем
+      var workIdMatch = row.id ? row.id.match(/mat-row-(\d+)-/) : null;
+      if (workIdMatch) recalcMats(parseInt(workIdMatch[1]));
+    }
+  });
+
+  closeMatEditModal();
+  // Обновляем таблицу итого
+  setTimeout(function(){ renderMatsTotal(); }, 100);
+}
+
 // ═══ ИНИЦИАЛИЗАЦИЯ ═══
 // Очищаем все старые данные чата из предыдущих версий
 try {
@@ -2407,6 +2896,63 @@ try {
 } catch(e){}
 document.getElementById('f-date') && (document.getElementById('f-date').value = new Date().toISOString().split('T')[0]);
 </script>
+
+<!-- MODAL: Редактирование материала из итоговой таблицы -->
+<div class="modal-ov" id="mat-edit-modal" style="align-items:stretch;padding:0">
+  <div class="modal" style="width:100vw;max-width:100vw;height:100vh;margin:0;border-radius:0;display:flex;flex-direction:column">
+    <div class="modal-h" style="padding:16px 24px">
+      <div>
+        <div class="modal-t">✏️ Редактирование материала</div>
+        <div style="font-size:11px;color:var(--t3);margin-top:2px" id="mat-edit-work-name">—</div>
+      </div>
+      <button class="modal-x" onclick="closeMatEditModal()">✕</button>
+    </div>
+    <div style="flex:1;overflow-y:auto;padding:24px">
+      <div style="max-width:700px;margin:0 auto">
+        <div class="fg">
+          <div class="f full">
+            <label class="fl">Наименование материала</label>
+            <div style="position:relative;margin-top:4px">
+              <input class="fi" id="mat-edit-name" placeholder="Поиск из каталога..." oninput="matEditSearch(this.value)" autocomplete="off"/>
+              <div id="mat-edit-drop" style="display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid var(--border);border-radius:8px;z-index:99;max-height:200px;overflow-y:auto;box-shadow:0 4px 12px rgba(0,0,0,.1);margin-top:4px"></div>
+            </div>
+          </div>
+          <div class="f">
+            <label class="fl">№ ОЗМ</label>
+            <input class="fi" id="mat-edit-ozm" placeholder="ОЗМ-XXXXX" style="margin-top:4px"/>
+            <div class="t-xs t3 mt8">Обязателен для материала заказчика</div>
+          </div>
+          <div class="f">
+            <label class="fl">Поставка <span class="req">*</span></label>
+            <select class="fs" id="mat-edit-supply" style="margin-top:4px" onchange="onMatEditSupplyChange()">
+              <option>Заказчик</option>
+              <option>Подрядчик</option>
+            </select>
+          </div>
+          <div class="f">
+            <label class="fl">Единица измерения</label>
+            <input class="fi" id="mat-edit-unit" placeholder="м², кг, шт..." style="margin-top:4px"/>
+          </div>
+          <div class="f">
+            <label class="fl">Норма расхода (на ед. работы)</label>
+            <input class="fi" id="mat-edit-norm" type="number" placeholder="0.0" step="0.001" style="margin-top:4px"/>
+          </div>
+          <div class="f">
+            <label class="fl">Количество (авто)</label>
+            <div class="fi" id="mat-edit-qty" style="margin-top:4px;background:#F9FAFB;color:var(--t3)">Рассчитывается автоматически</div>
+          </div>
+        </div>
+        <div class="alert a-blue mt12">
+          ℹ️ Изменения применятся к материалу во всех работах где он встречается с таким же названием.
+        </div>
+      </div>
+    </div>
+    <div class="modal-f" style="padding:14px 24px">
+      <button class="btn btn-o" onclick="closeMatEditModal()">Отмена</button>
+      <button class="btn btn-g" onclick="saveMatEdit()">💾 Сохранить изменения</button>
+    </div>
+  </div>
+</div>
 
 <!-- MODAL: Редактирование позиции -->
 <div class="modal-ov" id="edit-modal">
