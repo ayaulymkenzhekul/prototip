@@ -1298,38 +1298,6 @@ var currentUser=null,selectedObjs={};
 var activeCatSection=null,activeCatTab='user',openNodes={};
 var currentLeftTab='works'; // 'works' or 'mats'
 var draftReadOnly=false;
-var EXT_WORKS_DB=[],EXT_MATERIALS_DB=[],extCatalogState='idle';
-var EXT_WORKS_LIMIT=60,EXT_MATERIALS_LIMIT=80;
-
-function extNorm(v){return String(v||'').toLowerCase();}
-function extInc(v,q){return extNorm(v).indexOf(extNorm(q))!==-1;}
-function makeExternalWork(raw){
- return {id:1000000+Number(raw.id||0),section:activeCatSection||'1112-raz',name:raw.name_ru||raw.code||'Позиция РСМБ',unit:raw.unit_ru||'шт',desc:raw.code?('Код РСМБ: '+raw.code):'Позиция из полной базы',isUser:false,approved:true,uses:0,mainMats:[],miscMats:[],externalCode:raw.code||'',externalGroup:raw.group||'',external:true};
-}
-function getExternalWorksFound(q){
- var query=(q||'').trim();if(!query||!EXT_WORKS_DB.length)return [];
- var out=[];for(var i=0;i<EXT_WORKS_DB.length;i++){var item=EXT_WORKS_DB[i];if(extInc(item.name_ru,query)||extInc(item.code,query)){out.push(makeExternalWork(item));if(out.length>=EXT_WORKS_LIMIT)break;}}
- return out;
-}
-function getExternalMaterialsFound(q){
- var query=(q||'').trim();if(!EXT_MATERIALS_DB.length)return [];
- var out=[];for(var i=0;i<EXT_MATERIALS_DB.length;i++){var item=EXT_MATERIALS_DB[i];if(!query||extInc(item.name_ru,query)||extInc(item.code,query)){out.push({name:item.name_ru||item.code||'Материал',ozm:item.code||'—',unit:item.unit_ru||'шт',key:'external',external:true});if(out.length>=(query?EXT_MATERIALS_LIMIT:30))break;}}
- return out;
-}
-function loadExternalCatalogData(){
- if(extCatalogState==='loading'||extCatalogState==='ready')return;
- extCatalogState='loading';
- Promise.all([
-  fetch('./works-search.json').then(function(r){if(!r.ok)throw new Error('works-search.json');return r.json();}),
-  fetch('./materials-search.json').then(function(r){if(!r.ok)throw new Error('materials-search.json');return r.json();})
- ]).then(function(data){
-  EXT_WORKS_DB=data[0]||[];EXT_MATERIALS_DB=data[1]||[];extCatalogState='ready';
-  showToast('Полная база подключена','success','Работы: '+EXT_WORKS_DB.length+' · Материалы: '+EXT_MATERIALS_DB.length);
- }).catch(function(err){
-  extCatalogState='error';console.warn('Не удалось загрузить полную базу',err);
-  showToast('Полная база не подключилась','info','Проверь запуск через локальный сервер или GitHub Pages');
- });
-}
 
 // Разделы работ для левой панели
 var WORK_SECTIONS=[
@@ -1804,11 +1772,8 @@ function showSSCResults(q,body,bc,sectionKey){
   var allItems=[];
   var keys=sectionKey?[sectionKey]:Object.keys(SSC_ITEMS);
   keys.forEach(function(k){(SSC_ITEMS[k]||[]).forEach(function(name,i){allItems.push({name:name,ozm:'ОЗМ-'+String(10000+i*37+k.length*13).padStart(5,'0'),unit:'шт',key:k});});});
-  if(!sectionKey){
-    MAT_CATALOG.forEach(function(m){allItems.push({name:m.name,ozm:m.ozm,unit:m.unit,key:'catalog'});});
-    if(extCatalogState==='ready')allItems=allItems.concat(getExternalMaterialsFound(q));
-  }
-  var found=q?allItems.filter(function(i){return i.name.toLowerCase().includes(q.toLowerCase())||String(i.ozm||'').toLowerCase().includes(q.toLowerCase());}):allItems;
+  if(!sectionKey)MAT_CATALOG.forEach(function(m){allItems.push({name:m.name,ozm:m.ozm,unit:m.unit,key:'catalog'});});
+  var found=q?allItems.filter(function(i){return i.name.toLowerCase().includes(q.toLowerCase());}):allItems;
   if(bc)bc.textContent=found.length+' материалов'+(q?' по «'+q+'»':'');
   if(!body)return;
   body.innerHTML='';
@@ -1816,7 +1781,7 @@ function showSSCResults(q,body,bc,sectionKey){
     var div=document.createElement('div');
     div.style.cssText='display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid #F3F4F6;cursor:pointer';
     div.onmouseenter=function(){div.style.background='#EFF6FF';};div.onmouseleave=function(){div.style.background='';};
-    div.innerHTML='<div><div style="font-size:13px;font-weight:500">'+item.name+'</div><div style="font-size:10px;color:var(--t3);font-family:monospace;margin-top:2px">'+item.ozm+(item.external?' · полная база':'')+'</div></div><button class="btn btn-p btn-xs">Выбрать</button>';
+    div.innerHTML='<div><div style="font-size:13px;font-weight:500">'+item.name+'</div><div style="font-size:10px;color:var(--t3);font-family:monospace;margin-top:2px">'+item.ozm+'</div></div><button class="btn btn-p btn-xs">Выбрать</button>';
     div.querySelector('button').onclick=function(e){
       e.stopPropagation();
       if(_activeMatInput){
@@ -2300,22 +2265,19 @@ function addWorkFromCatalog(w,card,btn){
 function doGlobalSearch(q){
  var drop=document.getElementById('global-sdrop');if(!q.trim()){drop.style.display='none';return;}
  var all=WORKS_DB.filter(function(w){return isWorkAvailable(w)&&w.name.toLowerCase().includes(q.toLowerCase());});
- var extAll=extCatalogState==='ready'?getExternalWorksFound(q):[];
- if(extCatalogState==='loading'){drop.style.display='block';drop.innerHTML='<div style="padding:12px 14px;font-size:12px;color:var(--t3)">Полная база загружается…</div>';return;}
  var userF=all.filter(function(w){return w.isUser;});
  var sysF=all.filter(function(w){return !w.isUser;});
- var sorted=userF.concat(sysF).concat(extAll);
+ var sorted=userF.concat(sysF);
  drop.style.display='block';drop.innerHTML='';
  if(!sorted.length){drop.innerHTML='<div style="padding:12px 14px;font-size:12px;color:var(--t3)">Ничего не найдено — <button class="btn btn-o btn-xs" onclick="toggleManual()">введите вручную</button></div>';return;}
  if(userF.length){var sh=document.createElement('div');sh.style.cssText='padding:4px 12px;font-size:10px;font-weight:700;color:var(--purple);background:var(--purple-l);text-transform:uppercase;letter-spacing:.4px';sh.textContent=' Наши позиции (приоритет)';drop.appendChild(sh);}
- var shownSep=false,shownExt=false;
- sorted.slice(0,20).forEach(function(w,i){
- if(!w.isUser&&!w.external&&userF.length&&!shownSep){shownSep=true;var s2=document.createElement('div');s2.style.cssText='padding:4px 12px;font-size:10px;font-weight:700;color:var(--t3);background:#F9FAFB;text-transform:uppercase;letter-spacing:.4px;border-top:1px solid var(--border)';s2.textContent=' РСМБ';drop.appendChild(s2);}
- if(w.external&&!shownExt){shownExt=true;var s3=document.createElement('div');s3.style.cssText='padding:4px 12px;font-size:10px;font-weight:700;color:var(--blue);background:#EFF6FF;text-transform:uppercase;letter-spacing:.4px;border-top:1px solid var(--border)';s3.textContent=' Полная база';drop.appendChild(s3);}
+ var shownSep=false;
+ sorted.slice(0,8).forEach(function(w,i){
+ if(!w.isUser&&userF.length&&!shownSep){shownSep=true;var s2=document.createElement('div');s2.style.cssText='padding:4px 12px;font-size:10px;font-weight:700;color:var(--t3);background:#F9FAFB;text-transform:uppercase;letter-spacing:.4px;border-top:1px solid var(--border)';s2.textContent=' РСМБ';drop.appendChild(s2);}
  var item=document.createElement('div');
  item.style.cssText='display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--border);cursor:pointer'+(w.isUser?';background:var(--purple-l)':'');
  item.onmouseenter=function(){this.style.background=w.isUser?'#EDE9FE':'#F0F9FF';};item.onmouseleave=function(){this.style.background=w.isUser?'var(--purple-l)':'';};
- item.innerHTML='<div style="flex:1;font-size:13px">'+(w.isUser?'<span class="user-tag" style="margin-right:4px"></span>':'')+w.name+' <span style="color:var(--t3);font-size:11px">· '+w.unit+(w.externalCode?' · '+w.externalCode:'')+'</span></div><button class="btn btn-p btn-sm">+ Добавить</button>';
+ item.innerHTML='<div style="flex:1;font-size:13px">'+(w.isUser?'<span class="user-tag" style="margin-right:4px"></span>':'')+w.name+' <span style="color:var(--t3);font-size:11px">· '+w.unit+'</span></div><button class="btn btn-p btn-sm">+ Добавить</button>';
  item.querySelector('button').onclick=function(e){e.stopPropagation();addWorkFromCatalog(w,null,null);document.getElementById('cat-search').value='';drop.style.display='none';};
  item.onclick=function(){addWorkFromCatalog(w,null,null);document.getElementById('cat-search').value='';drop.style.display='none';};
  drop.appendChild(item);
@@ -3090,7 +3052,6 @@ function showToast(msg, type, detail){
 
 // ИНИЦИАЛИЗАЦИЯ
 document.getElementById('f-date')&&(document.getElementById('f-date').value=new Date().toISOString().split('T')[0]);
-loadExternalCatalogData();
 </script>
 </body>
 </html>
