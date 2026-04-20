@@ -94,7 +94,13 @@ tbody tr:last-child td{border-bottom:none}
 tbody tr:hover td{background:#FAFAFA}
 .mono{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gray)}
 .qty-i{width:70px;border:1px solid var(--border);border-radius:6px;padding:4px 7px;font-size:12px;text-align:center;font-family:'JetBrains Mono',monospace}
-.unit-s{border:1px solid var(--border);border-radius:6px;padding:4px 7px;font-size:12px;font-family:inherit;background:var(--white);color:var(--text)}
+.unit-s{border:1px solid var(--border);border-radius:10px;padding:9px 34px 9px 12px;font-size:13px;font-family:inherit;background:linear-gradient(180deg,#FFFFFF 0%,#F8FAFC 100%);color:var(--text);min-width:92px;appearance:none;-webkit-appearance:none;-moz-appearance:none;outline:none;transition:border-color .15s,box-shadow .15s,transform .15s;cursor:pointer;font-weight:400}
+.unit-s:hover{border-color:#CBD5E1}
+.unit-s:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(37,99,235,.12)}
+.unit-pick{position:relative;display:inline-flex;align-items:center}
+.unit-pick:after{content:'⌄';position:absolute;right:12px;top:50%;transform:translateY(-52%);font-size:14px;color:var(--t3);pointer-events:none}
+.unit-s.unit-s-sm{min-width:68px;padding:5px 24px 5px 8px;font-size:10px;border-radius:8px;background:#fff}
+.unit-pick.unit-pick-sm:after{right:8px;font-size:11px}
 
 /* ИЕРАРХИЧЕСКИЙ КАТАЛОГ (NEW) */
 .cat-hier{display:grid;grid-template-columns:240px 1fr;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;background:var(--white);margin-bottom:14px}
@@ -218,11 +224,22 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
 .admin-row{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid #F3F4F6;font-size:13px}
 .admin-row:hover{background:#FAFAFA}
 .admin-row:last-child{border-bottom:none}
-.toast{position:fixed;bottom:24px;right:24px;z-index:9999;padding:12px 18px;border-radius:8px;font-size:13px;font-weight:500;font-family:'Inter',sans-serif;box-shadow:0 4px 16px rgba(0,0,0,.12);display:flex;align-items:center;gap:10px;transform:translateY(80px);opacity:0;transition:all .3s;max-width:380px;pointer-events:none}
-.toast.show{transform:translateY(0);opacity:1;pointer-events:auto}
-.toast-success{background:#fff;border:1px solid #BBF7D0;color:#14532D;border-left:4px solid #16A34A}
-.toast-error{background:#fff;border:1px solid #FECACA;color:#991B1B;border-left:4px solid #DC2626}
-.toast-info{background:#fff;border:1px solid #BFDBFE;color:#1E40AF;border-left:4px solid #2563EB}
+.toast{position:fixed;right:24px;bottom:24px;z-index:9999;display:flex;align-items:flex-start;gap:12px;min-width:320px;max-width:420px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);box-shadow:0 18px 40px rgba(15,23,42,.18);transform:translateY(26px) scale(.96);opacity:0;transition:transform .28s ease,opacity .28s ease,box-shadow .28s ease;pointer-events:none;border:1px solid rgba(255,255,255,.7);overflow:hidden}
+.toast:before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--blue)}
+.toast.show{transform:translateY(0) scale(1);opacity:1;pointer-events:auto}
+.toast-success{color:#14532D}
+.toast-success:before{background:linear-gradient(180deg,#22C55E 0%,#16A34A 100%)}
+.toast-error{color:#991B1B}
+.toast-error:before{background:linear-gradient(180deg,#EF4444 0%,#DC2626 100%)}
+.toast-info{color:#1E40AF}
+.toast-info:before{background:linear-gradient(180deg,#3B82F6 0%,#2563EB 100%)}
+.toast-icon{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:17px;font-weight:700;margin-left:4px}
+.toast-success .toast-icon{background:#ECFDF5;color:#16A34A}
+.toast-error .toast-icon{background:#FEF2F2;color:#DC2626}
+.toast-info .toast-icon{background:#EFF6FF;color:#2563EB}
+.toast-copy{display:flex;flex-direction:column;gap:3px;padding-right:6px}
+.toast-title{font-size:13px;font-weight:700;color:var(--text);line-height:1.2}
+.toast-msg{font-size:12px;line-height:1.45;color:var(--t2)}
 </style>
 </head>
 <body>
@@ -1770,7 +1787,7 @@ function showSSCResults(q,body,bc,sectionKey){
       if(_activeMatInput){
         _activeMatInput.value=item.name;
         var row=document.getElementById('mat-row-'+_activeMatWorkId+'-'+_activeMatIdx);
-        if(row){var oi=row.querySelector('input[placeholder="ОЗМ-XXXXX"]');if(oi)oi.value=item.ozm;var us=document.getElementById('mat-unit-'+_activeMatWorkId+'-'+_activeMatIdx);if(us)us.textContent=item.unit;row.style.background='#F0FDF4';row.style.borderLeft='3px solid #16A34A';recalcMats(_activeMatWorkId);}
+        if(row){var oi=row.querySelector('input[placeholder="ОЗМ-XXXXX"]');if(oi)oi.value=item.ozm;var us=document.getElementById('mat-unit-'+_activeMatWorkId+'-'+_activeMatIdx);if(us)us.value=item.unit;row.style.background='#F0FDF4';row.style.borderLeft='3px solid #16A34A';recalcMats(_activeMatWorkId);}
         _activeMatInput=null;
       }
       showWorksPanel();
@@ -2134,6 +2151,7 @@ function buildMatsTable(workId,workUnit,customMats){
 function buildMatRow(workId,idx,mat,qty){
   var ozm=mat.ozm||'—';
   var supplyOpts=['Заказчик','Подрядчик'].map(function(s){return '<option'+(mat.supply===s?' selected':'')+'>'+s+'</option>';}).join('');
+  var unitOpts=[mat.unit,'м²','м³','п.м.','шт','т','кг','л'].filter(function(u,i,a){return u&&a.indexOf(u)===i;}).map(function(u){return '<option'+(mat.unit===u?' selected':'')+'>'+u+'</option>';}).join('');
   var ozmStyle=mat.supply==='Заказчик'?'style="border-color:var(--blue)"':'';
   var rowBg=mat.fromCatalog===false?'background:#FFFBEB':'background:#F0FDF4';
   var rowBorder=mat.fromCatalog===false?'border-left:3px solid #D97706':'border-left:3px solid #16A34A';
@@ -2146,7 +2164,7 @@ function buildMatRow(workId,idx,mat,qty){
     +'<input class="fi mat-name-inp" style="width:150px;font-size:10px;padding:2px 6px" value="'+mat.name+'" placeholder="Поиск из каталога..." oninput="matSearch(this,'+workId+','+idx+')" autocomplete="off"/>'+srcTag
     +'<div class="mat-drop" id="mat-drop-'+workId+'-'+idx+'" style="display:none;position:absolute;top:100%;left:0;width:220px;background:#fff;border:1px solid var(--border);border-radius:6px;z-index:99;max-height:160px;overflow-y:auto;box-shadow:0 4px 12px rgba(0,0,0,.1)"></div></div></td>'
     +'<td style="padding:3px 4px"><select class="fs" style="font-size:10px;padding:2px 5px" onchange="onSupplyChange(this,'+workId+','+idx+')">'+supplyOpts+'</select></td>'
-    +'<td style="padding:3px 4px;text-align:center"><span id="mat-unit-'+workId+'-'+idx+'" style="font-size:10px;color:#6B7280">'+mat.unit+'</span></td>'
+    +'<td style="padding:3px 4px;text-align:center"><div class="unit-pick unit-pick-sm"><select class="unit-s unit-s-sm" id="mat-unit-'+workId+'-'+idx+'" onchange="recalcMats('+workId+')">'+unitOpts+'</select></div></td>'
     +'<td style="padding:3px 4px"><input class="qty-i" id="mat-norm-'+workId+'-'+idx+'" style="width:60px;font-size:10px" value="'+mat.norm+'" placeholder="0.0" oninput="recalcMats('+workId+')"/></td>'
     +'<td style="padding:3px 4px;text-align:center"><span id="mat-qty-'+workId+'-'+idx+'" class="badge b-blue" style="font-size:10px">'+(qty||'—')+'</span></td>'
     +'<td style="padding:3px 4px"><button class="btn btn-o btn-xs" style="color:var(--red);border-color:#FECACA;font-size:10px" onclick="this.parentNode.parentNode.remove();recalcMats('+workId+')">x</button></td>'
@@ -2190,7 +2208,7 @@ function recalcMats(workId){
   tbody.querySelectorAll('tr').forEach(function(row){
     var ni=row.querySelector('[id^="mat-norm-"]');var qi=row.querySelector('[id^="mat-qty-"]');if(!ni||!qi)return;
     var norm=parseFloat(ni.value)||0;var total=vol*norm;
-    var ui=row.querySelector('[id^="mat-unit-"]');var unit=ui?ui.textContent:'';
+    var ui=row.querySelector('[id^="mat-unit-"]');var unit=ui?(ui.value||ui.textContent):'';
     qi.textContent=total>0?(Math.round(total*1000)/1000)+' '+unit:'—';
   });
 }
@@ -2226,7 +2244,7 @@ function addWorkFromCatalog(w,card,btn){
  var unitOpts='<option>'+w.unit+'</option><option>м²</option><option>м³</option><option>п.м.</option><option>шт</option><option>т</option><option>кг</option>';
  tr.innerHTML='<td>'+(worksAdded.length)+'</td>'
  +'<td>'+(w.isUser?'<span class="user-tag" style="margin-right:4px">Наша</span>':'')+w.name+'</td>'
- +'<td><select class="unit-s" id="unit-'+w.id+'" onchange="recalcMats('+w.id+');recalcWeight('+w.id+')">'+unitOpts+'</select></td>'
+ +'<td><div class="unit-pick"><select class="unit-s" id="unit-'+w.id+'" onchange="recalcMats('+w.id+');recalcWeight('+w.id+')">'+unitOpts+'</select></div></td>'
  +'<td><input class="qty-i" id="ca-q-'+w.id+'" placeholder="0" oninput="recalcMats('+w.id+');recalcWeight('+w.id+')" style="width:65px"/></td>'
  +'<td><input class="qty-i" id="wt-unit-'+w.id+'" style="width:70px" placeholder="0" oninput="recalcWeight('+w.id+')"/></td>'
  +'<td><span id="wt-total-'+w.id+'" class="badge b-gray" style="font-size:11px">—</span></td>'
@@ -2318,8 +2336,8 @@ function renderMatsTotal(){
      if(!name)return;
      var supplyEl=mr.querySelector('select');
      var supply=supplyEl?supplyEl.value:'Подрядчик';
-     var unitEl=mr.querySelector('[id^="mat-unit-"]');
-     var unit=unitEl?unitEl.textContent.trim():'';
+    var unitEl=mr.querySelector('[id^="mat-unit-"]');
+    var unit=unitEl?(unitEl.value||unitEl.textContent).trim():'';
      var ozmInp=mr.querySelector('input[placeholder="ОЗМ-XXXXX"]');
      var ozm=ozmInp?ozmInp.value.trim():'—';
      var qtyEl=mr.querySelector('[id^="mat-qty-"]');
@@ -2378,8 +2396,8 @@ function switchSupplyInTable(key,newSupply){
    matsTd.querySelectorAll('[id^="mat-row-"]').forEach(function(mr){
      var nameInp=mr.querySelector('.mat-name-inp');
      var name=nameInp?nameInp.value.trim():'';
-     var unitEl=mr.querySelector('[id^="mat-unit-"]');
-     var unit=unitEl?unitEl.textContent.trim():'';
+    var unitEl=mr.querySelector('[id^="mat-unit-"]');
+    var unit=unitEl?(unitEl.value||unitEl.textContent).trim():'';
      var supplyEl=mr.querySelector('select');
      var cur=supplyEl?supplyEl.value:'';
      if((name+'||'+unit+'||'+cur)===key&&supplyEl)supplyEl.value=newSupply;
@@ -2978,7 +2996,7 @@ function openUsesModal(work){
   document.getElementById('uses-modal').classList.add('open');
 }
 
-function copyCurrentDV(){var vt=document.getElementById('view-title');var num=vt?vt.textContent:'ДВ';var today=new Date().toLocaleDateString('ru-RU');var src=(dvData[currentUser]||[]).find(function(d){return d.num===num;});if(src){var copy={num:src.num+'-КОПИЯ',obj:src.obj,cnt:src.cnt,status:'new',date:today};if(!dvData[currentUser])dvData[currentUser]=[];dvData[currentUser].unshift(copy);dvList=dvData[currentUser];saveData('dvData3',dvData);alert('Создана копия: '+copy.num);}}
+function copyCurrentDV(){var vt=document.getElementById('view-title');var num=vt?vt.textContent:'ДВ';var today=new Date().toLocaleDateString('ru-RU');var src=(dvData[currentUser]||[]).find(function(d){return d.num===num;});if(src){var copy={num:src.num+'-КОПИЯ',obj:src.obj,cnt:src.cnt,status:'new',date:today};if(!dvData[currentUser])dvData[currentUser]=[];dvData[currentUser].unshift(copy);dvList=dvData[currentUser];saveData('dvData3',dvData);showToast('Копия ДВ создана', 'success', 'Новая карточка: '+copy.num);}}
 function exportCurrentDV(){var vt=document.getElementById('view-title');var num=vt?vt.textContent:'DV';var rows=[['Номер','Объект','Статус']];var src=(dvData[currentUser]||[]).find(function(d){return d.num===num;});if(src)rows.push([src.num,src.obj,src.status]);var csv=rows.map(function(r){return r.join(';');}).join('\n');var a=document.createElement('a');a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);a.download=num+'.csv';a.click();}
 
 // СМЕТЧИК ПРЕДЛАГАЕТ ПОЗИЦИЮ → НУРЛАНОВУ 
@@ -3020,15 +3038,16 @@ function submitProposedPosition(){
 
 // TOAST
 var _toastTimer=null;
-function showToast(msg, type){
+function showToast(msg, type, detail){
   var t=document.getElementById('app-toast');
   if(!t){t=document.createElement('div');t.id='app-toast';document.body.appendChild(t);}
   t.className='toast toast-'+(type||'info');
-  var icon=type==='success'?'<div style="width:18px;height:18px;border-radius:50%;background:#16A34A;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">v</div>':type==='error'?'<div style="width:18px;height:18px;border-radius:50%;background:#DC2626;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">!</div>':'<div style="width:18px;height:18px;border-radius:50%;background:#2563EB;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">i</div>';
-  t.innerHTML=icon+'<span>'+msg+'</span>';
+  var icon=type==='success'?'✓':type==='error'?'!':'i';
+  var title=type==='success'?'Готово':type==='error'?'Ошибка':'Уведомление';
+  t.innerHTML='<div class="toast-icon">'+icon+'</div><div class="toast-copy"><div class="toast-title">'+title+'</div><div class="toast-msg">'+msg+(detail?'<br>'+detail:'')+'</div></div>';
   setTimeout(function(){t.classList.add('show');},10);
   if(_toastTimer)clearTimeout(_toastTimer);
-  _toastTimer=setTimeout(function(){t.classList.remove('show');},3500);
+  _toastTimer=setTimeout(function(){t.classList.remove('show');},3800);
 }
 
 // ИНИЦИАЛИЗАЦИЯ
