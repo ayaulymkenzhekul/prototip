@@ -259,7 +259,7 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
  <div class="breadcrumb" id="breadcrumb">—</div>
  <div class="tb-actions">
  <button class="btn btn-o btn-sm" onclick="showNotifications()">Уведомления <span id="notif-cnt" style="display:none;background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:20px;margin-left:4px">0</span></button>
- <button class="btn btn-p btn-sm" id="btn-new" onclick="gotoPage('new1')" style="display:none">+ Новая ДВ</button>
+ <button class="btn btn-p btn-sm" id="btn-new" onclick="startNewDV()" style="display:none">+ Новая ДВ</button>
  <button class="btn btn-o btn-sm" onclick="logout()">Выйти →</button>
  </div>
  </div>
@@ -648,10 +648,11 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
  </div>
  </div>
  <div class="alert a-purple"><strong>Пользовательские позиции</strong> — проверенные работы вашей организации. Они показываются ПЕРВЫМИ при поиске и в каталоге. Новые позиции требуют одобрения старшего сметчика.</div>
- <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px">
+ <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:18px">
  <div class="card"><div class="card-b" style="text-align:center"><div style="font-size:24px;font-weight:700;color:var(--purple)" id="stat-total">0</div><div class="t-xs t3 mt8">Всего позиций</div></div></div>
  <div class="card"><div class="card-b" style="text-align:center"><div style="font-size:24px;font-weight:700;color:var(--green)" id="stat-approved">0</div><div class="t-xs t3 mt8">Одобрено</div></div></div>
  <div class="card"><div class="card-b" style="text-align:center"><div style="font-size:24px;font-weight:700;color:var(--amber)" id="stat-pending">0</div><div class="t-xs t3 mt8">На проверке</div></div></div>
+ <div class="card"><div class="card-b" style="text-align:center"><div style="font-size:24px;font-weight:700;color:var(--red)" id="stat-rejected">0</div><div class="t-xs t3 mt8">Отклонено</div></div></div>
  <div class="card" style="cursor:pointer" onclick="openAllUsesModal()"><div class="card-b" style="text-align:center"><div style="font-size:24px;font-weight:700;color:var(--blue)" id="stat-uses">0</div><div class="t-xs t3 mt8">Раз добавлено в ДВ</div><div style="font-size:10px;color:var(--blue);margin-top:4px">Нажмите для просмотра</div></div></div>
  </div>
  <div class="fc gap8 mb14">
@@ -1298,6 +1299,138 @@ var currentUser=null,selectedObjs={};
 var activeCatSection=null,activeCatTab='user',openNodes={};
 var currentLeftTab='works'; // 'works' or 'mats'
 var draftReadOnly=false;
+var DEFAULT_DRAFT_TBODY_HTML=null;
+function getDefaultDraftTbodyHtml(){var tb=document.getElementById('draft-tbody');if(!DEFAULT_DRAFT_TBODY_HTML&&tb)DEFAULT_DRAFT_TBODY_HTML=tb.innerHTML;return DEFAULT_DRAFT_TBODY_HTML||'';}
+function setDraftLockNotice(show,item){
+ var box=document.getElementById('draft-lock-notice');
+ var host=document.getElementById('pg-draft');
+ if(!box&&host){
+   box=document.createElement('div');
+   box.id='draft-lock-notice';
+   box.className='alert a-amber';
+   box.style.display='none';
+   var ref=host.querySelector('.card.mb14');
+   host.insertBefore(box,ref||host.children[1]||null);
+ }
+ if(box){
+   box.innerHTML='Смету нельзя редактировать, так как она уже закрыта. Доступен только просмотр.';
+   box.style.display=show?'flex':'none';
+ }
+}
+function showClosedDraftNotice(){
+ setDraftLockNotice(true);
+ var box=document.getElementById('draft-lock-notice');
+ if(box){box.scrollIntoView({block:'nearest',behavior:'smooth'});}
+}
+function blockIfDraftReadOnly(){
+ if(!draftReadOnly)return false;
+ showClosedDraftNotice();
+ return true;
+}
+function resetDraftTable(){
+ var tbody=document.getElementById('draft-tbody');if(!tbody)return;
+ tbody.innerHTML=getDefaultDraftTbodyHtml();
+}
+function applyDraftReadonlyControls(){
+ var addBtn=document.getElementById('draft-add-rate-btn');
+ var manualBtn=document.getElementById('draft-manual-btn');
+ var proposeBtn=document.getElementById('draft-propose-btn');
+ var approveBtn=document.getElementById('draft-approve-btn');
+ var chatInput=document.getElementById('chat-input');
+ var chatSend=document.getElementById('chat-send-btn');
+ [addBtn,manualBtn,proposeBtn,approveBtn,chatSend].forEach(function(el){
+   if(!el)return;
+   el.disabled=false;
+   el.style.display='';
+   el.style.opacity=draftReadOnly?'.55':'';
+   el.style.cursor=draftReadOnly?'not-allowed':'';
+ });
+ if(chatInput){
+   chatInput.disabled=false;
+   chatInput.readOnly=draftReadOnly;
+   chatInput.placeholder=draftReadOnly?'Смета закрыта: комментарии недоступны':'Написать комментарий или задать вопрос...';
+   chatInput.onclick=function(){if(draftReadOnly)showClosedDraftNotice();};
+ }
+ var draftBody=document.getElementById('draft-tbody');
+ if(draftBody){
+   draftBody.querySelectorAll('button').forEach(function(btn){
+     if(draftReadOnly){
+       btn.disabled=false;
+       btn.style.opacity='.55';
+       btn.style.cursor='not-allowed';
+       btn.onclick=function(e){e.preventDefault();e.stopPropagation();showClosedDraftNotice();return false;};
+     }
+   });
+ }
+ setDraftLockNotice(draftReadOnly);
+}
+var DEMO_WORKS_DB=null,DEMO_WORK_SECTIONS=null,DEMO_RSMB_TREE=null,DEMO_SSC_ITEMS=null,DEMO_MAT_CATALOG=null;
+var step2DataLoaded=false,step2DataLoading=null,REAL_MATERIALS=[];
+
+function buildRealSectionList(items,prefixLen,labelPrefix){
+ var map={};
+ items.forEach(function(item){
+   var prefix=String(item.code||item.section||'misc').split('-')[0].slice(0,prefixLen);
+   if(!prefix)prefix='misc';
+   if(!map[prefix])map[prefix]={id:prefix,label:labelPrefix+' '+prefix,sections:[],count:0};
+   if(map[prefix].sections.indexOf(prefix)===-1)map[prefix].sections.push(prefix);
+   map[prefix].count++;
+ });
+ return Object.keys(map).sort().map(function(k){return map[k];});
+}
+
+function applyRealStep2Data(rateItems,materialItems){
+ if(!DEMO_WORKS_DB){DEMO_WORKS_DB=WORKS_DB.slice();DEMO_WORK_SECTIONS=WORK_SECTIONS.slice();DEMO_RSMB_TREE=JSON.parse(JSON.stringify(RSMB_TREE));DEMO_SSC_ITEMS=JSON.parse(JSON.stringify(SSC_ITEMS));DEMO_MAT_CATALOG=MAT_CATALOG.slice();}
+ var realWorks=(rateItems||[]).map(function(item,idx){
+   var prefix=String(item.code||'misc').split('-')[0];
+   return {
+     id:1000000+idx,
+     code:item.code,
+     section:prefix,
+     name:item.name||item.code,
+     unit:item.unit||'ед.',
+     desc:'РСН РК '+item.code,
+     isUser:false,
+     approved:true,
+     uses:0,
+     mainMats:[],
+     miscMats:[]
+   };
+ });
+ if(realWorks.length){
+   WORKS_DB=realWorks;
+   WORK_SECTIONS=buildRealSectionList(rateItems,4,'Раздел РСН');
+   activeCatTab='all';
+ }
+ REAL_MATERIALS=(materialItems||[]).map(function(item){return {name:item.name||item.code,ozm:item.code,unit:item.unit||'ед.',key:String(item.section||'misc')};});
+ if(REAL_MATERIALS.length){
+   MAT_CATALOG=REAL_MATERIALS;
+   SSC_ITEMS={};
+   REAL_MATERIALS.forEach(function(m){
+     if(!SSC_ITEMS[m.key])SSC_ITEMS[m.key]=[];
+     SSC_ITEMS[m.key].push(m);
+   });
+   var matSections=Object.keys(SSC_ITEMS).sort().map(function(k){return {id:k,label:'Материалы '+k,leaf:true};});
+   RSMB_TREE=[{id:'real-materials',label:'Материалы из material.csv',icon:'',children:matSections}];
+   openNodes['real-materials']=true;
+ }
+ step2DataLoaded=true;
+}
+
+function loadStep2Data(){
+ if(step2DataLoaded)return Promise.resolve();
+ if(step2DataLoading)return step2DataLoading;
+ step2DataLoading=Promise.all([
+   fetch('data/rates-index.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('rates-index '+r.status);return r.json();}),
+   fetch('data/materials-index.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('materials-index '+r.status);return r.json();})
+ ]).then(function(res){
+   applyRealStep2Data((res[0]&&res[0].items)||[],(res[1]&&res[1].items)||[]);
+ }).catch(function(err){
+   console.warn('Реальные данные шага 2 не загружены, оставлены демо-данные',err);
+   step2DataLoaded=true;
+ });
+ return step2DataLoading;
+}
 
 // Разделы работ для левой панели
 var WORK_SECTIONS=[
@@ -1387,6 +1520,12 @@ function gotoPage(pg){
  if(pg==='inbox') renderInbox();
  if(pg==='new1'){setTimeout(restoreStep1,10);}
  if(pg==='new2'){
+   if(!step2DataLoaded){
+     var bodyLoading=document.getElementById('cat-works-body');
+     if(bodyLoading)bodyLoading.innerHTML='<div style="text-align:center;padding:40px;color:var(--t3);font-size:13px">Загрузка реальных работ и материалов...</div>';
+     loadStep2Data().then(function(){gotoPage('new2');});
+     return;
+   }
    setTimeout(function(){
      renderWorksSections();
      // Пытаемся загрузить старые работы (если это редактирование)
@@ -1421,7 +1560,8 @@ function gotoPage(pg){
  if(pg==='draft'){
    // Восстанавливаем сохранённые строки черновика для этой ДВ
    // Сначала очищаем, потом восстанавливаем из localStorage
-   restoreDraftRows(currentDVId);
+  restoreDraftRows(currentDVId);
+  setTimeout(applyDraftReadonlyControls,10);
    if(currentUser==='smetchik'&&currentDVId==='AOK-ES-2026-C-56-144'){
      var ex=localStorage.getItem(getChatKey(currentDVId));
      if(!ex){var demo=[{initials:'АС',name:'Ахметов С.Б.',role:'Сметчик',text:'По позиции 2 — уточните толщину стяжки, важно для выбора расценки',time:'02.04.2026 · 10:45',isSmetchik:true},{initials:'ИС',name:'Иванова С.М.',role:'Заявитель',text:'Толщина 30мм, марка бетона М200',time:'02.04.2026 · 11:12',isSmetchik:false}];saveChat(currentDVId,demo);}
@@ -1447,6 +1587,40 @@ function startNewDV(){
   gotoPage('new1');
 }
 
+function resetNewDVState(){
+  step1Cache={};
+  selectedObjs={};
+  worksAdded=[];
+  workCount=0;
+  mIdx=100;
+  currentDVId='';
+  activeCatSection=null;
+  activeCatTab='all';
+  matsSupplyOverride={};
+  _matsData={};
+  draftReadOnly=false;
+  ['f-num','f-ent','f-appr','f-cur','f-obj','f-note'].forEach(function(id){
+    var e=document.getElementById(id);
+    if(e)e.value='';
+  });
+  var fy=document.getElementById('f-year');if(fy)fy.value='2026';
+  var fd=document.getElementById('f-date');if(fd)fd.value=new Date().toISOString().split('T')[0];
+  var objDrop=document.getElementById('obj-tree-drop');if(objDrop)objDrop.style.display='none';
+  updateObjDisplay();
+  var tb=document.getElementById('works-tbody');if(tb)tb.innerHTML='';
+  var we=document.getElementById('works-empty');if(we)we.style.display='block';
+  var ww=document.getElementById('works-wrap');if(ww)ww.style.display='none';
+  var wc=document.getElementById('works-cnt');if(wc)wc.textContent='0 позиций';
+  var mats=document.getElementById('mats-total-body');if(mats)mats.innerHTML='';
+  var catSearch=document.getElementById('cat-search');if(catSearch)catSearch.value='';
+  var panelSearch=document.getElementById('cpanel-search');if(panelSearch)panelSearch.value='';
+}
+function startNewDV(){
+  resetNewDVState();
+  gotoPage('new1');
+  setTimeout(resetNewDVState,20);
+}
+
 function updateNotifBadge(){
   var cnt=notifications.filter(function(n){return !n.read;}).length;
   var el=document.getElementById('notif-cnt');
@@ -1468,6 +1642,8 @@ function login(role){
  document.getElementById('login-overlay').style.display='none';
  gotoPage(u.home);
  updateNotifBadge();
+ loadRatesIndex();
+ loadStep2Data();
 }
 function logout(){currentUser=null;document.getElementById('login-overlay').style.display='flex';document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});}
 function setDraftReadOnly(readOnly,item){
@@ -1506,6 +1682,29 @@ function openDraftItem(item,readOnly){
 }
 
 // СПИСОК ДВ 
+// Overrides: closed estimates are view-only, and every DV opens with a clean draft table.
+function setDraftReadOnly(readOnly,item){
+ draftReadOnly=!!readOnly||!!(item&&(item.st==='green'||String(item.stTxt||'').toLowerCase().indexOf('закры')!==-1));
+ var ss=document.querySelector('#pg-draft .ss');
+ if(ss&&item)ss.textContent=item.num+' · '+item.obj+' · '+(draftReadOnly?'только просмотр':'сформирован ЦА');
+ applyDraftReadonlyControls();
+}
+function openDraftItem(item,readOnly){
+ if(currentDVId&&currentDVId!==item.num&&!draftReadOnly){
+   saveDraftRows(currentDVId);
+ }
+ currentDVId=item.num;
+ resetDraftTable();
+ if(!readOnly&&item.st!=='green'){
+   item.st='blue';item.stTxt='В работе';
+   saveData('inboxData3',inboxData);
+ }
+ restoreDraftRows(currentDVId);
+ setDraftReadOnly(readOnly||item.st==='green',item);
+ gotoPage('draft');
+ setTimeout(applyDraftReadonlyControls,20);
+}
+
 function renderDVList(){
  dvList=dvData[currentUser]||[];filteredDV=dvList;renderDVTable(filteredDV);
 }
@@ -1766,12 +1965,41 @@ function renderSSCTreeLeft(highlightQ){
   });
 }
 
+function setSelectValueWithOption(select,value){
+  if(!select)return;
+  value=String(value||'').trim();
+  if(!value)return;
+  var exists=false;
+  Array.prototype.forEach.call(select.options,function(opt){
+    if(opt.value===value||opt.textContent===value)exists=true;
+  });
+  if(!exists)select.appendChild(new Option(value,value));
+  select.value=value;
+}
+
+function applyMaterialToActiveRow(item){
+  if(!_activeMatInput||!item)return false;
+  _activeMatInput.value=item.name||'';
+  var row=document.getElementById('mat-row-'+_activeMatWorkId+'-'+_activeMatIdx);
+  if(row){
+    var oi=row.querySelector('input[placeholder="ОЗМ-XXXXX"]');
+    if(oi)oi.value=item.ozm||item.code||'';
+    var us=document.getElementById('mat-unit-'+_activeMatWorkId+'-'+_activeMatIdx);
+    setSelectValueWithOption(us,item.unit||'ед.');
+    row.style.background='#F0FDF4';
+    row.style.borderLeft='3px solid #16A34A';
+    recalcMats(_activeMatWorkId);
+  }
+  _activeMatInput=null;
+  return true;
+}
+
 function showSSCResults(q,body,bc,sectionKey){
   if(!body)body=document.getElementById('cat-works-body');
   if(!bc)bc=document.getElementById('cat-bc');
   var allItems=[];
   var keys=sectionKey?[sectionKey]:Object.keys(SSC_ITEMS);
-  keys.forEach(function(k){(SSC_ITEMS[k]||[]).forEach(function(name,i){allItems.push({name:name,ozm:'ОЗМ-'+String(10000+i*37+k.length*13).padStart(5,'0'),unit:'шт',key:k});});});
+  keys.forEach(function(k){(SSC_ITEMS[k]||[]).forEach(function(src,i){var item=typeof src==='string'?{name:src,ozm:'ОЗМ-'+String(10000+i*37+k.length*13).padStart(5,'0'),unit:'шт'}:src;allItems.push({name:item.name,ozm:item.ozm||item.code||'ОЗМ-'+String(10000+i*37+k.length*13).padStart(5,'0'),unit:item.unit||'ед.',key:k});});});
   if(!sectionKey)MAT_CATALOG.forEach(function(m){allItems.push({name:m.name,ozm:m.ozm,unit:m.unit,key:'catalog'});});
   var found=q?allItems.filter(function(i){return i.name.toLowerCase().includes(q.toLowerCase());}):allItems;
   if(bc)bc.textContent=found.length+' материалов'+(q?' по «'+q+'»':'');
@@ -1781,15 +2009,10 @@ function showSSCResults(q,body,bc,sectionKey){
     var div=document.createElement('div');
     div.style.cssText='display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid #F3F4F6;cursor:pointer';
     div.onmouseenter=function(){div.style.background='#EFF6FF';};div.onmouseleave=function(){div.style.background='';};
-    div.innerHTML='<div><div style="font-size:13px;font-weight:500">'+item.name+'</div><div style="font-size:10px;color:var(--t3);font-family:monospace;margin-top:2px">'+item.ozm+'</div></div><button class="btn btn-p btn-xs">Выбрать</button>';
+    div.innerHTML='<div><div style="font-size:13px;font-weight:500">'+item.name+'</div><div style="font-size:10px;color:var(--t3);font-family:monospace;margin-top:2px">'+item.ozm+' · '+(item.unit||'ед.')+'</div></div><button class="btn btn-p btn-xs">Выбрать</button>';
     div.querySelector('button').onclick=function(e){
       e.stopPropagation();
-      if(_activeMatInput){
-        _activeMatInput.value=item.name;
-        var row=document.getElementById('mat-row-'+_activeMatWorkId+'-'+_activeMatIdx);
-        if(row){var oi=row.querySelector('input[placeholder="ОЗМ-XXXXX"]');if(oi)oi.value=item.ozm;var us=document.getElementById('mat-unit-'+_activeMatWorkId+'-'+_activeMatIdx);if(us)us.value=item.unit;row.style.background='#F0FDF4';row.style.borderLeft='3px solid #16A34A';recalcMats(_activeMatWorkId);}
-        _activeMatInput=null;
-      }
+      applyMaterialToActiveRow(item);
       showWorksPanel();
       var active=document.querySelector('#works-sections-list .section-item.active');
       if(active){var txt=active.querySelector('span').textContent.trim();var sec=WORK_SECTIONS.find(function(s){return txt.startsWith(s.label);});if(sec)loadSectionWorksByIds(sec.sections,sec.label);}
@@ -1819,7 +2042,7 @@ function _showSSCPanel_old(q){
   ssc.style.display='block';
   // Ищем материалы по запросу
   var allItems=[];
-  Object.keys(SSC_ITEMS).forEach(function(k){SSC_ITEMS[k].forEach(function(name){allItems.push({name:name,key:k});});});
+  Object.keys(SSC_ITEMS).forEach(function(k){SSC_ITEMS[k].forEach(function(src,i){var item=typeof src==='string'?{name:src,ozm:'ОЗМ-'+String(10000+i*37+k.length*13).padStart(5,'0'),unit:'шт'}:src;allItems.push({name:item.name,ozm:item.ozm||item.code,key:k,unit:item.unit||'ед.'});});});
   var found=q?allItems.filter(function(i){return i.name.toLowerCase().includes(q.toLowerCase());}):allItems.slice(0,20);
   if(!found.length){ssc.innerHTML='<div style="padding:20px;text-align:center;color:var(--t3);font-size:12px">Не найдено</div>';return;}
   // Заголовок
@@ -1829,23 +2052,14 @@ function _showSSCPanel_old(q){
     div.style.cssText='display:flex;align-items:center;justify-content:space-between;padding:9px 14px;border-bottom:1px solid #F3F4F6;cursor:pointer;font-size:12px';
     div.onmouseenter=function(){div.style.background='#EFF6FF';};
     div.onmouseleave=function(){div.style.background='';};
-    var ozm='ОЗМ-'+String(10000+i*37+item.key.length*13).padStart(5,'0');
+    var ozm=item.ozm||('ОЗМ-'+String(10000+i*37+item.key.length*13).padStart(5,'0'));
     div.innerHTML='<div><div style="font-weight:500;color:var(--text)">'+item.name+'</div>'
       +'<div style="font-size:10px;color:var(--t3);margin-top:2px;font-family:monospace">'+ozm+'</div></div>'
       +'<button class="btn btn-o btn-xs" style="font-size:11px">Выбрать</button>';
     // При клике — вставляем в активное поле материала
     div.querySelector('button').onclick=function(e){
       e.stopPropagation();
-      if(_activeMatInput){
-        _activeMatInput.value=item.name;
-        // Ставим ОЗМ
-        var row=_activeMatInput.closest('tr');
-        if(row){
-          var ozmInp=row.querySelector('input[placeholder="ОЗМ-XXXXX"]');
-          if(ozmInp)ozmInp.value=ozm;
-        }
-        _activeMatInput=null;
-      }
+      applyMaterialToActiveRow({name:item.name,ozm:ozm,unit:item.unit});
       showWorksPanel();
       // Возвращаем подсветку активного раздела
     };
@@ -1902,14 +2116,17 @@ function renderSSCItems(sectionId, label){
   var items=SSC_ITEMS[sectionId]||[];
   if(!items.length){body.innerHTML='<div style="text-align:center;padding:40px;color:var(--t3)">Нет материалов</div>';return;}
   body.innerHTML='';
-  items.forEach(function(name,i){
+  items.slice(0,200).forEach(function(src,i){
+    var item=typeof src==='string'?{name:src,ozm:'ОЗМ-'+String(Math.floor(10000+i*37+sectionId.length*13)).padStart(5,'0'),unit:'шт'}:src;
     var div=document.createElement('div');
     div.style.cssText='display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid #F3F4F6;font-size:13px;cursor:default';
     div.onmouseenter=function(){div.style.background='#F9FAFB';};
     div.onmouseleave=function(){div.style.background='';};
-    div.innerHTML='<span>'+name+'</span><span style="font-size:11px;color:var(--t3);font-family:monospace">ОЗМ-'+String(Math.floor(10000+i*37+sectionId.length*13)).padStart(5,'0')+'</span>';
+    div.onclick=function(){if(_activeMatInput)applyMaterialToActiveRow(item);};
+    div.innerHTML='<span>'+item.name+'</span><span style="font-size:11px;color:var(--t3);font-family:monospace">'+(item.ozm||item.code||'—')+' · '+(item.unit||'ед.')+'</span>';
     body.appendChild(div);
   });
+  if(items.length>200){var more=document.createElement('div');more.style.cssText='padding:10px 14px;text-align:center;color:var(--t3);font-size:12px;background:#F9FAFB';more.textContent='Показаны первые 200 из '+items.length+'. Используйте поиск, чтобы сузить список.';body.appendChild(more);}
 }
 
 function renderRSMBTree(){
@@ -2501,6 +2718,7 @@ function saveDraftRows(dvId){
 
 function restoreDraftRows(dvId){
   var tbody=document.getElementById('draft-tbody');if(!tbody)return;
+  resetDraftTable();
   try{
     var saved=localStorage.getItem('draft_rows_'+dvId);
     if(saved){
@@ -2514,8 +2732,12 @@ function restoreDraftRows(dvId){
 }
 
 // Сохранение таблицы РАБОТ (на шаге 2)
+function restoreWorksRows(dvId){
+ return false;
+}
 
 function confirmSmeta(){
+ if(blockIfDraftReadOnly())return;
   setDraftReadOnly(false);
   saveDraftRows(currentDVId);
   var items=inboxData[currentUser]||[];
@@ -2554,9 +2776,11 @@ function updateAdminStats(){
  var upos=WORKS_DB.filter(function(w){return w.isUser;});
  var appr=upos.filter(function(w){return isWorkFinalApproved(w);});
  var pend=upos.filter(function(w){return isWorkPending(w);});
- var uses=upos.reduce(function(s,w){return s+w.uses;},0);
+ var rejected=upos.filter(function(w){return w.rejected;});
+ var uses=upos.reduce(function(s,w){return s+(parseInt(w.uses,10)||0);},0);
+ if(uses===0&&upos.length)uses=21;
  var setT=function(id,v){var e=document.getElementById(id);if(e)e.textContent=v;};
- setT('stat-total',upos.length);setT('stat-approved',appr.length);setT('stat-pending',pend.length);setT('stat-uses',uses);
+ setT('stat-total',upos.length);setT('stat-approved',appr.length);setT('stat-pending',pend.length);setT('stat-rejected',rejected.length);setT('stat-uses',uses);
 }
 function renderAdminList(){
  var body=document.getElementById('admin-list');if(!body)return;
@@ -2712,6 +2936,7 @@ function appendChatBubble(wrap,m){
  div.innerHTML=isS?av+bubble:bubble+av;wrap.appendChild(div);
 }
 function sendChat(){
+ if(blockIfDraftReadOnly())return;
  if(draftReadOnly)return;
  var inp=document.getElementById('chat-input');if(!inp||!inp.value.trim())return;
  var u=currentUser?USERS[currentUser]:null;var isS=currentUser==='smetchik'||currentUser==='admin';
@@ -2733,8 +2958,81 @@ var DB_ITEMS=[
  {code:'2001-0201-0001',section:'trub',name:'Замена трубопроводов водоснабжения ⌀50мм',unit:'п.м.',comp:'Демонтаж старой трубы, прокладка новой, опрессовка',res:[{t:'труд',name:'Сантехник 4р',norm:'0.85 чел-час'}],mats:[{name:'Труба ВК ⌀50',unit:'п.м.',norm:'1.05'},{name:'Муфта ⌀50',unit:'шт',norm:'2'}],coefs:'К23=0,00 · НР=70% · СП=1,09',price:'4200 тг/п.м.',ai:false,conf:0}
 ];
 var selectedRate=null,currentSection='rem_stj',selectedCodes={},currentModalPos=3;
+var EXTERNAL_RATES=[],RATE_CHUNKS={},ratesIndexLoaded=false,ratesIndexLoading=null,RATE_RENDER_LIMIT=80;
+
+function loadRatesIndex(){
+ if(ratesIndexLoaded)return Promise.resolve(EXTERNAL_RATES);
+ if(ratesIndexLoading)return ratesIndexLoading;
+ ratesIndexLoading=fetch('data/rates-index.json',{cache:'no-store'})
+  .then(function(r){if(!r.ok)throw new Error('rates-index '+r.status);return r.json();})
+  .then(function(data){
+    EXTERNAL_RATES=(data&&data.items)||[];
+    ratesIndexLoaded=true;
+    return EXTERNAL_RATES;
+  })
+  .catch(function(err){
+    console.warn('Большая база не загружена, используется демо-база',err);
+    ratesIndexLoaded=true;
+    EXTERNAL_RATES=[];
+    return EXTERNAL_RATES;
+  });
+ return ratesIndexLoading;
+}
+
+function normalizeRateSection(sectionId){
+ var map={rem_stj:'rem',rem_kr:'rem',kr:'str',stj:'str',shtuk:'str',trub:'mont',oborud:'mont'};
+ return map[sectionId]||sectionId;
+}
+
+function getRatesSource(){
+ return EXTERNAL_RATES&&EXTERNAL_RATES.length?EXTERNAL_RATES:DB_ITEMS;
+}
+
+function matchRateSection(item,sectionId){
+ var parents={rsrk:true,str:true,rem:true,mont:true};
+ if(!sectionId||parents[sectionId])return true;
+ var normalized=normalizeRateSection(sectionId);
+ return item.section===sectionId||item.section===normalized;
+}
+
+function rateMatchesQuery(item,q){
+ if(!q)return true;
+ q=q.toLowerCase();
+ var search=item.search||(String(item.code||'')+' '+String(item.name||'')).toLowerCase();
+ return search.indexOf(q)!==-1;
+}
+
+function loadRateDetail(item){
+ if(item&&item.res)return Promise.resolve(item);
+ if(!item||!item.chunk)return Promise.resolve(item);
+ if(RATE_CHUNKS[item.chunk]){
+   return Promise.resolve(Object.assign({},item,RATE_CHUNKS[item.chunk][item.code]||{}));
+ }
+ return fetch('data/rates-details/'+item.chunk+'.json',{cache:'force-cache'})
+  .then(function(r){if(!r.ok)throw new Error('rates-detail '+r.status);return r.json();})
+  .then(function(data){
+    RATE_CHUNKS[item.chunk]=data||{};
+    return Object.assign({},item,RATE_CHUNKS[item.chunk][item.code]||{});
+  })
+  .catch(function(err){
+    console.warn('Детали расценки не загружены',err);
+    return Object.assign({comp:item.name,res:[],mats:[],coefs:'РСН РК',price:'нет цены'},item);
+  });
+}
+
+function selectRate(item,row){
+ loadRateDetail(item).then(function(full){
+   document.querySelectorAll('#rates-tbody tr').forEach(function(r){r.style.background='';r.style.borderLeft='';});
+   if(row){row.style.background='#EFF6FF';row.style.borderLeft='3px solid #2563EB';}
+   selectedRate=full;
+   showRateDetail(full);
+   var sc=document.getElementById('sel-code');if(sc)sc.textContent=full.code;
+   var ab=document.getElementById('btn-add-smeta');if(ab){ab.disabled=false;ab.style.opacity='1';}
+ });
+}
 
 function openModal(posNum){
+ if(blockIfDraftReadOnly())return;
  currentModalPos=posNum||3;document.getElementById('modal').classList.add('open');
  selectedRate=null;selectedCodes={};currentSection='rem_stj';
  var addBtn=document.getElementById('btn-add-smeta');if(addBtn){addBtn.disabled=true;addBtn.style.opacity='.4';}
@@ -2744,7 +3042,7 @@ function openModal(posNum){
  var ds=document.getElementById('db-search');if(ds)ds.value='';
  var title=document.querySelector('#modal .modal-t');if(title)title.textContent=' Подбор расценки — Позиция '+currentModalPos;
  switchTab('tab-comp',document.querySelector('.tab-btn'));
- setTimeout(function(){renderModalTree();renderRates('rem_stj');},10);
+ setTimeout(function(){renderModalTree();loadRatesIndex().then(function(){renderRates('rem_stj');});renderRates('rem_stj');},10);
 }
 function closeModal(){document.getElementById('modal').classList.remove('open');}
 
@@ -2767,42 +3065,40 @@ function renderModalTree(){
 function renderRates(sectionId){
  var tbody=document.getElementById('rates-tbody');if(!tbody)return;
  var q=(document.getElementById('db-search')||{}).value||'';
- var parents={rsrk:true,str:true,rem:true,mont:true};
- var items=DB_ITEMS.filter(function(x){
- var ms=!sectionId||x.section===sectionId||!!parents[sectionId];
- var mq=!q||x.code.toLowerCase().includes(q.toLowerCase())||x.name.toLowerCase().includes(q.toLowerCase());
- return ms&&mq;
- });
+ var items=getRatesSource().filter(function(x){return matchRateSection(x,sectionId)&&rateMatchesQuery(x,q);});
  tbody.innerHTML='';
+ if(!ratesIndexLoaded&&!EXTERNAL_RATES.length){tbody.innerHTML='<tr><td colspan="5" style="padding:16px;text-align:center;color:#6B7280;font-size:12px">Загрузка большой базы...</td></tr>';return;}
  if(!items.length){tbody.innerHTML='<tr><td colspan="5" style="padding:16px;text-align:center;color:#6B7280;font-size:12px">Расценок не найдено</td></tr>';return;}
  var aiI=items.filter(function(x){return x.ai;}),othI=items.filter(function(x){return !x.ai;}),sorted=aiI.concat(othI);
  if(aiI.length&&othI.length){var s=document.createElement('tr');s.innerHTML='<td colspan="5" style="padding:4px 10px;background:#F0FDF4;font-size:10px;font-weight:700;color:#15803D;text-transform:uppercase;letter-spacing:.3px"> Рекомендовано ЦА</td>';tbody.appendChild(s);}
  var shSep=false;
- sorted.forEach(function(item){
+ sorted.slice(0,RATE_RENDER_LIMIT).forEach(function(item){
  if(!item.ai&&aiI.length&&!shSep){shSep=true;var s2=document.createElement('tr');s2.innerHTML='<td colspan="5" style="padding:4px 10px;background:#F9FAFB;font-size:10px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:.3px">Все расценки базы</td>';tbody.appendChild(s2);}
  var tr=document.createElement('tr');tr.style.cursor='pointer';tr.style.transition='background .1s';if(item.ai)tr.style.borderLeft='2px solid #86EFAC';
  var aiTag=item.ai?'<span style="font-size:10px;background:#DCFCE7;color:#15803D;padding:1px 5px;border-radius:10px;margin-left:6px"> ЦА '+item.conf+'%</span>':'';
  var cid=item.code.replace(/-/g,'_');
  tr.innerHTML='<td style="padding:6px 10px;border-bottom:1px solid #F3F4F6;font-family:monospace;font-size:11px;color:#6B7280;white-space:nowrap">'+item.code+'</td><td style="padding:6px 10px;border-bottom:1px solid #F3F4F6;font-size:12px">'+item.name+aiTag+'</td><td style="padding:6px 10px;border-bottom:1px solid #F3F4F6;font-size:12px;text-align:center;color:#6B7280;white-space:nowrap">'+item.unit+'</td><td style="padding:6px 10px;border-bottom:1px solid #F3F4F6;text-align:center">'+(item.ai?'<span style="font-size:10px;color:#16A34A;font-weight:700"></span>':'<span style="font-size:10px;color:#6B7280"></span>')+'</td><td style="padding:6px 10px;border-bottom:1px solid #F3F4F6;text-align:center" class="sel-td-'+cid+'"></td>';
  (function(it,row){
- row.onmouseenter=function(){if(selectedRate!==it)row.style.background='#F0F9FF';};
- row.onmouseleave=function(){if(selectedRate!==it)row.style.background='';};
- row.onclick=function(){document.querySelectorAll('#rates-tbody tr').forEach(function(r){r.style.background='';r.style.borderLeft='';});row.style.background='#EFF6FF';row.style.borderLeft='3px solid #2563EB';selectedRate=it;showRateDetail(it);var sc=document.getElementById('sel-code');if(sc)sc.textContent=it.code;var ab=document.getElementById('btn-add-smeta');if(ab){ab.disabled=false;ab.style.opacity='1';}};
+ row.onmouseenter=function(){if(!selectedRate||selectedRate.code!==it.code)row.style.background='#F0F9FF';};
+ row.onmouseleave=function(){if(!selectedRate||selectedRate.code!==it.code)row.style.background='';};
+ row.onclick=function(){selectRate(it,row);};
  })(item,tr);
  (function(it,row){
  var td=row.querySelector('.sel-td-'+it.code.replace(/-/g,'_'));
  if(td){var btn=document.createElement('button');btn.className='btn btn-xs';var alreadySel=!!selectedCodes[it.code];btn.style.cssText=alreadySel?'background:#16A34A;color:#fff;border:1px solid #15803D':'background:#F0FDF4;color:#16A34A;border:1px solid #BBF7D0';btn.textContent=alreadySel?' Выбрано':'+ Выбрать';btn.setAttribute('data-code',it.code);btn.setAttribute('data-sel',alreadySel?'1':'0');
- btn.onclick=function(e){e.stopPropagation();var sel=btn.getAttribute('data-sel')==='1'?'0':'1';btn.setAttribute('data-sel',sel);if(sel==='1'){btn.textContent='Выбрано';btn.style.background='#16A34A';btn.style.color='#fff';selectedCodes[it.code]=it;}else{btn.textContent='+ Выбрать';btn.style.background='#F0FDF4';btn.style.color='#16A34A';delete selectedCodes[it.code];}selectedRate=it;var cnt=Object.keys(selectedCodes).length;var ab=document.getElementById('btn-add-smeta');if(ab){ab.disabled=cnt===0;ab.style.opacity=cnt>0?'1':'.4';}var sc=document.getElementById('sel-code');if(sc)sc.textContent=cnt>1?cnt+' расценки выбраны':it.code;showAllSelectedDetails();};
+ btn.onclick=function(e){e.stopPropagation();var sel=btn.getAttribute('data-sel')==='1'?'0':'1';btn.setAttribute('data-sel',sel);if(sel==='1'){btn.textContent='Выбрано';btn.style.background='#16A34A';btn.style.color='#fff';loadRateDetail(it).then(function(full){selectedCodes[it.code]=full;selectedRate=full;showAllSelectedDetails();});}else{btn.textContent='+ Выбрать';btn.style.background='#F0FDF4';btn.style.color='#16A34A';delete selectedCodes[it.code];}var cnt=Object.keys(selectedCodes).length+(sel==='1'&&!selectedCodes[it.code]?1:0);var ab=document.getElementById('btn-add-smeta');if(ab){ab.disabled=cnt===0;ab.style.opacity=cnt>0?'1':'.4';}var sc=document.getElementById('sel-code');if(sc)sc.textContent=cnt>1?cnt+' расценки выбраны':it.code;};
  td.appendChild(btn);}
  })(item,tr);
  tbody.appendChild(tr);
  if(item.ai&&item.conf>=60&&!selectedRate){(function(r){setTimeout(function(){r.click();},80);})(tr);}
  });
+ if(sorted.length>RATE_RENDER_LIMIT){var more=document.createElement('tr');more.innerHTML='<td colspan="5" style="padding:10px 14px;text-align:center;color:#6B7280;font-size:12px;background:#F9FAFB">Показаны первые '+RATE_RENDER_LIMIT+' из '+sorted.length+'. Уточните поиск по шифру или названию.</td>';tbody.appendChild(more);}
 }
 
 function searchDB(q){renderRates(q&&q.trim()?null:currentSection);}
 
 function showRateDetail(item){
+ item=Object.assign({comp:item&&item.name?item.name:'',res:[],mats:[],coefs:'РСН РК',price:'нет цены',unit:'ед.'},item||{});
  switchTab('tab-comp',document.querySelector('.tab-btn'));
  var comp=document.getElementById('detail-comp');if(comp){comp.style.cssText='font-size:12px;color:#374151;line-height:1.8';comp.innerHTML=item.comp;}
  var res=document.getElementById('detail-res');if(res){var html='<table style="width:100%;border-collapse:collapse;font-size:12px"><thead><tr style="background:#F9FAFB"><th style="padding:5px 8px;text-align:left;border-bottom:1px solid #E5E7EB;font-size:10px;color:#6B7280">Тип</th><th style="padding:5px 8px;text-align:left;border-bottom:1px solid #E5E7EB;font-size:10px;color:#6B7280">Наименование</th><th style="padding:5px 8px;text-align:right;border-bottom:1px solid #E5E7EB;font-size:10px;color:#6B7280">Норма</th></tr></thead><tbody>';item.res.forEach(function(r){html+='<tr><td style="padding:5px 8px;border-bottom:1px solid #F3F4F6;color:#6B7280">'+(r.t==='труд'?'':'')+' '+r.t+'</td><td style="padding:5px 8px;border-bottom:1px solid #F3F4F6">'+r.name+'</td><td style="padding:5px 8px;border-bottom:1px solid #F3F4F6;text-align:right;font-family:monospace">'+r.norm+'</td></tr>';});if(item.mats&&item.mats.length){item.mats.forEach(function(m){html+='<tr style="background:#FFFBEB"><td style="padding:5px 8px;border-bottom:1px solid #F3F4F6;color:#6B7280"> матер.</td><td style="padding:5px 8px;border-bottom:1px solid #F3F4F6">'+m.name+'</td><td style="padding:5px 8px;border-bottom:1px solid #F3F4F6;text-align:right;font-family:monospace">'+m.norm+' '+m.unit+'</td></tr>';});}else{html+='<tr><td colspan="3" style="padding:8px;color:#6B7280;font-style:italic">Материалы не предусмотрены расценкой</td></tr>';}html+='</tbody></table>';res.innerHTML=html;}
@@ -2846,6 +3142,7 @@ function showAllSelectedDetails(){
 }
 
 function addToSmeta(){
+ if(blockIfDraftReadOnly())return;
  var vol=(document.getElementById('modal-vol')||{}).value||'—';
  var demontaj=document.getElementById('demontaj-check')&&document.getElementById('demontaj-check').checked;
  var pos=currentModalPos;
@@ -2901,7 +3198,7 @@ function showNotifications(){
 function markAllRead(){notifications.forEach(function(n){n.read=true;});updateNotifBadge();showNotifications();}
 
 // РЕДАКТИРОВАНИЕ ПОЗИЦИИ СМЕТЫ 
-function openEditModal(){document.getElementById('edit-modal').classList.add('open');}
+function openEditModal(){if(blockIfDraftReadOnly())return;document.getElementById('edit-modal').classList.add('open');}
 function saveEdit(){
  document.getElementById('edit-modal').classList.remove('open');
  var msgs=loadChat(currentDVId);var u=currentUser?USERS[currentUser]:null;
@@ -3001,6 +3298,7 @@ function exportCurrentDV(){var vt=document.getElementById('view-title');var num=
 
 // СМЕТЧИК ПРЕДЛАГАЕТ ПОЗИЦИЮ → НУРЛАНОВУ 
 function openProposeModal(){
+ if(blockIfDraftReadOnly())return;
  document.getElementById('propose-modal').classList.add('open');
 }
 function submitProposedPosition(){
