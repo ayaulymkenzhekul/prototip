@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8"/>
@@ -1030,8 +1030,13 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
  </select>
  </div>
  <div class="f">
- <label class="fl">Основные материалы (через запятую)</label>
- <input class="fi" id="ae-mats" placeholder="Рулонный материал, Праймер..." style="margin-top:4px"/>
+ <label class="fl">Основные материалы</label>
+ <div class="fc gap8" style="margin-top:4px;align-items:stretch">
+ <input class="fi" id="ae-mat-trigger" placeholder="Выберите материалы из каталога" readonly onclick="openAdminMaterialPicker()" style="flex:1;cursor:pointer"/>
+ <button type="button" class="btn btn-purple btn-sm" onclick="openAdminMaterialPicker()">Выбрать</button>
+ </div>
+ <div id="ae-mats-picked" style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px"></div>
+ <input type="hidden" id="ae-mats"/>
  </div>
  <div class="f full">
  <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--t2)">
@@ -1624,6 +1629,7 @@ function applyRealStep2Data(rateItems,materialItems){
    return {
      id:1000000+idx,
      code:item.code,
+     chunk:prefix,
      section:prefix,
      name:item.name||item.code,
      unit:item.unit||'ед.',
@@ -2751,12 +2757,134 @@ function updateWorkAiStatus(workId,baseName){
   status.innerHTML='<span class="badge '+decision.cls+'">'+htmlEscape(decision.badge)+'</span><div class="t-xs t3 mt8">'+htmlEscape(decision.text)+'</div>';
 }
 
+var ADMIN_SELECTED_MATERIALS=[];
+function syncAdminMaterialsField(){
+  var hidden=document.getElementById('ae-mats');
+  if(hidden)hidden.value=ADMIN_SELECTED_MATERIALS.map(function(m){return m.name;}).join(', ');
+}
+function renderAdminPickedMaterials(){
+  var box=document.getElementById('ae-mats-picked');
+  var trigger=document.getElementById('ae-mat-trigger');
+  if(trigger)trigger.value=ADMIN_SELECTED_MATERIALS.length?('Выбрано материалов: '+ADMIN_SELECTED_MATERIALS.length):'';
+  if(!box)return;
+  box.innerHTML='';
+  if(!ADMIN_SELECTED_MATERIALS.length){
+    box.innerHTML='<div class="t-xs t3">Материалы не выбраны</div>';
+    syncAdminMaterialsField();
+    return;
+  }
+  ADMIN_SELECTED_MATERIALS.forEach(function(mat,idx){
+    var chip=document.createElement('div');
+    chip.style.cssText='display:inline-flex;align-items:center;gap:6px;padding:5px 8px;background:#EFF6FF;border:1px solid #BFDBFE;border-radius:999px;font-size:11px;color:#1D4ED8';
+    chip.innerHTML='<span>'+htmlEscape(mat.name)+'</span><button type="button" class="btn btn-o btn-xs" style="padding:1px 6px" onclick="removeAdminSelectedMaterial('+idx+')">x</button>';
+    box.appendChild(chip);
+  });
+  syncAdminMaterialsField();
+}
+function removeAdminSelectedMaterial(idx){
+  ADMIN_SELECTED_MATERIALS.splice(idx,1);
+  renderAdminPickedMaterials();
+}
+function setAdminSelectedMaterials(items){
+  ADMIN_SELECTED_MATERIALS=(items||[]).map(function(item){
+    return {
+      name:item.name||'',
+      ozm:item.ozm||'—',
+      norm:Number(item.norm)||0,
+      unit:item.unit||'шт',
+      supply:item.supply||'Заказчик',
+      fromCatalog:item.fromCatalog!==false
+    };
+  });
+  renderAdminPickedMaterials();
+}
+
+var WORK_MAT_STATES={};
+function getMaterialCatalogItemByCode(code){
+  var key=String(code||'').trim();
+  if(!key)return null;
+  for(var i=0;i<MAT_CATALOG.length;i++){
+    var item=MAT_CATALOG[i]||{};
+    if(String(item.ozm||item.code||'').trim()===key)return item;
+  }
+  return null;
+}
+function getMaterialCatalogItemByName(name){
+  var key=String(name||'').trim().toLowerCase();
+  if(!key)return null;
+  for(var i=0;i<MAT_CATALOG.length;i++){
+    var item=MAT_CATALOG[i]||{};
+    var itemName=String(item.name||'').trim().toLowerCase();
+    if(itemName===key)return item;
+  }
+  for(var j=0;j<MAT_CATALOG.length;j++){
+    var partial=MAT_CATALOG[j]||{};
+    var partialName=String(partial.name||'').trim().toLowerCase();
+    if(partialName&&partialName.indexOf(key)!==-1)return partial;
+    if(key&&partialName&&key.indexOf(partialName)!==-1)return partial;
+  }
+  return null;
+}
+function setWorkMatState(workId,status,message){
+  WORK_MAT_STATES[workId]={status:status||'',message:message||''};
+}
+function getWorkMatState(workId){
+  return WORK_MAT_STATES[workId]||{status:'',message:''};
+}
+function looksLikeServiceResource(mat){
+  var text=(String(mat&&mat.name||'')+' '+String(mat&&mat.ozm||mat&&mat.norm||'')).toLowerCase();
+  var code=String(mat&&mat.ozm||mat&&mat.code||mat&&mat.norm||'');
+  if(/^(099|311|325|334)-/.test(code))return true;
+  return /затраты труда|машинист|экскаватор|бульдозер|кран|автомобил|тепловоз|трактор|домкрат|насос .*мощност|установка для водоотлива|каток|грейдер|платформ|вагон|самосвал/.test(text);
+}
+function normalizeDetailMats(detailMats){
+  return (detailMats||[]).map(function(mat){
+    var rawCode=String((mat&&mat.ozm)||(mat&&mat.code)||(mat&&mat.norm)||'').trim();
+    var catalogItem=getMaterialCatalogItemByCode(rawCode)||getMaterialCatalogItemByName(mat&&mat.name);
+    return {
+      name:(catalogItem&&catalogItem.name)||(mat&&mat.name)||rawCode||'Материал',
+      ozm:(catalogItem&&(catalogItem.ozm||catalogItem.code))||rawCode||'—',
+      unit:(catalogItem&&catalogItem.unit)||(mat&&mat.unit)||'шт',
+      norm:0,
+      supply:'Заказчик',
+      fromCatalog:!!catalogItem
+    };
+  }).filter(function(mat){
+    return mat.name&&mat.name.trim()&&!looksLikeServiceResource(mat);
+  });
+}
+function applyWorkMaterialsFromDetail(workId,workUnit,detail){
+  var mats=normalizeDetailMats(detail&&detail.mats);
+  var work=WORKS_DB.find(function(x){return x.id===workId;});
+  if(work)work.mainMats=mats.slice();
+  setWorkMatState(workId,mats.length?'loaded':'empty-source',mats.length?'':'По этой позиции материалы автоматически не найдены. Подтвердите, требуются они или нет.');
+  var cell=document.getElementById('mats-td-'+workId);
+  if(cell)cell.innerHTML=buildMatsTable(workId,workUnit,mats);
+  recalcMats(workId);
+  return mats;
+}
+function hydrateWorkMaterials(workId){
+  var work=WORKS_DB.find(function(x){return x.id===workId;});
+  if(!work||!work.code||!work.chunk)return Promise.resolve([]);
+  return loadRateDetail(work).then(function(full){
+    if(!document.getElementById('mats-td-'+workId))return [];
+    return applyWorkMaterialsFromDetail(workId,work.unit,full);
+  }).catch(function(){
+    setWorkMatState(workId,'empty-source','По этой позиции материалы автоматически не найдены. Подтвердите, требуются они или нет.');
+    var cell=document.getElementById('mats-td-'+workId);
+    if(cell)cell.innerHTML=buildMatsTable(workId,work.unit,[]);
+    return [];
+  });
+}
+
 function buildMatsTable(workId,workUnit,customMats){
   var mats=(WORK_MATS[workId]||[]).map(function(m){return Object.assign({},m);});
   if(customMats&&customMats.length)mats=mats.concat(customMats);
   var needsPolicy=!mats.length;
+  var matState=getWorkMatState(workId);
+  var alertText=matState.message||'Материалы не подтянулись. Подтвердите, требуются они или нет.';
   var html='<div style="min-width:520px">'
-    +(needsPolicy?'<div class="alert a-amber" style="padding:7px 9px;margin-bottom:7px;font-size:11px">Материалы не подтянулись. Подтвердите, требуются они или нет.</div>'
+    +(needsPolicy?'<div class="alert a-amber" style="padding:7px 9px;margin-bottom:7px;font-size:11px">'+htmlEscape(alertText)+'</div>'
       +'<div data-mat-policy-box="'+workId+'" style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:7px">'
       +'<label class="choice" style="margin:0;background:#fff;padding:7px 9px"><input type="radio" name="mat-policy-'+workId+'" value="required" onchange="onWorkMatPolicyChange('+workId+')"/><span><strong>Материалы требуются</strong><br><span class="t-xs t3">Добавьте хотя бы один материал.</span></span></label>'
       +'<label class="choice" style="margin:0;background:#fff;padding:7px 9px"><input type="radio" name="mat-policy-'+workId+'" value="none" onchange="onWorkMatPolicyChange('+workId+')"/><span><strong>Материалы не требуются</strong><br><span class="t-xs t3">Подтверждаем отсутствие.</span></span></label>'
@@ -2823,8 +2951,10 @@ function onWorkMatPolicyChange(workId){
  if(box)box.style.outline='';
 }
 
-var _matPickerWorkId=null,_matPickerIdx=null,_matPickerSource='manual',_matPickerSection='all',_matPickerCache=null;
+var _matPickerWorkId=null,_matPickerIdx=null,_matPickerSource='manual',_matPickerSection='all',_matPickerCache=null,_matPickerTarget='work',_matPickerReturnModalId=null;
 function openMaterialPicker(workId,idx){
+  _matPickerTarget='work';
+  _matPickerReturnModalId=null;
   _matPickerWorkId=workId;
   var tbody=document.getElementById('mat-rows-'+workId);
   if(idx===undefined||idx===null){
@@ -2836,8 +2966,34 @@ function openMaterialPicker(workId,idx){
   renderMaterialPickerList();
   document.getElementById('material-picker-modal').classList.add('open');
 }
+function openAdminMaterialPicker(){
+  _matPickerTarget='admin';
+  _matPickerReturnModalId='admin-edit-modal';
+  _matPickerWorkId=null;
+  _matPickerIdx=null;
+  var q=document.getElementById('mp-search');if(q)q.value='';
+  setMaterialSource('ozm');
+  var manualTab=document.getElementById('mat-src-manual');
+  if(manualTab)manualTab.style.display='none';
+  var applyBtn=document.getElementById('mp-manual-apply');
+  if(applyBtn)applyBtn.style.display='none';
+  var adminModal=document.getElementById('admin-edit-modal');
+  if(adminModal)adminModal.classList.remove('open');
+  renderMaterialPickerList();
+  document.getElementById('material-picker-modal').classList.add('open');
+}
 function closeMaterialPicker(){
   document.getElementById('material-picker-modal').classList.remove('open');
+  if(_matPickerReturnModalId){
+    var backModal=document.getElementById(_matPickerReturnModalId);
+    if(backModal)backModal.classList.add('open');
+  }
+  _matPickerTarget='work';
+  _matPickerReturnModalId=null;
+  var manualTab=document.getElementById('mat-src-manual');
+  if(manualTab)manualTab.style.display='';
+  var applyBtn=document.getElementById('mp-manual-apply');
+  if(applyBtn)applyBtn.style.display='';
 }
 function resetMaterialPickerCache(){
   _matPickerCache=null;
@@ -2961,10 +3117,6 @@ function highlightMaterialPickerSection(){
 function renderMaterialPickerList(){
   var box=document.getElementById('mp-results');if(!box)return;
   var q=((document.getElementById('mp-search')||{}).value||'').toLowerCase();
-  if(_matPickerSection==='all'&&!q){
-    box.innerHTML='<div style="height:360px;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--t3);font-size:13px;background:#F9FAFB;border:1px solid var(--border);border-radius:8px">Выберите раздел материалов слева<br>или начните поиск по названию/коду УЗМ/ОЗМ.</div>';
-    return;
-  }
   var items=getMaterialPickerSourceItems().filter(function(i){
     if(_matPickerSection!=='all'&&i.key!==_matPickerSection)return false;
     return !q||i.name.toLowerCase().includes(q)||String(i.ozm||'').toLowerCase().includes(q);
@@ -2997,6 +3149,24 @@ function applyMaterialPickerManual(){
   });
 }
 function applyMaterialPickerItem(item){
+  if(_matPickerTarget==='admin'){
+    var exists=ADMIN_SELECTED_MATERIALS.some(function(x){
+      return String(x.ozm||x.name||'')===String(item.ozm||item.name||'');
+    });
+    if(!exists){
+      ADMIN_SELECTED_MATERIALS.push({
+        name:item.name||'',
+        ozm:item.ozm||item.code||'—',
+        norm:0,
+        unit:item.unit||'шт',
+        supply:'Заказчик',
+        fromCatalog:item.fromCatalog!==false
+      });
+      renderAdminPickedMaterials();
+    }
+    closeMaterialPicker();
+    return;
+  }
   var row=document.getElementById('mat-row-'+_matPickerWorkId+'-'+_matPickerIdx);
   if(!row)return;
   var nameInp=row.querySelector('.mat-name-inp');if(nameInp)nameInp.value=item.name||'';
@@ -3067,9 +3237,10 @@ function addWorkFromCatalog(w,card,btn){
  var tbody=document.getElementById('works-tbody');
  var tr=document.createElement('tr');
 
- // Полная таблица материалов как в v1
- var mats=(w.mainMats||[]).filter(function(m){return m.name;});
- var matsHtml=buildMatsTable(w.id, w.unit, mats);
+  // Полная таблица материалов как в v1
+  var mats=(w.mainMats||[]).filter(function(m){return m.name;});
+  setWorkMatState(w.id,mats.length?'loaded':'',mats.length?'':'');
+  var matsHtml=buildMatsTable(w.id, w.unit, mats);
 
  var unitOpts='<option>'+w.unit+'</option><option>м²</option><option>м³</option><option>п.м.</option><option>шт</option><option>т</option><option>кг</option>';
   var templateHtml='';
@@ -3095,9 +3266,15 @@ function addWorkFromCatalog(w,card,btn){
  +'<td><input class="fi" style="width:140px;font-size:11px;padding:3px 7px" placeholder="Условия производства работ / примечание"/></td>'
  +'<td id="ca-b-'+w.id+'"><span class="badge b-amber">ЦА думает...</span></td>'
  +'<td><button class="btn btn-o btn-xs" style="color:var(--red);border-color:#FECACA" onclick="this.closest(\'tr\').remove();workCount--;">x</button></td>';
- tbody.appendChild(tr);
+  tbody.appendChild(tr);
 
- setTimeout(function(){
+  if(!mats.length&&w.code&&w.chunk){
+    hydrateWorkMaterials(w.id).catch(function(err){
+      console.warn('Не удалось подтянуть материалы для работы',err);
+    });
+  }
+
+  setTimeout(function(){
  var bc=BADGES[w.id]||'b-green';var bl=LABELS[w.id]||'Найдено';
   var el=document.getElementById('ca-b-'+w.id);if(el){if(w.isTemplate)updateWorkAiStatus(w.id,w.name);else el.innerHTML='<span class="badge '+bc+'">'+bl+'</span>';}
  if(btn){btn.textContent='Добавлено';btn.style.color='var(--green)';}
@@ -3827,9 +4004,7 @@ function openAdminEditModal(work){
  document.getElementById('ae-name').value = work.name || '';
  document.getElementById('ae-desc').value = work.desc || '';
  document.getElementById('ae-unit').value = work.unit || 'м²';
- // Материалы
- var matsStr = (work.mainMats||[]).filter(function(m){return m.name;}).map(function(m){return m.name;}).join(', ');
- document.getElementById('ae-mats').value = matsStr;
+ setAdminSelectedMaterials(work.mainMats||[]);
  document.getElementById('ae-template').checked = !!work.isTemplate;
  document.getElementById('ae-template-rule').value = work.templateRule || '';
  document.getElementById('ae-template-fields').value = (work.templateFields||[]).map(function(f){return f.label;}).join('; ');
@@ -3842,7 +4017,7 @@ function openAdminCreateTemplate(){
  document.getElementById('ae-name').value='Устройство цементно-песчаной стяжки толщиной ___ мм';
  document.getElementById('ae-desc').value='Шаблонная работа: куратор заполняет параметры в пропусках.';
  document.getElementById('ae-unit').value='м²';
- document.getElementById('ae-mats').value='';
+ setAdminSelectedMaterials([]);
  document.getElementById('ae-template').checked=true;
  document.getElementById('ae-template-rule').value='Заполнение параметров не создает новую позицию каталога.';
  document.getElementById('ae-template-fields').value='Толщина, мм';
@@ -3865,7 +4040,7 @@ function openAdminTemplateFromCandidate(work){
  document.getElementById('ae-name').value=normalizeTemplateNameFromFields(work.name||'',parseTemplateFields(guessTemplateFieldsFromName(work.name)));
  document.getElementById('ae-desc').value=work.desc||'Шаблонная работа: куратор заполняет параметры в пропусках.';
  document.getElementById('ae-unit').value=work.unit||'м²';
- document.getElementById('ae-mats').value=(work.mainMats||[]).map(function(m){return m.name;}).join(', ');
+ setAdminSelectedMaterials(work.mainMats||[]);
  document.getElementById('ae-template').checked=true;
  document.getElementById('ae-template-rule').value=work.templateRule||'Заполнение параметров не создает новую позицию каталога.';
  document.getElementById('ae-template-fields').value=guessTemplateFieldsFromName(work.name);
@@ -3892,13 +4067,12 @@ function normalizeTemplateNameFromFields(name,fields){
  return out;
 }
 function saveAdminEdit(){
- var name=document.getElementById('ae-name').value.trim();
- var desc=document.getElementById('ae-desc').value.trim();
- var unit=document.getElementById('ae-unit').value.trim();
- var mats=document.getElementById('ae-mats').value.trim();
- var isTemplate=document.getElementById('ae-template').checked;
- var templateRule=document.getElementById('ae-template-rule').value.trim();
- var templateFields=parseTemplateFields(document.getElementById('ae-template-fields').value);
+  var name=document.getElementById('ae-name').value.trim();
+  var desc=document.getElementById('ae-desc').value.trim();
+  var unit=document.getElementById('ae-unit').value.trim();
+  var isTemplate=document.getElementById('ae-template').checked;
+  var templateRule=document.getElementById('ae-template-rule').value.trim();
+  var templateFields=parseTemplateFields(document.getElementById('ae-template-fields').value);
  if(!name){document.getElementById('ae-name').style.borderColor='var(--red)';return;}
  if(isTemplate)name=normalizeTemplateNameFromFields(name,templateFields);
  if(isTemplate&&(!name.includes('___')||!templateFields.length)){showToast('Для шаблона укажите пропуск ___ или число, которое можно заменить на пропуск','error');return;}
@@ -3914,15 +4088,15 @@ function saveAdminEdit(){
  }
  if(!_adminEditWork)return;
  _adminEditWork.name=name;
- _adminEditWork.desc=desc||_adminEditWork.desc;
- _adminEditWork.unit=unit||_adminEditWork.unit;
- _adminEditWork.isTemplate=isTemplate;
- _adminEditWork.templateRule=templateRule;
- _adminEditWork.templateFields=isTemplate?templateFields:[];
- if(mats){_adminEditWork.mainMats=mats.split(',').map(function(m){return{name:m.trim(),ozm:'—',norm:0,unit:'—',supply:'Заказчик'};});}
- resetWorkSearchCache();
- document.getElementById('admin-edit-modal').classList.remove('open');
- _adminEditWork=null;
+  _adminEditWork.desc=desc||_adminEditWork.desc;
+  _adminEditWork.unit=unit||_adminEditWork.unit;
+  _adminEditWork.isTemplate=isTemplate;
+  _adminEditWork.templateRule=templateRule;
+  _adminEditWork.templateFields=isTemplate?templateFields:[];
+  _adminEditWork.mainMats=ADMIN_SELECTED_MATERIALS.map(function(m){return Object.assign({},m);});
+  resetWorkSearchCache();
+  document.getElementById('admin-edit-modal').classList.remove('open');
+  _adminEditWork=null;
  _adminEditMode='edit';
  renderAdminPage();
  showToast(isTemplate?'Шаблонная работа сохранена':'Позиция каталога обновлена','success');
@@ -4435,3 +4609,4 @@ document.getElementById('f-date')&&(document.getElementById('f-date').value=new 
 </script>
 </body>
 </html>
+
