@@ -134,6 +134,57 @@ tbody tr:hover td{background:#FAFAFA}
 .wcard-ic.uic{background:var(--purple-l)}
 .wcard-n{font-size:13px;font-weight:600;color:var(--text)}
 .wcard-m{font-size:11px;color:var(--t3);margin-top:2px}
+.linked-rate{margin-top:7px;padding:7px 9px;background:#F8FAFC;border:1px solid var(--border);border-radius:6px;font-size:11px;color:var(--t2)}
+.linked-rate-t{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.3px;margin-bottom:3px}
+.linked-rate-code{font-family:'JetBrains Mono',monospace;color:var(--blue);font-weight:600}
+.our-work-detail{margin-top:9px;border:1px solid #DDD6FE;background:#FBFAFF;border-radius:8px;overflow:hidden}
+.ow-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid #EDE9FE}
+.ow-block{padding:9px 10px;border-right:1px solid #EDE9FE;border-bottom:1px solid #EDE9FE;font-size:11px;color:var(--t2);min-height:58px}
+.ow-block:nth-child(2n){border-right:none}
+.ow-title{font-size:10px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:.3px;margin-bottom:5px}
+.ow-empty{color:var(--t3)}
+.ow-chip{display:inline-flex;align-items:center;gap:4px;padding:2px 7px;border-radius:999px;background:#fff;border:1px solid #DDD6FE;color:#5B21B6;font-size:10px;font-weight:600;margin:2px 4px 2px 0}
+.ow-chip.req{border-color:#FECACA;color:var(--red);background:var(--red-l)}
+.ow-chip.want{border-color:#FDE68A;color:var(--amber);background:var(--amber-l)}
+.ow-chip.opt{border-color:#E5E7EB;color:var(--gray);background:#F9FAFB}
+.ow-mat{padding:6px 7px;border:1px solid #E5E7EB;border-radius:7px;background:#fff;margin:4px 0}
+.ow-mat-head{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.ow-mat-note{font-size:10px;color:var(--t3);margin-top:3px;line-height:1.35}
+.field-mark{display:inline-flex;align-items:center;margin-left:5px;padding:1px 5px;border-radius:999px;font-size:9px;font-weight:700}
+.ow-rate{display:flex;align-items:center;gap:6px;margin:3px 0;line-height:1.35}
+.ow-rate .mono{font-size:10px;color:var(--blue)}
+.ow-quality{padding:8px 10px;border-top:1px solid #EDE9FE;background:#fff;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.ow-quality-t{font-size:10px;font-weight:800;color:var(--t3);text-transform:uppercase;letter-spacing:.3px;margin-right:2px}
+.ow-quality-note{width:100%;font-size:10px;color:var(--t3);line-height:1.35;margin-top:2px}
+.ow-test{border-top:1px solid #EDE9FE;padding:10px;background:#fff}
+.ow-test-title{font-size:10px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px}
+.ow-test-actions{display:flex;gap:8px;align-items:flex-start}
+.ow-test-result{margin-top:8px;font-size:11px;line-height:1.45}
+.ow-test-result .alert{margin-bottom:7px;padding:8px 10px;font-size:11px}
+.ow-test-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.ow-test-cell{border:1px solid var(--border);border-radius:7px;background:#F9FAFB;padding:7px}
+.status-legend{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 0 14px}
+.status-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:999px;border:1px solid var(--border);background:#fff;font-size:11px;font-weight:600;color:var(--t2)}
+.status-dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+.draft-source-ai td,.confirm-source-ai td{background:var(--blue-l)!important}
+.draft-source-user td,.confirm-source-user td{background:var(--purple-l)!important}
+.draft-missing td,.confirm-missing td{background:var(--red-l)!important}
+.draft-override td,.confirm-override td{background:var(--amber-l)!important}
+.draft-source-ai td:first-child,.confirm-source-ai td:first-child{box-shadow:inset 3px 0 0 var(--blue)}
+.draft-source-user td:first-child,.confirm-source-user td:first-child{box-shadow:inset 3px 0 0 var(--purple)}
+.draft-missing td:first-child,.confirm-missing td:first-child{box-shadow:inset 3px 0 0 var(--red)}
+.draft-override td:first-child,.confirm-override td:first-child{box-shadow:inset 3px 0 0 var(--amber)}
+.draft-rec{font-size:10px;color:var(--t3);margin-top:5px;line-height:1.35}
+.ai-reason{margin-top:7px;border:1px solid var(--border);border-radius:7px;background:#fff;overflow:hidden}
+.ai-reason summary{cursor:pointer;list-style:none;padding:7px 9px;font-size:11px;font-weight:700;color:var(--blue);display:flex;align-items:center;justify-content:space-between}
+.ai-reason summary::-webkit-details-marker{display:none}
+.ai-reason summary:after{content:'⌄';font-size:12px;color:var(--t3)}
+.ai-reason[open] summary{border-bottom:1px solid var(--border);background:#F8FAFC}
+.ai-reason-body{padding:8px 10px;font-size:11px;color:var(--t2);line-height:1.45}
+.ai-reason-body ul{margin:4px 0 8px 16px}
+.ai-reason-body li{margin:2px 0}
+.ai-reason-k{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.3px;margin-top:7px}
+.draft-reason{margin-top:6px;font-size:11px;padding:5px 7px;min-width:220px}
 .user-tag{font-size:10px;background:var(--purple-l);color:var(--purple);padding:2px 7px;border-radius:10px;border:1px solid #DDD6FE;font-weight:600}
 
 /* Материалы основные/прочие */
@@ -205,10 +256,50 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
 .choice.sel{border-color:var(--blue);background:var(--blue-l)}
 .pdf-ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;display:none;align-items:center;justify-content:center}
 .pdf-ov.open{display:flex}
-.pdf-box{background:var(--white);border-radius:12px;width:660px;max-width:96vw;max-height:92vh;overflow:hidden;display:flex;flex-direction:column}
+.pdf-box{background:var(--white);border-radius:12px;width:1040px;max-width:96vw;max-height:92vh;overflow:hidden;display:flex;flex-direction:column}
 .pdf-h{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.pdf-body{overflow-y:auto;flex:1;padding:28px 32px;font-family:Arial,sans-serif;font-size:13px;line-height:1.7;background:#FAFAFA}
+.pdf-body{overflow-y:auto;flex:1;padding:24px;background:#F3F6FA;font-family:Arial,sans-serif;font-size:13px;line-height:1.55}
 .pdf-f{padding:11px 18px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px}
+.dv-doc{max-width:900px;margin:0 auto;background:#fff;border:1px solid #D7DCE5;border-radius:10px;box-shadow:0 8px 24px rgba(15,23,42,.08);overflow:hidden;color:#111827}
+.dv-doc-page{padding:28px 30px 24px}
+.dv-doc-head{text-align:center;margin-bottom:20px}
+.dv-doc-ent{font-size:12px;color:#6B7280;margin-bottom:6px}
+.dv-doc-title{font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:.2px}
+.dv-doc-num{font-size:13px;color:#374151;margin-top:6px}
+.dv-doc-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;border:1px solid #E5E7EB;border-radius:8px;background:#FAFAFA;padding:12px;margin-bottom:18px}
+.dv-meta-label{font-size:11px;color:#6B7280;margin-bottom:2px}
+.dv-meta-value{font-size:14px;font-weight:700;color:#111827;overflow-wrap:anywhere}
+.dv-section-title{font-size:13px;font-weight:800;text-transform:uppercase;color:#111827;margin:18px 0 10px;letter-spacing:.2px}
+.dv-list{border:1px solid #E5E7EB;border-radius:8px;overflow:hidden;background:#fff}
+.dv-row{display:grid;grid-template-columns:44px minmax(0,1fr) 130px 150px;gap:0;border-top:1px solid #E5E7EB}
+.dv-row:first-child{border-top:0}
+.dv-row-head{background:#F8FAFC;color:#64748B;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.2px}
+.dv-cell{padding:11px 12px;min-width:0;overflow-wrap:anywhere;border-left:1px solid #E5E7EB}
+.dv-cell:first-child{border-left:0;text-align:center;color:#475569;font-weight:700}
+.dv-work-name{font-size:14px;font-weight:700;color:#1F2937;margin-bottom:4px}
+.dv-work-note{font-size:12px;color:#6B7280}
+.dv-mats{margin-top:8px;display:flex;flex-direction:column;gap:4px}
+.dv-mat{font-size:12px;color:#374151;background:#F9FAFB;border:1px solid #EEF2F7;border-radius:6px;padding:5px 7px}
+.dv-chip{display:inline-flex;align-items:center;border-radius:999px;background:#EEF2FF;color:#1D4ED8;font-size:11px;font-weight:700;padding:3px 8px;margin-left:6px}
+.dv-note-box{border:1px solid #E5E7EB;border-radius:8px;background:#FAFAFA;padding:11px 12px;color:#374151;overflow-wrap:anywhere}
+.dv-sign{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:24px;font-size:12px;color:#4B5563}
+.dv-sign-line{border-top:1px solid #374151;padding-top:7px;text-align:center}
+@media(max-width:900px){
+ .dv-doc-page{padding:20px 16px}
+ .dv-doc-meta{grid-template-columns:1fr 1fr}
+ .dv-row{grid-template-columns:36px minmax(0,1fr)}
+ .dv-row-head{display:none}
+ .dv-cell{border-left:0;border-top:1px solid #EEF2F7}
+ .dv-cell:first-child{grid-row:1 / span 3;border-top:0}
+}
+@media print{
+ body>*:not(#pdf-modal){display:none!important}
+ .pdf-ov,.pdf-ov.open{display:block!important;position:static;background:#fff}
+ .pdf-box{width:auto;max-width:none;max-height:none;box-shadow:none;border-radius:0}
+ .pdf-h,.pdf-f{display:none}
+ .pdf-body{padding:0;background:#fff;overflow:visible}
+ .dv-doc{box-shadow:none;border:0;max-width:none}
+}
 .status-row{display:flex;align-items:center;gap:8px;padding:8px 14px;background:var(--bg);border-bottom:1px solid var(--border);font-size:12px;color:var(--t3)}
 .status-dot-anim{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0;animation:pulse 1.5s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
@@ -224,6 +315,28 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
 .admin-row{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid #F3F4F6;font-size:13px}
 .admin-row:hover{background:#FAFAFA}
 .admin-row:last-child{border-bottom:none}
+.import-cols{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.import-col{font-size:10px;font-weight:700;color:var(--purple);background:var(--purple-l);border:1px solid #DDD6FE;border-radius:999px;padding:3px 7px}
+.import-preview{max-height:260px;overflow:auto;border:1px solid var(--border);border-radius:8px;margin-top:10px}
+.import-guide{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin:10px 0}
+.import-guide-cell{border:1px solid #E5E7EB;border-radius:8px;background:#F9FAFB;padding:8px 9px;min-height:58px}
+.import-guide-k{font-size:10px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:.3px;margin-bottom:4px}
+.import-guide-v{font-size:11px;color:var(--t2);line-height:1.35}
+.import-paste-wrap{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:10px;align-items:stretch;margin-top:10px}
+.import-paste-help{border:1px solid #DBEAFE;background:#EFF6FF;border-radius:8px;padding:10px;font-size:11px;color:#1E40AF;line-height:1.45}
+.import-paste-help strong{display:block;margin-bottom:5px;color:#1E3A8A}
+.import-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.import-editor{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.import-edit-card{border:1px solid var(--border);border-radius:8px;background:#fff;overflow:hidden}
+.import-edit-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px;background:#F9FAFB;border-bottom:1px solid var(--border)}
+.import-edit-title{font-size:12px;font-weight:800;color:var(--text)}
+.import-edit-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:10px}
+.import-edit-grid .f{margin:0}
+.import-edit-grid .full2{grid-column:span 2}
+.import-edit-grid .full4{grid-column:1 / -1}
+.import-mini-note{font-size:11px;color:var(--t3);margin-top:6px}
+@media(max-width:900px){.import-paste-wrap{grid-template-columns:1fr}}
+@media(max-width:1100px){.import-edit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.import-edit-grid .full4{grid-column:1 / -1}}
 .toast{position:fixed;right:24px;bottom:24px;z-index:9999;display:flex;align-items:flex-start;gap:12px;min-width:320px;max-width:420px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);box-shadow:0 18px 40px rgba(15,23,42,.18);transform:translateY(26px) scale(.96);opacity:0;transition:transform .28s ease,opacity .28s ease,box-shadow .28s ease;pointer-events:none;border:1px solid rgba(255,255,255,.7);overflow:hidden}
 .toast:before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--blue)}
 .toast.show{transform:translateY(0) scale(1);opacity:1;pointer-events:auto}
@@ -336,7 +449,7 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
  <!-- ШАГ 2: РАБОТЫ — ИЕРАРХИЧЕСКИЙ КАТАЛОГ -->
  <div class="page" id="pg-new2">
  <div class="ts">Создание дефектной ведомости</div>
- <div class="ss">Шаг 2 из 4 — Добавьте работы из пользовательского каталога</div>
+ <div class="ss">Шаг 2 из 4 — Добавьте работы из каталога работ дефектной ведомости</div>
  <div class="steps">
  <div class="step" style="cursor:pointer" onclick="gotoPage('new1')"><div class="step-dot done"></div><div class="step-lbl done">Шапка</div><div class="step-line done"></div></div>
  <div class="step"><div class="step-dot active">2</div><div class="step-lbl active">Работы</div><div class="step-line"></div></div>
@@ -346,11 +459,11 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
  <div class="status-row mb8"><div class="status-dot-anim"></div> ЦА формирует черновик сметы в реальном времени по мере добавления позиций</div>
 
  <!-- Поиск + кнопки -->
- <div class="card mb14">
+ <div class="card mb14" id="draft-map-card">
  <div class="card-b" style="padding:12px 14px">
  <div style="display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center">
  <div style="position:relative">
- <input class="fi" id="cat-search" placeholder=" Поиск по каталогу работ (кровля, разборка, стяжка, шаблон...)..." oninput="doGlobalSearch(this.value)"/>
+ <input class="fi" id="cat-search" placeholder=" Поиск по нашему каталогу работ ДВ (кровля, разборка, стяжка, шаблон...)..." oninput="doGlobalSearch(this.value)"/>
  </div>
  <button class="btn btn-o btn-sm" onclick="toggleManual()">Ввести вручную</button>
  </div>
@@ -378,7 +491,7 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
  <div class="cat-tree-panel" id="cat-left-panel">
    <!-- Панель: Разделы работ (по умолчанию) -->
    <div id="left-works-panel">
-     <div class="cat-tree-hdr">Разделы работ</div>
+     <div class="cat-tree-hdr">Каталог работ ДВ</div>
      <div id="works-sections-panel" style="overflow-y:auto">
        <div id="works-sections-list"></div>
      </div>
@@ -390,12 +503,17 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
    </div>
  </div>
  <div class="cat-works-pnl">
+ <div class="ctabs">
+ <div class="ctab active" id="cat-tab-user" onclick="switchCatTab('user',this)">Наши работы ДВ</div>
+ <div class="ctab" id="cat-tab-rsnb" onclick="switchCatTab('rsnb',this)">РСНБ / РСН РК</div>
+ </div>
+ <div id="cat-mode-note" style="padding:8px 12px;border-bottom:1px solid var(--border);background:#fff;font-size:11px;color:var(--t3)">Наши работы ДВ — шаблонные позиции для куратора. РСНБ / РСН РК — нормативные расценки, которые ЦА использует для подбора сметы.</div>
  <div class="cat-works-hdr">
- <div id="cat-bc" style="flex:1;font-size:12px;color:var(--t3)">Выберите раздел слева</div>
+ <div id="cat-bc" style="flex:1;font-size:12px;color:var(--t3)">Выберите раздел нашего каталога слева</div>
  <input class="cpanel-search" id="cpanel-search" placeholder="Поиск в разделе..." oninput="filterPanelWorks(this.value)"/>
  </div>
  <div class="cat-works-body" id="cat-works-body">
- <div style="text-align:center;padding:40px;color:var(--t3);font-size:13px">Выберите раздел слева</div>
+ <div style="text-align:center;padding:40px;color:var(--t3);font-size:13px">Выберите раздел нашего каталога слева</div>
  </div>
  </div>
  </div>
@@ -478,7 +596,7 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
  <div><div class="t-xs t3">Маршрут</div><div style="margin-top:3px;color:var(--blue);font-weight:600"> ЕСЭД → СМАКС → сметчик</div></div>
  </div>
  <div class="fc gap8 mt12">
- <button class="btn btn-o btn-sm" onclick="openPDF()"> Предпросмотр PDF</button>
+ <button class="btn btn-o btn-sm" onclick="openPDF()"> Предпросмотр ДВ</button>
  <button class="btn btn-o btn-sm" onclick="downloadDVxlsx()"> Скачать .xlsx</button>
  <button class="btn btn-o btn-sm" onclick="window.print()"> Распечатать</button>
  </div>
@@ -594,7 +712,7 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
  <div><div class="ts">Смета — черновик</div><div class="ss">AOK-ES-2026-C-56-144 · Склад УСХ — Кровля · сформирован ЦА</div></div>
  <button class="btn btn-o btn-sm" onclick="gotoPage('inbox')">← Назад</button>
  </div>
- <div class="alert a-blue"> ЦА сформировал черновик параллельно с заполнением ДВ — проверьте позиции и подтвердите.<br>🟢 Зелёный — уверен · 🟡 Жёлтый — сомневается · Красный — не смог сопоставить</div>
+ <div class="alert a-blue"> ЦА сформировал черновик параллельно с заполнением ДВ — проверьте позиции и закройте смету.<br>Построчного подтверждения нет: правила ЦА работают как рекомендации, изменения сметчика подсвечиваются и попадают в журнал.</div>
  <div class="card mb14">
  <div class="card-h" style="background:#F9FAFB"><div class="card-t"> Как ЦА преобразовал ДВ в смету</div><span class="t-xs t3">2 позиции ДВ → 3 расценки сметы</span></div>
  <div class="decomp">
@@ -620,12 +738,18 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
  <tr><td colspan="3" style="color:var(--t3);font-size:11px;font-style:italic;padding:7px 12px">Примечание: пропан 0,2 кг/м²</td></tr>
  </tbody></table>
  </div>
- <div><div class="panel-h" style="background:var(--green-l);color:var(--green)"> Черновик сметы (ЦА)<button class="btn btn-xs" id="draft-add-rate-btn" style="margin-left:auto;background:#fff;color:var(--green);border:1px solid #BBF7D0" onclick="openModal(0)">+ Добавить расценку</button></div>
- <table><thead><tr><th>Шифр</th><th>Наименование работ</th><th>Кол.</th><th>Статус ЦА</th><th></th></tr></thead>
+ <div><div class="panel-h" style="background:var(--blue-l);color:var(--blue)"> Черновик сметы (ЦА)<button class="btn btn-xs" id="draft-add-rate-btn" style="margin-left:auto;background:#fff;color:var(--blue);border:1px solid #BFDBFE" onclick="openModal(0)">+ Добавить расценку</button></div>
+ <div class="status-legend" style="padding:0 12px">
+ <span class="status-chip"><span class="status-dot" style="background:var(--amber)"></span>Изменено сметчиком</span>
+ <span class="status-chip"><span class="status-dot" style="background:var(--purple)"></span>Пользовательская позиция</span>
+ <span class="status-chip"><span class="status-dot" style="background:var(--blue)"></span>Подобрано ЦА</span>
+ <span class="status-chip"><span class="status-dot" style="background:var(--red)"></span>Конфликт / не хватает данных</span>
+ </div>
+ <table><thead><tr><th>Шифр</th><th>Наименование работ</th><th>Кол.</th><th>Статус / отличие от ЦА</th><th></th></tr></thead>
  <tbody id="draft-tbody">
- <tr style="background:var(--green-l)"><td class="mono">1208-0101-0201<br>К23=0,00</td><td>Кровля рулонная. Разборка НР=72%</td><td>750</td><td><span class="badge b-green">Уверен</span></td><td><button class="btn btn-xs btn-o" style="color:var(--red);border-color:#FECACA" onclick="this.closest('tr').remove()">x</button></td></tr>
- <tr style="background:var(--green-l)"><td class="mono">1207-0101-1802<br>Ккл=1,09</td><td>Разборка стяжки цемент. 20мм НР=72%</td><td>500</td><td><span class="badge b-green">Уверен</span></td><td><button class="btn btn-xs btn-o" style="color:var(--red);border-color:#FECACA" onclick="this.closest('tr').remove()">x</button></td></tr>
- <tr id="draft-row-3" style="background:var(--amber-l)"><td class="mono" id="draft-code-3">1207-0101-1804<br>К0=6</td><td id="draft-name-3">Добавлять на каждые 5мм изменения</td><td id="draft-qty-3">500</td><td><button class="btn btn-xs" id="draft-btn-3" style="background:var(--amber-l);color:var(--amber);border:1px solid #FDE68A" onclick="openModal(3)">? Выбрать</button></td><td><button class="btn btn-xs btn-o" style="color:var(--red);border-color:#FECACA" onclick="this.closest('tr').remove()">x</button></td></tr>
+ <tr data-source="ai" data-curator-name="Разборка покрытий кровли из рулонных материалов"><td class="mono">1208-0101-0201<br>К23=0,00</td><td>Кровля рулонная. Разборка НР=72%</td><td>750</td><td><span class="badge b-blue">Подобрано ЦА</span></td><td><button class="btn btn-xs btn-o" style="color:var(--red);border-color:#FECACA" onclick="this.closest('tr').remove()">x</button></td></tr>
+ <tr data-source="ai" data-curator-name="Разборка стяжки до 50 мм"><td class="mono">1207-0101-1802<br>Ккл=1,09</td><td>Разборка стяжки цемент. 20мм НР=72%</td><td>500</td><td><span class="badge b-blue">Подобрано ЦА</span></td><td><button class="btn btn-xs btn-o" style="color:var(--red);border-color:#FECACA" onclick="this.closest('tr').remove()">x</button></td></tr>
+ <tr id="draft-row-3" data-source="ai" data-status="missing" data-curator-name="Разборка стяжки до 50 мм"><td class="mono" id="draft-code-3">1207-0101-1804<br>К0=6</td><td id="draft-name-3">Добавлять на каждые 5мм изменения</td><td id="draft-qty-3">500</td><td><button class="btn btn-xs" id="draft-btn-3" style="background:var(--red-l);color:var(--red);border:1px solid #FECACA" onclick="openModal(3)">? Не хватает данных</button></td><td><button class="btn btn-xs btn-o" style="color:var(--red);border-color:#FECACA" onclick="this.closest('tr').remove()">x</button></td></tr>
  </tbody></table>
  </div>
  </div>
@@ -641,27 +765,30 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
  <button class="btn btn-o" id="draft-manual-btn" onclick="openEditModal()"> Редактировать вручную</button>
  <div class="fc gap8">
  <button class="btn btn-purple btn-sm" id="draft-propose-btn" onclick="openProposeModal()"> Предложить позицию в каталог</button>
- <button class="btn btn-g" id="draft-approve-btn" onclick="gotoPage('confirm')">Согласовать смету →</button>
+ <button class="btn btn-g" id="draft-approve-btn" onclick="gotoPage('confirm')">Итоговый обзор →</button>
  </div>
  </div>
  </div>
 
  <!-- ФИНАЛЬНАЯ ПРОВЕРКА -->
  <div class="page" id="pg-confirm">
- <div class="fb mb18"><div><div class="ts">Смета — финальная проверка</div><div class="ss">AOK-ES-2026-C-56-144 · Склад УСХ — Кровля</div></div><button class="btn btn-o btn-sm" onclick="gotoPage('draft')">← Назад</button></div>
- <div class="alert a-green"> Все позиции проверены — смета готова к согласованию и отправке заявителю</div>
+ <div class="fb mb18"><div><div class="ts">Смета — итоговый обзор</div><div class="ss">AOK-ES-2026-C-56-144 · Склад УСХ — Кровля</div></div><button class="btn btn-o btn-sm" onclick="gotoPage('draft')">← Назад</button></div>
+ <div class="alert a-blue">Построчного подтверждения нет. Проверьте только подсвеченные изменения и журнал решений сметчика.</div>
+ <div class="status-legend">
+ <span class="status-chip"><span class="status-dot" style="background:var(--amber)"></span>Изменено сметчиком</span>
+ <span class="status-chip"><span class="status-dot" style="background:var(--purple)"></span>Пользовательская позиция</span>
+ <span class="status-chip"><span class="status-dot" style="background:var(--blue)"></span>Подобрано ЦА</span>
+ <span class="status-chip"><span class="status-dot" style="background:var(--red)"></span>Конфликт / не хватает данных</span>
+ </div>
  <div class="card mb14">
  <div class="card-h"><div class="card-t">Итоговые позиции сметы</div></div>
  <div class="tw"><table>
  <thead><tr><th>№</th><th>№ ДВ</th><th>Шифр нормы</th><th>Наименование работ и затрат</th><th>Ед. изм.</th><th>Кол-во</th><th>Статус</th></tr></thead>
- <tbody>
- <tr style="background:var(--green-l)"><td style="border-left:3px solid var(--green)">1</td><td><div style="width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto">1</div></td><td class="mono">1208-0101-0201<br>К23=0,00</td><td>Кровля из рулонных материалов. Разборка покрытий НР=72%</td><td>м² кровли</td><td>750</td><td><span class="badge b-green"> Ок</span></td></tr>
- <tr style="background:var(--green-l)"><td style="border-left:3px solid var(--green)">2</td><td><div style="width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto">2</div></td><td class="mono">1207-0101-1802<br>Ккл=1,09</td><td>Разборка стяжек цементных 20мм НР=72%</td><td>м²</td><td>500</td><td><span class="badge b-green"> Ок</span></td></tr>
- <tr style="background:var(--amber-l)"><td style="border-left:3px solid var(--amber)">3</td><td><div style="width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto">2</div></td><td class="mono">1207-0101-1804<br>К0=6</td><td>Добавлять на каждые 5мм изменения толщины стяжки</td><td>м²</td><td>500</td><td><span class="badge b-amber"> Скорр.</span></td></tr>
- </tbody>
+ <tbody id="confirm-tbody"></tbody>
  </table></div>
  </div>
- <div class="fb"><button class="btn btn-o" onclick="gotoPage('draft')">← Назад</button><button class="btn btn-g" onclick="confirmSmeta()">Согласовать и закрыть →</button></div>
+ <div class="card mb14"><div class="card-h"><div class="card-t">Журнал изменений сметчика</div><span class="t-xs t3">Только отклонения от рекомендации ЦА</span></div><div class="card-b" id="change-log-body"></div></div>
+ <div class="fb"><button class="btn btn-o" onclick="gotoPage('draft')">← Назад</button><button class="btn btn-g" onclick="confirmSmeta()">Закрыть смету →</button></div>
  </div>
 
  <!-- СМЕТА ОТПРАВЛЕНА -->
@@ -697,6 +824,17 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
  <input class="fi" id="admin-q" placeholder=" Поиск..." oninput="renderAdminList()" style="width:260px"/>
  <select class="fs" id="admin-f" onchange="renderAdminList()" style="width:180px"><option value="">Все статусы</option><option value="approved">Одобрено</option><option value="pending">На проверке</option><option value="rejected">Отклонено</option></select>
  <button class="btn btn-purple btn-sm" onclick="openAdminCreateTemplate()">+ Создать шаблон</button>
+ </div>
+ <div class="card mb14" id="excel-import-card">
+ <div class="card-h"><div class="card-t">Импорт из Excel заказчика</div><span class="t-xs t3">Вставьте строки из таблицы-прототипа</span></div>
+ <div class="card-b">
+ <div class="alert a-blue" style="margin-bottom:10px">Скопируйте диапазон из Excel вместе с первой строкой заголовков. Перед импортом нажмите «Предпросмотр» — система покажет, как поняла колонки.</div>
+ <div class="import-guide" id="excel-import-guide"></div>
+ <div class="import-editor" id="excel-import-rows"></div>
+ <div class="import-actions"><button class="btn btn-o btn-sm" onclick="addExcelImportRow()">+ Строка</button><button class="btn btn-o btn-sm" onclick="fillExcelImportExample()">Заполнить пример</button><button class="btn btn-p btn-sm" onclick="previewExcelImport()">Предпросмотр</button><button class="btn btn-g btn-sm" onclick="importExcelRows()">Импортировать</button><button class="btn btn-o btn-sm" onclick="clearExcelImport()">Очистить</button><span class="t-xs t3" id="excel-import-status"></span></div>
+ <div class="import-mini-note">Для переноса из Excel можно сначала нажать «Заполнить пример», а потом заменить значения прямо в карточках. Массовую вставку подключим отдельной кнопкой, когда согласуем финальный шаблон колонок.</div>
+ <div id="excel-import-preview" class="import-preview" style="display:none"></div>
+ </div>
  </div>
  <div class="card"><div class="card-h"><div class="card-t"> Пользовательские позиции</div><span class="t-xs t3">Старший сметчик проверяет новые заявки</span></div><div id="admin-list"></div></div>
  </div>
@@ -847,33 +985,8 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
 <!-- PDF PREVIEW -->
 <div class="pdf-ov" id="pdf-modal">
  <div class="pdf-box">
- <div class="pdf-h"><div style="font-size:15px;font-weight:700"> Предпросмотр — Дефектная ведомость</div><button class="modal-x" onclick="document.getElementById('pdf-modal').classList.remove('open')"></button></div>
- <div class="pdf-body">
- <div style="text-align:center;margin-bottom:18px">
- <div style="font-size:11px;color:#666;margin-bottom:4px" id="pdf-ent">—</div>
- <div style="font-size:15px;font-weight:700;text-transform:uppercase">ДЕФЕКТНАЯ ВЕДОМОСТЬ</div>
- <div style="font-size:12px;color:#444;margin-top:4px">№ <span id="pdf-num" style="font-weight:600">—</span></div>
- </div>
- <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 16px;border:1px solid #ddd;border-radius:6px;padding:12px;background:#fff;margin-bottom:14px;font-size:12px">
- <div><span style="color:#888">Объект:</span><span id="pdf-obj" style="font-weight:600">—</span></div>
- <div><span style="color:#888">Дата:</span><span id="pdf-date">—</span></div>
- <div><span style="color:#888">Утверждающий:</span><span id="pdf-appr">—</span></div>
- <div><span style="color:#888">Куратор:</span><span id="pdf-cur">—</span></div>
- </div>
- <div style="font-weight:700;margin-bottom:8px;font-size:12px;text-transform:uppercase;letter-spacing:.3px">Перечень работ</div>
- <table style="width:100%;border-collapse:collapse;font-size:12px;background:#fff">
- <thead><tr style="background:#1F4E79;color:#fff"><th style="padding:7px 10px;text-align:left;border:1px solid #1F4E79">№</th><th style="padding:7px 10px;text-align:left;border:1px solid #1F4E79">Наименование работы</th><th style="padding:7px 10px;text-align:center;border:1px solid #1F4E79;width:70px">Ед. изм.</th><th style="padding:7px 10px;text-align:center;border:1px solid #1F4E79;width:80px">Кол-во</th></tr></thead>
- <tbody id="pdf-tbody"><tr><td colspan="4" style="padding:12px;text-align:center;color:#888;border:1px solid #ddd">Нет позиций</td></tr></tbody>
- </table>
- <div style="margin-top:14px;padding:9px 12px;border:1px solid #ddd;border-radius:6px;background:#fff;font-size:12px">
- <div style="font-size:11px;font-weight:700;text-transform:uppercase;margin-bottom:4px;color:#333">Общее примечание</div>
- <div id="pdf-note" style="color:#555">—</div>
- </div>
- <div style="margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:20px;font-size:12px">
- <div style="border-top:1px solid #333;padding-top:5px;text-align:center;color:#666">Составил: <span id="pdf-cur2">—</span></div>
- <div style="border-top:1px solid #333;padding-top:5px;text-align:center;color:#666">Утвердил: <span id="pdf-appr2">—</span></div>
- </div>
- </div>
+ <div class="pdf-h"><div style="font-size:15px;font-weight:700" id="pdf-title">Предпросмотр — Дефектная ведомость</div><button class="modal-x" onclick="document.getElementById('pdf-modal').classList.remove('open')"></button></div>
+ <div class="pdf-body" id="pdf-body"></div>
  <div class="pdf-f"><button class="btn btn-o btn-sm" onclick="document.getElementById('pdf-modal').classList.remove('open')">Закрыть</button><button class="btn btn-p btn-sm" onclick="window.print()"> Распечатать</button></div>
  </div>
 </div>
@@ -1045,7 +1158,7 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
  <textarea class="ft" id="ae-template-rule" placeholder="Правило для шаблона: какие параметры заполняет куратор и когда позиция не пополняет каталог..." style="margin-top:8px;min-height:54px"></textarea>
  <div style="margin-top:8px">
  <label class="fl">Поля шаблона</label>
- <input class="fi" id="ae-template-fields" placeholder="Толщина, мм; Диаметр, мм; Группа грунта" style="margin-top:4px"/>
+ <input class="fi" id="ae-template-fields" placeholder="Диаметр трубы: обязательно; ГОСТ: желательно; Состав работ: опционально" style="margin-top:4px"/>
  <div class="t-xs t3 mt8">Укажите поля через точку с запятой. В названии поставьте ___ или введите пример с числом: система заменит число на пропуск.</div>
  </div>
  </div>
@@ -1066,6 +1179,12 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
  </div>
  <div class="modal-b">
  <div class="alert a-blue" style="margin-bottom:14px">Правило задаёт старший сметчик. ЦА будет учитывать его при подборе расценок и объяснять свои решения.</div>
+ <div class="fg" style="margin-bottom:12px">
+ <div class="f"><label class="fl">Название</label><input class="fi" id="rule-new-title" placeholder="Например: Приоритет пользовательских расценок"/></div>
+ <div class="f"><label class="fl">Тип</label><select class="fs" id="rule-new-type"><option value="global">Общее</option><option value="section">По разделу</option><option value="work">По работе</option><option value="material">По материалу</option><option value="rate">По расценке</option></select></div>
+ <div class="f"><label class="fl">Период с</label><input class="fi" id="rule-new-from" placeholder="28.04.2026"/></div>
+ <div class="f"><label class="fl">Период по</label><input class="fi" id="rule-new-to" placeholder="без ограничения"/></div>
+ </div>
  <div class="f">
  <label class="fl">Указание</label>
  <textarea class="ft" id="rule-new-text" placeholder="Например: при стеснённых условиях выбирать расценки с меньшей мощностью техники..." style="margin-top:4px;min-height:110px"></textarea>
@@ -1244,6 +1363,59 @@ var RSMB_TREE=[
  ]}
 ];
 
+var PIPELINE_REQUIRED_PARAMS=[
+ {key:'purpose',label:'Назначение',importance:'required',placeholder:'отопление / водоснабжение / газ / канализация',options:['отопление','водоснабжение','газ','канализация']},
+ {key:'location',label:'Внутри или снаружи помещения',importance:'required',placeholder:'внутри / снаружи',options:['внутри помещения','наружный трубопровод']},
+ {key:'pipe_material',label:'Материал трубы',importance:'required',placeholder:'стальная / ПП / ПЭ / чугун'},
+ {key:'diameter',label:'Диаметр',importance:'required',placeholder:'50 мм'},
+ {key:'gost',label:'ГОСТ',importance:'desired',placeholder:'ГОСТ трубы'},
+ {key:'laying_method',label:'Способ прокладки',importance:'required',placeholder:'открыто / в канале / в траншее'},
+ {key:'pressure',label:'Давление, если нужно',importance:'desired',placeholder:'до 0,6 МПа'}
+];
+var SCREED_REQUIRED_PARAMS=[
+ {key:'thickness',label:'Толщина',importance:'required',placeholder:'30 мм'},
+ {key:'area',label:'Площадь',importance:'required',placeholder:'м²'},
+ {key:'work_type',label:'Ремонт или новое устройство',importance:'required',placeholder:'ремонт / новое устройство',options:['новое устройство','ремонт']},
+ {key:'coverage_type',label:'Отдельными местами или сплошная',importance:'required',placeholder:'отдельными местами / сплошная',options:['сплошная','отдельными местами']},
+ {key:'single_place_area',label:'Площадь одного места',importance:'desired',placeholder:'до 0,25 м² / до 0,5 м² / до 1 м²'}
+];
+var MASONRY_REQUIRED_PARAMS=[
+ {key:'wall_type',label:'Тип стены/участка',importance:'required',placeholder:'наружная / внутренняя / отдельный участок'},
+ {key:'complexity',label:'Сложность кладки',importance:'required',placeholder:'простая / средняя / сложная',options:['простая','средней сложности','сложная']},
+ {key:'material',label:'Материал кладки',importance:'required',placeholder:'кирпич / блок / камень'},
+ {key:'volume',label:'Объем',importance:'required',placeholder:'м³'},
+ {key:'opening_repair',label:'Проем или отдельный участок',importance:'desired',placeholder:'нет / заделка проема / отдельный участок',options:['нет','заделка проема','отдельный участок']}
+];
+var OUTDOOR_PIPELINE_REQUIRED_PARAMS=PIPELINE_REQUIRED_PARAMS.concat([
+ {key:'trench_or_channel',label:'Траншея / канал / опоры',importance:'required',placeholder:'траншея / канал / на опорах'},
+ {key:'soil_or_surface',label:'Условия прокладки',importance:'desired',placeholder:'грунт, покрытие, глубина'}
+]);
+var MASONRY_REPAIR_REQUIRED_PARAMS=[
+ {key:'repair_type',label:'Вид ремонта',importance:'required',placeholder:'отдельный участок / заделка проема',options:['отдельный участок','заделка проема']},
+ {key:'material',label:'Материал кладки',importance:'required',placeholder:'кирпич / блок / камень'},
+ {key:'area_or_volume',label:'Площадь или объем участка',importance:'required',placeholder:'м² / м³'},
+ {key:'wall_context',label:'Где расположен участок',importance:'desired',placeholder:'наружная / внутренняя стена'}
+];
+var LEVELING_SCREED_REQUIRED_PARAMS=[
+ {key:'thickness',label:'Толщина выравнивания',importance:'required',placeholder:'10 мм / 20 мм'},
+ {key:'area',label:'Площадь',importance:'required',placeholder:'м²'},
+ {key:'base_condition',label:'Основание',importance:'desired',placeholder:'существующая стяжка / бетон'},
+ {key:'material',label:'Материал смеси',importance:'desired',placeholder:'цементная смесь / раствор'}
+];
+var SPOT_SCREED_REPAIR_REQUIRED_PARAMS=[
+ {key:'single_place_area',label:'Площадь одного места',importance:'required',placeholder:'до 0,25 м² / до 0,5 м² / до 1 м²'},
+ {key:'places_count',label:'Количество мест',importance:'required',placeholder:'шт.'},
+ {key:'thickness',label:'Толщина ремонта',importance:'desired',placeholder:'мм'},
+ {key:'material',label:'Материал ремонта',importance:'desired',placeholder:'раствор / по норме'}
+];
+var PRIORITY_RULES=[
+ {id:'user-p-first',title:'Приоритет пользовательской расценки П',text:'Если есть пользовательская расценка П или наша одобренная позиция, использовать ее первой.',type:'global',scope:'Все разделы',active:true,author:'Нурланов М.К.',createdAt:'22.04.2026',validFrom:'22.04.2026',validTo:'без ограничения',history:[{date:'22.04.2026',author:'Нурланов М.К.',action:'Создано правило'}],conflicts:[]},
+ {id:'fallback-rsnb',title:'Fallback на связанный сборник РСНБ',text:'Если пользовательской расценки П нет, выбирать расценку из связанного сборника РСНБ / РСН РК по параметрам работы и материалам.',type:'global',scope:'Все разделы',active:true,author:'Нурланов М.К.',createdAt:'22.04.2026',validFrom:'22.04.2026',validTo:'без ограничения',history:[{date:'22.04.2026',author:'Нурланов М.К.',action:'Создано правило'}],conflicts:[]},
+ {id:'masonry-simple-first',title:'Кладка: простая/средняя перед сложной',text:'Для кладки стен сначала проверять простую или средней сложности кладку; сложную выбирать только при явных признаках сложности.',type:'section',scope:'Кладка стен',active:true,author:'Нурланов М.К.',createdAt:'22.04.2026',validFrom:'22.04.2026',validTo:'без ограничения',history:[{date:'22.04.2026',author:'Нурланов М.К.',action:'Создано правило'}],conflicts:[]},
+ {id:'screed-new-vs-leveling',title:'Стяжки: новое, выравнивание, ремонт',text:'Для стяжек различать новое устройство, выравнивающую стяжку и ремонт существующей стяжки.',type:'section',scope:'Стяжки',active:true,author:'Нурланов М.К.',createdAt:'22.04.2026',validFrom:'22.04.2026',validTo:'без ограничения',history:[{date:'22.04.2026',author:'Нурланов М.К.',action:'Создано правило'}],conflicts:[]},
+ {id:'screed-place-area',title:'Стяжки: ремонт отдельными местами',text:'Для ремонта отдельными местами выбирать расценку по площади одного места.',type:'work',scope:'Ремонт стяжки отдельными местами',active:true,author:'Нурланов М.К.',createdAt:'22.04.2026',validFrom:'22.04.2026',validTo:'без ограничения',history:[{date:'22.04.2026',author:'Нурланов М.К.',action:'Создано правило'}],conflicts:[]}
+];
+
 // КАТАЛОГ РАБОТ (mainMats = основные, miscMats = прочие/авто) 
 var WORKS_DB=[
  {id:1,section:'1112-raz',name:'Разборка покрытий кровли из рулонных материалов',unit:'м²',
@@ -1264,8 +1436,22 @@ var WORKS_DB=[
  miscMats:[{name:'Вода',norm:0.003,unit:'м³'},{name:'Добавки пластифицирующие',norm:0.001,unit:'кг'}]},
  {id:201,section:'1111-stj',name:'Устройство цементно-песчаной стяжки толщиной ___ мм',unit:'м²',
  desc:'Шаблонная работа: куратор указывает толщину, ЦА пересчитывает ориентировочный расход цемента и песка.',isUser:true,approved:true,isTemplate:true,uses:0,
- templateFields:[{key:'thickness',label:'Толщина, мм',placeholder:'30'}],
+ requiredParams:SCREED_REQUIRED_PARAMS,
+ templateFields:SCREED_REQUIRED_PARAMS,
  templateRule:'Если заполнена только толщина, позиция не пополняет каталог; это использование существующего шаблона.',
+ rsnbLinkTypes:['1:N','param','rule'],
+ linkedRates:[
+  {code:'1207-0101-1802',name:'Разборка/ремонт стяжек цементных толщиной до 20 мм',linkType:'param',condition:'Использовать для ремонта существующей цементной стяжки при небольшой толщине.',priority:true},
+  {code:'1207-0101-1804',name:'Добавлять на каждые 5 мм изменения толщины стяжки свыше 20 мм',linkType:'param',condition:'Добавлять к базовой расценке, если толщина больше 20 мм.',priority:false},
+  {code:'1207-0101-1806',name:'Разборка стяжек цементных толщиной свыше 50 мм',linkType:'rule',condition:'Использовать только при явном указании толщины свыше 50 мм.',rare:true},
+  {code:'1108-СТЯЖКА-ЦП',name:'Устройство цементно-песчаной стяжки',linkType:'rule',condition:'Для нового устройства сплошной стяжки, не для ремонта отдельными местами.',avoidWithoutReason:true}
+ ],
+ priorityRules:['user-p-first','fallback-rsnb','screed-new-vs-leveling','screed-place-area'],
+ templateMaterials:[
+  {name:'Цементно-песчаный раствор',materialType:'by_norm',unit:'м³',note:'Можно указать "по норме", если точный расход рассчитывает сметчик/норма.'},
+  {name:'Цемент М400',materialType:'auto_norm',ozm:'ОЗМ-00201',norm:0.006,unit:'т',note:'Подтягивается с ориентировочной нормой, пересчитывается от толщины.'},
+  {name:'Песок строительный',materialType:'auto_norm',ozm:'ОЗМ-00202',norm:0.012,unit:'м³',note:'Подтягивается с ориентировочной нормой, пересчитывается от толщины.'}
+ ],
  mainMats:[{name:'Цемент М400',ozm:'ОЗМ-00201',norm:0.006,unit:'т',supply:'Заказчик',perMm:true},{name:'Песок строительный',ozm:'ОЗМ-00202',norm:0.012,unit:'м³',supply:'Заказчик',perMm:true}],
  miscMats:[{name:'Вода',norm:0.003,unit:'м³'}]},
  {id:202,section:'1111-raz',name:'Засыпка траншеи, перемещение грунта на ___ м, группа грунта ___, условия производства ___',unit:'м³',
@@ -1273,6 +1459,163 @@ var WORKS_DB=[
  templateFields:[{key:'distance',label:'Перемещение, м',placeholder:'5'},{key:'soil',label:'Группа грунта',placeholder:'3'},{key:'conditions',label:'Условия производства',placeholder:'стесненные / обычные'}],
  templateRule:'Заполнение параметров не создает новую позицию. Сильная правка текста отправляется как кандидат в каталог после подбора расценки.',
  mainMats:[],miscMats:[]},
+ {id:203,section:'1116-vk',name:'Прокладка трубопровода ___, назначение ___, диаметр ___',unit:'п.м.',
+ desc:'Шаблонная работа: куратор заполняет назначение, расположение, материал, диаметр, ГОСТ, способ прокладки и давление. ЦА выбирает конкретную расценку РСНБ по этим параметрам и материалам.',
+ isUser:true,approved:true,isTemplate:true,uses:0,
+ requiredParams:PIPELINE_REQUIRED_PARAMS,
+ templateFields:PIPELINE_REQUIRED_PARAMS,
+ templateRule:'Материал, диаметр, назначение и способ прокладки обязательны для выбора расценки. Давление заполняется, если оно влияет на норматив.',
+ rsnbLinkTypes:['1:N','material','param','manual'],
+ linkedRates:[
+  {code:'1116-0201-0102',name:'Прокладка трубопровода отопления из стальной трубы внутри помещений',linkType:'material',condition:'Внутри помещения, отопление, стальная труба, диаметр около 50 мм.',priority:true},
+  {code:'1116-0201-0202',name:'Прокладка трубопровода водоснабжения из стальной водогазопроводной трубы',linkType:'material',condition:'Внутри помещения, водоснабжение, стальная труба по ГОСТ, диаметр подбирается по материалу.'},
+  {code:'1116-0201-0302',name:'Прокладка трубопровода газоснабжения из стальной трубы',linkType:'rule',condition:'Газоснабжение; выбирать только при явном назначении "газ" и корректном ГОСТ.',avoidWithoutReason:true},
+  {code:'1122-0103-0101',name:'Укладка трубы водопроводной стальной с испытанием',linkType:'param',condition:'Наружный трубопровод, способ прокладки указан как траншея/наружная сеть.',rare:true},
+  {code:'1124-0101-0101',name:'Прокладка трубопровода наземная в канале',linkType:'param',condition:'Наружная наземная прокладка, если указан канал или опоры.'}
+ ],
+ priorityRules:['user-p-first','fallback-rsnb'],
+ templateMaterials:[
+  {name:'Материал трубы',materialType:'curator',unit:'п.м.',note:'Куратор выбирает конкретную трубу, материал, диаметр и ГОСТ; от этого зависит расценка.'},
+  {name:'Фасонные части / крепления',materialType:'by_norm',unit:'по норме',note:'Можно оставить "по норме", если точный состав определяется выбранной расценкой.'}
+ ],
+ mainMats:[{name:'Труба',ozm:'—',norm:1,unit:'п.м.',supply:'Заказчик'}],
+ miscMats:[]},
+ {id:204,section:'1104',name:'Кладка стен ___ сложности, материал ___',unit:'м³',
+ desc:'Шаблонная работа: куратор указывает тип кладки, сложность и материал. ЦА сначала проверяет простую/среднюю кладку и выбирает сложную только при явных признаках.',
+ isUser:true,approved:true,isTemplate:true,uses:0,
+ requiredParams:MASONRY_REQUIRED_PARAMS,
+ templateFields:MASONRY_REQUIRED_PARAMS,
+ templateRule:'Простая и средняя кладка имеют приоритет. Сложную кладку выбирать только если в описании есть явные признаки сложной конфигурации.',
+ rsnbLinkTypes:['1:N','rule','param'],
+ linkedRates:[
+  {code:'1108-0101-0101',name:'Кладка стен однослойных наружных простая',linkType:'rule',condition:'Базовый вариант, применять первым при отсутствии признаков усложнения.',priority:true},
+  {code:'1108-0101-0102',name:'Кладка стен однослойных наружных средней сложности',linkType:'param',condition:'Использовать при указании средней сложности или усложненной конфигурации.'},
+  {code:'1108-0101-0103',name:'Кладка стен однослойных наружных сложная',linkType:'rule',condition:'Использовать только при явных признаках сложной кладки.',rare:true,avoidWithoutReason:true},
+  {code:'1203-0101-1901',name:'Кладка отдельных участков стен или заделка проемов',linkType:'param',condition:'Для ремонта отдельными участками или заделки проемов, не для цельной стены.'}
+ ],
+ priorityRules:['user-p-first','fallback-rsnb','masonry-simple-first'],
+ templateMaterials:[
+  {name:'Кирпич/блок кладочный',materialType:'auto_norm',ozm:'—',norm:1,unit:'усл.',note:'Почти всегда подтягивается автоматически из шаблона.'},
+  {name:'Раствор кладочный',materialType:'auto_norm',ozm:'—',norm:0.25,unit:'м³',note:'Подтягивается с нормой; куратор может заменить марку раствора.'},
+ {name:'Дополнительные материалы',materialType:'by_norm',unit:'по норме',note:'Оставить "по норме", если конкретный расход не требуется в ДВ.'}
+ ],
+ mainMats:[{name:'Кирпич/блок кладочный',ozm:'—',norm:1,unit:'усл.',supply:'Заказчик'},{name:'Раствор кладочный',ozm:'—',norm:0.25,unit:'м³',supply:'Заказчик'}],
+ miscMats:[]},
+ {id:205,section:'1116-vk',name:'Демо: прокладка трубопровода внутри помещений',unit:'п.м.',
+ desc:'Качественный пример для встречи: куратор выбирает назначение, материал трубы, диаметр, ГОСТ и способ прокладки внутри помещения.',
+ isUser:true,approved:true,isTemplate:true,exampleTested:true,uses:3,demoQuality:true,
+ requiredParams:PIPELINE_REQUIRED_PARAMS,templateFields:PIPELINE_REQUIRED_PARAMS,
+ templateRule:'Для внутренних трубопроводов ЦА выбирает расценку по назначению, материалу трубы и диаметру. Сметчик может заменить расценку, изменение подсвечивается.',
+ rsnbLinkTypes:['1:N','material','param','rule'],
+ linkedRates:[
+  {code:'1116-0201-0102',name:'Прокладка трубопровода отопления из стальной трубы внутри помещений',linkType:'material',condition:'Отопление, внутри помещения, стальная труба, диаметр около 50 мм.',priority:true},
+  {code:'1116-0201-0202',name:'Прокладка трубопровода водоснабжения из стальной водогазопроводной трубы',linkType:'material',condition:'Водоснабжение, внутри помещения, стальная труба по ГОСТ.'},
+  {code:'1116-0201-0302',name:'Прокладка трубопровода газоснабжения из стальной трубы',linkType:'rule',condition:'Только если назначение явно газоснабжение.',avoidWithoutReason:true}
+ ],
+ priorityRules:['user-p-first','fallback-rsnb'],
+ templateMaterials:[
+  {name:'Труба',materialType:'curator',unit:'п.м.',note:'Куратор выбирает конкретный материал, диаметр и ГОСТ.'},
+  {name:'Фасонные части и крепления',materialType:'by_norm',unit:'по норме',note:'Можно оставить по норме выбранной расценки.'}
+ ],
+ mainMats:[{name:'Труба',ozm:'—',norm:1,unit:'п.м.',supply:'Заказчик'}],miscMats:[]},
+ {id:206,section:'1116-vk',name:'Демо: прокладка трубопровода наружного',unit:'п.м.',
+ desc:'Качественный пример для встречи: наружный трубопровод требует назначения, материала, диаметра, способа прокладки, траншеи/канала и условий прокладки.',
+ isUser:true,approved:true,isTemplate:true,exampleTested:true,uses:2,demoQuality:true,
+ requiredParams:OUTDOOR_PIPELINE_REQUIRED_PARAMS,templateFields:OUTDOOR_PIPELINE_REQUIRED_PARAMS,
+ templateRule:'Для наружного трубопровода сначала определить способ прокладки: траншея, канал, наземная прокладка. Без этого ЦА не должен уверенно выбирать расценку.',
+ rsnbLinkTypes:['1:N','material','param','manual'],
+ linkedRates:[
+  {code:'1122-0103-0101',name:'Укладка трубы водопроводной стальной с испытанием',linkType:'param',condition:'Наружная сеть в траншее, материал и диаметр указаны.',priority:true},
+  {code:'1124-0101-0101',name:'Прокладка трубопровода наземная в канале',linkType:'param',condition:'Наружная наземная прокладка, канал или опоры указаны.'},
+  {code:'1121-0301-0104',name:'Прокладка трубы под кабель в общественных зданиях',linkType:'manual',condition:'Не выбирать без ручного основания: другая природа работ.',rare:true,avoidWithoutReason:true}
+ ],
+ priorityRules:['user-p-first','fallback-rsnb'],
+ templateMaterials:[
+  {name:'Труба наружной сети',materialType:'curator',unit:'п.м.',note:'Материал, диаметр и ГОСТ обязательны для выбора расценки.'},
+  {name:'Песчаное основание / засыпка',materialType:'by_norm',unit:'по норме',note:'Уточняется по выбранному способу прокладки.'}
+ ],
+ mainMats:[{name:'Труба наружной сети',ozm:'—',norm:1,unit:'п.м.',supply:'Заказчик'}],miscMats:[]},
+ {id:207,section:'1104',name:'Демо: кладка стен наружных',unit:'м³',
+ desc:'Качественный пример для встречи: цельная наружная стена, материалы обычно подтягиваются автоматически, сложность влияет на выбор расценки.',
+ isUser:true,approved:true,isTemplate:true,exampleTested:true,uses:4,demoQuality:true,
+ requiredParams:MASONRY_REQUIRED_PARAMS,templateFields:MASONRY_REQUIRED_PARAMS,
+ templateRule:'Сначала применять простую или средней сложности кладку. Сложную выбирать только при явных признаках конфигурации.',
+ rsnbLinkTypes:['1:N','rule','param'],
+ linkedRates:[
+  {code:'1108-0101-0101',name:'Кладка стен однослойных наружных простая',linkType:'rule',condition:'Базовый приоритет для наружных стен без усложнений.',priority:true},
+  {code:'1108-0101-0102',name:'Кладка стен однослойных наружных средней сложности',linkType:'param',condition:'Если указана средняя сложность или усложненная конфигурация.'},
+  {code:'1108-0101-0103',name:'Кладка стен однослойных наружных сложная',linkType:'rule',condition:'Редко, только при явных признаках сложной кладки.',rare:true,avoidWithoutReason:true}
+ ],
+ priorityRules:['user-p-first','fallback-rsnb','masonry-simple-first'],
+ templateMaterials:[
+  {name:'Кирпич/блок кладочный',materialType:'auto_norm',norm:1,unit:'усл.',note:'Подтягивается автоматически.'},
+  {name:'Раствор кладочный',materialType:'auto_norm',norm:0.25,unit:'м³',note:'Подтягивается с нормой; марку можно уточнить.'}
+ ],
+ mainMats:[{name:'Кирпич/блок кладочный',ozm:'—',norm:1,unit:'усл.',supply:'Заказчик'},{name:'Раствор кладочный',ozm:'—',norm:0.25,unit:'м³',supply:'Заказчик'}],miscMats:[]},
+ {id:208,section:'1104',name:'Демо: кладка отдельных участков / заделка проемов',unit:'м³',
+ desc:'Качественный пример для встречи: не цельная стена, а отдельные участки или заделка проемов; цена и состав работ могут отличаться.',
+ isUser:true,approved:true,isTemplate:true,exampleTested:true,uses:2,demoQuality:true,
+ requiredParams:MASONRY_REPAIR_REQUIRED_PARAMS,templateFields:MASONRY_REPAIR_REQUIRED_PARAMS,
+ templateRule:'Не путать с кладкой цельной наружной стены. Если указана заделка проема или отдельный участок, проверять ремонтные расценки.',
+ rsnbLinkTypes:['1:N','param','rule'],
+ linkedRates:[
+  {code:'1203-0101-1901',name:'Кладка отдельных участков стен или заделка проемов',linkType:'param',condition:'При указании отдельного участка или заделки проема.',priority:true},
+  {code:'1108-0101-0101',name:'Кладка стен однослойных наружных простая',linkType:'rule',condition:'Не применять для заделки проемов без основания.',avoidWithoutReason:true}
+ ],
+ priorityRules:['user-p-first','fallback-rsnb','masonry-simple-first'],
+ templateMaterials:[
+  {name:'Кирпич/блок для заделки',materialType:'auto_norm',norm:1,unit:'усл.',note:'Подтягивается, но куратор может уточнить материал.'},
+  {name:'Раствор',materialType:'auto_norm',norm:0.24,unit:'м³',note:'Подтягивается с нормой.'}
+ ],
+ mainMats:[{name:'Кирпич/блок для заделки',ozm:'—',norm:1,unit:'усл.',supply:'Заказчик'},{name:'Раствор',ozm:'—',norm:0.24,unit:'м³',supply:'Заказчик'}],miscMats:[]},
+ {id:209,section:'1111-stj',name:'Демо: устройство цементной стяжки',unit:'м²',
+ desc:'Качественный пример для встречи: новое устройство сплошной цементной стяжки, толщина обязательна, расход материалов может пересчитываться.',
+ isUser:true,approved:true,isTemplate:true,exampleTested:true,uses:5,demoQuality:true,
+ requiredParams:SCREED_REQUIRED_PARAMS,templateFields:SCREED_REQUIRED_PARAMS,
+ templateRule:'Новое устройство отделять от выравнивающей стяжки и ремонта отдельными местами. Толщина обязательна для расхода.',
+ rsnbLinkTypes:['1:N','param','rule'],
+ linkedRates:[
+  {code:'1108-СТЯЖКА-ЦП',name:'Устройство цементно-песчаной стяжки',linkType:'param',condition:'Новое устройство сплошной цементной стяжки.',priority:true},
+  {code:'1207-0101-1804',name:'Добавлять на каждые 5 мм изменения толщины',linkType:'param',condition:'Добавлять при толщине сверх базовой нормы.'}
+ ],
+ priorityRules:['user-p-first','fallback-rsnb','screed-new-vs-leveling'],
+ templateMaterials:[
+  {name:'Цементно-песчаный раствор',materialType:'by_norm',unit:'по норме',note:'Можно оставить по норме.'},
+  {name:'Цемент М400',materialType:'auto_norm',norm:0.006,unit:'т',note:'Ориентировочно пересчитывается от толщины.'},
+  {name:'Песок строительный',materialType:'auto_norm',norm:0.012,unit:'м³',note:'Ориентировочно пересчитывается от толщины.'}
+ ],
+ mainMats:[{name:'Цемент М400',ozm:'ОЗМ-00201',norm:0.006,unit:'т',supply:'Заказчик'},{name:'Песок строительный',ozm:'ОЗМ-00202',norm:0.012,unit:'м³',supply:'Заказчик'}],miscMats:[{name:'Вода',norm:0.003,unit:'м³'}]},
+ {id:210,section:'1111-stj',name:'Демо: выравнивающая цементная стяжка',unit:'м²',
+ desc:'Качественный пример для встречи: выравнивание существующего основания, не путать с новым устройством сплошной стяжки.',
+ isUser:true,approved:true,isTemplate:true,exampleTested:true,uses:2,demoQuality:true,
+ requiredParams:LEVELING_SCREED_REQUIRED_PARAMS,templateFields:LEVELING_SCREED_REQUIRED_PARAMS,
+ templateRule:'Если речь о подровнять существующее основание, выбирать выравнивающую стяжку; новое устройство применять только при явном основании.',
+ rsnbLinkTypes:['1:N','param','rule'],
+ linkedRates:[
+  {code:'1108-ВЫРАВН-СТЯЖКА',name:'Устройство выравнивающей цементной стяжки',linkType:'rule',condition:'Выравнивание существующего основания.',priority:true},
+  {code:'1108-СТЯЖКА-ЦП',name:'Устройство цементно-песчаной стяжки',linkType:'rule',condition:'Не применять, если указано только выравнивание.',avoidWithoutReason:true}
+ ],
+ priorityRules:['user-p-first','fallback-rsnb','screed-new-vs-leveling'],
+ templateMaterials:[
+  {name:'Цементная смесь / раствор',materialType:'by_norm',unit:'по норме',note:'Расход зависит от толщины выравнивания.'}
+ ],
+ mainMats:[{name:'Цементная смесь / раствор',ozm:'—',norm:0,unit:'по норме',supply:'Заказчик'}],miscMats:[]},
+ {id:211,section:'1111-stj',name:'Демо: ремонт стяжки отдельными местами',unit:'место',
+ desc:'Качественный пример для встречи: ремонт отдельными местами, выбор расценки зависит от площади одного места.',
+ isUser:true,approved:true,isTemplate:true,exampleTested:true,uses:3,demoQuality:true,
+ requiredParams:SPOT_SCREED_REPAIR_REQUIRED_PARAMS,templateFields:SPOT_SCREED_REPAIR_REQUIRED_PARAMS,
+ templateRule:'Для ремонта отдельными местами выбирать расценку по площади одного места: до 0,25 м², до 0,5 м² или до 1 м².',
+ rsnbLinkTypes:['1:N','param','rule'],
+ linkedRates:[
+  {code:'1207-0201-0101',name:'Ремонт стяжки отдельными местами площадью до 0,25 м²',linkType:'param',condition:'Площадь одного места до 0,25 м².',priority:true},
+  {code:'1207-0201-0102',name:'Ремонт стяжки отдельными местами площадью до 0,5 м²',linkType:'param',condition:'Площадь одного места до 0,5 м².'},
+  {code:'1207-0201-0103',name:'Ремонт стяжки отдельными местами площадью до 1 м²',linkType:'param',condition:'Площадь одного места до 1 м².'}
+ ],
+ priorityRules:['user-p-first','fallback-rsnb','screed-place-area'],
+ templateMaterials:[
+  {name:'Раствор для ремонта',materialType:'by_norm',unit:'по норме',note:'Можно указать "по норме", точный расход зависит от площади и толщины.'}
+ ],
+ mainMats:[{name:'Раствор для ремонта',ozm:'—',norm:0,unit:'по норме',supply:'Заказчик'}],miscMats:[]},
  {id:5,section:'1111-ker',name:'Устройство покрытия из керамической плитки',unit:'м²',
  desc:'Грунтовка, укладка на клей, затирка швов',isUser:false,approved:true,uses:19,
  mainMats:[{name:'Плитка керамическая',ozm:'ОЗМ-00301',norm:1.05,unit:'м²',supply:'Заказчик'},{name:'Клей плиточный',ozm:'ОЗМ-00302',norm:5.5,unit:'кг',supply:'Заказчик'}],
@@ -1633,7 +1976,7 @@ function applyRealStep2Data(rateItems,materialItems){
      section:prefix,
      name:item.name||item.code,
      unit:item.unit||'ед.',
-     desc:'Загруженный каталог работ · код '+item.code,
+     desc:'Каталог работ дефектной ведомости',
      isUser:false,
      approved:true,
      uses:0,
@@ -1644,8 +1987,8 @@ function applyRealStep2Data(rateItems,materialItems){
  if(realWorks.length){
    WORKS_DB=userCatalogWorks.concat(realWorks);
    resetWorkSearchCache();
-   WORK_SECTIONS=buildRealSectionList(rateItems,4,'Раздел работ');
-   activeCatTab='all';
+   WORK_SECTIONS=cloneDvWorkSections();
+   activeCatTab='user';
  }
   REAL_MATERIALS=(materialItems||[]).map(function(item){return {name:item.name||item.code,ozm:item.code,unit:item.unit||'ед.',key:String(item.section||'misc')};});
   if(REAL_MATERIALS.length){
@@ -1678,14 +2021,21 @@ function loadStep2Data(){
  return step2DataLoading;
 }
 
-// Разделы работ для левой панели
-var WORK_SECTIONS=[
-  {id:'krovlya',label:'Кровля',sections:['1112-raz','1112-rul','1112-met','1112-stj'],icon:'🏠'},
-  {id:'poly',label:'Полы',sections:['1111-ker','1111-stj','1111-raz'],icon:'🪵'},
-  {id:'otdelka',label:'Отделочные',sections:['1115-stuk','1115-mal','1115-ob'],icon:'🎨'},
-  {id:'oborud',label:'Оборудование',sections:['oborud-konv','oborud-nas'],icon:'⚙️'},
-  {id:'inzh',label:'Инженерные сети',sections:['1116-vk','1116-gaz','1118-rad','1121-kab'],icon:'🔧'}
+// Разделы работ ДВ: человеческие категории, внутри - связи с кодами/разделами РСНБ.
+var DV_WORK_SECTIONS=[
+  {id:'earth',label:'Земляные работы',code:'1101',sections:['1101','1111-raz']},
+  {id:'foundations',label:'Фундаменты',code:'1102',sections:['1102']},
+  {id:'masonry',label:'Кладка стен',code:'1104',sections:['1104','1108-klad']},
+  {id:'pipes',label:'Трубопроводы',code:'1110, 1111, 1116',sections:['1110','1111','1116','1116-vk','1116-gaz','trub']},
+  {id:'screeds',label:'Стяжки',code:'1108, 1207',sections:['1108','1111-stj','1112-stj','1207','rem_stj']},
+  {id:'roof',label:'Кровля',code:'1107, 1208',sections:['1107','1112-raz','1112-rul','1112-met','1112-stj','1208','kr','rem_kr']},
+  {id:'finish',label:'Отделка',code:'1109',sections:['1109','1115-stuk','1115-mal','1115-ob','shtuk']},
+  {id:'engineering',label:'Инженерные сети',code:'1110-1116, 1121-1122',sections:['1110','1111','1112','1113','1114','1116','1121','1122','inzh-set','1118-rad','1121-kab']}
 ];
+function cloneDvWorkSections(){
+ return DV_WORK_SECTIONS.map(function(s){return Object.assign({},s,{sections:s.sections.slice()});});
+}
+var WORK_SECTIONS=cloneDvWorkSections();
 
 function switchLeftTab(tab){
   currentLeftTab=tab;
@@ -1724,6 +2074,7 @@ function saveStep1(){
  cur:(document.getElementById('f-cur')||{}).value||'',
  year:(document.getElementById('f-year')||{}).value||'2026',
  obj:(document.getElementById('f-obj')||{}).value||'',
+ note:(document.getElementById('f-note')||{}).value||'',
  objs:JSON.parse(JSON.stringify(selectedObjs))
  };
 }
@@ -1734,8 +2085,13 @@ function restoreStep1(){
  sv('f-num',step1Cache.num);sv('f-date',step1Cache.date);
  sv('f-ent',step1Cache.ent);sv('f-appr',step1Cache.appr);
  sv('f-cur',step1Cache.cur);sv('f-year',step1Cache.year);
+ sv('f-obj',step1Cache.obj);
+ sv('f-note',step1Cache.note);
  if(step1Cache.objs&&Object.keys(step1Cache.objs).length){
  selectedObjs=JSON.parse(JSON.stringify(step1Cache.objs));
+ updateObjDisplay();
+ } else if(step1Cache.obj){
+ selectedObjs={manual:step1Cache.obj};
  updateObjDisplay();
  }
  document.getElementById('err-banner').style.display='none';
@@ -1746,7 +2102,12 @@ function restoreStep1(){
 // 
 function gotoPage(pg){
  // Сохраняем шаг 1 при уходе с него
+ var activePage=document.querySelector('.page.active');
+ var activePageId=activePage?activePage.id:'';
  if(document.getElementById('pg-new1')&&document.getElementById('pg-new1').classList.contains('active')) saveStep1();
+ if(currentDVId&&/^pg-new[2-4]$/.test(activePageId)&&pg!=='sent'){
+   persistCurrentDVEdit();
+ }
 
  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
  var el=document.getElementById('pg-'+pg);
@@ -1784,9 +2145,9 @@ function gotoPage(pg){
          // Иначе пытаемся загрузить из localStorage
          if(!restoreWorksRows(currentDVId)){
            // Если не загружены - показываем каталог
-           var krovlya=WORK_SECTIONS[0];
-           activeCatSection=krovlya.sections[0];
-           loadSectionWorksByIds(krovlya.sections,'Кровля');
+           var firstSection=WORK_SECTIONS[0];
+           activeCatSection=firstSection.sections[0];
+           loadSectionWorksByIds(firstSection.sections,firstSection.label);
            var items=document.querySelectorAll('#works-sections-list .section-item');
            if(items[0])items[0].click();
          }
@@ -1794,9 +2155,9 @@ function gotoPage(pg){
        return;
      }
      // Для новых ДВ - показываем каталог
-     var krovlya=WORK_SECTIONS[0];
-     activeCatSection=krovlya.sections[0];
-     loadSectionWorksByIds(krovlya.sections,'Кровля');
+     var firstSection=WORK_SECTIONS[0];
+     activeCatSection=firstSection.sections[0];
+     loadSectionWorksByIds(firstSection.sections,firstSection.label);
      var items=document.querySelectorAll('#works-sections-list .section-item');
      if(items[0])items[0].click();
    },50);
@@ -1804,7 +2165,7 @@ function gotoPage(pg){
  if(pg==='new3'){setTimeout(renderMatsTotal,50);}
  if(pg==='new4') fillPreview();
  if(pg==='sent') fillSent();
- if(pg==='admin'){setTimeout(renderAdminPage,10);}
+ if(pg==='admin'){setTimeout(function(){renderExcelImportGuide();renderExcelImportEditor();renderAdminPage();},10);}
  if(pg==='rules'){setTimeout(renderRulesPage,10);}
  if(pg==='draft'){
    // Восстанавливаем сохранённые строки черновика для этой ДВ
@@ -1817,6 +2178,7 @@ function gotoPage(pg){
    }
    setTimeout(function(){renderChatMessages(currentDVId);},50);
  }
+ if(pg==='confirm'){setTimeout(renderConfirmOverview,50);}
  window.scrollTo(0,0);
 }
 
@@ -1844,7 +2206,7 @@ function resetNewDVState(){
   mIdx=100;
   currentDVId='';
   activeCatSection=null;
-  activeCatTab='all';
+  activeCatTab='user';
   matsSupplyOverride={};
   _matsData={};
   draftReadOnly=false;
@@ -2052,6 +2414,11 @@ function renderObjTree(){
 function updateObjDisplay(){
  var display=document.getElementById('f-obj-display'),placeholder=document.getElementById('f-obj-placeholder'),hidden=document.getElementById('f-obj');
  var keys=Object.keys(selectedObjs);if(!display)return;
+ function objLabel(id){
+   var v=selectedObjs[id];
+   if(v&&typeof v==='object')return v.label||v.name||String(v);
+   return String(v||'');
+ }
  Array.from(display.querySelectorAll('.obj-tag')).forEach(function(t){t.remove();});
  if(!keys.length){if(placeholder)placeholder.style.display='inline';if(hidden)hidden.value='';}
  else{
@@ -2061,10 +2428,10 @@ function updateObjDisplay(){
  tag.style.cssText='background:var(--blue-l);color:var(--blue);padding:2px 8px;border-radius:12px;font-size:12px;font-weight:500;display:inline-flex;align-items:center;gap:4px';
  var x=document.createElement('span');x.style.cssText='cursor:pointer;font-size:14px;line-height:1';x.textContent='×';
  (function(oid){x.onclick=function(e){e.stopPropagation();delete selectedObjs[oid];updateObjDisplay();};})(id);
- tag.appendChild(document.createTextNode(selectedObjs[id]+' '));tag.appendChild(x);
+ tag.appendChild(document.createTextNode(objLabel(id)+' '));tag.appendChild(x);
  display.insertBefore(tag,placeholder||null);
  });
- if(hidden)hidden.value=keys.map(function(id){return selectedObjs[id];}).join('; ');
+ if(hidden)hidden.value=keys.map(objLabel).join('; ');
  }
 }
 function clearObjSelection(){selectedObjs={};updateObjDisplay();renderObjTree();}
@@ -2077,13 +2444,7 @@ document.addEventListener('click',function(e){
 
 // КАТАЛОГ РАБОТ ДЛЯ КОНСТРУКТОРА
 // Секции работ (простой список без дерева)
-var WORK_SECTIONS=[
-  {id:'krovlya', label:'Кровля', sections:['1112-raz','1112-rul','1112-met','1112-stj']},
-  {id:'poly',    label:'Полы',   sections:['1111-raz','1111-ker','1111-stj']},
-  {id:'otdelka', label:'Отделочные', sections:['1115-stuk','1115-mal','1115-ob']},
-  {id:'oborud',  label:'Оборудование', sections:['oborud-konv','oborud-nas']},
-  {id:'inzh',    label:'Инженерные сети', sections:['1116-vk','1116-gaz']}
-];
+var WORK_SECTIONS=cloneDvWorkSections();
 
 function switchMainTab(tab){
   document.getElementById('tab-panel-works').style.display=tab==='works'?'grid':'none';
@@ -2097,6 +2458,7 @@ function switchMainTab(tab){
 }
 
 function renderWorksSections(){
+  syncCatalogTabs();
   var wrap=document.getElementById('works-sections-list');if(!wrap)return;
   wrap.innerHTML='';
   WORK_SECTIONS.forEach(function(sec,idx){
@@ -2452,6 +2814,7 @@ function getWorksForSections(sectionIds,tab){
  var ids=sectionIds||[];
  var all=WORKS_DB.filter(function(w){return ids.includes(w.section)&&isWorkAvailable(w);});
  if(tab==='user')return all.filter(function(w){return w.isUser;});
+ if(tab==='rsnb')return all.filter(function(w){return !w.isUser;});
  return all;
 }
 
@@ -2459,10 +2822,15 @@ function getWorksForSection(secId,tab){
  return getWorksForSections([secId],tab);
 }
 
+function syncCatalogTabs(){
+ document.querySelectorAll('.ctab').forEach(function(t){t.classList.remove('active');});
+ var tabEl=document.getElementById(activeCatTab==='rsnb'?'cat-tab-rsnb':'cat-tab-user');
+ if(tabEl)tabEl.classList.add('active');
+}
+
 function switchCatTab(tab,el){
  activeCatTab=tab;
- document.querySelectorAll('.ctab').forEach(function(t){t.classList.remove('active');});
- if(el)el.classList.add('active');
+ syncCatalogTabs();
  if(activeCatSectionIds&&activeCatSectionIds.length){
  var bc=document.getElementById('cat-bc');
  loadSectionWorksByIds(activeCatSectionIds,bc?bc.textContent:activeCatSection);
@@ -2470,14 +2838,17 @@ function switchCatTab(tab,el){
  else if(tab==='user'){
  var body=document.getElementById('cat-works-body');
  if(body){renderWorksPanel(WORKS_DB.filter(function(w){return w.isUser&&isWorkAvailable(w);}),body);var bc=document.getElementById('cat-bc');if(bc)bc.textContent='Все наши позиции';}
+ } else if(tab==='rsnb'){
+ var body2=document.getElementById('cat-works-body');
+ if(body2){renderWorksPanel(WORKS_DB.filter(function(w){return !w.isUser&&isWorkAvailable(w);}),body2);var bc2=document.getElementById('cat-bc');if(bc2)bc2.textContent='Нормативная база РСНБ / РСН РК';}
  }
 }
 
 function filterPanelWorks(q){
  var body=document.getElementById('cat-works-body');if(!body)return;
  var works;
- if(!q.trim()){works=activeCatSectionIds&&activeCatSectionIds.length?getWorksForSections(activeCatSectionIds,activeCatTab):(activeCatTab==='user'?WORKS_DB.filter(function(w){return w.isUser&&isWorkAvailable(w);}):[]);}
- else{works=searchWorks(q,WORKS_DB);if(activeCatTab==='user')works=works.filter(function(w){return w.isUser;});}
+ if(!q.trim()){works=activeCatSectionIds&&activeCatSectionIds.length?getWorksForSections(activeCatSectionIds,activeCatTab):(activeCatTab==='user'?WORKS_DB.filter(function(w){return w.isUser&&isWorkAvailable(w);}):WORKS_DB.filter(function(w){return !w.isUser&&isWorkAvailable(w);}));}
+ else{works=searchWorks(q,WORKS_DB);if(activeCatTab==='user')works=works.filter(function(w){return w.isUser;});if(activeCatTab==='rsnb')works=works.filter(function(w){return !w.isUser;});}
  renderWorksPanel(works,body);
 }
 
@@ -2485,7 +2856,7 @@ function renderWorksPanel(works,container){
  container.innerHTML='';
  if(!works.length){
  var empty=document.createElement('div');empty.style.cssText='text-align:center;padding:36px;color:var(--t3);font-size:13px';
- empty.innerHTML=activeCatTab==='user'?'В этом разделе нет пользовательских позиций.<br><br><button class="btn btn-purple btn-sm" onclick="openAddPosModal()">+ Добавить позицию</button>':'Нет позиций в разделе';
+ empty.innerHTML=activeCatTab==='user'?'В этом разделе пока нет наших работ ДВ.<br><br><button class="btn btn-purple btn-sm" onclick="openAddPosModal()">+ Добавить работу ДВ</button>':'В этом разделе нет связанных расценок РСНБ / РСН РК';
  container.appendChild(empty);return;
  }
 
@@ -2496,7 +2867,7 @@ function renderWorksPanel(works,container){
  var sep=document.createElement('div');sep.style.cssText='font-size:10px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:.4px;padding:5px 2px 3px;display:flex;align-items:center;gap:5px';sep.textContent=' Наши позиции (приоритет)';container.appendChild(sep);
  }
 
- var toRender=activeCatTab==='all'?userW.concat(sysW):userW;
+ var toRender=activeCatTab==='all'?userW.concat(sysW):(activeCatTab==='rsnb'?sysW:userW);
  var totalRender=toRender.length;
  var renderLimit=220;
  var hiddenCount=Math.max(0,totalRender-renderLimit);
@@ -2506,7 +2877,7 @@ function renderWorksPanel(works,container){
  toRender.forEach(function(w,i){
  if(activeCatTab==='all'&&!w.isUser&&!showedSep&&userW.length){
  showedSep=true;
- var sep2=document.createElement('div');sep2.style.cssText='font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;padding:10px 2px 3px;border-top:1px solid var(--border);margin-top:6px';sep2.textContent=' Базовые позиции';container.appendChild(sep2);
+ var sep2=document.createElement('div');sep2.style.cssText='font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;padding:10px 2px 3px;border-top:1px solid var(--border);margin-top:6px';sep2.textContent=' Работы из базового справочника';container.appendChild(sep2);
  }
  container.appendChild(buildWorkCard(w));
  });
@@ -2532,16 +2903,25 @@ function buildWorkCard(w){
  else if(w.isUser){var ut=document.createElement('span');ut.className='user-tag';ut.textContent='Наша позиция';nameRow.appendChild(ut);}
  if(w.provisional){var st=document.createElement('span');st.className='badge b-amber';st.style.fontSize='10px';st.textContent='Условно одобрена';nameRow.appendChild(st);}
  info.appendChild(nameRow);
-  var meta=document.createElement('div');meta.className='wcard-m';meta.textContent=w.unit+' · '+w.desc;info.appendChild(meta);
+  var meta=document.createElement('div');meta.className='wcard-m';meta.textContent=w.unit+' · '+(w.isUser||w.isTemplate?w.desc:'Каталог работ дефектной ведомости');info.appendChild(meta);
+ if(!w.isUser&&!w.isTemplate&&w.code){
+   var linked=document.createElement('div');
+   linked.className='linked-rate';
+   linked.innerHTML='<div class="linked-rate-t">Связанная расценка РСНБ</div><span class="linked-rate-code">'+htmlEscape(w.code)+'</span><span> · используется ЦА для подбора сметы</span>';
+   info.appendChild(linked);
+ }
  if(w.isTemplate){
    var tpl=document.createElement('div');
    tpl.style.cssText='margin-top:7px;padding:7px 9px;background:#EFF6FF;border:1px solid #BFDBFE;border-radius:6px;font-size:11px;color:#1D4ED8';
-   tpl.innerHTML='<strong>Заполнить параметры:</strong> '+(w.templateFields||[]).map(function(f){return htmlEscape(f.label);}).join(' · ')+'<div style="margin-top:3px;color:#6B7280">Заполненная позиция остается использованием шаблона, а не новой работой каталога.</div>';
+   tpl.innerHTML='<strong>Заполнить параметры:</strong> '+(w.templateFields||[]).map(function(f){return htmlEscape(f.label)+' ('+getFieldImportanceLabel(getFieldImportance(f))+')';}).join(' · ')+'<div style="margin-top:3px;color:#6B7280">Заполненная позиция остается использованием шаблона, а не новой работой каталога.</div>';
    info.appendChild(tpl);
+ }
+ if(w.isUser){
+   info.appendChild(buildOurWorkDetail(w));
  }
 
  // Основные материалы
- if(w.mainMats&&w.mainMats.length){
+ if(!w.isUser&&w.mainMats&&w.mainMats.length){
  var ms=document.createElement('div');ms.className='mats-main';
  var mt=document.createElement('div');mt.className='mats-main-t';mt.textContent=' Основные материалы (вы вводите кол-во)';ms.appendChild(mt);
  w.mainMats.forEach(function(m){
@@ -2552,7 +2932,7 @@ function buildWorkCard(w){
  info.appendChild(ms);
  }
  // Прочие материалы (авто)
- if(w.miscMats&&w.miscMats.length){
+ if(!w.isUser&&w.miscMats&&w.miscMats.length){
  var misc=document.createElement('div');misc.className='mats-misc';
  misc.innerHTML=' Прочие расходники — добавятся автоматически (~2-3%) <span style="margin-left:auto;font-size:10px"></span>';
  var miscD=document.createElement('div');miscD.className='mats-misc-detail';
@@ -2586,6 +2966,327 @@ function buildWorkCard(w){
    div.appendChild(btn);
  }
  return div;
+}
+
+function buildOurWorkDetail(w){
+ var box=document.createElement('div');
+ box.className='our-work-detail';
+ var params=getOurWorkParams(w);
+ var mats=getOurWorkMaterials(w);
+ var rates=getOurWorkLinkedRates(w);
+ var priority=getOurWorkPriorityRate(w,rates);
+ var rules=getOurWorkRules(w,priority);
+ var aiNotes=getOurWorkAiNotes(w,rates);
+ var quality=getWorkQualityStatuses(w);
+ box.innerHTML=
+   '<div style="padding:8px 10px;font-size:11px;color:#5B21B6;font-weight:700">Карточка нашей работы ДВ</div>'
+   +renderWorkQualityStatuses(w,quality)
+   +'<div class="ow-grid">'
+   +owBlock('Название для ДВ',htmlEscape(w.name||'—'))
+   +owBlock('Описание для куратора',htmlEscape(w.desc||'Описание не задано'))
+   +owBlock('Единица измерения',htmlEscape(w.unit||'ед.'))
+   +owBlock('Поля шаблона',params.length?params.map(formatParamChip).join(''):'<span class="ow-empty">Параметры не заданы</span>')
+   +owBlock('Материалы шаблона',mats.length?mats.map(formatWorkMaterial).join(''):'<span class="ow-empty">Материалы не требуются или будут определены ЦА</span>')
+   +owBlock('Состав работ',htmlEscape(getOurWorkComposition(w))+'<div style="margin-top:5px">'+formatParamChip({label:'Состав работ',importance:'optional'})+'</div>')
+   +owBlock('Тип связи с РСНБ',formatRsnbLinkTypes(w,rates))
+   +owBlock('Связанные расценки РСНБ',rates.length?rates.map(formatLinkedRate).join(''):'<span class="ow-empty">Связь с РСНБ еще не настроена</span>')
+   +owBlock('Приоритетная расценка',priority?formatLinkedRate(priority):'<span class="ow-empty">Приоритет не выбран</span>')
+   +owBlock('Правила выбора',rules.length?rules.map(function(r){return '<div>· '+htmlEscape(r)+'</div>';}).join(''):'<span class="ow-empty">Правила не заданы</span>')
+   +owBlock('Комментарии для ЦА',aiNotes.length?aiNotes.map(function(n){return '<div>· '+htmlEscape(n)+'</div>';}).join(''):'<span class="ow-empty">Пояснения не заданы</span>')
+   +'</div>'
+   +buildWorkExampleTester(w);
+ return box;
+}
+
+function owBlock(title,html){
+ return '<div class="ow-block"><div class="ow-title">'+htmlEscape(title)+'</div>'+html+'</div>';
+}
+
+function getFieldImportance(f){
+ var v=(f&&f.importance)||'required';
+ if(v==='want')v='desired';
+ if(v==='optional')v='optional';
+ return v;
+}
+
+function getFieldImportanceLabel(v){
+ return v==='optional'?'опционально':(v==='desired'?'желательно':'обязательно');
+}
+
+function getFieldImportanceClass(v){
+ return v==='optional'?'opt':(v==='desired'?'want':'req');
+}
+
+function formatParamChip(f){
+ var label=typeof f==='string'?f:(f.label||f.key||'Параметр');
+ var imp=getFieldImportance(f);
+ return '<span class="ow-chip '+getFieldImportanceClass(imp)+'">'+htmlEscape(label)+' · '+getFieldImportanceLabel(imp)+'</span>';
+}
+
+function getWorkQualityStatuses(w){
+ var statuses=[];
+ var fields=w.requiredParams||w.templateFields||[];
+ var rates=(w.linkedRates&&w.linkedRates.length)?w.linkedRates:[];
+ var rules=getPriorityRulesForWork(w);
+ var conflicts=[];
+ rules.forEach(function(rule){getRuleConflicts(rule).forEach(function(c){if(!conflicts.some(function(x){return x.id===c.id;}))conflicts.push(c);});});
+ if(!fields.length)statuses.push({key:'missing_params',label:'не хватает обязательных параметров',cls:'b-red',note:'Добавьте обязательные параметры, без них ЦА не сможет проверить пример.'});
+ if(conflicts.length)statuses.push({key:'rule_conflict',label:'конфликт правил',cls:'b-red',note:'Есть активные правила, которые могут противоречить друг другу.'});
+ if(w.provisional||!rates.length)statuses.push({key:'needs_clarification',label:'требует уточнения',cls:'b-amber',note:!rates.length?'Нужно настроить связанные расценки РСНБ.':'Работа условно доступна и ожидает уточнения.'});
+ if(!w.approved&&!w.provisional)statuses.push({key:'draft',label:'черновик',cls:'b-gray',note:'Работа еще не готова для использования в ДВ.'});
+ if(w.exampleTested)statuses.push({key:'tested',label:'проверена на примере',cls:'b-green',note:'Шаблон уже проверяли через тестовый пример.'});
+ if((parseInt(w.uses,10)||0)>0)statuses.push({key:'used',label:'используется',cls:'b-blue',note:'Работа уже добавлялась в дефектные ведомости.'});
+ if(!statuses.length)statuses.push({key:'ready',label:'готова к тесту',cls:'b-purple',note:'Заполнены параметры, связи и правила. Можно проверить на примере.'});
+ if(statuses.length&&!statuses.some(function(s){return s.key==='ready'||s.key==='tested'||s.key==='draft';})&&w.approved&&fields.length&&rates.length&&!conflicts.length){
+   statuses.unshift({key:'ready',label:'готова к тесту',cls:'b-purple',note:'Можно проверить, как ЦА поймет шаблон.'});
+ }
+ return statuses;
+}
+
+function renderWorkQualityStatuses(w,statuses){
+ var id='ow-quality-'+String(w.id).replace(/[^a-zA-Z0-9_-]/g,'');
+ var note=(statuses.find(function(s){return s.cls==='b-red';})||statuses[0]||{}).note||'';
+ return '<div class="ow-quality" id="'+id+'"><span class="ow-quality-t">Статус качества</span>'
+   +statuses.map(function(s){return '<span class="badge '+s.cls+'" style="font-size:9px">'+htmlEscape(s.label)+'</span>';}).join('')
+   +(note?'<div class="ow-quality-note">'+htmlEscape(note)+'</div>':'')+'</div>';
+}
+
+function refreshWorkQualityStatus(w){
+ var id='ow-quality-'+String(w.id).replace(/[^a-zA-Z0-9_-]/g,'');
+ var box=document.getElementById(id);
+ if(box)box.outerHTML=renderWorkQualityStatuses(w,getWorkQualityStatuses(w));
+}
+
+function buildWorkExampleTester(w){
+ var id='ow-test-'+String(w.id).replace(/[^a-zA-Z0-9_-]/g,'');
+ var ph='Например: '+(w.name||'Устройство работы')+', объем 25 '+(w.unit||'ед.')+'. Материал: ..., параметры: ...';
+ return '<div class="ow-test" onclick="event.stopPropagation()">'
+  +'<div class="ow-test-title">Проверить на примере</div>'
+  +'<textarea class="ft" id="'+id+'-input" placeholder="'+htmlEscape(ph)+'" style="min-height:62px;font-size:11px"></textarea>'
+  +'<div class="ow-test-actions" style="margin-top:7px"><button class="btn btn-purple btn-xs" onclick="runWorkExampleTest(\''+htmlEscape(String(w.id)).replace(/'/g,'&#39;')+'\')">Проверить ЦА</button><span class="t-xs t3">ЦА покажет, как понял шаблон до публикации.</span></div>'
+  +'<div class="ow-test-result" id="'+id+'-result"></div>'
+  +'</div>';
+}
+
+function getOurWorkParams(w){
+ var fields=(w.requiredParams||w.templateFields||[]).filter(Boolean);
+ if(fields.length)return fields;
+ var name=(w.name||'').toLowerCase();
+ var params=[{label:'Объем работ',importance:'required'}];
+ if(name.indexOf('труб')>=0){params.push({label:'Материал трубы',importance:'required'},{label:'Диаметр',importance:'required'},{label:'ГОСТ',importance:'desired'},{label:'Назначение трубопровода',importance:'required'});}
+ if(name.indexOf('стяж')>=0){params.push({label:'Толщина',importance:'required'},{label:'Площадь',importance:'required'});}
+ if(name.indexOf('клад')>=0||name.indexOf('стен')>=0){params.push({label:'Тип кладки',importance:'required'},{label:'Сложность',importance:'required'});}
+ return params;
+}
+
+function getOurWorkMaterials(w){
+ return ((w.templateMaterials&&w.templateMaterials.length)?w.templateMaterials:(w.mainMats||[])).filter(function(m){return m&&m.name;});
+}
+
+function getMaterialType(m){
+ return m.materialType||m.type||'auto_norm';
+}
+
+function getMaterialTypeMeta(type){
+ return ({
+   auto_norm:{label:'подтягивается с нормой',cls:'b-green'},
+   curator:{label:'заполняет куратор',cls:'b-blue'},
+   by_norm:{label:'по норме',cls:'b-amber'}
+ })[type]||{label:'подтягивается с нормой',cls:'b-green'};
+}
+
+function formatWorkMaterial(m){
+ var meta=getMaterialTypeMeta(getMaterialType(m));
+ var qty=(m.norm||m.norm===0)?' · норма '+htmlEscape(String(m.norm))+' '+htmlEscape(m.unit||''):(getMaterialType(m)==='by_norm'?' · по норме':'');
+ var src=m.supply?' · '+htmlEscape(m.supply):'';
+ return '<div class="ow-mat"><div class="ow-mat-head"><strong>'+htmlEscape(m.name)+'</strong><span class="badge '+meta.cls+'" style="font-size:9px">'+meta.label+'</span></div>'
+   +'<div class="ow-mat-note">'+qty.replace(/^ · /,'')+src+(m.note?' · '+htmlEscape(m.note):'')+'</div></div>';
+}
+
+function getOurWorkComposition(w){
+ return w.composition||w.comp||w.desc||'Состав работ будет подтянут из приоритетной расценки РСНБ, если связь настроена.';
+}
+
+function getOurWorkLinkedRates(w){
+ if(w.linkedRates&&w.linkedRates.length)return w.linkedRates;
+ var sameSection=WORKS_DB.filter(function(x){return !x.isUser&&x.section===w.section;}).slice(0,3);
+ return sameSection.map(function(x,i){return {code:x.code||('локальная-'+x.id),name:x.name,unit:x.unit,priority:i===0,linkType:i===0?'1:1':'manual'};});
+}
+
+function getOurWorkPriorityRate(w,rates){
+ if(w.priorityRate)return w.priorityRate;
+ return (rates||[]).find(function(r){return r.priority;})||(rates||[])[0]||null;
+}
+
+function getOurWorkRules(w,priority){
+ var rules=[];
+ getPriorityRulesForWork(w).forEach(function(rule){rules.push(rule.text);});
+ if(w.templateRule)rules.push(w.templateRule);
+ if(priority)rules.push('Сначала проверять приоритетную расценку, остальные использовать только при явных отличиях условий.');
+ if((w.mainMats||[]).length)rules.push('Материалы куратора учитывать при выборе конкретной расценки.');
+ (w.linkedRates||[]).forEach(function(r){
+   if(r.rare)rules.push('Редко использовать '+(r.code||r.name)+': '+(r.condition||'только при специальных условиях')+'.');
+   if(r.avoidWithoutReason)rules.push('Не выбирать '+(r.code||r.name)+' без явного основания в ДВ.');
+ });
+ return rules;
+}
+
+function getPriorityRulesForWork(w){
+ var ids=w.priorityRules||[];
+ if(!ids.length){
+   ids=['user-p-first','fallback-rsnb'];
+   var section=getDvSectionForWork(w);
+   if(section&&section.id==='masonry')ids.push('masonry-simple-first');
+   if(section&&section.id==='screeds')ids.push('screed-new-vs-leveling','screed-place-area');
+ }
+ return ids.map(function(id){return PRIORITY_RULES.find(function(r){return r.id===id;});}).filter(Boolean);
+}
+
+function getDvSectionForWork(w){
+ return (DV_WORK_SECTIONS||[]).find(function(sec){return (sec.sections||[]).indexOf(w.section)>=0;});
+}
+
+function getOurWorkAiNotes(w,rates){
+ var notes=[];
+ if(w.isTemplate)notes.push('Заполнение параметров использует шаблон и не создает новую позицию каталога.');
+ if(rates&&rates.length>1)notes.push('Если подходит несколько расценок, ЦА должен объяснить, почему выбрал одну из них.');
+ notes.push('Сметчик может изменить результат; изменение нужно подсветить и сохранить в истории.');
+ return notes;
+}
+
+function getRsnbLinkTypeMeta(type){
+ return ({
+   '1:1':{label:'1 к 1',cls:'b-green',desc:'одна наша работа равна одной расценке РСНБ'},
+   '1:N':{label:'1 к N',cls:'b-blue',desc:'одна наша работа может стать разными расценками'},
+   material:{label:'по материалу',cls:'b-purple',desc:'выбор зависит от материала'},
+   param:{label:'по параметру',cls:'b-amber',desc:'выбор зависит от толщины, диаметра, площади'},
+   rule:{label:'по правилу',cls:'b-gray',desc:'выбор зависит от приоритета или исключений'},
+   manual:{label:'требует ручного выбора',cls:'b-red',desc:'ЦА должен запросить выбор или уточнение'}
+ })[type]||{label:'требует ручного выбора',cls:'b-red',desc:'тип связи не настроен'};
+}
+
+function inferRsnbLinkTypes(w,rates){
+ if(w.rsnbLinkTypes&&w.rsnbLinkTypes.length)return w.rsnbLinkTypes;
+ var types=[];
+ if((rates||[]).length===1)types.push('1:1');
+ if((rates||[]).length>1)types.push('1:N');
+ var text=((w.name||'')+' '+(w.desc||'')+' '+getOurWorkParams(w).map(function(f){return f.label||f;}).join(' ')).toLowerCase();
+ if(text.match(/материал|труб|кирпич|раствор/))types.push('material');
+ if(text.match(/толщин|диаметр|площад|объем|мест/))types.push('param');
+ if((w.priorityRules||[]).length||w.templateRule)types.push('rule');
+ if(!types.length)types.push('manual');
+ return types.filter(function(t,i,a){return a.indexOf(t)===i;});
+}
+
+function formatRsnbLinkTypes(w,rates){
+ var types=inferRsnbLinkTypes(w,rates);
+ return types.map(function(t){
+   var m=getRsnbLinkTypeMeta(t);
+   return '<span class="ow-chip '+(t==='manual'?'req':t==='param'?'want':'opt')+'">'+htmlEscape(m.label)+'</span>';
+ }).join('')+'<div class="ow-empty" style="margin-top:5px">'+types.map(function(t){return getRsnbLinkTypeMeta(t).desc;}).join(' · ')+'</div>';
+}
+
+function formatLinkedRate(r){
+ var flags='';
+ var linkMeta=getRsnbLinkTypeMeta(r.linkType||'manual');
+ flags+='<span class="badge '+linkMeta.cls+'" style="font-size:9px">'+htmlEscape(linkMeta.label)+'</span>';
+ if(r.priority)flags+='<span class="badge b-green" style="font-size:9px">приоритет</span>';
+ if(r.rare)flags+='<span class="badge b-amber" style="font-size:9px">редко</span>';
+ if(r.avoidWithoutReason)flags+='<span class="badge b-red" style="font-size:9px">только с основанием</span>';
+ return '<div class="ow-rate"><span class="mono">'+htmlEscape(r.code||'—')+'</span><span>'+htmlEscape(r.name||'Расценка РСНБ')+'</span>'+flags+'</div>'
+   +(r.condition?'<div style="margin:0 0 5px 18px;color:var(--t3);line-height:1.35">'+htmlEscape(r.condition)+'</div>':'');
+}
+
+function runWorkExampleTest(workId){
+ var w=WORKS_DB.find(function(x){return String(x.id)===String(workId);});
+ if(!w)return;
+ var id='ow-test-'+String(w.id).replace(/[^a-zA-Z0-9_-]/g,'');
+ var inp=document.getElementById(id+'-input');
+ var out=document.getElementById(id+'-result');
+ if(!inp||!out)return;
+ var text=(inp.value||'').trim();
+ if(!text){
+   out.innerHTML='<div class="alert a-red">Введите пример дефектной ведомости, чтобы ЦА мог проверить шаблон.</div>';
+   return;
+ }
+ w.exampleTested=true;
+ refreshWorkQualityStatus(w);
+ out.innerHTML=renderWorkExampleResult(w,text);
+}
+
+function renderWorkExampleResult(w,text){
+ var analysis=simulateWorkExampleAi(w,text);
+ var missingHtml=analysis.missing.length
+   ?'<div class="alert a-red"><div><strong>Не хватает данных</strong><div>'+analysis.missing.map(function(x){return '· '+htmlEscape(x);}).join('<br>')+'</div></div></div>'
+   :'<div class="alert a-green"><div><strong>Данных достаточно для предварительного выбора</strong><div>Сметчик все равно может изменить результат.</div></div></div>';
+ var desiredHtml=analysis.desiredMissing.length
+   ?'<div class="alert a-amber"><div><strong>Желательно уточнить</strong><div>'+analysis.desiredMissing.map(function(x){return '· '+htmlEscape(x);}).join('<br>')+'</div></div></div>'
+   :'';
+ return missingHtml+desiredHtml
+  +'<div class="ow-test-grid">'
+  +'<div class="ow-test-cell"><div class="ow-title">Какую расценку выбрал бы ЦА</div>'+formatLinkedRate(analysis.rate)+'</div>'
+  +'<div class="ow-test-cell"><div class="ow-title">Какие материалы нужны</div>'+analysis.materials.map(function(m){return formatWorkMaterial(m);}).join('')+'</div>'
+  +'<div class="ow-test-cell"><div class="ow-title">Какие параметры учтены</div>'+analysis.params.map(function(p){return '<div>· '+htmlEscape(p)+'</div>';}).join('')+'</div>'
+  +'<div class="ow-test-cell"><div class="ow-title">Какие правила применил</div>'+analysis.rules.map(function(r){return '<div>· '+htmlEscape(r)+'</div>';}).join('')+'</div>'
+  +'</div>'
+  +'<div class="ow-test-cell" style="margin-top:7px"><div class="ow-title">Альтернативы и объяснение</div>'
+  +analysis.alternatives.map(function(a){return '<div>· <span class="mono">'+htmlEscape(a.code||'—')+'</span> '+htmlEscape(a.name||'Расценка')+(a.reason?' — '+htmlEscape(a.reason):'')+'</div>';}).join('')
+  +'<div style="margin-top:6px;color:var(--t2)">'+htmlEscape(analysis.why)+'</div></div>';
+}
+
+function simulateWorkExampleAi(w,text){
+ var lower=text.toLowerCase();
+ var rates=getOurWorkLinkedRates(w);
+ var priority=getOurWorkPriorityRate(w,rates)||{code:'—',name:'Связь с РСНБ не настроена'};
+ var chosen=priority;
+ rates.forEach(function(r){
+   var hay=((r.name||'')+' '+(r.condition||'')+' '+(r.code||'')).toLowerCase();
+   if(hay&&hay.split(/\s+/).some(function(word){return word.length>4&&lower.indexOf(word)>=0;}))chosen=r;
+ });
+ var fields=w.requiredParams||w.templateFields||[];
+ var missing=[];
+ var desiredMissing=[];
+ var presentLabels=[];
+ fields.forEach(function(f){
+   var label=(f.label||f.key||String(f)).toString();
+   var key=(f.key||label).toString().toLowerCase();
+   var placeholder=(f.placeholder||'').toString().toLowerCase();
+   var labelHit=label.toLowerCase().split(/\s+/).some(function(part){return part.length>3&&lower.indexOf(part)>=0;});
+   var keyHit=key.length>3&&lower.indexOf(key)>=0;
+   var placeholderHit=placeholder&&lower.indexOf(placeholder)>=0;
+   if(!labelHit&&!keyHit&&!placeholderHit){
+     if(getFieldImportance(f)==='required')missing.push(label);
+     else if(getFieldImportance(f)==='desired')desiredMissing.push(label);
+   } else {
+     presentLabels.push(label+' ('+getFieldImportanceLabel(getFieldImportance(f))+')');
+   }
+ });
+ var materials=getOurWorkMaterials(w);
+ if(!materials.length){
+   if((w.name||'').toLowerCase().indexOf('труб')>=0)materials=[
+     {name:'Труба',materialType:'curator',note:'Куратор должен указать материал, диаметр и ГОСТ.'},
+     {name:'Фасонные части',materialType:'by_norm',note:'Можно оставить по норме.'}
+   ];
+   else if((w.name||'').toLowerCase().indexOf('стяж')>=0)materials=[
+     {name:'Раствор / цементная смесь',materialType:'by_norm',note:'Количество может быть рассчитано по толщине.'}
+   ];
+   else if((w.name||'').toLowerCase().indexOf('клад')>=0)materials=[
+     {name:'Кирпич',materialType:'auto_norm',norm:1,unit:'усл.'},
+     {name:'Раствор',materialType:'auto_norm',norm:0.25,unit:'м³'}
+   ];
+   else materials=[{name:'Материалы не заданы в шаблоне',materialType:'curator'}];
+ }
+ var params=presentLabels.length?presentLabels:getOurWorkParams(w).map(function(p){return (p.label||p)+' ('+getFieldImportanceLabel(getFieldImportance(p))+')';});
+ if(!params.length)params=['название работы из примера','объем работ'];
+ var rules=getOurWorkRules(w,chosen);
+ var alternatives=rates.filter(function(r){return r!==chosen;}).slice(0,3).map(function(r){
+   return {code:r.code,name:r.name,reason:r.rare?'редкая расценка':(r.avoidWithoutReason?'нужно особое основание':'альтернатива при других условиях')};
+ });
+ if(!alternatives.length)alternatives=[{code:'—',name:'Других связанных расценок пока нет',reason:'нужно настроить связь в карточке работы'}];
+ var why=missing.length
+   ?'ЦА может предложить предварительную расценку, но перед выпуском нужно уточнить обязательные параметры.'
+   :(desiredMissing.length?'ЦА может выбрать расценку, но желательные поля улучшат точность и объяснение выбора.':'ЦА выбрал приоритетную связанную расценку, потому что пример содержит необходимые признаки и не требует редкой альтернативы.');
+ return {rate:chosen,missing:missing,desiredMissing:desiredMissing,materials:materials,params:params,rules:rules.slice(0,4),alternatives:alternatives,why:why};
 }
 
 // ДОБАВЛЕНИЕ РАБОТЫ 
@@ -2714,7 +3415,7 @@ function classifyWorkNovelty(workId){
   if(w.isTemplate){
     var missing=getTemplateMissingFields(workId);
     return missing.length
-      ?{kind:'template-missing',badge:'Заполните шаблон',cls:'b-amber',text:'Не заполнено: '+missing.map(function(f){return f.label;}).join(', ')}
+      ?{kind:'template-missing',badge:'Заполните обязательное',cls:'b-amber',text:'Не заполнено: '+missing.map(function(f){return f.label;}).join(', ')}
       :{kind:'template-filled',badge:'Шаблон заполнен',cls:'b-blue',text:'Не пополняет каталог: изменены только параметры шаблона.'};
   }
   var closest=findClosestWork(name,workId);
@@ -2747,14 +3448,33 @@ function getTemplateMissingFields(workId){
   var w=WORKS_DB.find(function(x){return x.id===workId;});
   if(!w||!w.isTemplate)return [];
   var vals=getTemplateFieldValues(workId);
-  return (w.templateFields||[]).filter(function(f){return !String(vals[f.key]||'').trim();});
+  return (w.templateFields||[]).filter(function(f){return getFieldImportance(f)==='required'&&!String(vals[f.key]||'').trim();});
 }
 function updateWorkAiStatus(workId,baseName){
   var status=document.getElementById('ca-b-'+workId);
   if(!status)return;
   var decision=classifyWorkNovelty(workId);
+  var nameInp=document.getElementById('work-name-'+workId);
+  var qtyInp=document.getElementById('ca-q-'+workId);
+  var suggestion=getAiSuggestionsForWork({
+    name:(nameInp&&nameInp.value)||baseName||'',
+    qty:(qtyInp&&qtyInp.value)||'—',
+    unit:((document.getElementById('unit-'+workId)||{}).value)||''
+  })[0];
   status.setAttribute('data-novelty-kind',decision.kind);
-  status.innerHTML='<span class="badge '+decision.cls+'">'+htmlEscape(decision.badge)+'</span><div class="t-xs t3 mt8">'+htmlEscape(decision.text)+'</div>';
+  if(suggestion&&!suggestion.missing){
+    status.setAttribute('data-ai-code',suggestion.code);
+    status.setAttribute('data-ai-name',suggestion.name);
+    status.setAttribute('data-ai-coef',suggestion.coef);
+    status.innerHTML='<span class="badge b-blue">ЦА подобрал</span>'
+      +'<div class="t-xs mt8"><span class="mono">'+htmlEscape(suggestion.code)+'</span> · '+htmlEscape(suggestion.name)+'</div>'
+      +'<div class="t-xs t3 mt8">'+htmlEscape(decision.text)+'</div>';
+  } else {
+    status.setAttribute('data-ai-code','');
+    status.setAttribute('data-ai-name','');
+    status.setAttribute('data-ai-coef','');
+    status.innerHTML='<span class="badge b-red">Не хватает данных</span><div class="t-xs t3 mt8">'+htmlEscape((suggestion&&suggestion.name)||decision.text)+'</div>';
+  }
 }
 
 var ADMIN_SELECTED_MATERIALS=[];
@@ -3223,6 +3943,21 @@ function recalcWeight(workId){
 document.addEventListener('click',function(e){
   if(!e.target.classList.contains('mat-name-inp'))document.querySelectorAll('.mat-drop').forEach(function(d){d.style.display='none';});
 });
+var _dvEditSaveTimer=null;
+function schedulePersistDVEdit(){
+ if(!currentDVId)return;
+ clearTimeout(_dvEditSaveTimer);
+ _dvEditSaveTimer=setTimeout(function(){
+   var active=document.querySelector('.page.active');
+   if(active&&/^pg-new[1-4]$/.test(active.id))persistCurrentDVEdit();
+ },350);
+}
+document.addEventListener('input',function(e){
+ if(e.target&&e.target.closest&&e.target.closest('#works-tbody'))schedulePersistDVEdit();
+});
+document.addEventListener('change',function(e){
+ if(e.target&&e.target.closest&&e.target.closest('#works-tbody'))schedulePersistDVEdit();
+});
 
 function addWorkFromCatalog(w,card,btn){
  if(worksAdded.includes(w.id))return;
@@ -3250,7 +3985,7 @@ function addWorkFromCatalog(w,card,btn){
      +'<div class="t-xs t3" style="margin-bottom:8px">Заполнение этих полей не создает новую позицию каталога.</div>'
      +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px">';
    (w.templateFields||[]).forEach(function(f){
-     templateHtml+='<label class="t-xs">'+htmlEscape(f.label)+'<input class="fi" data-template-work="'+w.id+'" data-template-key="'+htmlEscape(f.key)+'" placeholder="'+htmlEscape(f.placeholder||'')+'" style="margin-top:3px;padding:5px 7px;font-size:11px" oninput="onTemplateFieldChange('+w.id+')"/></label>';
+     templateHtml+=buildTemplateParamInput(w.id,f);
    });
    templateHtml+='</div><div class="t-xs t3 mt8">'+htmlEscape(w.templateRule||'Заполнение параметров не создает новую позицию каталога.')+'</div></div>';
  }
@@ -3279,6 +4014,18 @@ function addWorkFromCatalog(w,card,btn){
   var el=document.getElementById('ca-b-'+w.id);if(el){if(w.isTemplate)updateWorkAiStatus(w.id,w.name);else el.innerHTML='<span class="badge '+bc+'">'+bl+'</span>';}
  if(btn){btn.textContent='Добавлено';btn.style.color='var(--green)';}
  },1200);
+}
+
+function buildTemplateParamInput(workId,f){
+ var key=htmlEscape(f.key||normalizeWorkText(f.label||'param').replace(/\s+/g,'_'));
+ var label=htmlEscape(f.label||'Параметр');
+ var imp=getFieldImportance(f);
+ var mark='<span class="field-mark '+(imp==='required'?'b-red':imp==='desired'?'b-amber':'b-gray')+'">'+getFieldImportanceLabel(imp)+'</span>';
+ var common=' data-template-work="'+workId+'" data-template-key="'+key+'" style="margin-top:3px;padding:5px 7px;font-size:11px" onchange="onTemplateFieldChange('+workId+')"';
+ if(f.options&&f.options.length){
+   return '<label class="t-xs">'+label+mark+'<select class="fi"'+common+'><option value="">— Выберите —</option>'+f.options.map(function(o){return '<option>'+htmlEscape(o)+'</option>';}).join('')+'</select></label>';
+ }
+ return '<label class="t-xs">'+label+mark+'<input class="fi"'+common+' placeholder="'+htmlEscape(f.placeholder||'')+'" oninput="onTemplateFieldChange('+workId+')"/></label>';
 }
 
 function onTemplateFieldChange(workId){
@@ -3316,16 +4063,17 @@ function doGlobalSearchNow(q){
  var all=searchWorks(q,WORKS_DB);
  var userF=all.filter(function(w){return w.isUser;});
  var sysF=all.filter(function(w){return !w.isUser;});
- var sorted=all;
+ var sorted=userF.concat(sysF);
  drop.style.display='block';drop.innerHTML='';
  if(!sorted.length){drop.innerHTML='<div style="padding:12px 14px;font-size:12px;color:var(--t3)">Ничего не найдено — <button class="btn btn-o btn-xs" onclick="toggleManual()">введите вручную</button></div>';return;}
- var shownSep=false;
+ var shownDvSep=false,shownRsnbSep=false;
  sorted.slice(0,12).forEach(function(w,i){
- if(w.isTemplate&&!shownSep){shownSep=true;var s2=document.createElement('div');s2.style.cssText='padding:4px 12px;font-size:10px;font-weight:700;color:var(--blue);background:#EFF6FF;text-transform:uppercase;letter-spacing:.4px;border-top:1px solid var(--border)';s2.textContent=' Шаблонные и подходящие позиции';drop.appendChild(s2);}
+ if(w.isUser&&!shownDvSep){shownDvSep=true;var s1=document.createElement('div');s1.style.cssText='padding:4px 12px;font-size:10px;font-weight:700;color:var(--purple);background:var(--purple-l);text-transform:uppercase;letter-spacing:.4px;border-top:1px solid var(--border)';s1.textContent=' Наши работы ДВ';drop.appendChild(s1);}
+ if(!w.isUser&&!shownRsnbSep){shownRsnbSep=true;var s2=document.createElement('div');s2.style.cssText='padding:4px 12px;font-size:10px;font-weight:700;color:var(--t3);background:#F9FAFB;text-transform:uppercase;letter-spacing:.4px;border-top:1px solid var(--border)';s2.textContent=' РСНБ / РСН РК';drop.appendChild(s2);}
   var item=document.createElement('div');
   item.style.cssText='display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--border);cursor:pointer'+(w.isUser?';background:var(--purple-l)':'');
   item.onmouseenter=function(){this.style.background=w.isUser?'#EDE9FE':'#F0F9FF';};item.onmouseleave=function(){this.style.background=w.isUser?'var(--purple-l)':'';};
-  item.innerHTML='<div style="flex:1;font-size:13px">'+(w.isTemplate?'<span class="badge b-blue" style="font-size:10px;margin-right:4px">Шаблон</span>':w.isUser?'<span class="user-tag" style="margin-right:4px">Наша</span>':'')+htmlEscape(w.name)+' <span style="color:var(--t3);font-size:11px">· '+htmlEscape(w.unit)+'</span></div><button class="btn btn-p btn-sm">+ Добавить</button>';
+  item.innerHTML='<div style="flex:1;font-size:13px">'+(w.isTemplate?'<span class="badge b-blue" style="font-size:10px;margin-right:4px">Шаблон</span>':w.isUser?'<span class="user-tag" style="margin-right:4px">Наша ДВ</span>':'<span class="badge b-gray" style="font-size:10px;margin-right:4px">РСНБ</span>')+htmlEscape(w.name)+' <span style="color:var(--t3);font-size:11px">· '+htmlEscape(w.unit)+'</span></div><button class="btn btn-p btn-sm">+ Добавить</button>';
  item.querySelector('button').onclick=function(e){e.stopPropagation();addWorkFromCatalog(w,null,null);document.getElementById('cat-search').value='';drop.style.display='none';};
  item.onclick=function(){addWorkFromCatalog(w,null,null);document.getElementById('cat-search').value='';drop.style.display='none';};
   drop.appendChild(item);
@@ -3573,33 +4321,158 @@ function setDVStatusByNum(num,status){
  saveData('dvData3',dvData);
  return dv;
 }
+function collectMaterialsForPreview(matsTd){
+ var mats=[];
+ if(!matsTd)return mats;
+ matsTd.querySelectorAll('tbody tr').forEach(function(row){
+   var inputs=row.querySelectorAll('input');
+   var selects=row.querySelectorAll('select');
+   var qty=row.querySelector('[id^="mat-qty-"]');
+   var normInp=row.querySelector('[id^="mat-norm-"]');
+   var code=(inputs[0]&&inputs[0].value)||'';
+   var name=(row.querySelector('.mat-name-inp')||inputs[1]||{}).value||'';
+   var supply=(selects[0]&&selects[0].value)||'';
+   var unit=(selects[1]&&selects[1].value)||'';
+   var amount=(qty&&qty.textContent)||'';
+   var norm=(normInp&&normInp.value)||'';
+   if(name.trim())mats.push({code:code.trim(),name:name.trim(),supply:supply.trim(),unit:unit.trim(),norm:norm.trim(),amount:amount.trim()});
+ });
+ return mats;
+}
+function isUnfilledTemplateName(name){
+ var s=String(name||'');
+ return /_{2,}|___|—\s*—|выбратькаталог|выбратьвручную/i.test(s);
+}
+function isDVMaterialLike(name){return !!String(name||'').trim();}
+function cleanPreviewUnit(raw){
+ var s=String(raw||'').replace(/\s+/g,' ').trim();
+ if(!s||s==='—')return '—';
+ if(s.length>18||/(м².*м³|м3.*м²|п\.м\..*шт|шт.*кг|т.*кг.*л)/i.test(s)){
+   var units=['м²','м2','м³','м3','п.м.','п.м','м','шт','кг','т','л','компл.','место'];
+   for(var i=0;i<units.length;i++){
+     if(s.indexOf(units[i])>=0)return units[i].replace('м2','м²').replace('м3','м³');
+   }
+   return 'по норме';
+ }
+ return s;
+}
+function cleanPreviewQty(raw){
+ var s=String(raw||'').replace(/\s+/g,' ').trim();
+ if(!s||s==='0')return '—';
+ if(s.length>16&&/(заказчик|подрядчик|м²|м³|п\.м|шт|кг|т|л)/i.test(s))return 'по норме';
+ return s;
+}
 function collectDVWorkItems(){
  var items=[];
  document.querySelectorAll('#works-tbody tr').forEach(function(tr,i){
    var cells=tr.querySelectorAll('td');
    var nameCell=cells[1],unitCell=cells[2],qtyCell=cells[3],noteCell=cells[7];
+   var statusCell=cells[8];
    var nameInp=nameCell?nameCell.querySelector('input'):null;
    var unitSel=unitCell?unitCell.querySelector('select'):null;
    var qtyInp=qtyCell?qtyCell.querySelector('input'):null;
    var noteInp=noteCell?noteCell.querySelector('input'):null;
    var name=(nameInp?nameInp.value:nameCell?nameCell.textContent:'').trim();
-   var unit=(unitSel?unitSel.value:unitCell?unitCell.textContent:'').trim();
-   var qty=(qtyInp?qtyInp.value:qtyCell?qtyCell.textContent:'').trim();
+   var unit=cleanPreviewUnit(unitSel?unitSel.value:unitCell?unitCell.textContent:'');
+   var qty=cleanPreviewQty(qtyInp?qtyInp.value:qtyCell?qtyCell.textContent:'');
    var note=(noteInp?noteInp.value:noteCell?noteCell.textContent:'').trim();
-   if(name)items.push({n:i+1,name:name,unit:unit||'—',qty:qty||'—',note:note||''});
+   var aiCode=statusCell?statusCell.getAttribute('data-ai-code'):'';
+   var aiName=statusCell?statusCell.getAttribute('data-ai-name'):'';
+   var aiCoef=statusCell?statusCell.getAttribute('data-ai-coef'):'';
+   var aiSuggestions=aiCode?[{code:aiCode,coef:aiCoef||'РСН РК',name:aiName||'Подобранная расценка',qty:qty||'—',curator:name}]:getAiSuggestionsForWork({name:name,qty:qty,unit:unit});
+   if(name&&isRestorableDVWork({name:name,unit:unit})){
+     items.push({n:items.length+1,name:name,unit:unit||'—',qty:qty||'—',note:note||'',materials:collectMaterialsForPreview(cells[6]),aiSuggestions:aiSuggestions});
+   }
  });
  return items;
 }
-function sendDV(){
- var s=step1Cache;var num=s.num||'—',obj=s.obj||'—',cnt=worksAdded.length;
- var today=new Date().toLocaleDateString('ru-RU');
+function getCurrentDVFormData(statusOverride){
+ saveStep1();
+ var s=step1Cache||{};
  var workItems=collectDVWorkItems();
- if(!dvData[currentUser])dvData[currentUser]=[];
- var ex=dvData[currentUser].find(function(d){return d.num===num;});
- if(!ex)dvData[currentUser].unshift({num:num,obj:obj,cnt:cnt,status:'esed',date:today,appr:s.appr||'',items:workItems});
- else{ex.obj=obj;ex.cnt=cnt;ex.date=today;ex.status='esed';ex.appr=s.appr||ex.appr||'';ex.items=workItems;}
- currentRouteDV={num:num,obj:obj,cnt:cnt,appr:s.appr||'—',userName:currentUser&&USERS[currentUser]?USERS[currentUser].name:'Заявитель',items:workItems};
- dvList=dvData[currentUser];saveData('dvData3',dvData);
+ var aiSuggestions=buildAiSuggestionsFromItems(workItems);
+ var today=new Date().toLocaleDateString('ru-RU');
+ return {
+   num:s.num||currentDVId||'—',
+   obj:s.obj||'—',
+   cnt:workItems.length,
+   status:statusOverride||null,
+   date:today,
+   appr:s.appr||'',
+   cur:s.cur||'',
+   ent:s.ent||'',
+   year:s.year||'2026',
+   note:s.note||'',
+   objs:JSON.parse(JSON.stringify(s.objs||selectedObjs||{})),
+   items:workItems,
+   aiSuggestions:aiSuggestions
+ };
+}
+function persistCurrentDVEdit(statusOverride){
+ if(!currentDVId&&!((step1Cache||{}).num))return null;
+ var data=getCurrentDVFormData(statusOverride);
+ var roles=['zayavitel','smetchik','admin'];
+ var saved=null;
+ roles.forEach(function(role){
+   var list=dvData[role]||[];
+   var dv=list.find(function(d){return d.num===currentDVId||d.num===data.num;});
+   if(dv){
+     var hasWorkRows=!!document.querySelector('#works-tbody tr');
+     dv.num=data.num;
+     dv.obj=data.obj;
+     if(hasWorkRows)dv.cnt=data.cnt;
+     if(data.status)dv.status=data.status;
+     dv.date=data.date;
+     dv.appr=data.appr;
+     dv.cur=data.cur;
+     dv.ent=data.ent;
+     dv.year=data.year;
+     dv.note=data.note;
+     dv.objs=data.objs;
+     if(hasWorkRows){
+       dv.items=data.items;
+       dv.aiSuggestions=data.aiSuggestions;
+     }
+     saved=dv;
+   }
+ });
+ if(!saved&&currentUser){
+   if(!dvData[currentUser])dvData[currentUser]=[];
+   saved={
+     num:data.num,obj:data.obj,cnt:data.cnt,status:data.status||'new',date:data.date,
+     appr:data.appr,cur:data.cur,ent:data.ent,year:data.year,note:data.note,objs:data.objs,
+     items:data.items,aiSuggestions:data.aiSuggestions
+   };
+   dvData[currentUser].unshift(saved);
+ }
+ currentDVId=data.num;
+ dvList=dvData[currentUser]||dvList;
+ saveData('dvData3',dvData);
+ return saved;
+}
+function sanitizeStoredDVItems(){
+ var changed=false;
+ ['zayavitel','smetchik','admin'].forEach(function(role){
+   (dvData[role]||[]).forEach(function(dv){
+     if(dv.items&&dv.items.length){
+       var clean=dv.items.filter(isRestorableDVWork).map(function(it,idx){
+         return Object.assign({},it,{n:idx+1,materials:it.materials||[]});
+       });
+       if(clean.length!==dv.items.length){
+         dv.items=clean;
+         dv.cnt=clean.length;
+         dv.aiSuggestions=buildAiSuggestionsFromItems(clean);
+         changed=true;
+       }
+     }
+   });
+ });
+ if(changed)saveData('dvData3',dvData);
+}
+function sendDV(){
+ var saved=persistCurrentDVEdit('esed');
+ var s=step1Cache||{};
+ currentRouteDV={num:saved?saved.num:(s.num||'—'),obj:saved?saved.obj:(s.obj||'—'),cnt:saved?saved.cnt:worksAdded.length,appr:s.appr||'—',cur:s.cur||'—',ent:s.ent||'—',date:saved?saved.date:new Date().toLocaleDateString('ru-RU'),note:s.note||'',userName:currentUser&&USERS[currentUser]?USERS[currentUser].name:'Заявитель',items:saved?saved.items:collectDVWorkItems(),aiSuggestions:saved?saved.aiSuggestions:[]};
  gotoPage('sent');
 }
 function approveESED(num){
@@ -3622,22 +4495,92 @@ function createSMAXRequest(num){
  smetchikItems.unshift(inboxItem);
  inboxData.smetchik=smetchikItems;
  saveData('inboxData3',inboxData);
+ if(p&&(!p.aiSuggestions||!p.aiSuggestions.length)){
+   p.aiSuggestions=buildAiSuggestionsFromItems(p.items||[]);
+   saveData('dvData3',dvData);
+ }
  if(num)setDVStatusByNum(num,'smetchik');else updateCurrentDVStatus('smetchik');
  setRouteBadge('route-smax-status','Заявка создана','badge b-green');
  showToast('Заявка создана в СМАКС','success','Теперь она есть во входящих у сметчика.');
  renderSMAXQueue();
 }
 
-// PDF 
-function openPDF(){
- var s=step1Cache;
- var setT=function(id,v){var e=document.getElementById(id);if(e)e.textContent=v;};
- setT('pdf-num',s.num||'—');setT('pdf-obj',s.obj||'—');setT('pdf-date',s.date||'—');setT('pdf-appr',s.appr||'—');setT('pdf-appr2',s.appr||'—');setT('pdf-cur',s.cur||'—');setT('pdf-cur2',s.cur||'—');setT('pdf-ent',s.ent||'—');setT('pdf-note',(document.getElementById('f-note')||{}).value||'—');
- var tbody=document.getElementById('pdf-tbody');var rows=document.querySelectorAll('#works-tbody tr');
- if(tbody){
- if(!rows.length){tbody.innerHTML='<tr><td colspan="4" style="padding:12px;text-align:center;color:#888;border:1px solid #ddd">Нет позиций</td></tr>';}
- else{tbody.innerHTML='';rows.forEach(function(row,i){var cells=row.querySelectorAll('td');if(cells.length<4)return;var nm=cells[1]?cells[1].textContent.trim():'—';var un=cells[2]?cells[2].textContent.trim():'—';var qt=cells[3]?(cells[3].querySelector('input')?cells[3].querySelector('input').value||'—':cells[3].textContent.trim()):'—';var tr2=document.createElement('tr');tr2.style.background=i%2===0?'#fff':'#F9FAFB';tr2.innerHTML='<td style="padding:6px 10px;border:1px solid #ddd;text-align:center">'+(i+1)+'</td><td style="padding:6px 10px;border:1px solid #ddd">'+nm+'</td><td style="padding:6px 10px;border:1px solid #ddd;text-align:center">'+un+'</td><td style="padding:6px 10px;border:1px solid #ddd;text-align:center">'+qt+'</td>';tbody.appendChild(tr2);});}
- }
+// PDF / предпросмотр ДВ
+function getCurrentPreviewDV(){
+ var s=step1Cache||{};
+ return {
+   num:s.num||'—',
+   obj:s.obj||'—',
+   date:s.date||new Date().toLocaleDateString('ru-RU'),
+   appr:s.appr||'—',
+   cur:s.cur||'—',
+   ent:s.ent||'—',
+   cnt:worksAdded.length,
+   note:(document.getElementById('f-note')||{}).value||'',
+   items:collectDVWorkItems()
+ };
+}
+function getPreviewDV(num){
+ var dv=num?findDVByNum(num):null;
+ if(dv)return dv;
+ return getCurrentPreviewDV();
+}
+function getPreviewItems(dv){
+ var items=(dv&&dv.items&&dv.items.length)?dv.items:[];
+ if(items.length)return items;
+ return [
+   {n:1,name:'Кладка стен заполнений каркасных зданий',unit:'м³ кладки',qty:'4',note:'212-4010101',materials:[{name:'Раствор кладочный цементный ГОСТ 28013-98 марки М25',unit:'м³',amount:'по норме',supply:'Заказчик'},{name:'Вода техническая',unit:'м³',amount:'по норме',supply:'Подрядчик'},{name:'Кирпич керамический или силикатный рядовой',unit:'шт',amount:'по норме',supply:'Заказчик'}]},
+   {n:2,name:'Устройство цементно-песчаной стяжки толщиной 40 мм',unit:'м²',qty:'4',note:'ОЗМ-00201',materials:[{name:'Цемент М400',unit:'т',amount:'по норме',supply:'Подрядчик'},{name:'Песок строительный',unit:'м³',amount:'по норме',supply:'Заказчик'}]}
+ ];
+}
+function renderDVDocument(dv,mode){
+ dv=dv||{};
+ var items=getPreviewItems(dv);
+ var modeChip='';
+ if(mode==='esed')modeChip='<span class="dv-chip">ЕСЭД проверяет</span>';
+ if(mode==='smax')modeChip='<span class="dv-chip">СМАКС распределяет</span>';
+ var itemRows='<div class="dv-row dv-row-head"><div class="dv-cell">№</div><div class="dv-cell">Позиция ДВ</div><div class="dv-cell">Объем</div><div class="dv-cell">Условия</div></div>';
+ itemRows+=items.map(function(it,i){
+   var mats=(it.materials||[]).filter(function(m){return m&&m.name;}).slice(0,4).map(function(m){
+     var parts=[m.name,cleanPreviewQty(m.amount),cleanPreviewUnit(m.unit),m.supply].filter(function(x){return x&&x!=='—';}).join(' · ');
+     return '<div class="dv-mat">'+htmlEscape(parts)+'</div>';
+   }).join('');
+   var note=it.note?'<div class="dv-work-note">'+htmlEscape(it.note)+'</div>':'';
+   var unit=cleanPreviewUnit(it.unit);
+   var qty=cleanPreviewQty(it.qty);
+   var isSupplyOnly=/^(Заказчик|Подрядчик)$/i.test(unit);
+   var volume=isSupplyOnly?'по норме':qty;
+   var unitText=isSupplyOnly?unit:unit;
+   if(volume==='—'&&unitText==='—')volume='по норме';
+   return '<div class="dv-row">'
+    +'<div class="dv-cell">'+(it.n||i+1)+'</div>'
+    +'<div class="dv-cell"><div class="dv-work-name">'+htmlEscape(it.name||'—')+'</div>'+note+(mats?'<div class="dv-mats">'+mats+'</div>':'')+'</div>'
+    +'<div class="dv-cell"><strong>'+htmlEscape(volume)+'</strong><div class="dv-work-note">'+htmlEscape(unitText||'—')+'</div></div>'
+    +'<div class="dv-cell">'+(it.note?htmlEscape(it.note):'<span class="t3">—</span>')+'</div>'
+    +'</div>';
+ }).join('');
+ var date=dv.date||new Date().toLocaleDateString('ru-RU');
+ var cnt=dv.cnt||items.length;
+ return '<div class="dv-doc"><div class="dv-doc-page">'
+   +'<div class="dv-doc-head"><div class="dv-doc-ent">'+htmlEscape(dv.ent||'BTS')+'</div><div class="dv-doc-title">Дефектная ведомость '+modeChip+'</div><div class="dv-doc-num">№ '+htmlEscape(dv.num||'—')+'</div></div>'
+   +'<div class="dv-doc-meta">'
+   +'<div><div class="dv-meta-label">Объект</div><div class="dv-meta-value">'+htmlEscape(dv.obj||'—')+'</div></div>'
+   +'<div><div class="dv-meta-label">Дата</div><div class="dv-meta-value">'+htmlEscape(date)+'</div></div>'
+   +'<div><div class="dv-meta-label">Утверждающий</div><div class="dv-meta-value">'+htmlEscape(dv.appr||'—')+'</div></div>'
+   +'<div><div class="dv-meta-label">Куратор</div><div class="dv-meta-value">'+htmlEscape(dv.cur||dv.userName||'—')+'</div></div>'
+   +'</div>'
+   +'<div class="dv-section-title">Перечень работ и материалов</div><div class="dv-list">'+itemRows+'</div>'
+   +'<div class="dv-section-title">Сводка</div><div class="dv-doc-meta"><div><div class="dv-meta-label">Позиций</div><div class="dv-meta-value">'+htmlEscape(String(cnt))+'</div></div><div><div class="dv-meta-label">Статус</div><div class="dv-meta-value">'+htmlEscape(mode==='esed'?'На согласовании':mode==='smax'?'Передача в СМАКС':'Черновик')+'</div></div><div><div class="dv-meta-label">Формат просмотра</div><div class="dv-meta-value">Документ</div></div><div><div class="dv-meta-label">Источник</div><div class="dv-meta-value">ДВ</div></div></div>'
+   +'<div class="dv-section-title">Общее примечание</div><div class="dv-note-box">'+htmlEscape(dv.note||'Без дополнительных примечаний')+'</div>'
+   +'<div class="dv-sign"><div class="dv-sign-line">Составил: '+htmlEscape(dv.cur||dv.userName||'—')+'</div><div class="dv-sign-line">Утвердил: '+htmlEscape(dv.appr||'—')+'</div></div>'
+   +'</div></div>';
+}
+function openPDF(num,mode){
+ var dv=getPreviewDV(num);
+ var title=document.getElementById('pdf-title');
+ if(title)title.textContent=mode==='esed'?'Предпросмотр ДВ — согласование ЕСЭД':mode==='smax'?'Предпросмотр ДВ — регистрация СМАКС':'Предпросмотр — Дефектная ведомость';
+ var body=document.getElementById('pdf-body');
+ if(body)body.innerHTML=renderDVDocument(dv,mode||'draft');
  document.getElementById('pdf-modal').classList.add('open');
 }
 function downloadDVxlsx(){
@@ -3662,15 +4605,18 @@ function renderProcessQueue(type){
    var action=type==='esed'
      ?'<button class="btn btn-g btn-sm" onclick="approveESED(\''+htmlEscape(d.num)+'\')">Согласовать ДВ</button>'
      :'<button class="btn btn-p btn-sm" onclick="createSMAXRequest(\''+htmlEscape(d.num)+'\')">Назначить Ахметову</button>';
-   var openBtn='<button class="btn btn-o btn-sm" onclick="toggleProcessDVPreview(this,\''+type+'\',\''+htmlEscape(d.num)+'\')">Открыть ДВ</button>';
+   var openBtn='<button class="btn btn-o btn-sm" onclick="openProcessDVPreview(\''+type+'\',\''+htmlEscape(d.num)+'\')">Предпросмотр ДВ</button>';
    var badge=type==='esed'?'<span class="badge b-amber">На согласовании</span>':'<span class="badge b-blue">Согласована</span>';
    card.innerHTML='<div class="card-h"><div><div class="card-t">'+htmlEscape(d.num)+' · '+htmlEscape(d.obj||'—')+'</div><div class="t-xs t3 mt8">Позиций: '+(d.cnt||0)+' · Дата: '+htmlEscape(d.date||'—')+'</div></div>'+badge+'</div>'
-     +'<div class="card-b"><div class="fb"><div class="t-xs t3">'+(type==='esed'?'Откройте ДВ, проверьте пакет и подтвердите согласование.':'Откройте ДВ, проверьте основание и назначьте исполнителя-сметчика.')+'</div><div class="fc gap8">'+openBtn+action+'</div></div><div class="process-dv-preview" style="display:none;margin-top:14px"></div></div>';
+     +'<div class="card-b"><div class="fb"><div class="t-xs t3">'+(type==='esed'?'Откройте предпросмотр документа, проверьте пакет и подтвердите согласование.':'Откройте предпросмотр документа, проверьте основание и назначьте исполнителя-сметчика.')+'</div><div class="fc gap8">'+openBtn+action+'</div></div></div>';
    wrap.appendChild(card);
  });
 }
 function renderESEDQueue(){renderProcessQueue('esed');}
 function renderSMAXQueue(){renderProcessQueue('smax');}
+function openProcessDVPreview(type,num){
+ openPDF(num,type);
+}
 function toggleProcessDVPreview(btn,type,num){
  var card=btn.closest('.card');
  var box=card?card.querySelector('.process-dv-preview'):null;
@@ -3793,24 +4739,613 @@ function saveDraftRows(dvId){
   try{localStorage.setItem('draft_rows_'+dvId,JSON.stringify(rows));}catch(e){}
 }
 
+function findAnyDV(num){
+ var roles=['zayavitel','smetchik','admin'];
+ for(var i=0;i<roles.length;i++){
+   var found=(dvData[roles[i]]||[]).find(function(d){return d.num===num;});
+   if(found)return found;
+ }
+ return null;
+}
+
+function getDraftDVItems(dvId){
+ var dv=findAnyDV(dvId);
+ if(dv&&dv.items&&dv.items.length)return dv.items.map(function(it,i){
+   return {n:it.n||i+1,name:it.name||'—',qty:it.qty||'—',unit:it.unit||'',note:it.note||''};
+ });
+ var byId={
+  'AOK-ES-2026-C-56-144':[
+    {n:1,name:'Разборка покрытий кровли из рулонных материалов',qty:'750',unit:'м²'},
+    {n:2,name:'Разборка стяжки до 50 мм',qty:'500',unit:'м²',note:'Пропан 0,2 кг/м²'}
+  ],
+  'AOK-ES-2026-C-55-110':[
+    {n:1,name:'Разборка существующей стяжки пола',qty:'320',unit:'м²'},
+    {n:2,name:'Уточнение толщины стяжки',qty:'320',unit:'м²'}
+  ],
+  'AOK-ES-2026-C-54-099':[
+    {n:1,name:'Очистка откосов и фасадных участков у окон',qty:'48',unit:'м²'}
+  ],
+  'AOK-ES-2026-C-53-088':[
+    {n:1,name:'Замена участка трубопровода',qty:'—',unit:'п.м.'}
+  ]
+ };
+ return byId[dvId]||[];
+}
+
+function renderDraftContext(dvId){
+ var item=(inboxData[currentUser]||[]).find(function(x){return x.num===dvId;})||{};
+ var dv=findAnyDV(dvId)||{};
+ var ss=document.querySelector('#pg-draft .ss');
+ if(ss)ss.textContent=(dvId||'—')+' · '+(item.obj||dv.obj||'—')+' · '+(draftReadOnly?'только просмотр':'сформирован ЦА');
+ var positions=getDraftDVItems(dvId);
+ var suggestions=getAiSuggestionsForDV(dvId);
+ var draftPage=document.getElementById('pg-draft');
+ var map=draftPage?draftPage.querySelector('#draft-map-card'):null;
+ if(map){
+   map.innerHTML='<div class="card-h" style="background:#F9FAFB"><div class="card-t">Как ЦА преобразовал ДВ в смету</div><span class="t-xs t3">'+positions.length+' позиции ДВ → '+suggestions.length+' расценки ЦА</span></div>'
+    +'<div class="decomp"><div class="decomp-col"><div class="t-xs t3" style="text-transform:uppercase;letter-spacing:.5px;font-weight:700;margin-bottom:10px">Позиции ДВ (заявитель)</div>'
+    +(positions.length?positions.map(function(p){return '<div class="decomp-dv"><div style="font-weight:600;color:#1E40AF">'+p.n+'. '+htmlEscape(p.name)+'</div><div style="font-size:11px;color:#3B82F6;margin-top:2px">'+htmlEscape((p.qty||'—')+' '+(p.unit||''))+'</div></div>';}).join(''):'<div class="t-xs t3">Позиции ДВ не найдены</div>')
+    +'</div><div class="decomp-arrow">→</div><div class="decomp-col"><div class="t-xs t3" style="text-transform:uppercase;letter-spacing:.5px;font-weight:700;margin-bottom:10px">Расценки сметы (ЦА)</div>'
+    +(suggestions.length?suggestions.map(function(s,i){return '<div class="decomp-row"><div class="decomp-circle">'+(i+1)+'</div><div class="decomp-item decomp-g"><div style="font-weight:600;color:#14532D">'+htmlEscape(s.code)+' · '+htmlEscape(s.coef)+'</div><div style="color:var(--green);margin-top:2px;font-size:11px">'+htmlEscape(s.name+' · '+s.qty)+'</div></div></div>';}).join(''):'<div class="t-xs t3">ЦА не подобрал расценки для этой ДВ</div>')
+    +'</div></div>';
+ }
+ var leftTbody=document.querySelector('#pg-draft .panel-l tbody');
+ if(leftTbody){
+   leftTbody.innerHTML=positions.length?positions.map(function(p){
+     return '<tr><td>'+p.n+'</td><td>'+htmlEscape(p.name)+'</td><td>'+htmlEscape((p.qty||'—')+' '+(p.unit||''))+'</td></tr>';
+   }).join('')+(positions.some(function(p){return p.note;})?'<tr><td colspan="3" style="color:var(--t3);font-size:11px;font-style:italic;padding:7px 12px">Примечание: '+htmlEscape(positions.filter(function(p){return p.note;}).map(function(p){return p.note;}).join('; '))+'</td></tr>':''):'<tr><td colspan="3" style="color:var(--t3);padding:12px">Позиции ДВ не найдены</td></tr>';
+ }
+}
+
 function restoreDraftRows(dvId){
   var tbody=document.getElementById('draft-tbody');if(!tbody)return;
-  resetDraftTable();
+  renderDraftContext(dvId);
+  tbody.innerHTML='';
   try{
     var saved=localStorage.getItem('draft_rows_'+dvId);
     if(saved){
       var rows=JSON.parse(saved);
       // Полностью заменяем содержимое tbody сохранёнными строками
       tbody.innerHTML=rows.join('');
+      removeSeedDraftRows();
+      removeCommentImportedRows();
+      repairManualAddedRows();
+      ensureAiSuggestedRows(dvId);
+      dedupeDraftRows();
+      saveDraftRows(dvId);
+      enhanceDraftRows();
       return;
     }
   }catch(e){}
-  // Если ничего не сохранено — оставляем дефолтные демо-строки
+  // Если ничего не сохранено — черновик пустой, сметчик сам выбирает расценки.
+  ensureAiSuggestedRows(dvId);
+  enhanceDraftRows();
+}
+
+function ensureAiSuggestedRows(dvId){
+ var tbody=document.getElementById('draft-tbody');if(!tbody)return;
+ var existing=getDraftExistingCodes();
+ var suggestions=getAiSuggestionsForDV(dvId||currentDVId);
+ suggestions.reverse().forEach(function(s){
+   var code=s.code;
+   if(existing[code])return;
+   var tr=document.createElement('tr');
+   tr.setAttribute('data-added-version','2');
+   tr.setAttribute('data-rate-code',code);
+   tr.setAttribute('data-rate-coef',s.coef);
+   tr.setAttribute('data-source','ai');
+   tr.setAttribute('data-ai-code',code);
+   tr.setAttribute('data-ai-name',s.name);
+   tr.setAttribute('data-curator-name',s.curator);
+   if(s.missing)tr.setAttribute('data-status','missing');
+   tr.innerHTML='<td class="mono"><span data-code-text>'+htmlEscape(code)+'</span><br><span data-coef-text>'+htmlEscape(s.coef)+'</span></td>'
+    +'<td>'+htmlEscape(s.name)+'</td>'
+    +'<td>'+htmlEscape(s.qty)+'</td>'
+    +'<td><span class="badge '+(s.missing?'b-red':'b-blue')+'">'+(s.missing?'Конфликт / не хватает данных':'Подобрано ЦА')+'</span></td>'
+    +'<td><button class="btn btn-xs btn-o" style="color:var(--red);border-color:#FECACA" onclick="this.closest(\'tr\').remove();saveDraftRows(currentDVId)">x</button></td>';
+   tbody.insertBefore(tr,tbody.firstChild);
+   existing[code]=true;
+ });
+}
+
+function getAiSuggestionsForDV(dvId){
+ var dv=findAnyDV(dvId);
+ if(dv&&dv.aiSuggestions&&dv.aiSuggestions.length)return dv.aiSuggestions;
+ var byId={
+  'AOK-ES-2026-C-56-144':[
+    {code:'1208-0101-0201',coef:'К23=0,00',name:'Кровля рулонная. Разборка НР=72%',qty:'750',curator:'Разборка покрытий кровли из рулонных материалов'},
+    {code:'1207-0101-1802',coef:'Ккл=1,09',name:'Разборка стяжки цемент. 20мм НР=72%',qty:'500',curator:'Разборка стяжки до 50 мм'}
+  ],
+  'AOK-ES-2026-C-55-110':[
+    {code:'1207-0101-1802',coef:'Ккл=1,09',name:'Разборка стяжки цементной 20 мм',qty:'320',curator:'Разборка существующей стяжки пола'},
+    {code:'1207-0101-1804',coef:'К0=4',name:'Добавка на изменение толщины стяжки',qty:'320',curator:'Уточнение толщины стяжки'}
+  ],
+  'AOK-ES-2026-C-54-099':[
+    {code:'1212-1040501',coef:'РСН РК',name:'Фасады простые. Очистка вручную от краски известковой',qty:'—',curator:'Очистка откосов и фасадных участков у окон'}
+  ],
+  'AOK-ES-2026-C-53-088':[
+    {code:'2001-0201-0001',coef:'РСН РК',name:'Замена трубопроводов водоснабжения диаметром 50 мм',qty:'—',curator:'Замена участка трубопровода'}
+ ]
+ };
+ if(byId[dvId])return byId[dvId];
+ return buildAiSuggestionsFromDV(dvId);
+}
+
+function buildAiSuggestionsFromDV(dvId){
+ return buildAiSuggestionsFromItems(getDraftDVItems(dvId));
+}
+
+function buildAiSuggestionsFromItems(items){
+ var out=[];
+ (items||[]).forEach(function(it){
+   var own=it.aiSuggestions&&it.aiSuggestions.length?it.aiSuggestions:getAiSuggestionsForWork(it);
+   own.forEach(function(s){out.push(s);});
+ });
+ return out;
+}
+
+function getAiSuggestionsForWork(it){
+ var text=String(it&&it.name||'').toLowerCase();
+ var qty=(it&&it.qty)||'—';
+ if(/кров|рулон/.test(text))return [{code:'1208-0101-0201',coef:'К23=0,00',name:'Кровля рулонная. Разборка НР=72%',qty:qty,curator:it.name}];
+ if(/стяж/.test(text)&&/разбор|демонтаж|ремонт/.test(text)){
+   var arr=[{code:'1207-0101-1802',coef:'Ккл=1,09',name:'Разборка стяжки цементной 20 мм НР=72%',qty:qty,curator:it.name}];
+   if(/50|толщ|свыше/.test(text))arr.push({code:'1207-0101-1804',coef:'К0=уточнить',name:'Добавка на изменение толщины стяжки',qty:qty,curator:it.name});
+   return arr;
+ }
+ if(/стяж/.test(text))return [{code:'1108-0101-0101',coef:'РСН РК',name:'Устройство цементной стяжки',qty:qty,curator:it.name}];
+ if(/труб|трубопровод|водоснаб|отопл|газ|канал/.test(text))return [{code:'2001-0201-0001',coef:'РСН РК',name:'Прокладка/замена трубопроводов по параметрам материала и диаметра',qty:qty,curator:it.name}];
+ if(/клад|кирпич|стен/.test(text))return [{code:'1108-0101-0102',coef:'РСН РК',name:'Кладка стен наружных средней сложности',qty:qty,curator:it.name}];
+ if(/засып|грунт|планиров|транше/.test(text))return [{code:'1101-0101-0101',coef:'РСН РК',name:'Земляные работы по перемещению/засыпке грунта',qty:qty,curator:it.name}];
+ if(/фасад|очист/.test(text))return [{code:'1212-1040501',coef:'РСН РК',name:'Фасады простые. Очистка вручную',qty:qty,curator:it.name}];
+ return [{code:'—',coef:'требует выбора',name:'ЦА не смог уверенно подобрать расценку',qty:qty,curator:it&&it.name,missing:true}];
+}
+
+function removeLegacyDraftRows(){
+ // Не удаляем строки ЦА: сохраненные рекомендации являются частью черновика.
+ // Старый мусор чистится точечными функциями ниже.
+}
+
+function dedupeDraftRows(){
+ var tbody=document.getElementById('draft-tbody');if(!tbody)return;
+ var seen={};
+ tbody.querySelectorAll('tr').forEach(function(tr){
+   var raw=tr.getAttribute('data-rate-code')||(tr.querySelector('[data-draft-field="code"]')||{}).value||(tr.cells[0]?tr.cells[0].textContent:'');
+   var code=normalizeRateCode(raw);
+   if(!code)return;
+   if(seen[code])tr.remove();
+   else seen[code]=true;
+ });
+}
+
+function repairManualAddedRows(){
+ var tbody=document.getElementById('draft-tbody');if(!tbody)return;
+ tbody.querySelectorAll('tr').forEach(function(tr){
+   var curator=tr.getAttribute('data-curator-name')||'';
+   var reason=tr.getAttribute('data-override-reason')||'';
+   var raw=tr.getAttribute('data-rate-code')||(tr.querySelector('[data-draft-field="code"]')||{}).value||(tr.cells[0]?tr.cells[0].textContent:'');
+   var code=normalizeRateCode(raw);
+   if(/Добавлено сметчиком вручную/i.test(curator)||/Добавлено вручную/i.test(reason)){
+     tr.setAttribute('data-ai-code','—');
+     tr.setAttribute('data-ai-name','Не было в рекомендации ЦА');
+     tr.setAttribute('data-source',isUserRateCode(code)?'user':'manual');
+   }
+ });
+}
+
+function removeSeedDraftRows(){
+ var tbody=document.getElementById('draft-tbody');if(!tbody)return;
+ var seedCodes={'1207-0101-1804':true};
+ tbody.querySelectorAll('tr').forEach(function(tr){
+   var raw=tr.getAttribute('data-rate-code')||(tr.querySelector('[data-draft-field="code"]')||{}).value||(tr.cells[0]?tr.cells[0].textContent:'');
+   var code=normalizeRateCode(raw);
+   var isSeed=seedCodes[code]&&!(tr.getAttribute('data-override-reason')||'').match(/комментари/i);
+   if(isSeed)tr.remove();
+ });
+}
+
+function removeCommentImportedRows(){
+ var tbody=document.getElementById('draft-tbody');if(!tbody)return;
+ tbody.querySelectorAll('tr').forEach(function(tr){
+   var curator=tr.getAttribute('data-curator-name')||'';
+   var reason=tr.getAttribute('data-override-reason')||'';
+   if(/по комментарию|из комментария/i.test(curator+' '+reason))tr.remove();
+ });
+}
+
+function extractAddedRateCodesFromText(text){
+ var s=String(text||'');
+ var m=s.match(/добавлен[ыа]?\s+расценк[аи]?\s*:?\s*([\s\S]+)/i);
+ if(!m)return [];
+ return m[1].split(/[,;\n]+/)
+  .map(function(part){return normalizeRateCode(part);})
+  .filter(function(x,i,a){return x&&a.indexOf(x)===i;});
+}
+
+function normalizeRateCode(raw){
+ var s=String(raw||'').replace(/–/g,'-').trim();
+ var m=s.match(/[A-ZА-Я0-9]+(?:-[A-ZА-Я0-9]+)+/i);
+ if(!m)return s.split(/\s+/)[0]||'';
+ var code=m[0];
+ code=code.replace(/(РСН|РК|PCH|PK|УТОЧНИТЬ|UTOCHNIT).*$/i,'');
+ return code.replace(/[.,;:]$/,'');
+}
+
+function getDraftExistingCodes(){
+ var tbody=document.getElementById('draft-tbody');var codes={};
+ if(!tbody)return codes;
+ tbody.querySelectorAll('tr').forEach(function(tr){
+   var inp=tr.querySelector('[data-draft-field="code"]');
+   var raw=tr.getAttribute('data-rate-code')||(inp?inp.value:(tr.cells[0]?tr.cells[0].textContent:''));
+   var code=normalizeRateCode(raw);
+   if(code)codes[code]=true;
+ });
+ return codes;
+}
+
+function findRateByCode(code){
+ code=String(code||'').trim();
+ return (getRatesSource()||[]).find(function(r){return String(r.code||'').trim()===code;})
+   || DB_ITEMS.find(function(r){return String(r.code||'').trim()===code;})
+   || null;
+}
+
+function appendDraftRateByCode(code,sourceText){
+ var tbody=document.getElementById('draft-tbody');if(!tbody||!code)return false;
+ var exists=getDraftExistingCodes();if(exists[code])return false;
+ var rate=findRateByCode(code)||{code:code,name:'Добавленная расценка '+code,coefs:'уточнить',unit:'—'};
+ var tr=document.createElement('tr');
+ tr.setAttribute('data-rate-code',code);
+ tr.setAttribute('data-rate-coef',(rate.coefs||'уточнить').split(' · ')[0]);
+ tr.setAttribute('data-ai-code','—');
+ tr.setAttribute('data-ai-name','Не было в рекомендации ЦА');
+ tr.setAttribute('data-source','ai');
+ tr.setAttribute('data-curator-name','Добавлено сметчиком по комментарию');
+ tr.setAttribute('data-override-reason','Добавлено из комментария: '+(sourceText||code));
+ tr.innerHTML='<td class="mono"><span data-code-text>'+htmlEscape(code)+'</span><br><span data-coef-text>'+htmlEscape((rate.coefs||'уточнить').split(' · ')[0])+'</span></td>'
+  +'<td>'+htmlEscape(rate.name||('Добавленная расценка '+code))+'</td>'
+  +'<td>—</td>'
+  +'<td><span class="badge b-amber">Изменено сметчиком</span></td>'
+  +'<td><button class="btn btn-xs btn-o" style="color:var(--red);border-color:#FECACA" onclick="this.closest(\'tr\').remove();saveDraftRows(currentDVId)">x</button></td>';
+ tbody.appendChild(tr);
+ return true;
+}
+
+function syncDraftRatesFromChat(dvId){
+ var msgs=loadChat(dvId);
+ var added=0;
+ var wanted={};
+ msgs.forEach(function(msg){
+   extractAddedRateCodesFromText(msg.text).forEach(function(code){
+     wanted[code]=msg.text;
+   });
+ });
+ Object.keys(wanted).forEach(function(code){
+   var existing=getDraftExistingCodes();
+   if(!existing[code]&&appendDraftRateByCode(code,wanted[code]))added++;
+ });
+ if(added)saveDraftRows(dvId);
+}
+
+function repairDraftCodesFromChat(dvId){
+ var tbody=document.getElementById('draft-tbody');if(!tbody)return;
+ var msgs=loadChat(dvId),wanted=[];
+ msgs.forEach(function(msg){
+   extractAddedRateCodesFromText(msg.text).forEach(function(code){if(wanted.indexOf(code)<0)wanted.push(code);});
+ });
+ var usedRows={};
+ wanted.forEach(function(code){
+   var found=false;
+   Array.from(tbody.querySelectorAll('tr')).forEach(function(tr,idx){
+     var raw=tr.getAttribute('data-rate-code')||(tr.querySelector('[data-draft-field="code"]')||{}).value||(tr.cells[0]?tr.cells[0].textContent:'');
+     if(!found&&!usedRows[idx]&&String(raw||'').indexOf(code)===0){
+       tr.setAttribute('data-rate-code',code);
+       var inp=tr.querySelector('[data-draft-field="code"]');
+       if(inp)inp.value=code;
+       usedRows[idx]=true;
+       found=true;
+     }
+   });
+   if(!found)appendDraftRateByCode(code,'Добавлено из комментария');
+ });
+ var existing=getDraftExistingCodes();
+ wanted.forEach(function(code){
+   if(!existing[code])appendDraftRateByCode(code,'Добавлено из комментария');
+ });
+}
+
+function enhanceDraftRows(){
+ var tbody=document.getElementById('draft-tbody');if(!tbody)return;
+ tbody.querySelectorAll('tr').forEach(function(tr,idx){
+   if(tr.getAttribute('data-draft-enhanced')==='1'){
+     if(!tr.getAttribute('data-curator-name'))tr.setAttribute('data-curator-name',getDefaultCuratorName(idx));
+     ensureAiReasonBlock(tr);
+     evaluateDraftRow(tr,false);
+     return;
+   }
+   var cells=tr.cells;if(!cells||cells.length<4)return;
+   tr.setAttribute('data-draft-enhanced','1');
+   var code=normalizeRateCode(tr.getAttribute('data-rate-code')||(cells[0].querySelector('[data-code-text]')?cells[0].querySelector('[data-code-text]').textContent:cells[0].textContent))||'';
+   var coef=tr.getAttribute('data-rate-coef')||(cells[0].querySelector('[data-coef-text]')?cells[0].querySelector('[data-coef-text]').textContent:'');
+   if(!coef){
+     var rawCell=(cells[0].textContent||'').trim();
+     coef=rawCell.replace(code,'').trim()||'';
+   }
+   tr.setAttribute('data-rate-code',code);
+   tr.setAttribute('data-rate-coef',coef);
+   var name=(cells[1].textContent||'').trim();
+   var qty=(cells[2].textContent||'').trim();
+   if(!tr.getAttribute('data-ai-code'))tr.setAttribute('data-ai-code',code);
+   if(!tr.getAttribute('data-ai-name'))tr.setAttribute('data-ai-name',name);
+   if(!tr.getAttribute('data-curator-name'))tr.setAttribute('data-curator-name',getDefaultCuratorName(idx));
+   if(!tr.getAttribute('data-source'))tr.setAttribute('data-source',isUserRateCode(code)?'user':'ai');
+   cells[0].innerHTML='<input class="fi draft-code-input" value="'+htmlEscape(code)+'" data-draft-field="code" style="font-family:JetBrains Mono,monospace;font-size:11px;padding:4px 6px;width:120px" oninput="onDraftRateChange(this)"/><div class="mono">'+htmlEscape(coef)+'</div>';
+   cells[1].innerHTML='<input class="fi" value="'+htmlEscape(name)+'" data-draft-field="name" style="font-size:11px;padding:4px 6px;min-width:220px" oninput="onDraftRateChange(this)"/>';
+   cells[2].innerHTML='<input class="qty-i" value="'+htmlEscape(qty)+'" data-draft-field="qty" style="width:65px" oninput="onDraftRateChange(this)"/>';
+   cells[3].innerHTML=getDraftStatusHtml(tr);
+   evaluateDraftRow(tr,false);
+ });
+}
+
+function getDefaultCuratorName(idx){
+ var defaults=[
+  'Разборка покрытий кровли из рулонных материалов',
+  'Разборка стяжки до 50 мм',
+  'Разборка стяжки до 50 мм'
+ ];
+ return defaults[idx]||'Позиция дефектной ведомости';
+}
+
+function inferRateSection(code,name){
+ code=(code||'').trim();
+ name=(name||'').toLowerCase();
+ if(code.indexOf('1208-')===0||name.indexOf('кров')>=0)return 'Кровля';
+ if(code.indexOf('1207-')===0||name.indexOf('стяж')>=0)return 'Стяжки';
+ if(code.indexOf('1116-')===0||name.indexOf('труб')>=0)return 'Трубопроводы';
+ if(code.indexOf('1108-')===0||code.indexOf('1203-')===0||name.indexOf('клад')>=0||name.indexOf('кирпич')>=0)return 'Кладка стен';
+ return 'Связанный раздел РСНБ';
+}
+
+function getAiReasoning(code,name,curatorName,qty){
+ code=(code||'').trim();
+ name=(name||'').trim();
+ var lower=(name+' '+curatorName).toLowerCase();
+ var section=inferRateSection(code,name);
+ var params=['позиция ДВ: '+(curatorName||'не указана'),'раздел: '+section,'количество: '+(qty||'не указано')];
+ var mats=[];
+ var rules=['сначала проверить пользовательскую позицию П, затем связанный сборник РСНБ','не блокировать выбор сметчика, а сохранить отклонение в журнал'];
+ var alternatives=[];
+ var why='Выбрана как наиболее близкая расценка по названию работы, разделу и параметрам ДВ.';
+ if(code.indexOf('1208-')===0||lower.indexOf('кров')>=0){
+  params.push('тип покрытия: рулонная кровля');
+  mats.push('рулонный материал','пропан для работ с рулонной кровлей');
+  alternatives.push('1208-0101-0202 — устройство рулонной кровли, не разборка');
+  why='Выбрана расценка на разборку, потому что в ДВ указано снятие/разборка покрытия, а не новое устройство.';
+ }
+ if(code.indexOf('1207-0101-1802')===0||lower.indexOf('стяж')>=0){
+  params.push('вид работ: цементная стяжка','толщина: ориентир до 20 мм, если не уточнено иначе');
+  mats.push('материалы не влияют на демонтажную расценку');
+  rules.push('для стяжки различать новое устройство, выравнивающую стяжку и ремонт/разборку');
+  alternatives.push('1207-0101-1804 — добавка на каждые 5 мм свыше базовой толщины','1207-0101-1806 — стяжка свыше 50 мм, только при явном указании');
+  why=code.indexOf('1804')>=0?'Выбрана добавочная расценка, потому что требуется учесть толщину сверх базовой нормы. Без толщины строка помечается как требующая уточнения.':'Выбрана базовая расценка, потому что работа похожа на разборку/ремонт цементной стяжки без признаков толщины свыше 50 мм.';
+ }
+ if(code.indexOf('1116-')===0||lower.indexOf('труб')>=0){
+  params.push('назначение трубопровода','место прокладки: внутри/снаружи','диаметр и материал трубы');
+  mats.push('материал трубы','диаметр','ГОСТ','давление, если указано');
+  rules.push('для трубопроводов выбирать норму по назначению, материалу, диаметру и способу прокладки');
+  alternatives.push('расценки для других диаметров трубы','расценки для наружной прокладки','расценки для другого назначения трубопровода');
+  why='Выбор зависит от материала и диаметра трубы; если они не заполнены, ЦА должен запросить уточнение или показать конфликт.';
+ }
+ if(code.indexOf('1108-')===0||code.indexOf('1203-')===0||lower.indexOf('клад')>=0){
+  params.push('тип кладки','сложность кладки','цельная стена или отдельный участок');
+  mats.push('кирпич','раствор');
+  rules.push('для кладки сначала брать простую/среднюю сложность, сложную только при явных признаках');
+  alternatives.push('расценка на сложную кладку — редко, только при явных признаках','расценка на отдельные участки/заделку проемов — не для цельной стены');
+  why='Выбрана приоритетная расценка по типу кладки; более дорогие или редкие нормы оставляются альтернативами.';
+ }
+ return {params:params,mats:mats,rules:rules,alternatives:alternatives,why:why};
+}
+
+function renderAiReasoningHtml(code,name,curatorName,qty,compact){
+ var r=getAiReasoning(code,name,curatorName,qty);
+ function list(items){return '<ul>'+items.map(function(x){return '<li>'+htmlEscape(x)+'</li>';}).join('')+'</ul>';}
+ return '<details class="ai-reason"'+(compact?'':'')+'>'
+  +'<summary>Почему выбрана расценка</summary>'
+  +'<div class="ai-reason-body">'
+  +'<div class="ai-reason-k">Учтенные параметры</div>'+list(r.params)
+  +'<div class="ai-reason-k">Материалы, которые повлияли</div>'+list(r.mats.length?r.mats:['материалы не указаны или не влияют на эту норму'])
+  +'<div class="ai-reason-k">Примененные правила</div>'+list(r.rules)
+  +'<div class="ai-reason-k">Альтернативы</div>'+list(r.alternatives.length?r.alternatives:['явных альтернатив не найдено'])
+  +'<div class="ai-reason-k">Почему эта, а не другая</div><div>'+htmlEscape(r.why)+'</div>'
+  +'</div></details>';
+}
+
+function ensureAiReasonBlock(tr){
+ var cells=tr.cells;if(!cells||cells.length<4)return;
+ var codeInp=tr.querySelector('[data-draft-field="code"]');
+ var nameInp=tr.querySelector('[data-draft-field="name"]');
+ var qtyInp=tr.querySelector('[data-draft-field="qty"]');
+ var code=codeInp?codeInp.value.trim():(tr.getAttribute('data-ai-code')||'');
+ var name=nameInp?nameInp.value.trim():(tr.getAttribute('data-ai-name')||'');
+ var qty=qtyInp?qtyInp.value.trim():'';
+ var curatorName=tr.getAttribute('data-curator-name')||'Позиция ДВ';
+ var oldReason=cells[3].querySelector('.draft-reason');
+ var oldValue=oldReason?oldReason.value:(tr.getAttribute('data-override-reason')||'');
+ cells[3].innerHTML=getDraftStatusHtml(tr,code,name,qty);
+ var newReason=cells[3].querySelector('.draft-reason');
+ if(newReason)newReason.value=oldValue;
+}
+
+function isUserRateCode(code){
+ return /(^|[-\s])П/i.test((code||'').trim());
+}
+
+function getDraftVisualState(tr,changed,code,name){
+ if(tr.getAttribute('data-status')==='missing'||!code||!name)return {key:'missing',rowCls:'draft-missing',confirmCls:'confirm-missing',badgeCls:'b-red',badge:'Конфликт / не хватает данных'};
+ var source=tr.getAttribute('data-source')||'ai';
+ if(source==='user'||isUserRateCode(code))return {key:'user',rowCls:'draft-source-user',confirmCls:'confirm-source-user',badgeCls:'b-purple',badge:'Пользовательская позиция'};
+ if(changed||source==='manual')return {key:'override',rowCls:'draft-override',confirmCls:'confirm-override',badgeCls:'b-amber',badge:'Изменено сметчиком'};
+ return {key:'ai',rowCls:'draft-source-ai',confirmCls:'confirm-source-ai',badgeCls:'b-blue',badge:'Подобрано ЦА'};
+}
+
+function applyDraftVisualState(tr,state){
+ ['draft-override','draft-source-user','draft-source-ai','draft-missing'].forEach(function(cls){tr.classList.remove(cls);});
+ tr.classList.add(state.rowCls);
+}
+
+function getDraftStatusHtml(tr,code,name,qty){
+ var aiCode=tr.getAttribute('data-ai-code')||code||'—';
+ var aiName=tr.getAttribute('data-ai-name')||name||'—';
+ var curatorName=tr.getAttribute('data-curator-name')||'Позиция ДВ';
+ return '<div class="draft-status-main"></div>'
+  +'<div class="draft-rec">Куратор: '+htmlEscape(curatorName)+'</div>'
+  +'<div class="draft-rec">Рекомендация ЦА: <span class="mono">'+htmlEscape(aiCode)+'</span> · '+htmlEscape(aiName)+'</div>'
+  +renderAiReasoningHtml(aiCode,aiName,curatorName,qty||'',false)
+  +'<textarea class="ft draft-reason" placeholder="Причина выбора другой расценки..." style="display:none" oninput="saveDraftOverrideReason(this)"></textarea>';
+}
+
+function onDraftRateChange(inp){
+ var tr=inp.closest('tr');if(!tr)return;
+ evaluateDraftRow(tr,true);
+ saveDraftRows(currentDVId);
+}
+
+function evaluateDraftRow(tr,logChange){
+ var codeInp=tr.querySelector('[data-draft-field="code"]');
+ var nameInp=tr.querySelector('[data-draft-field="name"]');
+ var status=tr.querySelector('.draft-status-main');
+ var reason=tr.querySelector('.draft-reason');
+ var aiCode=tr.getAttribute('data-ai-code')||'';
+ var aiName=tr.getAttribute('data-ai-name')||'';
+ var code=codeInp?codeInp.value.trim():'';
+ var name=nameInp?nameInp.value.trim():'';
+ var changed=!!((code&&aiCode&&code!==aiCode)||(name&&aiName&&name!==aiName));
+ var state=getDraftVisualState(tr,changed,code,name);
+ applyDraftVisualState(tr,state);
+ if(status)status.innerHTML='<span class="badge '+state.badgeCls+'">'+state.badge+'</span>';
+ var reasonBox=tr.querySelector('.ai-reason');
+ if(reasonBox){
+   var qtyInp=tr.querySelector('[data-draft-field="qty"]');
+   reasonBox.outerHTML=renderAiReasoningHtml(aiCode||code,aiName||name,tr.getAttribute('data-curator-name')||'Позиция ДВ',qtyInp?qtyInp.value.trim():'',false);
+   reason=tr.querySelector('.draft-reason');
+ }
+ if(reason)reason.style.display=changed?'block':'none';
+ if(logChange&&changed&&!tr.getAttribute('data-change-logged')){
+   tr.setAttribute('data-change-logged','1');
+   var msgs=loadChat(currentDVId);var u=currentUser?USERS[currentUser]:null;
+   msgs.push({initials:u?u.initials:'АС',name:u?u.name:'Сметчик',role:u?u.role:'Сметчик',
+     text:'Сметчик изменил расценку: рекомендация ЦА '+aiCode+', выбран вариант '+code+'.',
+     time:new Date().toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}),isSmetchik:true});
+   saveChat(currentDVId,msgs);renderChatMessages(currentDVId);
+ }
+}
+
+function saveDraftOverrideReason(el){
+ var tr=el.closest('tr');if(!tr)return;
+ tr.setAttribute('data-override-reason',el.value.trim());
+ saveDraftRows(currentDVId);
+}
+
+function getDraftDecisionRows(){
+ var tbody=document.getElementById('draft-tbody');
+ if(!tbody)return [];
+ return Array.from(tbody.querySelectorAll('tr')).map(function(tr,idx){
+   var codeInp=tr.querySelector('[data-draft-field="code"]');
+   var nameInp=tr.querySelector('[data-draft-field="name"]');
+   var qtyInp=tr.querySelector('[data-draft-field="qty"]');
+   var code=codeInp?codeInp.value.trim():(tr.cells[0]?tr.cells[0].textContent.trim().split(/\s+/)[0]:'');
+   var name=nameInp?nameInp.value.trim():(tr.cells[1]?tr.cells[1].textContent.trim():'');
+   var qty=qtyInp?qtyInp.value.trim():(tr.cells[2]?tr.cells[2].textContent.trim():'');
+   var aiCode=tr.getAttribute('data-ai-code')||code;
+   var aiName=tr.getAttribute('data-ai-name')||name;
+   var changed=!!((code&&aiCode&&code!==aiCode)||(name&&aiName&&name!==aiName));
+   var state=getDraftVisualState(tr,changed,code,name);
+   var curatorName=tr.getAttribute('data-curator-name')||getDefaultCuratorName(idx);
+   return {idx:idx+1,code:code,name:name,qty:qty,aiCode:aiCode,aiName:aiName,changed:changed,state:state,curatorName:curatorName,reason:tr.getAttribute('data-override-reason')||'',aiReasonHtml:renderAiReasoningHtml(aiCode,aiName,curatorName,qty,true)};
+ });
+}
+
+function renderConfirmOverview(){
+ enhanceDraftRows();
+ var rows=getDraftDecisionRows();
+ var tbody=document.getElementById('confirm-tbody');
+ var log=document.getElementById('change-log-body');
+ if(tbody){
+   tbody.innerHTML=rows.map(function(r){
+     return '<tr class="'+r.state.confirmCls+'">'
+      +'<td>'+r.idx+'</td>'
+      +'<td><div style="width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto">'+r.idx+'</div></td>'
+      +'<td class="mono">'+htmlEscape(r.code)+'</td>'
+      +'<td>'+htmlEscape(r.name)+'<div class="draft-rec">Куратор написал: '+htmlEscape(r.curatorName)+'</div><div class="draft-rec">ЦА подобрал: <span class="mono">'+htmlEscape(r.aiCode)+'</span> · '+htmlEscape(r.aiName)+'</div>'+r.aiReasonHtml+'</td>'
+      +'<td>—</td><td>'+htmlEscape(r.qty||'—')+'</td>'
+      +'<td><span class="badge '+r.state.badgeCls+'">'+r.state.badge+'</span></td>'
+      +'</tr>';
+   }).join('');
+ }
+ if(log){
+   var changed=rows.filter(function(r){return r.changed;});
+   log.innerHTML=changed.length?changed.map(function(r){
+     return '<div class="alert a-amber" style="margin-bottom:8px"><div><strong>'+htmlEscape(r.code)+' · '+htmlEscape(r.name)+'</strong>'
+      +'<div style="margin-top:5px">Рекомендация ЦА: <span class="mono">'+htmlEscape(r.aiCode)+'</span> · '+htmlEscape(r.aiName)+'</div>'
+      +'<div style="margin-top:5px">Причина: '+htmlEscape(r.reason||'не указана')+'</div></div></div>';
+   }).join(''):'<div class="alert a-green" style="margin-bottom:0">Отклонений от рекомендаций ЦА нет.</div>';
+ }
 }
 
 // Сохранение таблицы РАБОТ (на шаге 2)
 function restoreWorksRows(dvId){
- return false;
+ var dv=findAnyDV(dvId);
+ if(!dv||!dv.items||!dv.items.length)return false;
+ var tbody=document.getElementById('works-tbody');if(!tbody)return false;
+ tbody.innerHTML='';
+ worksAdded=[];workCount=0;
+ var empty=document.getElementById('works-empty');if(empty)empty.style.display='none';
+ var wrap=document.getElementById('works-wrap');if(wrap)wrap.style.display='block';
+ var workItems=dv.items.filter(isRestorableDVWork);
+ workItems.forEach(function(it,i){
+   var id=900000+i;
+   worksAdded.push(id);workCount++;
+   var mats=(it.materials||[]).map(function(m){
+     return {
+       name:m.name||'',
+       ozm:m.code||m.ozm||'—',
+       unit:cleanPreviewUnit(m.unit||'шт'),
+       norm:parseFloat(String(m.norm||m.amount||'').replace(',','.'))||0,
+       supply:m.supply||'Заказчик',
+       fromCatalog:!!(m.code&&m.code!=='—')
+     };
+   }).filter(function(m){return m.name;});
+   var matsHtml=buildMatsTable(id,it.unit||'ед.',mats);
+   var unit=cleanPreviewUnit(it.unit||'ед.');
+   var unitOpts=[unit,'м²','м³','п.м.','шт','т','кг'].filter(function(u,idx,arr){return u&&arr.indexOf(u)===idx;}).map(function(u){return '<option'+(u===unit?' selected':'')+'>'+htmlEscape(u)+'</option>';}).join('');
+   var tr=document.createElement('tr');
+   tr.setAttribute('data-restored-dv-work','true');
+   tr.innerHTML='<td>'+(i+1)+'</td>'
+    +'<td><input class="fi" id="work-name-'+id+'" value="'+htmlEscape(it.name||'')+'" style="font-size:12px;padding:5px 7px;min-width:240px" oninput="updateWorkAiStatus('+id+',this.value)"/></td>'
+    +'<td><div class="unit-pick"><select class="unit-s" id="unit-'+id+'" onchange="recalcMats('+id+');recalcWeight('+id+')">'+unitOpts+'</select></div></td>'
+    +'<td><input class="qty-i" id="ca-q-'+id+'" value="'+htmlEscape(it.qty||'')+'" style="width:65px" oninput="recalcMats('+id+');recalcWeight('+id+')"/></td>'
+    +'<td><input class="qty-i" id="wt-unit-'+id+'" style="width:70px" placeholder="0" oninput="recalcWeight('+id+')"/></td>'
+    +'<td><span id="wt-total-'+id+'" class="badge b-gray" style="font-size:11px">—</span></td>'
+    +'<td id="mats-td-'+id+'">'+matsHtml+'</td>'
+    +'<td><input class="fi" value="'+htmlEscape(it.note||'')+'" style="width:140px;font-size:11px;padding:3px 7px" placeholder="Условия / примечание"/></td>'
+    +'<td id="ca-b-'+id+'"><span class="badge b-blue">Сохранено</span></td>'
+    +'<td><button class="btn btn-o btn-xs" style="color:var(--red);border-color:#FECACA" onclick="this.closest(\'tr\').remove();workCount--;">x</button></td>';
+   tbody.appendChild(tr);
+   recalcMats(id);
+ });
+ var cnt=document.getElementById('works-cnt');if(cnt)cnt.textContent=worksAdded.length+' позиций';
+ return true;
+}
+
+function isRestorableDVWork(it){
+ var name=String(it&&it.name||'').toLowerCase();
+ var unit=String(it&&it.unit||'').toLowerCase();
+ if(!name)return false;
+ if(isUnfilledTemplateName(it&&it.name))return false;
+ if(/затраты труда|рабочих|рабочий|машинист|подрядчик|заказчик/.test(name))return false;
+ if(/цемент|песок|вода|кирпич|брус|дюбель|шуруп|профиль|раствор|материал|труба/.test(name)&&!/устройство|прокладка|монтаж|демонтаж|разбор|кладка|засыпка|планировка|ремонт/.test(name))return false;
+ if(unit==='подрядчик'||unit==='заказчик')return false;
+ return true;
 }
 
 function confirmSmeta(){
@@ -3871,6 +5406,7 @@ function renderAdminList(){
     if(f==="rejected"&&!w.rejected)return false;
  return true;
  });
+ items.sort(compareAdminCatalogItems);
  body.innerHTML='';
  if(!items.length){body.innerHTML='<div style="padding:24px;text-align:center;color:var(--t3)">Нет позиций</div>';return;}
  items.forEach(function(w){
@@ -3914,8 +5450,8 @@ function renderAdminList(){
        isSmetchik:false});
      saveChat(currentDVId,msgs);
      setTimeout(function(){updateAdminStats();renderAdminList();},600);
-   };})(w,row);
-   acts.appendChild(ab);
+  };})(w,row);
+  acts.appendChild(ab);
 
    var rb=document.createElement('button');rb.className='btn btn-r btn-xs';rb.textContent='Отклонить';
    (function(work,r){rb.onclick=function(){
@@ -4007,7 +5543,7 @@ function openAdminEditModal(work){
  setAdminSelectedMaterials(work.mainMats||[]);
  document.getElementById('ae-template').checked = !!work.isTemplate;
  document.getElementById('ae-template-rule').value = work.templateRule || '';
- document.getElementById('ae-template-fields').value = (work.templateFields||[]).map(function(f){return f.label;}).join('; ');
+ document.getElementById('ae-template-fields').value = (work.templateFields||[]).map(function(f){return f.label+': '+getFieldImportanceLabel(getFieldImportance(f));}).join('; ');
  document.getElementById('admin-edit-modal').classList.add('open');
 }
 function openAdminCreateTemplate(){
@@ -4047,9 +5583,303 @@ function openAdminTemplateFromCandidate(work){
  document.getElementById('admin-edit-modal').classList.add('open');
 }
 function parseTemplateFields(raw){
- return String(raw||'').split(';').map(function(s){return s.trim();}).filter(Boolean).map(function(label,idx){
-   return {key:'param'+(idx+1),label:label,placeholder:label.match(/мм|метр|м\b/i)?'30':'___'};
+ return String(raw||'').split(';').map(function(s){return s.trim();}).filter(Boolean).map(function(rawLabel,idx){
+   var parts=rawLabel.split(':');
+   var label=parts[0].trim();
+   var meta=(parts.slice(1).join(':')||'').toLowerCase();
+   var importance=meta.indexOf('желат')>=0||meta.indexOf('desired')>=0?'desired':(meta.indexOf('опцион')>=0||meta.indexOf('optional')>=0?'optional':'required');
+   return {key:'param'+(idx+1),label:label,importance:importance,placeholder:label.match(/мм|метр|м\b/i)?'30':'___'};
  });
+}
+function compareAdminCatalogItems(a,b){
+ var ta=getCatalogSortTime(a),tb=getCatalogSortTime(b);
+ if(tb!==ta)return tb-ta;
+ if((b.id||0)!==(a.id||0))return (b.id||0)-(a.id||0);
+ return String(a.name||'').localeCompare(String(b.name||''),'ru');
+}
+function getCatalogSortTime(w){
+ if(!w)return 0;
+ if(w.updatedAt)return Number(w.updatedAt)||0;
+ if(w.importedAt)return Number(w.importedAt)||0;
+ if(w.createdAt)return Number(w.createdAt)||0;
+ if(typeof w.id==='number'&&w.id>1000000000000)return w.id;
+ return parseRuDateToTime(w.pendingDate||w.approvedDate||'')||0;
+}
+function parseRuDateToTime(s){
+ var m=String(s||'').match(/(\d{2})\.(\d{2})\.(\d{4})/);
+ if(!m)return 0;
+ return new Date(+m[3],+m[2]-1,+m[1]).getTime();
+}
+function markCatalogItemTouched(w){
+ if(!w)return;
+ w.updatedAt=Date.now();
+ var idx=WORKS_DB.indexOf(w);
+ if(idx>0){
+   WORKS_DB.splice(idx,1);
+   WORKS_DB.unshift(w);
+ }
+}
+
+var EXCEL_IMPORT_COLUMNS=[
+ 'название нашей работы','описание','код/шифр РСНБ','наименование расценки','единица измерения','материалы','расход','состав работ','правило/комментарий','признак приоритета'
+];
+var EXCEL_IMPORT_GUIDE=[
+ {k:'Название нашей работы',v:'Как позиция будет называться в дефектной ведомости для куратора.'},
+ {k:'Описание',v:'Пояснение для куратора: что указать, какие параметры важны.'},
+ {k:'Код/шифр РСНБ',v:'Нормативная расценка, связанная с нашей работой.'},
+ {k:'Наименование расценки',v:'Полное название расценки из РСНБ / РСН РК.'},
+ {k:'Единица измерения',v:'м², м³, п.м., шт и т.д.'},
+ {k:'Материалы',v:'Через точку с запятой: труба; крепления; раствор.'},
+ {k:'Расход',v:'Через точку с запятой в том же порядке: 1 п.м.; по норме.'},
+ {k:'Состав работ',v:'Что можно подтянуть в ДВ как состав работ.'},
+ {k:'Правило/комментарий',v:'Условия выбора, приоритеты, исключения для ЦА.'},
+ {k:'Признак приоритета',v:'Да/нет: считать ли эту расценку приоритетной.'}
+];
+var excelImportRows=[];
+
+function renderExcelImportGuide(){
+ var box=document.getElementById('excel-import-guide');if(!box)return;
+ box.innerHTML=EXCEL_IMPORT_GUIDE.map(function(c){
+   return '<div class="import-guide-cell"><div class="import-guide-k">'+htmlEscape(c.k)+'</div><div class="import-guide-v">'+htmlEscape(c.v)+'</div></div>';
+ }).join('');
+}
+
+function emptyExcelImportRow(){
+ return {workName:'',desc:'',rateCode:'',rateName:'',unit:'',materials:'',consumption:'',composition:'',rule:'',priority:''};
+}
+
+function renderExcelImportEditor(){
+ var box=document.getElementById('excel-import-rows');if(!box)return;
+ if(!excelImportRows.length)excelImportRows=[emptyExcelImportRow()];
+ box.innerHTML=excelImportRows.map(function(r,i){return renderExcelImportEditCard(r,i);}).join('');
+}
+
+function renderExcelImportEditCard(r,i){
+ return '<div class="import-edit-card" data-import-row="'+i+'">'
+  +'<div class="import-edit-head"><div class="import-edit-title">Строка '+(i+1)+'</div><button class="btn btn-o btn-xs" style="color:var(--red);border-color:#FECACA" onclick="removeExcelImportRow('+i+')">Удалить</button></div>'
+  +'<div class="import-edit-grid">'
+  +importInput(i,'workName','Название нашей работы','Прокладка трубопровода внутри помещений','full2',r.workName)
+  +importInput(i,'unit','Ед. изм.','п.м.','',r.unit)
+  +importInput(i,'priority','Приоритет','да / нет','',r.priority)
+  +importInput(i,'desc','Описание для куратора','Что должен указать куратор','full4',r.desc)
+  +importInput(i,'rateCode','Код/шифр РСНБ','1116-0201-0102','',r.rateCode)
+  +importInput(i,'rateName','Наименование расценки','Полное название расценки','full2',r.rateName)
+  +importInput(i,'materials','Материалы','Материал трубы; крепления','full2',r.materials)
+  +importInput(i,'consumption','Расход','1 п.м.; по норме','',r.consumption)
+  +importInput(i,'composition','Состав работ','Прокладка, крепления, испытание','full2',r.composition)
+  +importInput(i,'rule','Правило/комментарий','Выбор зависит от материала и диаметра','full4',r.rule)
+  +'</div></div>';
+}
+
+function importInput(i,key,label,placeholder,cls,value){
+ return '<div class="f '+(cls||'')+'"><label class="fl">'+htmlEscape(label)+'</label><input class="fi" data-import-field="'+key+'" data-import-index="'+i+'" value="'+htmlEscape(value||'')+'" placeholder="'+htmlEscape(placeholder||'')+'" oninput="syncExcelImportEditor()"/></div>';
+}
+
+function syncExcelImportEditor(){
+ var cards=document.querySelectorAll('[data-import-row]');
+ var rows=[];
+ cards.forEach(function(card){
+   var row=emptyExcelImportRow();
+   card.querySelectorAll('[data-import-field]').forEach(function(inp){
+     row[inp.getAttribute('data-import-field')]=inp.value;
+   });
+   rows.push(row);
+ });
+ excelImportRows=rows;
+}
+
+function addExcelImportRow(row){
+ syncExcelImportEditor();
+ excelImportRows.push(row||emptyExcelImportRow());
+ renderExcelImportEditor();
+}
+
+function removeExcelImportRow(i){
+ syncExcelImportEditor();
+ excelImportRows.splice(i,1);
+ if(!excelImportRows.length)excelImportRows=[emptyExcelImportRow()];
+ renderExcelImportEditor();
+ previewExcelImport();
+}
+
+function getExcelImportEditorRows(){
+ syncExcelImportEditor();
+ return excelImportRows.map(function(r,i){
+   return Object.assign({row:i+1},r);
+ }).filter(function(r){return r.workName||r.rateCode||r.rateName||r.desc||r.materials;});
+}
+
+function fillExcelImportExample(){
+ excelImportRows=[
+  {workName:'Прокладка трубопровода внутри помещений',desc:'Куратор указывает назначение, материал трубы, диаметр и ГОСТ',rateCode:'1116-0201-0102',rateName:'Прокладка трубопровода отопления из стальной трубы внутри помещений',unit:'п.м.',materials:'Материал трубы; Фасонные части / крепления',consumption:'1 п.м.; по норме',composition:'Прокладка трубопровода, установка креплений, испытание',rule:'Выбор зависит от материала, диаметра и назначения трубы',priority:'да'},
+  {workName:'Кладка стен наружных',desc:'Кладка стен однослойных наружных',rateCode:'1108-0101-0101',rateName:'Кладка стен однослойных наружных простая',unit:'м³',materials:'Кирпич/блок кладочный; Раствор кладочный',consumption:'1 усл.; 0,25 м³',composition:'Кладка конструкций из кирпича, устройство ниш, расшивка швов',rule:'Сложную кладку выбирать только при явных признаках',priority:'да'}
+ ];
+ renderExcelImportEditor();
+ previewExcelImport();
+}
+
+function clearExcelImport(){
+ excelImportRows=[emptyExcelImportRow()];
+ renderExcelImportEditor();
+ var box=document.getElementById('excel-import-preview');if(box){box.style.display='none';box.innerHTML='';}
+ var st=document.getElementById('excel-import-status');if(st)st.textContent='';
+}
+
+function normalizeImportHeader(s){
+ return String(s||'').toLowerCase().replace(/ё/g,'е').replace(/[\s_]+/g,' ').replace(/[^\u0400-\u04FFa-z0-9/ ]+/g,'').trim();
+}
+
+function splitImportLine(line){
+ if(line.indexOf('\t')>=0)return line.split('\t');
+ return line.split(';');
+}
+
+function getImportValue(row,map,names){
+ for(var i=0;i<names.length;i++){
+   var idx=map[normalizeImportHeader(names[i])];
+   if(idx!==undefined)return (row[idx]||'').trim();
+ }
+ return '';
+}
+
+function parseExcelImportRows(){
+ var editorRows=getExcelImportEditorRows();
+ if(editorRows.length)return editorRows;
+ var raw=(document.getElementById('excel-import-raw')||{}).value||'';
+ var lines=raw.split(/\r?\n/).filter(function(l){return l.trim();});
+ if(lines.length<2)return [];
+ var headers=splitImportLine(lines[0]).map(normalizeImportHeader);
+ var map={};headers.forEach(function(h,i){map[h]=i;});
+ return lines.slice(1).map(function(line,rowIdx){
+   var row=splitImportLine(line);
+   return {
+     row:rowIdx+2,
+     workName:getImportValue(row,map,['название нашей работы','название работы','наша работа']),
+     desc:getImportValue(row,map,['описание','описание для куратора']),
+     rateCode:getImportValue(row,map,['код/шифр РСНБ','шифр РСНБ','код РСНБ','код','шифр']),
+     rateName:getImportValue(row,map,['наименование расценки','расценка','название расценки']),
+     unit:getImportValue(row,map,['единица измерения','ед. изм.','ед изм','единица']),
+     materials:getImportValue(row,map,['материалы','материал']),
+     consumption:getImportValue(row,map,['расход','норма','количество']),
+     composition:getImportValue(row,map,['состав работ','состав']),
+     rule:getImportValue(row,map,['правило/комментарий','правило','комментарий']),
+     priority:getImportValue(row,map,['признак приоритета','приоритет','priority'])
+   };
+ }).filter(function(r){return r.workName||r.rateCode||r.rateName;});
+}
+
+function isImportPriority(v){
+ return String(v||'').toLowerCase().match(/^(да|yes|true|1|приоритет|\+)$/);
+}
+
+function parseImportMaterials(names,consumption){
+ var mats=String(names||'').split(/[;,]/).map(function(s){return s.trim();}).filter(Boolean);
+ var norms=String(consumption||'').split(/[;,]/).map(function(s){return s.trim();});
+ return mats.map(function(name,i){
+   var normText=norms[i]||norms[0]||'';
+   var byNorm=/по\s*норм/i.test(normText)||/по\s*норм/i.test(name);
+   var num=(normText.match(/[0-9]+(?:[,.][0-9]+)?/)||[''])[0].replace(',','.');
+   var unit=(normText.replace(/[0-9.,\s]/g,'').trim())||'';
+   return {name:name,materialType:byNorm?'by_norm':'auto_norm',norm:num?parseFloat(num):0,unit:unit||'—',supply:'Заказчик',note:byNorm?'Импортировано как "по норме".':'Импортировано из Excel.'};
+ });
+}
+
+function inferImportSection(name){
+ var t=String(name||'').toLowerCase();
+ if(t.match(/труб|водоснаб|отопл|газ|канал/))return '1116-vk';
+ if(t.match(/клад|кирпич|стен/))return '1104';
+ if(t.match(/стяж|пол/))return '1111-stj';
+ if(t.match(/кров/))return '1112-raz';
+ return '1111-raz';
+}
+
+function buildWorkFromImportRow(r){
+ var mats=parseImportMaterials(r.materials,r.consumption);
+ return {
+  id:Date.now()+Math.floor(Math.random()*100000),
+   importedAt:Date.now(),
+   createdAt:Date.now(),
+   section:inferImportSection(r.workName+' '+r.rateName),
+   name:r.workName||r.rateName||'Импортированная работа',
+   unit:r.unit||'ед.',
+   desc:r.desc||'Импортировано из Excel заказчика',
+   composition:r.composition||'',
+   isUser:true,approved:true,provisional:false,rejected:false,isTemplate:true,uses:0,
+   approvedBy:currentUser?USERS[currentUser].name:'Нурланов М.К.',
+   approvedDate:new Date().toLocaleDateString('ru-RU'),
+   pendingBy:currentUser?USERS[currentUser].name:'Нурланов М.К.',
+   pendingDate:new Date().toLocaleDateString('ru-RU'),
+   templateRule:r.rule||'Импортировано из таблицы заказчика. Требуется проверка ЦА на примере.',
+   templateFields:guessTemplateFieldsFromImport(r),
+   requiredParams:guessTemplateFieldsFromImport(r),
+   linkedRates:r.rateCode||r.rateName?[{code:r.rateCode||'—',name:r.rateName||'Расценка РСНБ',condition:r.rule||'Импортировано из Excel.',priority:!!isImportPriority(r.priority),linkType:guessImportLinkType(r)}]:[],
+   rsnbLinkTypes:guessImportLinkTypes(r),
+   templateMaterials:mats,
+   mainMats:mats.map(function(m){return Object.assign({},m);}),
+   miscMats:[],
+   importSource:'Excel заказчика',
+   importRow:r.row
+ };
+}
+
+function guessTemplateFieldsFromImport(r){
+ var t=String([r.workName,r.desc,r.rule,r.materials,r.rateName].join(' ')).toLowerCase();
+ if(t.match(/труб|диаметр|гост/))return PIPELINE_REQUIRED_PARAMS;
+ if(t.match(/стяж|толщин|площад/))return SCREED_REQUIRED_PARAMS;
+ if(t.match(/клад|кирпич|стен/))return MASONRY_REQUIRED_PARAMS;
+ return [{key:'volume',label:'Объем',importance:'required',placeholder:r.unit||'ед.'}];
+}
+
+function guessImportLinkType(r){
+ var t=String([r.workName,r.desc,r.rule,r.materials,r.rateName].join(' ')).toLowerCase();
+ if(t.match(/материал|труб|гост/))return 'material';
+ if(t.match(/толщин|диаметр|площад|объем/))return 'param';
+ if(t.match(/приоритет|редко|только|исключ/))return 'rule';
+ return '1:1';
+}
+
+function guessImportLinkTypes(r){
+ var base=['1:1'];
+ var t=guessImportLinkType(r);
+ if(t!=='1:1')base=['1:N',t];
+ if(String(r.rule||'').trim()&&base.indexOf('rule')<0)base.push('rule');
+ return base;
+}
+
+function previewExcelImport(){
+ var rows=parseExcelImportRows();
+ var box=document.getElementById('excel-import-preview');
+ var st=document.getElementById('excel-import-status');
+ if(st)st.textContent=rows.length?('Найдено строк: '+rows.length):'Нет строк для импорта';
+ if(!box)return;
+ if(!rows.length){box.style.display='none';box.innerHTML='';return;}
+ box.style.display='block';
+ box.innerHTML='<table><thead><tr><th>Строка</th><th>Наша работа</th><th>РСНБ</th><th>Ед.</th><th>Материалы</th><th>Приоритет</th></tr></thead><tbody>'
+  +rows.map(function(r){
+    return '<tr><td>'+r.row+'</td><td>'+htmlEscape(r.workName||'—')+'</td><td><span class="mono">'+htmlEscape(r.rateCode||'—')+'</span><div class="t-xs t3">'+htmlEscape(r.rateName||'')+'</div></td><td>'+htmlEscape(r.unit||'—')+'</td><td>'+htmlEscape(r.materials||'—')+'</td><td>'+(isImportPriority(r.priority)?'<span class="badge b-green">да</span>':'<span class="badge b-gray">нет</span>')+'</td></tr>';
+  }).join('')+'</tbody></table>';
+}
+
+function importExcelRows(){
+ var rows=parseExcelImportRows();
+ var st=document.getElementById('excel-import-status');
+ if(!rows.length){if(st)st.textContent='Нет строк для импорта';return;}
+ var batch=Date.now();
+ var works=rows.map(function(r,i){
+   var w=buildWorkFromImportRow(r);
+   w.importedAt=batch+(rows.length-i);
+   w.createdAt=w.importedAt;
+   w.updatedAt=w.importedAt;
+   return w;
+ });
+ WORKS_DB=works.concat(WORKS_DB);
+ resetWorkSearchCache();
+ if(st)st.textContent='Импортировано позиций: '+works.length;
+ excelImportRows=[emptyExcelImportRow()];
+ renderExcelImportEditor();
+ var prev=document.getElementById('excel-import-preview');if(prev){prev.style.display='none';prev.innerHTML='';}
+ renderAdminPage();
+ showToast('Импорт из Excel выполнен','success','Добавлено позиций: '+works.length);
 }
 function normalizeTemplateNameFromFields(name,fields){
  var out=String(name||'').trim();
@@ -4080,6 +5910,7 @@ function saveAdminEdit(){
    _adminEditWork={
      id:Date.now(),section:(activeCatSectionIds&&activeCatSectionIds[0])||activeCatSection||'1111-stj',
      name:name,unit:unit,desc:desc||'Шаблонная работа',isUser:true,approved:true,provisional:false,rejected:false,isTemplate:true,uses:0,
+     createdAt:Date.now(),updatedAt:Date.now(),
      approvedBy:currentUser?USERS[currentUser].name:'Нурланов М.К.',approvedDate:new Date().toLocaleDateString('ru-RU'),
      pendingBy:currentUser?USERS[currentUser].name:'Нурланов М.К.',pendingDate:new Date().toLocaleDateString('ru-RU'),
      mainMats:[],miscMats:[]
@@ -4091,9 +5922,10 @@ function saveAdminEdit(){
   _adminEditWork.desc=desc||_adminEditWork.desc;
   _adminEditWork.unit=unit||_adminEditWork.unit;
   _adminEditWork.isTemplate=isTemplate;
-  _adminEditWork.templateRule=templateRule;
-  _adminEditWork.templateFields=isTemplate?templateFields:[];
-  _adminEditWork.mainMats=ADMIN_SELECTED_MATERIALS.map(function(m){return Object.assign({},m);});
+ _adminEditWork.templateRule=templateRule;
+ _adminEditWork.templateFields=isTemplate?templateFields:[];
+ _adminEditWork.mainMats=ADMIN_SELECTED_MATERIALS.map(function(m){return Object.assign({},m);});
+  markCatalogItemTouched(_adminEditWork);
   resetWorkSearchCache();
   document.getElementById('admin-edit-modal').classList.remove('open');
   _adminEditWork=null;
@@ -4118,31 +5950,63 @@ function submitUserPosition(){
 }
 
 var AI_RULES=[
- {text:'Для стяжки учитывать толщину из шаблонного параметра; если толщина не указана, запрашивать уточнение.',active:true,author:'Нурланов М.К.',date:'22.04.2026'},
- {text:'Не отправлять заполненные шаблонные работы на пополнение каталога, если изменены только параметры в прочерках.',active:true,author:'Нурланов М.К.',date:'22.04.2026'},
- {text:'При ручной позиции без материалов требовать явное подтверждение, что материалы не требуются.',active:true,author:'Нурланов М.К.',date:'22.04.2026'}
+ {id:'template-thickness',title:'Стяжка: толщина обязательна',text:'Для стяжки учитывать толщину из шаблонного параметра; если толщина не указана, запрашивать уточнение.',type:'work',scope:'Стяжки',active:true,author:'Нурланов М.К.',createdAt:'22.04.2026',validFrom:'22.04.2026',validTo:'без ограничения',history:[{date:'22.04.2026',author:'Нурланов М.К.',action:'Создано правило'}],conflicts:[]},
+ {id:'template-no-catalog-growth',title:'Шаблон не пополняет каталог',text:'Не отправлять заполненные шаблонные работы на пополнение каталога, если изменены только параметры в прочерках.',type:'work',scope:'Шаблонные работы',active:true,author:'Нурланов М.К.',createdAt:'22.04.2026',validFrom:'22.04.2026',validTo:'без ограничения',history:[{date:'22.04.2026',author:'Нурланов М.К.',action:'Создано правило'}],conflicts:[]},
+ {id:'manual-material-confirm',title:'Ручная позиция: подтверждение материалов',text:'При ручной позиции без материалов требовать явное подтверждение, что материалы не требуются.',type:'work',scope:'Ручной ввод',active:true,author:'Нурланов М.К.',createdAt:'22.04.2026',validFrom:'22.04.2026',validTo:'без ограничения',history:[{date:'22.04.2026',author:'Нурланов М.К.',action:'Создано правило'}],conflicts:[]}
 ];
+function getAllRules(){return PRIORITY_RULES.concat(AI_RULES);}
+function getRuleTypeLabel(type){
+ return ({global:'Общее',section:'По разделу',work:'По работе',material:'По материалу',rate:'По расценке'})[type]||'Общее';
+}
 function renderRulesPage(){
  var list=document.getElementById('rules-list');if(!list)return;
  list.innerHTML='';
- AI_RULES.forEach(function(rule,i){
+ getAllRules().forEach(function(rule,i){
    var row=document.createElement('div');
    row.className='admin-row';
    row.style.borderLeft='3px solid '+(rule.active?'var(--blue)':'var(--border)');
-   row.innerHTML='<div style="flex:1"><div style="font-size:13px;font-weight:600">'+htmlEscape(rule.text)+'</div><div class="t-xs t3 mt8">'+rule.author+' · '+rule.date+'</div></div>'
-    +'<button class="btn btn-xs '+(rule.active?'btn-o':'btn-p')+'" onclick="toggleAiRule('+i+')">'+(rule.active?'Отключить':'Включить')+'</button>';
+   var conflicts=getRuleConflicts(rule);
+   row.innerHTML='<div style="flex:1">'
+    +'<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap"><div style="font-size:13px;font-weight:700">'+htmlEscape(rule.title||rule.text)+'</div>'
+    +'<span class="badge '+(rule.active?'b-green':'b-gray')+'">'+(rule.active?'Включено':'Выключено')+'</span>'
+    +'<span class="badge b-blue">'+getRuleTypeLabel(rule.type)+'</span>'
+    +(conflicts.length?'<span class="badge b-red">Конфликт: '+conflicts.length+'</span>':'')+'</div>'
+    +'<div style="font-size:12px;margin-top:5px;color:var(--t2)">'+htmlEscape(rule.text)+'</div>'
+    +'<div class="t-xs t3 mt8">Автор: '+htmlEscape(rule.author||'—')+' · Создано: '+htmlEscape(rule.createdAt||rule.date||'—')+' · Действует: '+htmlEscape(rule.validFrom||'—')+' — '+htmlEscape(rule.validTo||'без ограничения')+' · Область: '+htmlEscape(rule.scope||'Все')+'</div>'
+    +'<div class="t-xs t3 mt8">История: '+formatRuleHistory(rule)+'</div>'
+    +(conflicts.length?renderRuleConflictWarning(rule,conflicts):'')
+    +'</div>'
+    +'<button class="btn btn-xs '+(rule.active?'btn-o':'btn-p')+'" onclick="toggleAiRuleById(\''+htmlEscape(rule.id)+'\')">'+(rule.active?'Отключить':'Включить')+'</button>';
    list.appendChild(row);
  });
 }
-function toggleAiRule(i){
- AI_RULES[i].active=!AI_RULES[i].active;
+function formatRuleHistory(rule){
+ var h=rule.history||[];
+ if(!h.length)return 'нет изменений';
+ return h.map(function(x){return htmlEscape(x.date)+' · '+htmlEscape(x.author)+' · '+htmlEscape(x.action);}).join(' / ');
+}
+function findRuleById(id){return getAllRules().find(function(r){return r.id===id;});}
+function toggleAiRuleById(id){
+ var r=findRuleById(id);if(!r)return;
+ r.active=!r.active;
+ if(!r.history)r.history=[];
+ r.history.push({date:new Date().toLocaleDateString('ru-RU'),author:currentUser?USERS[currentUser].name:'Пользователь',action:r.active?'Включено':'Выключено'});
  renderRulesPage();
 }
+function toggleAiRule(i){toggleAiRuleById((AI_RULES[i]||{}).id);}
 function addAiRule(){
  var modal=document.getElementById('rule-modal');
  var input=document.getElementById('rule-new-text');
  var hint=document.getElementById('rule-new-hint');
+ var title=document.getElementById('rule-new-title');
+ var from=document.getElementById('rule-new-from');
+ var to=document.getElementById('rule-new-to');
+ var type=document.getElementById('rule-new-type');
  if(input)input.value='';
+ if(title)title.value='';
+ if(type)type.value='global';
+ if(from)from.value=new Date().toLocaleDateString('ru-RU');
+ if(to)to.value='без ограничения';
  if(hint){hint.textContent='Введите правило понятным техническим языком.';hint.style.color='var(--t3)';}
  if(modal)modal.classList.add('open');
  setTimeout(function(){if(input)input.focus();},60);
@@ -4155,12 +6019,31 @@ function saveAiRuleFromModal(){
  var input=document.getElementById('rule-new-text');
  var hint=document.getElementById('rule-new-hint');
  var text=input?input.value.trim():'';
+ var title=(document.getElementById('rule-new-title')||{}).value||'';
+ var type=(document.getElementById('rule-new-type')||{}).value||'global';
+ var validFrom=(document.getElementById('rule-new-from')||{}).value||new Date().toLocaleDateString('ru-RU');
+ var validTo=(document.getElementById('rule-new-to')||{}).value||'без ограничения';
  if(!text){
    if(hint){hint.textContent='Напишите текст правила перед добавлением.';hint.style.color='var(--red)';}
    if(input)input.focus();
    return;
  }
- AI_RULES.unshift({text:text,active:true,author:currentUser?USERS[currentUser].name:'Старший сметчик',date:new Date().toLocaleDateString('ru-RU')});
+ var author=currentUser?USERS[currentUser].name:'Старший сметчик';
+ var created=new Date().toLocaleDateString('ru-RU');
+ AI_RULES.unshift({
+   id:'rule-'+Date.now(),
+   title:title.trim()||text.slice(0,60),
+   text:text,
+   type:type,
+   scope:type==='global'?'Все':getRuleTypeLabel(type),
+   active:true,
+   author:author,
+   createdAt:created,
+   validFrom:validFrom,
+   validTo:validTo,
+   history:[{date:created,author:author,action:'Создано правило'}],
+   conflicts:[]
+ });
  closeRuleModal();
  renderRulesPage();
  showToast('Правило добавлено','success','ЦА будет учитывать новое указание при подборе расценок.');
@@ -4169,9 +6052,59 @@ function checkRuleConflict(){
  var val=(document.getElementById('rule-test')||{}).value||'';
  var res=document.getElementById('rule-test-result');if(!res)return;
  if(!val.trim()){res.innerHTML='';return;}
- var conflict=AI_RULES.find(function(r){return similarityScore(val,r.text)>45;});
- if(conflict)res.innerHTML='<div class="alert a-amber">Похоже на существующее указание: '+htmlEscape(conflict.text)+'</div>';
+ var probe={id:'probe',title:'Новое правило',text:val,type:'global',scope:'Все',active:true};
+ var conflicts=getRuleConflicts(probe);
+ if(conflicts.length)res.innerHTML=renderRuleConflictWarning(probe,conflicts);
  else res.innerHTML='<div class="alert a-green">Явных противоречий не найдено. Правило можно добавить.</div>';
+}
+
+function getRuleConflicts(rule){
+ if(rule.conflicts&&rule.conflicts.length){
+   return rule.conflicts.map(function(id){return findRuleById(id);}).filter(Boolean);
+ }
+ return getAllRules().filter(function(other){
+   if(other.id===rule.id||!other.active||!rule.active)return false;
+   if(rule.id!=='probe'&&(other.scope||'')!==(rule.scope||'')&&other.type!==rule.type)return false;
+   return isRuleTextConflict(rule.text,other.text);
+ });
+}
+
+function isRuleTextConflict(a,b){
+ a=String(a||'').toLowerCase();b=String(b||'').toLowerCase();
+ var ratesA=extractRuleRateTargets(a),ratesB=extractRuleRateTargets(b);
+ if(ratesA.length&&ratesB.length&&!ratesA.some(function(x){return ratesB.indexOf(x)>=0;}))return true;
+ var negA=/не |нельзя|только|без основания|редко/.test(a);
+ var negB=/не |нельзя|только|без основания|редко/.test(b);
+ var sim=similarityScore(a,b);
+ return sim>55&&negA!==negB;
+}
+
+function extractRuleRateTargets(text){
+ var s=String(text||'').toLowerCase();
+ if(!/(использ|выбир|брать|примен)/.test(s))return [];
+ var out=[];
+ var re=/(?:расценк[ауи]?|код|шифр)\s*№?\s*([a-zа-я0-9]+(?:[-–][a-zа-я0-9]+)*)/gi;
+ var m;
+ while((m=re.exec(text))!==null){out.push(String(m[1]).toLowerCase());}
+ var simple=s.match(/(?:использовать|выбирать|брать|применять)\s+([0-9]{2,}(?:[-–][0-9]+)*)/);
+ if(simple)out.push(simple[1]);
+ return out.filter(function(v,i,a){return v&&a.indexOf(v)===i;});
+}
+
+function formatConflictRuleLine(rule){
+ return '<div style="margin-top:5px"><strong>'+htmlEscape(rule.title||rule.text)+'</strong><br><span style="font-size:11px">Автор: '+htmlEscape(rule.author||'—')+' · Создано: '+htmlEscape(rule.createdAt||rule.date||'—')+'</span></div>';
+}
+
+function renderRuleConflictWarning(rule,conflicts){
+ return '<div class="alert a-red" style="margin-top:8px;margin-bottom:0"><div style="width:100%">'
+  +'<strong>Возможные противоречия</strong>'
+  +conflicts.map(function(c){
+    return '<div style="display:flex;align-items:center;gap:8px;margin-top:7px">'
+     +'<div style="flex:1">'+formatConflictRuleLine(c)+'</div>'
+     +'<button class="btn btn-r btn-xs" onclick="toggleAiRuleById(\''+htmlEscape(c.id)+'\')">Отключить</button>'
+     +'</div>';
+  }).join('')
+  +'</div></div>';
 }
 
 // ЧАТ 
@@ -4213,7 +6146,7 @@ var DB_ITEMS=[
  {code:'1207-0101-1806',section:'rem_stj',name:'Разборка стяжек цементных толщиной свыше 50мм',unit:'м²',comp:'Разбивка толстой стяжки отбойным молотком, вывоз',res:[{t:'труд',name:'Рабочий 4р',norm:'0.38 чел-час'}],mats:[],coefs:'НР=68% · СП=1,05',price:'1520 тг/м²',ai:true,conf:32},
  {code:'2001-0201-0001',section:'trub',name:'Замена трубопроводов водоснабжения ⌀50мм',unit:'п.м.',comp:'Демонтаж старой трубы, прокладка новой, опрессовка',res:[{t:'труд',name:'Сантехник 4р',norm:'0.85 чел-час'}],mats:[{name:'Труба ВК ⌀50',unit:'п.м.',norm:'1.05'},{name:'Муфта ⌀50',unit:'шт',norm:'2'}],coefs:'К23=0,00 · НР=70% · СП=1,09',price:'4200 тг/п.м.',ai:false,conf:0}
 ];
-var selectedRate=null,currentSection='rem_stj',selectedCodes={},currentModalPos=3;
+var selectedRate=null,currentSection='rem_stj',selectedCodes={},currentModalPos=3,modalOpenSeq=0;
 var EXTERNAL_RATES=[],RATE_CHUNKS={},ratesIndexLoaded=false,ratesIndexLoading=null,RATE_RENDER_LIMIT=80;
 
 function loadRatesIndex(){
@@ -4277,7 +6210,9 @@ function loadRateDetail(item){
 }
 
 function selectRate(item,row){
+ var seq=modalOpenSeq;
  loadRateDetail(item).then(function(full){
+   if(seq!==modalOpenSeq)return;
    document.querySelectorAll('#rates-tbody tr').forEach(function(r){r.style.background='';r.style.borderLeft='';});
    if(row){row.style.background='#EFF6FF';row.style.borderLeft='3px solid #2563EB';}
    selectedRate=full;
@@ -4289,18 +6224,33 @@ function selectRate(item,row){
 
 function openModal(posNum){
  if(blockIfDraftReadOnly())return;
- currentModalPos=posNum||3;document.getElementById('modal').classList.add('open');
+ modalOpenSeq++;
+ currentModalPos=(posNum===0||posNum==='0')?0:(posNum||3);document.getElementById('modal').classList.add('open');
  selectedRate=null;selectedCodes={};currentSection='rem_stj';
  var addBtn=document.getElementById('btn-add-smeta');if(addBtn){addBtn.disabled=true;addBtn.style.opacity='.4';}
  var sc=document.getElementById('sel-code');if(sc)sc.textContent='—';
  var vol=document.getElementById('modal-vol');if(vol)vol.value='';
  var dc=document.getElementById('demontaj-check');if(dc)dc.checked=false;
  var ds=document.getElementById('db-search');if(ds)ds.value='';
+ resetRateModalDetails();
  var title=document.querySelector('#modal .modal-t');if(title)title.textContent=' Подбор расценки — Позиция '+currentModalPos;
  switchTab('tab-comp',document.querySelector('.tab-btn'));
  setTimeout(function(){renderModalTree();loadRatesIndex().then(function(){renderRates('rem_stj');});renderRates('rem_stj');},10);
 }
 function closeModal(){document.getElementById('modal').classList.remove('open');}
+
+function resetRateModalDetails(){
+ var comp=document.getElementById('detail-comp');if(comp)comp.innerHTML='Выберите расценку из списка выше';
+ var res=document.getElementById('detail-res');if(res)res.innerHTML='Выберите расценку, чтобы увидеть ресурсы';
+ var coef=document.getElementById('detail-coef');if(coef)coef.innerHTML='Выберите расценку, чтобы увидеть коэффициенты';
+ var price=document.getElementById('detail-price');if(price)price.innerHTML='Выберите расценку, чтобы увидеть стоимость';
+ document.querySelectorAll('#rates-tbody button[data-sel]').forEach(function(btn){
+   btn.setAttribute('data-sel','0');
+   btn.textContent='+ Выбрать';
+   btn.style.background='#F0FDF4';
+   btn.style.color='#16A34A';
+ });
+}
 
 function renderModalTree(){
  var root=document.getElementById('tree-root');if(!root)return;root.innerHTML='';
@@ -4342,11 +6292,10 @@ function renderRates(sectionId){
  (function(it,row){
  var td=row.querySelector('.sel-td-'+it.code.replace(/-/g,'_'));
  if(td){var btn=document.createElement('button');btn.className='btn btn-xs';var alreadySel=!!selectedCodes[it.code];btn.style.cssText=alreadySel?'background:#16A34A;color:#fff;border:1px solid #15803D':'background:#F0FDF4;color:#16A34A;border:1px solid #BBF7D0';btn.textContent=alreadySel?' Выбрано':'+ Выбрать';btn.setAttribute('data-code',it.code);btn.setAttribute('data-sel',alreadySel?'1':'0');
- btn.onclick=function(e){e.stopPropagation();var sel=btn.getAttribute('data-sel')==='1'?'0':'1';btn.setAttribute('data-sel',sel);if(sel==='1'){btn.textContent='Выбрано';btn.style.background='#16A34A';btn.style.color='#fff';loadRateDetail(it).then(function(full){selectedCodes[it.code]=full;selectedRate=full;showAllSelectedDetails();});}else{btn.textContent='+ Выбрать';btn.style.background='#F0FDF4';btn.style.color='#16A34A';delete selectedCodes[it.code];}var cnt=Object.keys(selectedCodes).length+(sel==='1'&&!selectedCodes[it.code]?1:0);var ab=document.getElementById('btn-add-smeta');if(ab){ab.disabled=cnt===0;ab.style.opacity=cnt>0?'1':'.4';}var sc=document.getElementById('sel-code');if(sc)sc.textContent=cnt>1?cnt+' расценки выбраны':it.code;};
+ btn.onclick=function(e){e.stopPropagation();var seq=modalOpenSeq;var sel=btn.getAttribute('data-sel')==='1'?'0':'1';btn.setAttribute('data-sel',sel);if(sel==='1'){btn.textContent='Выбрано';btn.style.background='#16A34A';btn.style.color='#fff';loadRateDetail(it).then(function(full){if(seq!==modalOpenSeq)return;selectedCodes[it.code]=full;selectedRate=full;showAllSelectedDetails();});}else{btn.textContent='+ Выбрать';btn.style.background='#F0FDF4';btn.style.color='#16A34A';delete selectedCodes[it.code];showAllSelectedDetails();}var cnt=Object.keys(selectedCodes).length+(sel==='1'&&!selectedCodes[it.code]?1:0);var ab=document.getElementById('btn-add-smeta');if(ab){ab.disabled=cnt===0;ab.style.opacity=cnt>0?'1':'.4';}var sc=document.getElementById('sel-code');if(sc)sc.textContent=cnt>1?cnt+' расценки выбраны':(cnt===1?it.code:'—');};
  td.appendChild(btn);}
  })(item,tr);
  tbody.appendChild(tr);
- if(item.ai&&item.conf>=60&&!selectedRate){(function(r){setTimeout(function(){r.click();},80);})(tr);}
  });
  if(sorted.length>RATE_RENDER_LIMIT){var more=document.createElement('tr');more.innerHTML='<td colspan="5" style="padding:10px 14px;text-align:center;color:#6B7280;font-size:12px;background:#F9FAFB">Показаны первые '+RATE_RENDER_LIMIT+' из '+sorted.length+'. Уточните поиск по шифру или названию.</td>';tbody.appendChild(more);}
 }
@@ -4376,8 +6325,13 @@ function toggleDemontaj(cb){
 
 function showAllSelectedDetails(){
  var selected=Object.values(selectedCodes);
- if(!selected.length&&selectedRate)selected.push(selectedRate);
- if(!selected.length)return;
+ if(!selected.length){
+   selectedRate=null;
+   resetRateModalDetails();
+   var ab=document.getElementById('btn-add-smeta');if(ab){ab.disabled=true;ab.style.opacity='.4';}
+   var sc=document.getElementById('sel-code');if(sc)sc.textContent='—';
+   return;
+ }
  if(selected.length===1){showRateDetail(selected[0]);return;}
  // Несколько — показываем карточки всех
  var comp=document.getElementById('detail-comp');
@@ -4411,12 +6365,24 @@ function addToSmeta(){
  if(pos!==0&&pos!=='0'){
    var first=toAdd[0];
    var row=document.getElementById('draft-row-'+pos);var codeEl=document.getElementById('draft-code-'+pos);var nameEl=document.getElementById('draft-name-'+pos);var qtyEl=document.getElementById('draft-qty-'+pos);var btnEl=document.getElementById('draft-btn-'+pos);
-   if(row){row.style.background='var(--green-l)';if(codeEl)codeEl.innerHTML=first.code+'<br>'+first.coefs.split(' · ')[0];if(nameEl)nameEl.textContent=first.name+(demontaj?' (демонтаж)':'');if(qtyEl&&vol!=='—')qtyEl.textContent=vol;if(btnEl){btnEl.textContent='Выбрано';btnEl.style.background='var(--green-l)';btnEl.style.color='var(--green)';btnEl.style.border='1px solid #BBF7D0';}}
-   toAdd=toAdd.slice(1);
+   if(row){row.style.background='';row.setAttribute('data-status','');row.setAttribute('data-source',isUserRateCode(first.code)?'user':'ai');if(!row.getAttribute('data-ai-code'))row.setAttribute('data-ai-code',(codeEl?codeEl.textContent.trim().split(/\s+/)[0]:'')||first.code);if(!row.getAttribute('data-ai-name'))row.setAttribute('data-ai-name',(nameEl?nameEl.textContent.trim():'')||first.name);if(codeEl)codeEl.innerHTML=first.code+'<br>'+first.coefs.split(' · ')[0];if(nameEl)nameEl.textContent=first.name+(demontaj?' (демонтаж)':'');if(qtyEl&&vol!=='—')qtyEl.textContent=vol;if(btnEl){btnEl.textContent='Выбрано';btnEl.style.background='var(--blue-l)';btnEl.style.color='var(--blue)';btnEl.style.border='1px solid #BFDBFE';}row.removeAttribute('data-draft-enhanced');}
+   if(row)toAdd=toAdd.slice(1);
  }
+ var existingBefore=getDraftExistingCodes();
  toAdd.forEach(function(item){
-   if(!tbody)return;var tr=document.createElement('tr');tr.style.background='var(--green-l)';
-   tr.innerHTML='<td class="mono">'+item.code+'<br>'+item.coefs.split(' · ')[0]+'</td><td>'+item.name+(demontaj?' (демонтаж)':'')+'</td><td>'+vol+'</td><td><span class="badge b-green">Добавлено</span></td><td><button class="btn btn-xs btn-o" style="color:var(--red);border-color:#FECACA" onclick="this.closest(\'tr\').remove()">x</button></td>';
+   if(!tbody)return;
+   if(existingBefore[item.code])return;
+   existingBefore[item.code]=true;
+   var tr=document.createElement('tr');
+   tr.setAttribute('data-added-version','2');
+   tr.setAttribute('data-rate-code',item.code);
+   tr.setAttribute('data-rate-coef',item.coefs.split(' · ')[0]);
+   tr.setAttribute('data-ai-code','—');
+   tr.setAttribute('data-ai-name','Не было в рекомендации ЦА');
+   tr.setAttribute('data-source',isUserRateCode(item.code)?'user':'manual');
+   tr.setAttribute('data-curator-name','Добавлено сметчиком вручную');
+   tr.setAttribute('data-override-reason','Добавлено вручную через подбор расценки');
+   tr.innerHTML='<td class="mono">'+item.code+'<br>'+item.coefs.split(' · ')[0]+'</td><td>'+item.name+(demontaj?' (демонтаж)':'')+'</td><td>'+vol+'</td><td><span class="badge b-blue">Подобрано ЦА</span></td><td><button class="btn btn-xs btn-o" style="color:var(--red);border-color:#FECACA" onclick="this.closest(\'tr\').remove()">x</button></td>';
    tbody.appendChild(tr);
  });
  // Пишем в чат: "Добавлены расценки: код1, код2."
@@ -4435,6 +6401,8 @@ function addToSmeta(){
    saveChat(currentDVId,msgs);
    var wrap=document.getElementById('chat-messages');if(wrap)renderChatMessages(currentDVId);
  }
+  dedupeDraftRows();
+  enhanceDraftRows();
   saveDraftRows(currentDVId);
   closeModal();
 }
@@ -4468,10 +6436,15 @@ function editCurrentDV(){
   var num=(document.getElementById('view-title')||{}).textContent||'';
   var dv=(dvData[currentUser]||[]).find(function(d){return d.num===num;});
   if(!dv)return;
+  currentDVId=dv.num;
+  worksAdded=[];workCount=0;
+  var tb=document.getElementById('works-tbody');if(tb)tb.innerHTML='';
   // Заполняем шапку
-  step1Cache={num:dv.num,obj:dv.obj,appr:dv.appr||'',cur:dv.cur||'',ent:dv.ent||''};
+  step1Cache={num:dv.num,date:dv.date||'',obj:dv.obj,appr:dv.appr||'',cur:dv.cur||'',ent:dv.ent||'',note:dv.note||'',objs:dv.objs||{}};
+  selectedObjs=JSON.parse(JSON.stringify(step1Cache.objs||{}));
   var fn=document.getElementById('f-num');if(fn)fn.value=dv.num;
   var fo=document.getElementById('f-obj');if(fo)fo.value=dv.obj;
+  var note=document.getElementById('f-note');if(note)note.value=dv.note||'';
   gotoPage('new1');
   showToast('Редактирование ДВ '+dv.num,'info');
 }
@@ -4549,7 +6522,51 @@ function openUsesModal(work){
   document.getElementById('uses-modal').classList.add('open');
 }
 
-function copyCurrentDV(){var vt=document.getElementById('view-title');var num=vt?vt.textContent:'ДВ';var today=new Date().toLocaleDateString('ru-RU');var src=(dvData[currentUser]||[]).find(function(d){return d.num===num;});if(src){var copy={num:src.num+'-КОПИЯ',obj:src.obj,cnt:src.cnt,status:'new',date:today};if(!dvData[currentUser])dvData[currentUser]=[];dvData[currentUser].unshift(copy);dvList=dvData[currentUser];saveData('dvData3',dvData);showToast('Копия ДВ создана', 'success', 'Новая карточка: '+copy.num);}}
+function copyCurrentDV(){
+ var vt=document.getElementById('view-title');
+ var num=vt?vt.textContent:'ДВ';
+ var today=new Date().toLocaleDateString('ru-RU');
+ var src=(dvData[currentUser]||[]).find(function(d){return d.num===num;})||findAnyDV(num);
+ if(!src)return;
+ var copy=deepClone(src);
+ var newNum=getUniqueDVCopyNum(src.num);
+ var sourceItems=(src.items&&src.items.length)?deepClone(src.items):deepClone(getPreviewItems(src));
+ sourceItems=sourceItems.filter(isRestorableDVWork).map(function(it,i){
+   return Object.assign({},it,{n:i+1,materials:deepClone(it.materials||[])});
+ });
+ copy.num=newNum;
+ copy.status='new';
+ copy.date=today;
+ copy.cnt=sourceItems.length;
+ copy.items=sourceItems;
+ copy.aiSuggestions=(src.aiSuggestions&&src.aiSuggestions.length)?deepClone(src.aiSuggestions):buildAiSuggestionsFromItems(sourceItems);
+ copy.sourceCopyOf=src.num;
+ copy.copiedAt=Date.now();
+ if(!dvData[currentUser])dvData[currentUser]=[];
+ dvData[currentUser].unshift(copy);
+ dvList=dvData[currentUser];
+ copyDraftRowsStorage(src.num,newNum);
+ saveData('dvData3',dvData);
+ showToast('Копия ДВ создана', 'success', 'Скопированы работы и материалы: '+copy.cnt+' позиций');
+ renderDVList();
+}
+function deepClone(v){
+ return JSON.parse(JSON.stringify(v||null));
+}
+function getUniqueDVCopyNum(base){
+ var all=[];
+ ['zayavitel','smetchik','admin'].forEach(function(role){all=all.concat((dvData[role]||[]).map(function(d){return d.num;}));});
+ var n=base+'-КОПИЯ';
+ var i=2;
+ while(all.indexOf(n)>=0){n=base+'-КОПИЯ-'+i;i++;}
+ return n;
+}
+function copyDraftRowsStorage(oldNum,newNum){
+ try{
+   var saved=localStorage.getItem('draft_rows_'+oldNum);
+   if(saved)localStorage.setItem('draft_rows_'+newNum,saved);
+ }catch(e){}
+}
 function exportCurrentDV(){var vt=document.getElementById('view-title');var num=vt?vt.textContent:'DV';var rows=[['Номер','Объект','Статус']];var src=(dvData[currentUser]||[]).find(function(d){return d.num===num;});if(src)rows.push([src.num,src.obj,src.status]);var csv=rows.map(function(r){return r.join(';');}).join('\n');var a=document.createElement('a');a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);a.download=num+'.csv';a.click();}
 
 // СМЕТЧИК ПРЕДЛАГАЕТ ПОЗИЦИЮ → НУРЛАНОВУ 
