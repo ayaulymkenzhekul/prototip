@@ -141,10 +141,12 @@ tbody tr:hover td{background:#FAFAFA}
 .wcard.added{border-color:var(--green);background:var(--green-l)}
 .wcard.user-pos{border-color:var(--purple);background:var(--purple-l)}
 .wcard.user-pos:hover{box-shadow:0 2px 8px rgba(124,58,237,.12)}
-.wcard-ic{width:34px;height:34px;background:var(--blue-l);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.wcard-ic{width:8px;height:44px;background:var(--blue);border-radius:999px;flex-shrink:0;opacity:.55}
 .wcard-ic.uic{background:var(--purple-l)}
 .wcard-n{font-size:13px;font-weight:600;color:var(--text)}
 .wcard-m{font-size:11px;color:var(--t3);margin-top:2px}
+.wcard-mini{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
+.wcard-mini span{font-size:10px;font-weight:800;color:#475569;background:#F8FAFC;border:1px solid #E5E7EB;border-radius:999px;padding:3px 7px}
 .linked-rate{margin-top:7px;padding:7px 9px;background:#F8FAFC;border:1px solid var(--border);border-radius:6px;font-size:11px;color:var(--t2)}
 .linked-rate-t{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.3px;margin-bottom:3px}
 .linked-rate-code{font-family:'JetBrains Mono',monospace;color:var(--blue);font-weight:600}
@@ -299,7 +301,9 @@ tr.dv-row-detail>td{background:#F8FBFF!important;padding:0 12px 12px!important;b
 .ai-reason-body li{margin:2px 0}
 .ai-reason-k{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.3px;margin-top:7px}
 .draft-reason{margin-top:6px;font-size:11px;padding:5px 7px;min-width:220px}
-.user-tag{font-size:10px;background:var(--purple-l);color:var(--purple);padding:2px 7px;border-radius:10px;border:1px solid #DDD6FE;font-weight:600}
+.user-tag{display:inline-flex;align-items:center;width:max-content;font-size:10px;background:var(--purple-l);color:var(--purple);padding:2px 7px;border-radius:10px;border:1px solid #DDD6FE;font-weight:600;line-height:1.2}
+.work-title-cell{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.work-title-cell .fi{margin-top:0!important}
 
 /* Материалы основные/прочие */
 .mats-main{margin-top:7px;padding:7px 9px;background:#F9FAFB;border-radius:6px;font-size:11px}
@@ -528,33 +532,44 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
 #works-wrap.simple-works-table > table > tbody > tr:not(.dv-row-detail) > td:nth-child(6),
 #works-wrap.simple-works-table > table > tbody > tr:not(.dv-row-detail) > td:nth-child(8){display:none}
 #works-wrap.position-cards{overflow:visible}
-#works-wrap.position-cards table{width:100%;min-width:0!important;border-collapse:separate;border-spacing:0}
-#works-wrap.position-cards thead{display:none}
-#works-wrap.position-cards tbody{display:flex;flex-direction:column;gap:10px}
-#works-wrap.position-cards tbody tr:not(.dv-row-detail){display:grid;grid-template-columns:34px minmax(250px,1fr) 104px 104px minmax(340px,1.35fr) 150px 28px;gap:10px;align-items:start;border:1px solid #E5E7EB;border-radius:10px;background:#fff;padding:12px;box-shadow:0 1px 3px rgba(15,23,42,.05)}
-#works-wrap.position-cards tbody tr:not(.dv-row-detail)>td{display:block!important;border:0!important;padding:0!important;background:transparent!important;min-width:0}
-#works-wrap.position-cards tbody tr:not(.dv-row-detail)>td:nth-child(1){font-size:12px;font-weight:900;color:#1D4ED8;background:#EFF6FF!important;border-radius:999px!important;width:26px;height:26px;display:flex!important;align-items:center;justify-content:center;margin-top:20px}
-#works-wrap.position-cards tbody tr:not(.dv-row-detail)>td:nth-child(5),
-#works-wrap.position-cards tbody tr:not(.dv-row-detail)>td:nth-child(6),
-#works-wrap.position-cards tbody tr:not(.dv-row-detail)>td:nth-child(8){display:none!important}
-#works-wrap.position-cards tbody tr:not(.dv-row-detail)>td:nth-child(2)::before{content:'Работа'}
-#works-wrap.position-cards tbody tr:not(.dv-row-detail)>td:nth-child(3)::before{content:'Ед.'}
-#works-wrap.position-cards tbody tr:not(.dv-row-detail)>td:nth-child(4)::before{content:'Объем'}
-#works-wrap.position-cards tbody tr:not(.dv-row-detail)>td:nth-child(7)::before{content:'Материалы'}
-#works-wrap.position-cards tbody tr:not(.dv-row-detail)>td:nth-child(9)::before{content:'Статус'}
-#works-wrap.position-cards tbody tr:not(.dv-row-detail)>td:nth-child(2)::before,
-#works-wrap.position-cards tbody tr:not(.dv-row-detail)>td:nth-child(3)::before,
-#works-wrap.position-cards tbody tr:not(.dv-row-detail)>td:nth-child(4)::before,
-#works-wrap.position-cards tbody tr:not(.dv-row-detail)>td:nth-child(7)::before,
-#works-wrap.position-cards tbody tr:not(.dv-row-detail)>td:nth-child(9)::before{display:block;font-size:10px;font-weight:900;color:#64748B;text-transform:uppercase;letter-spacing:.25px;margin-bottom:6px}
+#works-wrap.position-cards > table{width:100%;min-width:0!important;border-collapse:separate;border-spacing:0}
+#works-wrap.position-cards > table > thead{display:none}
+#works-wrap.position-cards > table > tbody{display:flex;flex-direction:column;gap:10px}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail){display:grid;grid-template-columns:34px minmax(260px,1fr) 94px 96px 130px 28px;gap:10px;align-items:start;border:1px solid #E5E7EB;border-radius:10px;background:#fff;padding:12px;box-shadow:0 1px 3px rgba(15,23,42,.05)}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td{display:block!important;border:0!important;padding:0!important;background:transparent!important;min-width:0}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(1){font-size:12px;font-weight:900;color:#1D4ED8;background:#EFF6FF!important;border-radius:999px!important;width:26px;height:26px;display:flex!important;align-items:center;justify-content:center;margin-top:20px}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(5),
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(6),
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(8){display:none!important}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(2)::before{content:'Работа'}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(3)::before{content:'Ед.'}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(4)::before{content:'Объем'}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(7)::before{content:'Материалы'}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(9)::before{content:'Статус'}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(2)::before,
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(3)::before,
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(4)::before,
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(7)::before,
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(9)::before{display:block;font-size:10px;font-weight:900;color:#64748B;text-transform:uppercase;letter-spacing:.25px;margin-bottom:6px}
 #works-wrap.position-cards .fi{max-width:100%}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(7){grid-column:2 / -2}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(9){grid-column:5}
 #works-wrap.position-cards [id^="mats-td-"]>div{min-width:0!important}
-#works-wrap.position-cards .matpack-select-list{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+#works-wrap.position-cards .matpack-select{border-color:#E5E7EB;background:#fff;margin-bottom:6px}
+#works-wrap.position-cards .matpack-select-h{padding:6px 8px;background:#F8FAFC;border-bottom-color:#EEF2F7}
+#works-wrap.position-cards .matpack-select-note{display:none}
+#works-wrap.position-cards .matpack-select-list{grid-template-columns:repeat(auto-fit,minmax(180px,1fr));padding:6px;gap:5px}
+#works-wrap.position-cards .matpack-option{padding:6px 7px;border-radius:6px}
+#works-wrap.position-cards .matpack-option-meta{display:none}
+#works-wrap.position-cards .matpack-option-norm{font-size:9px;margin-top:2px}
+#works-wrap.position-cards .mat-empty-table{display:none}
+#works-wrap.position-cards .mat-policy-compact{display:flex!important;grid-template-columns:none!important;gap:6px;margin-bottom:6px!important}
+#works-wrap.position-cards .mat-policy-compact .choice{padding:6px 8px!important;width:auto;min-width:92px}
 #works-wrap.position-cards .simple-ca-status{min-width:0}
 #works-wrap.position-cards .dv-row-detail{display:block;border:0;background:transparent;padding:0}
 #works-wrap.position-cards .dv-row-detail td{display:block!important;padding:0!important}
-@media(max-width:1350px){#works-wrap.position-cards tbody tr:not(.dv-row-detail){grid-template-columns:34px minmax(220px,1fr) 90px 90px minmax(300px,1.2fr) 130px 28px}}
-@media(max-width:980px){#works-wrap.position-cards tbody tr:not(.dv-row-detail){grid-template-columns:34px 1fr 90px 90px}#works-wrap.position-cards tbody tr:not(.dv-row-detail)>td:nth-child(7),#works-wrap.position-cards tbody tr:not(.dv-row-detail)>td:nth-child(9){grid-column:2/-1}}
+@media(max-width:1350px){#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail){grid-template-columns:34px minmax(220px,1fr) 86px 88px 120px 28px}}
+@media(max-width:980px){#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail){grid-template-columns:34px 1fr 90px 90px}#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(7),#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(9){grid-column:2/-1}}
 .manual-catalog-toggle{margin:12px 0}
 .manual-catalog-area{display:none}
 .manual-catalog-area.open{display:block}
@@ -860,8 +875,8 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
  <button class="btn btn-p btn-sm" onclick="addManual()" style="margin-bottom:1px">+ Добавить</button>
  </div>
  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px">
- <label class="choice" style="margin:0;background:#fff"><input type="radio" name="manual-mat-policy" value="required" onchange="toggleManualMatPolicy()"/><span><strong>Материалы требуются</strong><br><span class="t-xs t3">После добавления появится строка материала для заполнения.</span></span></label>
- <label class="choice" style="margin:0;background:#fff"><input type="radio" name="manual-mat-policy" value="none" onchange="toggleManualMatPolicy()"/><span><strong>Материалы не требуются</strong><br><span class="t-xs t3">Фиксируем явное подтверждение отсутствия материалов.</span></span></label>
+ <label class="choice" style="margin:0;background:#fff"><input type="radio" name="manual-mat-policy" value="required" onchange="toggleManualMatPolicy()"/><span><strong>Материалы нужны</strong></span></label>
+ <label class="choice" style="margin:0;background:#fff"><input type="radio" name="manual-mat-policy" value="none" onchange="toggleManualMatPolicy()"/><span><strong>Не нужны</strong></span></label>
  </div>
  <div id="manual-mat-error" style="display:none;margin-top:8px;color:var(--red);font-size:12px">Выберите, требуются материалы или нет.</div>
  </div>
@@ -889,7 +904,6 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
  <div class="ctab active" id="cat-tab-user" onclick="switchCatTab('user',this)">Наши работы ДВ</div>
  <div class="ctab" id="cat-tab-rsnb" onclick="switchCatTab('rsnb',this)" style="display:none">РСНБ / РСН РК</div>
  </div>
- <div id="cat-mode-note" style="padding:8px 12px;border-bottom:1px solid var(--border);background:#fff;font-size:11px;color:var(--t3)">Наши работы ДВ. РСНБ скрыт от пользователя.</div>
  <div class="cat-works-hdr">
  <div id="cat-bc" style="flex:1;font-size:12px;color:var(--t3)">Выберите раздел нашего каталога слева</div>
  <input class="cpanel-search" id="cpanel-search" placeholder="Поиск в разделе..." oninput="filterPanelWorks(this.value)"/>
@@ -921,11 +935,11 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
  <aside class="fair-side">
  <div class="fair-panel">
  <div class="fair-panel-h">
- <div><div class="fair-panel-title">ЦА анализирует ведомость</div><div class="fair-panel-sub">Рабочий чат по текущей ДВ</div></div>
+ <div><div class="fair-panel-title">ЦА</div><div class="fair-panel-sub">Работа с ДВ</div></div>
  <div class="fair-tools"><span class="badge b-blue" id="fair-status-badge">Live</span><button class="fair-tool" onclick="renderFairPanel()" title="Обновить">↻</button></div>
  </div>
  <div class="fair-panel-body" id="fair-panel-body">
-<div class="fair-chat-main"><div class="fair-agent-card"><div class="fair-agent-pic"><img src="assets/ca-avatar.png" alt="ЦА сметчик"></div><div><div class="fair-agent-name">ЦА сметчик</div><div class="fair-agent-desc">Помогает заполнить ДВ и подсказывает, что уточнить.</div></div></div><div class="fair-messages"><div class="fair-msg ai">Опишите работу внизу чата. Я добавлю строку в ДВ и спрошу, если чего-то не хватает.</div></div></div>
+<div class="fair-chat-main"><div class="fair-agent-card"><div class="fair-agent-pic"><img src="assets/ca-avatar.png" alt="ЦА сметчик"></div><div><div class="fair-agent-name">ЦА сметчик</div><div class="fair-agent-desc">Создает строки и задает вопросы.</div></div></div><div class="fair-messages"><div class="fair-msg ai">Опишите работу.</div></div></div>
  </div>
  <div class="fair-composer">
  <select class="fair-mode"><option>Режим</option><option>Разобрать работу</option><option>Проверить ДВ</option></select>
@@ -4119,7 +4133,7 @@ function buildWorkCard(w){
  var div=document.createElement('div');
  div.className='wcard'+(isAdded?' added':'')+(w.isUser?' user-pos':'');
 
- var ic=document.createElement('div');ic.className='wcard-ic'+(w.isUser?' uic':'');ic.textContent=w.isUser?'':'';div.appendChild(ic);
+ var ic=document.createElement('div');ic.className='wcard-ic'+(w.isUser?' uic':'');div.appendChild(ic);
 
  var info=document.createElement('div');info.style.flex='1';
  var nameRow=document.createElement('div');nameRow.style.cssText='display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:3px';
@@ -4128,21 +4142,22 @@ function buildWorkCard(w){
  else if(w.isUser){var ut=document.createElement('span');ut.className='user-tag';ut.textContent='Наша позиция';nameRow.appendChild(ut);}
  if(w.provisional){var st=document.createElement('span');st.className='badge b-amber';st.style.fontSize='10px';st.textContent='Условно одобрена';nameRow.appendChild(st);}
  info.appendChild(nameRow);
-  var meta=document.createElement('div');meta.className='wcard-m';meta.textContent=w.unit+' · '+(w.isTemplate?'заполните параметры':(w.isUser?'наша работа':'каталог ДВ'));info.appendChild(meta);
+  var meta=document.createElement('div');meta.className='wcard-m';meta.textContent=w.unit+' · '+(w.isTemplate?'параметры':(w.isUser?'наша работа':'каталог'));info.appendChild(meta);
+  if(w.isUser){
+    var mini=document.createElement('div');
+    mini.className='wcard-mini';
+    var params=(w.templateFields||w.requiredParams||[]).slice(0,3).map(function(f){return f.label||f.key||'Параметр';});
+    var mats=getWorkMaterialPackageOptions(w).length;
+    params.forEach(function(p){mini.innerHTML+='<span>'+htmlEscape(p)+'</span>';});
+    if(mats)mini.innerHTML+='<span>'+mats+' мат.</span>';
+    if((w.linkedRates||[]).length)mini.innerHTML+='<span>'+(w.linkedRates||[]).length+' расц.</span>';
+    if(mini.innerHTML)info.appendChild(mini);
+  }
  if(!w.isUser&&!w.isTemplate&&w.code){
    var linked=document.createElement('div');
    linked.className='linked-rate';
    linked.innerHTML='<div class="linked-rate-t">РСНБ</div><span class="linked-rate-code">'+htmlEscape(w.code)+'</span>';
    info.appendChild(linked);
- }
- if(w.isTemplate){
-   var tpl=document.createElement('div');
-   tpl.style.cssText='margin-top:7px;padding:7px 9px;background:#EFF6FF;border:1px solid #BFDBFE;border-radius:6px;font-size:11px;color:#1D4ED8';
-   tpl.innerHTML='<strong>Параметры:</strong> '+(w.templateFields||[]).map(function(f){return htmlEscape(f.label);}).join(' · ');
-   info.appendChild(tpl);
- }
- if(w.isUser){
-   info.appendChild(buildOurWorkDetail(w));
  }
 
  // Основные материалы
@@ -5164,12 +5179,12 @@ function renderFairPanel(){
    var firstIssue=(s.issues&&s.issues.length?s.issues[0].text:'Критичных проблем сейчас не видно.');
    cards+='<div class="fair-block '+(hasBad?'err':hasWarn?'warn':'soft')+'"><div class="fair-v">'+summary+'<br>'+htmlEscape(firstIssue)+'</div></div>';
 } else {
-   cards+='<div class="fair-block soft"><div class="fair-v">Опишите работу внизу чата. Я добавлю строку в ДВ и спрошу, если чего-то не хватает.</div></div>';
+   cards+='<div class="fair-block soft"><div class="fair-v">Опишите работу.</div></div>';
  }
  var actions='';
  if(s.analysis&&s.analysis.work&&!worksAdded.includes(s.analysis.work.id))actions='<button class="btn btn-p btn-xs" onclick="fairApplySuggestion()">Применить</button><button class="btn btn-o btn-xs" onclick="fairAskClarification()">Уточнить</button><button class="btn btn-o btn-xs" onclick="fairKeepAsIs()">Оставить</button>';
  messages+=fairMsgHtml('ai','ЦА сметчик',cards,actions);
- body.innerHTML='<div class="fair-chat-main"><div class="fair-agent-card"><div class="fair-agent-pic"><img src="assets/ca-avatar.png" alt="ЦА сметчик"></div><div><div class="fair-agent-name">ЦА сметчик</div><div class="fair-agent-desc">Помогает заполнить ДВ и подсказывает, что уточнить.</div></div></div><div class="fair-messages" id="fair-messages">'+messages+'</div></div>';
+ body.innerHTML='<div class="fair-chat-main"><div class="fair-agent-card"><div class="fair-agent-pic"><img src="assets/ca-avatar.png" alt="ЦА сметчик"></div><div><div class="fair-agent-name">ЦА сметчик</div><div class="fair-agent-desc">Создает строки и задает вопросы.</div></div></div><div class="fair-messages" id="fair-messages">'+messages+'</div></div>';
  var sc=document.getElementById('fair-messages');
  if(sc)sc.scrollTop=sc.scrollHeight;
 }
@@ -5499,15 +5514,16 @@ function buildMatsTable(workId,workUnit,customMats){
   var needsPolicy=!mats.length;
   var matState=getWorkMatState(workId);
   var packageHtml=renderMaterialPackageSelector(workId);
+  var hasPackage=!!packageHtml;
   var alertText=matState.message||(manualOnly?'Выберите материалы или отметьте “не нужны”.':'Материалы не найдены. Выберите вручную или отметьте “не нужны”.');
   var html='<div style="min-width:520px">'
     +packageHtml
-    +(needsPolicy?'<div class="alert a-amber" style="padding:7px 9px;margin-bottom:7px;font-size:11px">'+htmlEscape(alertText)+'</div>'
-      +'<div data-mat-policy-box="'+workId+'" style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:7px">'
+    +(needsPolicy?(hasPackage?'':'<div class="alert a-amber" style="padding:7px 9px;margin-bottom:7px;font-size:11px">'+htmlEscape(alertText)+'</div>')
+      +'<div class="mat-policy-compact" data-mat-policy-box="'+workId+'" style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:7px">'
       +'<label class="choice" style="margin:0;background:#fff;padding:7px 9px"><input type="radio" name="mat-policy-'+workId+'" value="required" onchange="onWorkMatPolicyChange('+workId+')"/><span><strong>Нужны</strong></span></label>'
       +'<label class="choice" style="margin:0;background:#fff;padding:7px 9px"><input type="radio" name="mat-policy-'+workId+'" value="none" onchange="onWorkMatPolicyChange('+workId+')"/><span><strong>Не нужны</strong></span></label>'
       +'</div>':'')
-    +'<table style="width:100%;border-collapse:collapse;font-size:11px" id="mat-tbl-'+workId+'">'
+    +'<table class="'+(!mats.length?'mat-empty-table':'')+'" style="width:100%;border-collapse:collapse;font-size:11px" id="mat-tbl-'+workId+'">'
     +'<thead><tr style="background:#F0F4FF">'
     +'<th style="padding:3px 6px;text-align:left;color:#374151;font-weight:600">№ ОЗМ</th>'
     +'<th style="padding:3px 6px;text-align:left;color:#374151;font-weight:600">Наименование</th>'
@@ -5558,15 +5574,20 @@ function removeMatRow(btn,workId){
     var chk=document.getElementById('matpkg-check-'+workId+'-'+pkg);
     if(chk)chk.checked=false;
   }
+  var tbody=document.getElementById('mat-rows-'+workId);
+  var tbl=document.getElementById('mat-tbl-'+workId);
+  if(tbody&&tbl&&!tbody.querySelector('tr'))tbl.classList.add('mat-empty-table');
   recalcMats(workId);
 }
 function togglePackageMaterial(workId,packageIdx,checked){
   var tbody=document.getElementById('mat-rows-'+workId);if(!tbody)return;
+  var tbl=document.getElementById('mat-tbl-'+workId);if(tbl)tbl.classList.remove('mat-empty-table');
   var rowIdx=1000+packageIdx;
   var rowId='mat-row-'+workId+'-'+rowIdx;
   var existing=document.getElementById(rowId);
   if(!checked){
     if(existing)existing.remove();
+    if(tbl&&!tbody.querySelector('tr'))tbl.classList.add('mat-empty-table');
     recalcMats(workId);
     return;
   }
@@ -5586,6 +5607,7 @@ function togglePackageMaterial(workId,packageIdx,checked){
 
 function addMatRow(workId){
   var tbody=document.getElementById('mat-rows-'+workId);if(!tbody)return;
+  var tbl=document.getElementById('mat-tbl-'+workId);if(tbl)tbl.classList.remove('mat-empty-table');
   var idx=tbody.querySelectorAll('tr').length;
   var tmp=document.createElement('tbody');
   tmp.innerHTML=buildMatRow(workId,idx,{name:'',norm:0,unit:'шт',ozm:'—',supply:'Подрядчик',fromCatalog:false},0);
@@ -6240,9 +6262,9 @@ function addWorkFromCatalog(w,card,btn){
    templateHtml+='</div></div></div>';
  }
  tr.innerHTML='<td>'+(worksAdded.length)+'</td>'
-  +'<td>'+(w.isTemplate?'<span class="badge b-blue" style="font-size:10px;margin-right:4px">Шаблон</span>':w.isUser?'<span class="user-tag" style="margin-right:4px">Наша</span>':'')
+  +'<td><div class="work-title-cell">'+(w.isTemplate?'<span class="badge b-blue" style="font-size:10px">Шаблон</span>':w.isUser?'<span class="user-tag">Наша</span>':'')
  +'<input class="fi" id="work-name-'+w.id+'" value="'+htmlEscape(w.name)+'" style="font-size:12px;padding:5px 7px;min-width:240px" oninput="updateWorkAiStatus('+w.id+',\''+htmlEscape(w.name).replace(/'/g,'\\&#39;')+'\')"/>'
- +templateHtml+'</td>'
+ +templateHtml+'</div></td>'
  +'<td><div class="unit-pick"><select class="unit-s" id="unit-'+w.id+'" onchange="recalcMats('+w.id+');recalcWeight('+w.id+')">'+unitOpts+'</select></div></td>'
  +'<td><input class="qty-i" id="ca-q-'+w.id+'" placeholder="0" oninput="recalcMats('+w.id+');recalcWeight('+w.id+')" style="width:65px"/></td>'
  +'<td><input class="qty-i" id="wt-unit-'+w.id+'" style="width:70px" placeholder="0" oninput="recalcWeight('+w.id+')"/></td>'
