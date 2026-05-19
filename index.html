@@ -577,6 +577,259 @@ hr.div{border:none;border-top:1px solid var(--border);margin:18px 0}
 #works-wrap.position-cards .simple-ca-status{min-width:0}
 #works-wrap.position-cards .dv-row-detail{display:block;border:0;background:transparent;padding:0}
 #works-wrap.position-cards .dv-row-detail td{display:block!important;padding:0!important}
+.added-card-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.added-card-title{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.added-card-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail){grid-template-columns:34px minmax(360px,1fr) auto auto auto 104px!important;gap:8px 14px!important;align-items:center!important;border-radius:16px!important;padding:12px 14px!important;box-shadow:0 8px 22px rgba(15,23,42,.05)!important;overflow:visible;min-width:0;max-width:100%}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)::-webkit-scrollbar{height:6px}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)::-webkit-scrollbar-thumb{background:#CBD5E1;border-radius:999px}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(1){margin-top:0!important;width:32px!important;height:32px!important;background:#EEF4FF!important;color:#3156D4!important}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(2)::before,
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(3)::before,
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(4)::before,
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(7)::before,
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(9)::before{display:none!important}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(7){grid-column:1/-1!important;border-top:1px solid #EEF2F6!important;padding-top:12px!important;margin-top:2px}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(9){grid-column:auto!important}
+.added-work-main{display:flex;flex-direction:column;gap:3px;min-width:0}
+.added-work-name{border:0!important;background:transparent!important;box-shadow:none!important;padding:0!important;font-size:14px!important;font-weight:850!important;color:#101828!important;width:100%!important;min-width:0!important}
+.added-work-name:focus{box-shadow:none!important;border-color:transparent!important}
+.added-title-display{font-size:14px;font-weight:850;color:#101828;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:720px}
+.added-work-sub{font-size:12px;color:#667085;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:620px}
+.added-param-chips{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:4px}
+.added-param-chip{display:inline-flex;align-items:center;max-width:210px;border:1px solid #E1E7F0;background:#F8FAFC;border-radius:999px;padding:4px 8px;font-size:11px;font-weight:750;color:#475467;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.added-param-chip.warn{background:#FFF7ED;border-color:#FED7AA;color:#B45309}
+.added-param-chip.ok{background:#F0FDF4;border-color:#BBF7D0;color:#15803D}
+.added-metric{display:flex;align-items:center;gap:6px;white-space:nowrap;font-size:13px;color:#101828;font-weight:800}
+.added-metric span{font-size:12px;color:#667085;font-weight:750}
+.added-metric .unit-pick{min-width:70px}
+.added-metric .qty-i{height:34px!important;border-radius:10px!important;font-weight:400!important;text-align:left!important}
+.added-metric .unit-pick,.added-metric .qty-i,#works-wrap.position-cards #wt-unit-,
+#works-wrap.position-cards input[id^="wt-unit-"]{width:86px!important;height:34px!important}
+.added-metric .unit-s{height:34px!important;min-height:34px!important}
+.added-edit-control{display:none!important}
+.added-editing .added-edit-control{display:flex!important}
+.added-editing .added-title-display,.added-editing .added-read-value{display:none!important}
+.added-editing .added-work-name{display:block!important;border:1px solid var(--border)!important;background:#fff!important;padding:7px 9px!important;border-radius:10px!important}
+.added-read-value{font-size:13px;color:#101828;font-weight:850}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(3) .added-edit-control,
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(4) .added-edit-control{display:flex!important}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(3) .added-read-value,
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(4) .added-read-value{display:none!important}
+.added-card-row-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px}
+.added-icon-btn{width:32px!important;height:32px!important;padding:0!important;border-radius:10px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;font-size:14px!important}
+.added-materials-row{display:flex;align-items:center;gap:10px;min-width:0}
+.added-materials-label{font-size:12px;color:#667085;font-weight:750;flex:0 0 auto}
+.added-material-pills{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;flex:1}
+.added-material-pill{display:inline-flex;align-items:center;gap:4px;max-width:260px;border:1px solid #D8DEE8;background:#fff;border-radius:10px;padding:7px 10px;font-size:12px;color:#475467;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.added-material-pill.empty{color:#98A2B3;background:#F8FAFC;border-style:dashed}
+.added-material-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-left:auto}
+.added-mats-hidden{display:none}
+#works-wrap.position-cards .tpl-panel{display:none!important;grid-column:1/-1;margin-top:8px!important}
+#works-wrap.position-cards tr.added-expanded .tpl-panel{display:block!important}
+#works-wrap.position-cards tr.added-expanded{align-items:start!important}
+#works-wrap.position-cards tr.added-expanded>td:nth-child(2){grid-column:2 / -1}
+#works-wrap.position-cards tr.added-expanded>td:nth-child(3),
+#works-wrap.position-cards tr.added-expanded>td:nth-child(4),
+#works-wrap.position-cards tr.added-expanded>td:nth-child(9),
+#works-wrap.position-cards tr.added-expanded>td:nth-child(10){grid-row:1}
+.added-list-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;padding-top:14px;border-top:1px solid #EEF2F6;color:#667085;font-size:13px}
+#works-wrap.position-cards .simple-ca-status{display:flex;align-items:center;gap:6px;justify-content:flex-start}
+#works-wrap.position-cards .simple-ca-note,
+#works-wrap.position-cards .simple-ca-rate,
+#works-wrap.position-cards .simple-ca-actions{display:none!important}
+body.ui-night #works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail){background:#1F2937!important;border-color:rgba(255,255,255,.08)!important;box-shadow:0 12px 28px rgba(0,0,0,.16)!important}
+body.ui-night .added-work-name{color:#F9FAFB!important}
+body.ui-night .added-title-display,body.ui-night .added-read-value{color:#F9FAFB!important}
+body.ui-night .added-editing .added-work-name{background:#111827!important;border-color:rgba(255,255,255,.12)!important}
+body.ui-night .added-work-sub,body.ui-night .added-metric span,body.ui-night .added-materials-label{color:#CBD5E1!important}
+body.ui-night .added-param-chip{background:#172033;border-color:rgba(255,255,255,.10);color:#CBD5E1}
+body.ui-night .added-param-chip.warn{background:rgba(245,158,11,.13);border-color:rgba(245,158,11,.28);color:#FCD38B}
+body.ui-night .added-param-chip.ok{background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.24);color:#86EFAC}
+body.ui-night .added-material-pill{background:#172033;border-color:rgba(255,255,255,.10);color:#CBD5E1}
+body.ui-night .added-material-pill.empty{background:#111827;color:#94A3B8}
+body.ui-night .added-list-footer{border-color:rgba(255,255,255,.08);color:#CBD5E1}
+#works-wrap.position-cards{overflow-x:auto!important}
+#works-wrap.position-cards > table{min-width:1180px!important;width:100%!important;border-collapse:collapse!important;border-spacing:0!important}
+#works-wrap.position-cards > table > thead{display:table-header-group!important}
+#works-wrap.position-cards > table > thead th{display:table-cell!important;background:#F8FAFC!important;color:#667085!important;border-bottom:1px solid #E5EAF2!important;padding:10px 8px!important;font-size:11px!important;line-height:1.15;text-transform:uppercase;letter-spacing:.25px}
+#works-wrap.position-cards > table > tbody{display:table-row-group!important}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail){display:table-row!important;background:#fff!important;border:0!important;box-shadow:none!important;min-width:0!important;max-width:none!important;overflow:visible!important}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td{display:table-cell!important;background:#fff!important;border-bottom:1px solid #EEF2F6!important;padding:10px 8px!important;vertical-align:middle!important}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(1){width:34px!important;text-align:center!important;background:#fff!important;color:#475467!important;font-weight:800!important;border-radius:0!important}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(5),
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(6),
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(8){display:table-cell!important}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td::before{display:none!important}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(2){min-width:270px}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(7){min-width:420px!important;border-top:0!important;margin-top:0!important;padding-top:10px!important}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(9){min-width:128px}
+.added-work-main{min-width:240px!important;max-width:330px!important}
+.added-title-display{white-space:normal!important;max-width:310px!important;font-size:13px!important}
+.added-param-chips{gap:4px!important;margin-top:4px!important}
+.added-param-chip{padding:3px 7px!important;font-size:10.5px!important;max-width:160px!important}
+.added-metric{justify-content:center!important}
+.added-materials-row{min-width:0!important;gap:8px!important}
+.added-material-pill{padding:5px 8px!important;font-size:11px!important;max-width:190px!important}
+.added-material-actions .btn{height:30px!important;padding:0 9px!important;font-size:11px!important}
+.added-card-row-actions{justify-content:flex-end!important;gap:6px!important}
+.added-icon-btn{width:30px!important;height:30px!important}
+.added-mat-policy{display:flex;align-items:center;gap:6px;margin-left:4px;flex:0 0 auto}
+.added-mat-policy label{display:inline-flex;align-items:center;gap:5px;border:1px solid #D8DEE8;border-radius:8px;padding:5px 8px;background:#fff;font-size:11px;font-weight:750;color:#475467;white-space:nowrap}
+.added-mat-policy input{width:13px;height:13px;margin:0}
+body.ui-night #works-wrap.position-cards > table > thead th{background:#111827!important;color:#CBD5E1!important;border-color:rgba(255,255,255,.08)!important}
+body.ui-night #works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td{background:#1F2937!important;border-color:rgba(255,255,255,.08)!important}
+body.ui-night .added-mat-policy label{background:#172033;border-color:rgba(255,255,255,.10);color:#CBD5E1}
+.material-catalog-modal{width:min(1080px,92vw)!important;height:min(820px,88vh)!important;max-width:none!important;border-radius:16px!important;display:flex;flex-direction:column;overflow:hidden}
+.matcat-head{padding:18px 22px!important}
+.matcat-sub{font-size:13px;color:#667085;margin-top:4px}
+.matcat-body{padding:18px 22px!important;display:flex;flex-direction:column;gap:12px;min-height:0;flex:1}
+.matcat-toolbar{display:grid;grid-template-columns:minmax(280px,1fr) 170px 150px auto;gap:12px;align-items:center}
+.matcat-search{position:relative}.matcat-search .fi{height:42px;padding-right:38px}.matcat-search span{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:#98A2B3;font-size:18px}
+.matcat-count{font-size:13px;color:#667085;font-weight:750}
+.matcat-table-wrap{border:1px solid #E5EAF2;border-radius:10px;overflow:auto;min-height:0;flex:1;background:#fff}
+.matcat-table{width:100%;border-collapse:collapse;font-size:13px}
+.matcat-table th{height:42px;background:#F8FAFC;color:#7A8494;font-size:11px;font-weight:850;text-transform:uppercase;letter-spacing:.25px;text-align:left;border-bottom:1px solid #E5EAF2;padding:0 14px;position:sticky;top:0;z-index:1}
+.matcat-table th:first-child,.matcat-table td:first-child{width:44px;text-align:center}
+.matcat-table td{height:54px;border-bottom:1px solid #EEF2F6;padding:0 14px;color:#344054;vertical-align:middle}
+.matcat-table tr:hover td{background:#FCFDFF}
+.matcat-check{width:18px;height:18px;accent-color:#3156D4}
+.matcat-material-name{font-weight:800;color:#111827}
+.matcat-selected{border-top:1px solid #EEF2F6;padding-top:12px}
+.matcat-selected-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;min-height:38px}
+.matcat-pill{display:inline-flex;align-items:center;gap:8px;border:1px solid #D9E5FF;background:#EEF4FF;color:#3156D4;border-radius:9px;padding:8px 10px;font-size:12px;font-weight:750}
+.matcat-pill button{border:0;background:transparent;color:#667085;cursor:pointer;font-size:15px;line-height:1}
+.matcat-foot{justify-content:space-between!important;padding:16px 22px!important}
+.matcat-foot .btn{height:40px;border-radius:10px;font-weight:800}
+body.ui-night .material-catalog-modal,body.ui-night .matcat-table-wrap{background:#1F2937!important;border-color:rgba(255,255,255,.08)!important;color:#F9FAFB!important}
+body.ui-night .matcat-table th{background:#172033;color:#94A3B8;border-color:rgba(255,255,255,.08)}
+body.ui-night .matcat-table td{background:#1F2937;color:#CBD5E1;border-color:rgba(255,255,255,.08)}
+body.ui-night .matcat-table tr:hover td{background:#273244}
+body.ui-night .matcat-material-name{color:#F9FAFB}
+body.ui-night .matcat-selected{border-color:rgba(255,255,255,.08)}
+.card:has(#works-wrap.position-cards){border-color:#E6EAF0;box-shadow:0 10px 28px rgba(15,23,42,.04)}
+.card:has(#works-wrap.position-cards) .card-h{padding:14px 16px}
+.card:has(#works-wrap.position-cards) .card-t{font-size:15px;font-weight:850}
+.card:has(#works-wrap.position-cards) #works-cnt{background:#EEF4FF;color:#3156D4;border:1px solid #D9E5FF;padding:4px 9px;font-size:11px}
+.card:has(#works-wrap.position-cards) .added-card-actions .btn{height:34px;padding:0 12px;border-radius:10px;font-size:12px;font-weight:750;box-shadow:none}
+#works-wrap.position-cards{padding:0 0 2px;background:#fff}
+#works-wrap.position-cards > table{font-size:12px}
+#works-wrap.position-cards > table > thead th{height:38px!important;padding:9px 10px!important;background:#FAFBFD!important;color:#7A8494!important;font-size:11px!important;font-weight:800!important;text-align:left!important;text-transform:none!important;letter-spacing:0!important;white-space:nowrap}
+#works-wrap.position-cards > table > thead th:nth-child(1),
+#works-wrap.position-cards > table > thead th:nth-child(3),
+#works-wrap.position-cards > table > thead th:nth-child(4),
+#works-wrap.position-cards > table > thead th:nth-child(5),
+#works-wrap.position-cards > table > thead th:nth-child(6),
+#works-wrap.position-cards > table > thead th:nth-child(9),
+#works-wrap.position-cards > table > thead th:nth-child(10){text-align:center!important}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td{padding:11px 10px!important;color:#344054!important}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail):hover>td{background:#FCFDFF!important}
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(3),
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(4),
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(5),
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(6),
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(9),
+#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(10){text-align:center}
+.added-work-main .badge{height:20px;padding:3px 7px;border-radius:999px;font-size:10px;font-weight:800;background:#EEF4FF!important;color:#3156D4!important;border:1px solid #D9E5FF}
+.added-work-type{display:inline-flex!important;align-items:center!important;justify-content:center!important;white-space:nowrap!important;min-width:82px!important;height:24px!important;padding:0 10px!important;line-height:1!important;flex:0 0 auto!important}
+.added-title-display{font-size:13px!important;font-weight:850!important;color:#111827!important;line-height:1.3!important}
+.added-work-sub{font-size:11.5px!important;color:#7A8494!important;max-width:300px!important}
+.added-param-chips{margin-top:5px!important}
+.added-param-chip{height:22px;padding:3px 8px!important;border-radius:999px!important;background:#F8FAFC!important;border-color:#E6EAF0!important;color:#667085!important;font-size:10.5px!important;font-weight:750!important}
+.added-param-chip.warn{background:#FFF7ED!important;border-color:#FED7AA!important;color:#B45309!important}
+.added-param-chip.ok{background:#F0FDF4!important;border-color:#BBF7D0!important;color:#15803D!important}
+.added-read-value{font-size:12.5px!important;color:#111827!important;font-weight:850!important}
+.added-metric{font-size:12.5px!important}
+.added-metric span{color:#7A8494!important;font-size:11px!important;font-weight:500!important}
+#works-wrap.position-cards .qty-i{font-weight:400!important}
+#works-wrap.position-cards input[id^="ca-q-"],
+#works-wrap.position-cards input[id^="wt-unit-"],
+#works-wrap.position-cards .unit-s{width:86px!important;height:34px!important;border-radius:10px!important;font-size:12px!important}
+#works-wrap.position-cards .added-metric{justify-content:center!important;width:100%!important}
+#works-wrap.position-cards .added-metric .unit-pick{width:96px!important;min-width:96px!important;max-width:96px!important;height:40px!important;display:inline-flex!important;box-sizing:border-box!important}
+#works-wrap.position-cards .added-metric .unit-s,
+#works-wrap.position-cards .added-metric input[id^="ca-q-"],
+#works-wrap.position-cards input[id^="wt-unit-"]{
+  box-sizing:border-box!important;
+  width:96px!important;
+  min-width:96px!important;
+  max-width:96px!important;
+  height:40px!important;
+  min-height:40px!important;
+  margin:0!important;
+  border-radius:12px!important;
+  font-size:14px!important;
+  font-weight:400!important;
+  line-height:1!important;
+  text-align:center!important;
+}
+#works-wrap.position-cards .added-metric .unit-s{padding:0 30px 0 12px!important}
+#works-wrap.position-cards .added-metric input[id^="ca-q-"],
+#works-wrap.position-cards input[id^="wt-unit-"]{padding:0 12px!important}
+.added-materials-row{align-items:center!important;gap:8px!important}
+.added-materials-label{font-size:11.5px!important;color:#7A8494!important;font-weight:750!important}
+.added-material-pill{height:26px;padding:4px 9px!important;border-radius:9px!important;background:#F8FAFC!important;border-color:#E6EAF0!important;color:#566173!important;font-size:11px!important;font-weight:700!important;max-width:180px!important}
+.added-material-pill.empty{background:#FAFBFD!important;color:#98A2B3!important;border-style:dashed!important}
+.added-material-actions{gap:6px!important}
+.added-material-actions .btn{height:28px!important;padding:0 9px!important;border-radius:8px!important;font-size:11px!important;font-weight:750!important}
+.added-mat-policy{gap:5px!important;margin-left:2px!important}
+.added-mat-policy label{height:28px;padding:0 8px!important;border-radius:8px!important;font-size:11px!important;color:#667085!important;background:#FAFBFD!important;border-color:#E6EAF0!important}
+.added-materials{min-width:720px;font-size:12px!important}
+.added-materials-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+.added-materials-title{font-size:12px;font-weight:850;color:#475467}
+.added-materials-empty{display:inline-flex;align-items:center;min-height:30px;margin-bottom:8px;border:1px dashed #D8DEE8;background:#FAFBFD;color:#8A94A6;border-radius:9px;padding:0 11px;font-size:11.5px;font-weight:700}
+.added-material-table-wrap{overflow-x:auto;max-width:100%}
+.added-mat-table{width:100%;min-width:720px;border-collapse:separate!important;border-spacing:0!important;font-size:12px!important;background:#fff;border:1px solid #E9EDF4;border-radius:10px;overflow:hidden;table-layout:fixed}
+.added-mat-table th{height:38px;padding:8px 10px!important;background:#F8FAFC!important;color:#4B5563!important;font-size:11px!important;font-weight:850!important;text-transform:uppercase!important;letter-spacing:.04em!important;text-align:left!important;border-bottom:1px solid #E9EDF4!important;white-space:nowrap}
+.added-mat-table th:nth-child(3),.added-mat-table th:nth-child(4),.added-mat-table th:nth-child(5),.added-mat-table th:nth-child(6),.added-mat-table th:nth-child(7){text-align:center!important}
+.added-mat-table th:nth-child(1){width:112px}
+.added-mat-table th:nth-child(2){width:auto}
+.added-mat-table th:nth-child(3){width:118px}
+.added-mat-table th:nth-child(4){width:86px}
+.added-mat-table th:nth-child(5){width:120px}
+.added-mat-table th:nth-child(6){width:126px}
+.added-mat-table th:nth-child(7){width:46px}
+.added-mat-table td{height:44px;padding:7px 10px!important;border-bottom:1px solid rgba(226,232,240,.75)!important;vertical-align:middle!important}
+.added-mat-table tbody tr:last-child td{border-bottom:0!important}
+.added-mat-code{width:100%!important;height:30px!important;border-radius:9px!important;font-size:12px!important;text-align:center!important;background:#fff!important;font-family:'JetBrains Mono',monospace!important}
+.added-mat-name-cell{position:relative;display:flex;flex-direction:column;gap:3px;min-width:180px}
+.added-mat-name-input{width:100%!important;max-width:none!important;height:30px!important;border-radius:9px!important;padding:0 10px!important;font-size:12px!important;font-weight:600!important;background:#fff!important}
+.added-mat-source{align-self:flex-start;background:#FEF3C7;color:#B45309;border-radius:7px;padding:2px 7px;font-size:10px;font-weight:800;line-height:1}
+.added-mat-supply{width:100%!important;height:30px!important;border-radius:9px!important;font-size:12px!important;padding:0 28px 0 10px!important;background:#fff!important}
+.added-mat-unit-cell{text-align:center!important;color:#4B5563!important;font-size:13px!important;font-weight:500!important;white-space:nowrap}
+.added-mat-norm{width:84px!important;height:30px!important;border-radius:9px!important;font-size:12px!important;text-align:center!important;background:#fff!important;font-weight:400!important}
+.added-mat-qty-cell{text-align:center!important}
+.added-mat-qty{display:inline-flex;align-items:center;justify-content:center;min-width:68px;height:28px;border-radius:999px;background:#EEF4FF;color:#3156D4;font-size:12px;font-weight:800;white-space:nowrap}
+.added-mat-remove{width:30px!important;height:30px!important;padding:0!important;border-radius:9px!important;color:#B91C1C!important;border-color:#FECACA!important;background:#fff!important;font-size:15px!important;line-height:1!important}
+.added-material-under{display:flex;margin-top:8px}
+.added-material-under .btn{height:30px!important;border-radius:9px!important;font-size:12px!important;font-weight:750!important}
+.added-materials .added-mat-policy{margin:0!important;gap:6px!important;flex:1 1 auto!important;min-width:0!important}
+.added-materials .added-mat-policy label{height:30px!important;min-height:30px!important;padding:0 10px!important;border-radius:9px!important;font-size:12px!important;font-weight:750!important;line-height:1!important}
+.added-materials .added-mat-policy input{width:14px!important;height:14px!important}
+.added-materials .added-material-actions{margin-left:auto!important;display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:8px!important;flex-wrap:nowrap!important}
+.added-materials .added-material-actions .btn{height:30px!important;min-height:30px!important;padding:0 11px!important;border-radius:9px!important;font-size:12px!important;font-weight:750!important;white-space:nowrap!important;line-height:1!important}
+.simple-ca-status .badge,#works-wrap.position-cards .badge{min-height:20px;border-radius:999px;padding:3px 8px;font-size:10.5px;font-weight:800}
+.added-card-row-actions{gap:5px!important}
+.added-icon-btn{width:28px!important;height:28px!important;border-radius:8px!important;color:#566173!important;background:#fff!important;border-color:#E6EAF0!important}
+.added-icon-btn:hover{background:#F8FAFC!important;color:#3156D4!important;border-color:#C8D7FF!important}
+.added-list-footer{margin-top:0!important;padding:12px 16px!important;background:#FAFBFD;border-top:1px solid #EEF2F6!important;color:#667085!important}
+.added-list-footer .btn{height:32px;padding:0 12px;border-radius:10px;font-size:12px;font-weight:750;box-shadow:none}
+#works-wrap.position-cards .fi[placeholder*="Условия"],
+#works-wrap.position-cards td:nth-child(8) .fi{height:32px!important;border-radius:9px!important;font-size:12px!important;max-width:150px!important;text-overflow:ellipsis}
+body.ui-night .card:has(#works-wrap.position-cards){border-color:rgba(255,255,255,.08);box-shadow:0 12px 28px rgba(0,0,0,.16)}
+body.ui-night #works-wrap.position-cards,body.ui-night .added-list-footer{background:#1F2937!important}
+body.ui-night #works-wrap.position-cards > table > thead th{background:#172033!important;color:#94A3B8!important}
+body.ui-night #works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail):hover>td{background:#273244!important}
+body.ui-night .added-title-display,body.ui-night .added-read-value{color:#F9FAFB!important}
+body.ui-night .added-work-sub,body.ui-night .added-metric span,body.ui-night .added-materials-label{color:#94A3B8!important}
+body.ui-night .added-materials-title{color:#CBD5E1!important}
+body.ui-night .added-materials-empty{background:#172033;border-color:rgba(255,255,255,.12);color:#94A3B8}
+body.ui-night .added-mat-table{background:#1F2937;border-color:rgba(255,255,255,.08)}
+body.ui-night .added-mat-table th{background:#172033!important;color:#94A3B8!important;border-color:rgba(255,255,255,.08)!important}
+body.ui-night .added-mat-table td{border-color:rgba(255,255,255,.08)!important}
+body.ui-night .added-mat-code,body.ui-night .added-mat-name-input,body.ui-night .added-mat-supply,body.ui-night .added-mat-norm,body.ui-night .added-mat-remove{background:#111827!important;border-color:rgba(255,255,255,.12)!important;color:#F9FAFB!important}
+body.ui-night .added-mat-unit-cell{color:#CBD5E1!important}
+body.ui-night .added-mat-qty{background:rgba(91,124,250,.16);color:#AFC0FF}
 @media(max-width:1350px){#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail){grid-template-columns:34px minmax(220px,1fr) 86px 88px 120px 28px}}
 @media(max-width:980px){#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail){grid-template-columns:34px 1fr 90px 90px}#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(7),#works-wrap.position-cards > table > tbody > tr:not(.dv-row-detail)>td:nth-child(9){grid-column:2/-1}}
 .manual-catalog-toggle{margin:12px 0}
@@ -1611,7 +1864,7 @@ body.ui-night .a4-doc{background:#fff!important}
  <div class="card-b" style="padding:12px 14px">
  <div style="display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center">
  <div style="position:relative">
- <input class="fi" id="cat-search" placeholder=" Поиск по нашему каталогу работ ДВ (кровля, разборка, стяжка, шаблон...)..." oninput="doGlobalSearch(this.value)"/>
+ <input class="fi" id="cat-search" placeholder="Опишите работу — ЦА подберет похожие варианты..." oninput="doGlobalSearch(this.value)"/>
  </div>
  <button class="btn btn-o btn-sm" onclick="toggleManual()">Ввести вручную</button>
  </div>
@@ -1668,13 +1921,20 @@ body.ui-night .a4-doc{background:#fff!important}
 
  <!-- Добавленные позиции -->
  <div class="card">
- <div class="card-h"><div class="card-t">Добавленные позиции</div><span class="badge b-blue" id="works-cnt">0 позиций</span></div>
+ <div class="card-h added-card-head">
+ <div class="added-card-title"><div class="card-t">Добавленные позиции</div><span class="badge b-blue" id="works-cnt">0 позиций</span></div>
+ <div class="added-card-actions">
+ <button class="btn btn-o btn-sm" type="button" onclick="showToast('Импорт из сметы','info','Вставьте позиции через чат ЦА или добавьте из каталога.')">↗ Импорт из сметы</button>
+ <button class="btn btn-p btn-sm" type="button" onclick="openAddPosModal()">+ Добавить позицию</button>
+ </div>
+ </div>
  <div id="works-empty" style="text-align:center;padding:28px;color:var(--t3);font-size:13px">Добавьте работу через ЦА или каталог</div>
  <div id="works-wrap" class="simple-works-table position-cards" style="display:none">
  <table>
- <thead><tr><th>№</th><th>Наименование работы</th><th>Ед. изм.</th><th>Объём работ</th><th>Вес единицы, кг</th><th>Общий вес, т (авто)</th><th>Потребные материалы</th><th>Условия / примечание к работе</th><th>Статус ЦА</th><th></th></tr></thead>
+ <thead><tr><th>№</th><th>Работа</th><th>Ед.</th><th>Объем</th><th>Вес ед., кг</th><th>Вес общий, т</th><th>Материалы</th><th>Примечание</th><th>Статус</th><th></th></tr></thead>
  <tbody id="works-tbody"></tbody>
  </table>
+ <div class="added-list-footer"><span id="works-total-bottom">Всего позиций: 0</span></div>
  </div>
  </div>
  <hr class="div"/>
@@ -2223,48 +2483,34 @@ body.ui-night .a4-doc{background:#fff!important}
 <!-- MODAL: Сметчик предлагает позицию в каталог (→ Нурланову) -->
 <!-- MODAL: Использования позиции (Нурланов) -->
 <div class="modal-ov" id="material-picker-modal">
-  <div class="modal" style="width:96vw;height:92vh;max-width:none">
-    <div class="modal-h">
+  <div class="modal material-catalog-modal">
+    <div class="modal-h matcat-head">
       <div>
-        <div class="modal-t">Выбор материала</div>
-        <div style="font-size:12px;color:var(--t3);margin-top:2px">Выберите материал из каталога или внесите вручную. Код УЗМ/ОЗМ подтянется из выбранной позиции.</div>
+        <div class="modal-t">Выбор материалов из каталога</div>
+        <div class="matcat-sub">Отметьте один или несколько материалов и добавьте их в позицию.</div>
       </div>
-      <button class="modal-x" onclick="closeMaterialPicker()">x</button>
+      <button class="modal-x" onclick="closeMaterialPicker()">×</button>
     </div>
-    <div class="modal-b" style="padding:0">
-      <div id="mat-picker-layout" style="display:grid;grid-template-columns:240px 320px 1fr;min-height:calc(92vh - 128px)">
-        <div style="border-right:1px solid var(--border);background:#F9FAFB;padding:12px">
-          <div class="fl" style="margin-bottom:8px">Способ добавления</div>
-          <label class="choice sel" id="mat-src-ozm" onclick="setMaterialSource('ozm')" style="background:#fff"><span>Каталог материалов</span></label>
-          <label class="choice" id="mat-src-manual" onclick="setMaterialSource('manual')" style="background:#fff"><span>Ввести вручную</span></label>
-          <div class="alert a-blue" style="font-size:12px;margin-top:12px;margin-bottom:0">После выбора материал появится в строке работы. Единицу, поставку и количество можно скорректировать.</div>
-        </div>
-        <div id="mat-picker-sections" style="display:block;border-right:1px solid var(--border);background:#fff;padding:12px">
-          <div class="fl" style="margin-bottom:8px">Разделы материалов</div>
-          <div id="mp-sections-list" style="height:calc(92vh - 210px);overflow-y:auto;border:1px solid var(--border);border-radius:8px;background:#F9FAFB"></div>
-        </div>
-        <div id="mat-picker-main" style="padding:14px;background:#fff">
-          <div id="mat-picker-manual">
-            <div style="width:100%;min-height:calc(92vh - 190px);border:1px solid var(--border);border-radius:8px;padding:22px;background:#F9FAFB">
-              <div style="font-size:16px;font-weight:700;margin-bottom:4px;color:var(--t1)">Материал вручную</div>
-              <div style="font-size:12px;color:var(--t3);margin-bottom:14px">Используйте, если материала нет в каталоге или нужна точная марка по проекту.</div>
-              <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px;max-width:none">
-                <div class="f" style="grid-column:1 / span 3"><label class="fl">Наименование материала</label><input class="fi" id="mp-manual-name" placeholder="Например: кабель ВВГнг 3×2,5"/></div>
-                <div class="f"><label class="fl">Код УЗМ/ОЗМ</label><input class="fi" id="mp-manual-code" placeholder="—"/></div>
-                <div class="f"><label class="fl">Ед. изм.</label><select class="fs" id="mp-manual-unit"><option>шт</option><option>м²</option><option>м³</option><option>п.м.</option><option>т</option><option>кг</option><option>л</option></select></div>
-              </div>
-            </div>
-          </div>
-          <div id="mat-picker-catalog" style="display:none">
-            <input class="fi" id="mp-search" placeholder="Поиск материала..." oninput="renderMaterialPickerList()" style="margin-bottom:10px"/>
-            <div id="mp-results" style="border:1px solid var(--border);border-radius:8px;height:calc(92vh - 220px);overflow-y:auto"></div>
-          </div>
-        </div>
+    <div class="modal-b matcat-body">
+      <div class="matcat-toolbar">
+        <div class="matcat-search"><input class="fi" id="mp-search" placeholder="Поиск материала по названию, коду или категории" oninput="renderMaterialPickerList()"/><span>⌕</span></div>
+        <select class="fs" id="mp-category-filter" onchange="setMaterialPickerCategory(this.value)"><option value="all">Все категории</option></select>
+        <select class="fs" id="mp-unit-filter" onchange="renderMaterialPickerList()"><option value="">Все единицы</option></select>
+        <button class="btn btn-o btn-sm" type="button" onclick="clearMaterialPickerFilters()">Фильтры</button>
+      </div>
+      <div class="matcat-count" id="mp-found-count">Найдено: 0 материалов</div>
+      <div id="mp-results" class="matcat-table-wrap"></div>
+      <div class="matcat-selected">
+        <div class="matcat-count" id="mp-selected-count">Выбрано: 0 материалов</div>
+        <div class="matcat-selected-pills" id="mp-selected-pills"></div>
       </div>
     </div>
-    <div class="modal-f">
+    <div class="modal-f matcat-foot">
       <button class="btn btn-o" onclick="closeMaterialPicker()">Отмена</button>
-      <button class="btn btn-p" id="mp-manual-apply" onclick="applyMaterialPickerManual()">Выбрать</button>
+      <div class="fc gap8">
+        <button class="btn btn-o" onclick="clearMaterialPickerSelection()">Очистить выбор</button>
+        <button class="btn btn-p" id="mp-apply-selected" onclick="applySelectedMaterials()">Добавить выбранные (0)</button>
+      </div>
     </div>
   </div>
 </div>
@@ -4399,7 +4645,7 @@ function resetNewDVState(){
   var tb=document.getElementById('works-tbody');if(tb)tb.innerHTML='';
   var we=document.getElementById('works-empty');if(we)we.style.display='block';
   var ww=document.getElementById('works-wrap');if(ww)ww.style.display='none';
-  var wc=document.getElementById('works-cnt');if(wc)wc.textContent='0 позиций';
+  updateWorksAddedCount();
   var mats=document.getElementById('mats-total-body');if(mats)mats.innerHTML='';
   var catSearch=document.getElementById('cat-search');if(catSearch)catSearch.value='';
   var panelSearch=document.getElementById('cpanel-search');if(panelSearch)panelSearch.value='';
@@ -4911,6 +5157,54 @@ document.addEventListener('click',function(e){
 // Секции работ (простой список без дерева)
 var WORK_SECTIONS=cloneDvWorkSections();
 
+function seedDVWorkExamples(){
+ if(window.__dvWorkExamplesSeeded)return;
+ window.__dvWorkExamplesSeeded=true;
+ var examples={
+  earth:['Разработка грунта вручную в траншеях','Обратная засыпка траншеи с послойным уплотнением','Планировка основания под полы','Вывоз строительного грунта','Устройство песчаной подушки','Устройство щебеночного основания','Разборка старой отмостки с грунтом','Подсыпка основания в стесненных условиях','Уплотнение грунта виброплитой','Очистка площадки от строительного мусора'],
+  foundations:['Устройство бетонной подготовки','Ремонт бетонного основания','Заделка раковин в фундаменте','Гидроизоляция фундамента обмазочная','Демонтаж поврежденного участка фундамента','Устройство опалубки под основание','Армирование монолитного участка','Бетонирование локального приямка','Восстановление защитного слоя бетона','Устройство подливки под оборудование'],
+  masonry:['Кладка стен из кирпича','Кладка перегородок из блока','Заделка проемов кирпичной кладкой','Ремонт отдельных участков кладки','Разборка кирпичных перегородок','Устройство перемычек над проемами','Расшивка швов кладки','Усиление простенка кладкой','Кладка парапета','Восстановление разрушенного угла стены'],
+  pipes:['Прокладка трубопровода водоснабжения','Замена участка трубопровода отопления','Демонтаж старой стальной трубы','Монтаж запорной арматуры','Устройство изоляции трубопровода','Промывка трубопровода после ремонта','Прокладка трубы в штрабе','Монтаж креплений трубопровода','Герметизация прохода трубы','Испытание трубопровода давлением'],
+  screeds:['Устройство цементной стяжки','Ремонт стяжки отдельными местами','Разборка цементной стяжки','Выравнивающая стяжка по основанию','Устройство наливного пола','Грунтовка основания под стяжку','Укладка демпферной ленты','Заделка трещин в основании','Устройство уклона стяжкой','Шлифовка поверхности стяжки'],
+  roof:['Разборка рулонной кровли','Устройство рулонной кровли в два слоя','Грунтовка основания праймером','Ремонт примыканий кровли','Устройство водосточной воронки','Герметизация проходок кровли','Разборка металлического покрытия','Монтаж профлиста кровельного','Утепление кровельного покрытия','Устройство парапетного фартука'],
+  finish:['Штукатурка стен цементным раствором','Шпатлевка стен под окраску','Окраска стен водоэмульсионная','Демонтаж старой отделки','Грунтовка поверхности стен','Облицовка стен керамической плиткой','Устройство откосов','Окраска металлоконструкций','Ремонт потолочной штукатурки','Монтаж плинтуса'],
+ engineering:['Монтаж кабельного канала','Прокладка силового кабеля','Демонтаж старого светильника','Монтаж светильника LED','Установка распределительной коробки','Прокладка слаботочного кабеля','Монтаж вентиляционной решетки','Установка радиатора отопления','Подключение оборудования','Проверка инженерной линии']
+ };
+ var extraExamples={
+  earth:['Разработка грунта экскаватором в котловане','Доработка грунта вручную после механизированной разработки','Засыпка пазух котлована','Устройство основания из ПГС','Погрузка лишнего грунта на автотранспорт','Вертикальная планировка площадки','Разработка мерзлого грунта вручную','Устройство гравийной подготовки','Разборка грунта под инженерные сети','Устройство временного водоотвода при земляных работах','Срезка растительного слоя','Уплотнение основания катком'],
+  foundations:['Устройство монолитной фундаментной плиты','Ремонт трещин бетонного фундамента','Устройство цементной стяжки по бетонной подготовке','Антикоррозионная защита закладных деталей','Устройство гидроизоляции рулонными материалами','Сверление отверстий в бетоне под анкеры','Установка анкерных болтов','Усиление фундамента металлическими элементами','Демонтаж бетонной подготовки','Восстановление отмостки у фундамента','Заливка бетонного пояса','Устройство подбетонки под оборудование'],
+  masonry:['Кладка перегородок из газоблока','Заделка штраб и борозд в кладке','Устройство армирующей сетки в кладке','Демонтаж кладки из блоков','Восстановление поврежденного парапета','Устройство вентиляционных каналов в кладке','Кладка простенков из керамического кирпича','Ремонт швов кирпичной кладки','Заделка технологических отверстий','Устройство армопояса по кладке','Монтаж металлической перемычки','Разборка облицовочной кладки'],
+  pipes:['Замена фасонных частей трубопровода','Монтаж фланцевого соединения','Установка фильтра грубой очистки','Монтаж компенсатора трубопровода','Окраска стального трубопровода','Теплоизоляция труб минеральной ватой','Демонтаж трубопровода канализации','Прокладка полиэтиленовой трубы','Монтаж ревизии на трубопроводе','Устройство футляра при проходе стены','Врезка в действующий трубопровод','Маркировка трубопроводов после ремонта'],
+  screeds:['Устройство армированной стяжки','Разборка наливного пола','Устройство гидроизоляции под стяжку','Выравнивание основания ремонтной смесью','Устройство стяжки по маякам','Локальный ремонт выбоин в стяжке','Устройство теплоизоляции под стяжку','Нарезка деформационных швов','Заливка самонивелирующейся смеси','Обеспыливание бетонного основания','Устройство стяжки с уклоном к трапу','Демонтаж демпферной ленты'],
+  roof:['Ремонт вздутий рулонной кровли','Устройство кровельного ковра с наплавлением','Демонтаж утеплителя кровли','Устройство пароизоляции кровли','Монтаж кровельной аэрации','Ремонт ендовы кровли','Устройство примыкания к парапету','Монтаж прижимной планки','Герметизация стыков профлиста','Очистка кровли от мусора','Ремонт водосточной системы','Устройство защитной посыпки кровли'],
+  finish:['Окраска потолков водоэмульсионным составом','Шпатлевка потолков финишная','Демонтаж керамической плитки','Облицовка пола керамогранитом','Устройство подвесного потолка','Монтаж углового профиля','Ремонт штукатурного слоя стен','Поклейка стеклохолста','Окраска дверных блоков','Установка защитных уголков','Затирка межплиточных швов','Очистка поверхности от старой краски'],
+  engineering:['Монтаж выключателя и розетки','Прокладка кабеля в гофротрубе','Установка автоматического выключателя','Монтаж лотка кабельного','Подключение вентилятора вытяжного','Демонтаж распределительного щита','Монтаж датчика движения','Проверка сопротивления изоляции','Установка пожарного извещателя','Монтаж заземляющего проводника','Пусконаладка инженерного оборудования','Маркировка кабельных линий']
+ };
+ var detailedExamples={
+  earth:['Разработка грунта вручную, грунт II группы, глубина до 2 м','Разработка грунта механизированная, грунт III группы, котлован','Обратная засыпка пазух с уплотнением, материал песок','Устройство песчаного основания толщиной до 100 мм','Устройство щебеночного основания, фракция 20-40 мм','Планировка площадки вручную, сложность обычная','Вывоз грунта с погрузкой, расстояние до 5 км','Уплотнение грунта виброплитой, послойно','Срезка растительного слоя толщиной до 150 мм','Разработка траншей под трубопроводы, глубина до 1,5 м'],
+  foundations:['Устройство фундамента монолитного, бетон B20','Ремонт фундамента средней сложности, бетонная смесь','Гидроизоляция фундамента обмазочная, битумная мастика','Гидроизоляция фундамента рулонная, материал техноэласт','Армирование фундаментной плиты, сталь AIII','Устройство опалубки фундамента, щитовая система','Бетонирование ростверка, бетон B25','Заделка трещин фундамента ремонтным составом','Устройство бетонной подготовки толщиной 100 мм','Восстановление защитного слоя бетона фундамента'],
+  masonry:['Кладка стен простой сложности, материал кирпич керамический','Кладка стен средней сложности, материал кирпич силикатный','Кладка перегородок, материал газоблок 100 мм','Кладка перегородок, материал пеноблок 150 мм','Ремонт кладки стен, материал кирпич керамический','Заделка проемов кладкой, материал кирпич полнотелый','Разборка кладки стен вручную, сложность средняя','Устройство перемычек, материал железобетон','Восстановление углов кладки, материал кирпич керамический','Расшивка швов кладки, сложность обычная'],
+  pipes:['Прокладка трубопровода водоснабжения, материал ППР','Прокладка трубопровода отопления, материал сталь','Замена участка трубопровода, материал металлопластик','Демонтаж трубопровода, материал сталь до 50 мм','Монтаж запорной арматуры, диаметр до 50 мм','Устройство теплоизоляции труб, материал каучук','Прокладка канализационной трубы, материал ПВХ','Испытание трубопровода давлением, участок до 100 м','Герметизация проходов труб через стены','Монтаж креплений трубопровода, шаг до 1,5 м'],
+  screeds:['Устройство стяжки простой, материал цементно-песчаный раствор','Устройство стяжки армированной, сетка металлическая','Разборка стяжки цементной толщиной до 50 мм','Ремонт стяжки локальный, материал ремонтная смесь','Устройство наливного пола, материал самонивелирующаяся смесь','Грунтовка основания под стяжку, материал праймер','Устройство гидроизоляции под стяжку, материал мастика','Устройство стяжки с уклоном, сложность средняя','Заделка трещин основания, материал эпоксидный состав','Шлифовка бетонной стяжки, площадь до 100 м2'],
+  roof:['Устройство рулонной кровли, материал техноэласт ЭПП','Разборка рулонной кровли, сложность обычная','Ремонт примыканий кровли, материал мастика','Устройство праймера основания кровли, материал битумный праймер','Монтаж водосточной воронки, материал ПВХ','Герметизация проходок кровли, материал герметик','Устройство парапетного фартука, материал оцинкованная сталь','Демонтаж утеплителя кровли, материал минераловатная плита','Устройство пароизоляции кровли, материал пленка','Ремонт кровельного ковра локальный, материал рулонный'],
+  finish:['Штукатурка стен простая, материал цементно-песчаный раствор','Штукатурка стен улучшенная, материал гипсовая смесь','Шпатлевка стен финишная, материал полимерная смесь','Окраска стен, материал водоэмульсионная краска','Облицовка стен плиткой, материал керамическая плитка','Демонтаж отделки стен, материал обои/краска','Устройство откосов, материал гипсовая штукатурка','Окраска потолков, материал акриловая краска','Монтаж плинтуса, материал ПВХ','Затирка швов плитки, материал цементная затирка'],
+  engineering:['Прокладка кабеля силового, материал ВВГнг','Монтаж кабельного канала, материал ПВХ','Установка светильника, тип LED панель','Демонтаж светильника, сложность обычная','Монтаж розетки, скрытая установка','Монтаж выключателя, скрытая установка','Установка автомата защиты в щите','Прокладка слаботочного кабеля, материал UTP','Монтаж вентиляционной решетки, материал алюминий','Проверка линии электроснабжения, измерения и маркировка']
+ };
+ Object.keys(extraExamples).forEach(function(key){examples[key]=(examples[key]||[]).concat(extraExamples[key]);});
+ Object.keys(detailedExamples).forEach(function(key){examples[key]=(examples[key]||[]).concat(detailedExamples[key]);});
+ var units={earth:'м³',foundations:'м³',masonry:'м³',pipes:'п.м.',screeds:'м²',roof:'м²',finish:'м²',engineering:'шт'};
+ var baseId=7000;
+ var targetCount=35;
+ (DV_WORK_SECTIONS||[]).forEach(function(sec,secIdx){
+   var names=examples[sec.id]||[];
+   var current=WORKS_DB.filter(function(w){return w.isUser&&isWorkAvailable(w)&&(sec.sections||[]).indexOf(w.section)>=0;}).length;
+   names.slice(0,Math.max(0,targetCount-current)).forEach(function(name,i){
+     WORKS_DB.push({id:baseId+secIdx*100+i,section:(sec.sections&&sec.sections[0])||sec.id,name:name,unit:units[sec.id]||'ед.',desc:sec.label,isUser:true,approved:true,provisional:false,rejected:false,uses:Math.max(1,35-i),mainMats:[],miscMats:[]});
+   });
+ });
+}
+seedDVWorkExamples();
+
 function switchMainTab(tab){
   document.getElementById('tab-panel-works').style.display=tab==='works'?'grid':'none';
   document.getElementById('tab-panel-mats').style.display=tab==='mats'?'grid':'none';
@@ -4932,9 +5226,8 @@ function renderWorksSections(){
     var totalCnt=cnt+userCnt;
     var div=document.createElement('div');
     div.className='section-item';
-    div.style.cssText='display:flex;align-items:center;justify-content:space-between;padding:12px 16px;cursor:pointer;font-size:13px;font-weight:500;color:var(--t2);border-left:3px solid transparent;transition:all .15s';
-    div.innerHTML='<span><span>'+sec.label+'</span>'+(sec.code?'<span style="font-size:10px;color:var(--t3);font-weight:500;margin-left:6px">код '+sec.code+'</span>':'')+(userCnt?'<span style="font-size:10px;background:var(--purple-l);color:var(--purple);padding:1px 5px;border-radius:10px;font-weight:700;margin-left:6px">'+userCnt+'</span>':'')+'</span>'
-      +'<span style="font-size:12px;color:var(--t3);font-weight:400">'+totalCnt+'</span>';
+    div.style.cssText='display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;cursor:pointer;font-size:13px;font-weight:500;color:var(--t2);border-left:3px solid transparent;transition:all .15s';
+    div.innerHTML='<span>'+sec.label+'</span><span style="font-size:12px;color:var(--t3);font-weight:500">'+totalCnt+'</span>';
     div.onmouseenter=function(){if(!div.classList.contains('active'))div.style.background='#F9FAFB';};
     div.onmouseleave=function(){if(!div.classList.contains('active'))div.style.background='';};
     (function(s){
@@ -5067,6 +5360,7 @@ function applyMaterialToActiveRow(item){
     row.style.background='#F0FDF4';
     row.style.borderLeft='3px solid #16A34A';
     recalcMats(_activeMatWorkId);
+    refreshCompactMaterialPills(_activeMatWorkId);
   }
   _activeMatInput=null;
   return true;
@@ -5418,7 +5712,7 @@ function buildWorkCard(w){
      worksAdded=worksAdded.filter(function(x){return x!==wid;});workCount--;
      // Убираем из таблицы
      var row=document.getElementById('ca-b-'+wid);if(row)row.closest('tr').remove();
-     document.getElementById('works-cnt').textContent=worksAdded.length+' позиций';
+     updateWorksAddedCount();
      if(!worksAdded.length){document.getElementById('works-empty').style.display='block';document.getElementById('works-wrap').style.display='none';}
      // Обновить панель
      if(activeCatSection)loadSectionWorks(activeCatSection);
@@ -6733,62 +7027,104 @@ function hydrateWorkMaterials(workId){
   });
 }
 
+function buildCompactMaterialPills(mats){
+  var clean=(mats||[]).filter(function(m){return m&&m.name;}).slice(0,3);
+  if(!clean.length)return '<span class="added-material-pill empty">Материалы не добавлены</span>';
+  var html=clean.map(function(m){
+    var qty=m.qty||m.quantity||m.norm||'';
+    var unit=m.unit||'';
+    return '<span class="added-material-pill">'+htmlEscape(m.name)+(qty?' · '+htmlEscape(String(qty))+(unit?' '+htmlEscape(unit):''):'')+'</span>';
+  }).join('');
+  if((mats||[]).length>3)html+='<span class="added-material-pill">+'+((mats||[]).length-3)+'</span>';
+  return html;
+}
+function refreshCompactMaterialPills(workId){
+  var box=document.getElementById('mat-pills-'+workId);
+  if(!box)return;
+  var rows=document.querySelectorAll('#mat-rows-'+workId+' tr');
+  var mats=[];
+  rows.forEach(function(row){
+    var name=(row.querySelector('.mat-name-inp')||{}).value||'';
+    if(!name.trim())return;
+    var qty=(row.querySelector('[id^="mat-qty-"]')||{}).textContent||'';
+    var unit=(row.querySelector('[id^="mat-unit-"]')||{}).value||'';
+    mats.push({name:name.trim(),qty:qty&&qty!=='—'?qty:'',unit:qty&&qty!=='—'?'':unit});
+  });
+  box.innerHTML=buildCompactMaterialPills(mats);
+}
+function syncMaterialEmptyState(workId){
+  var table=document.getElementById('mat-tbl-'+workId);
+  var empty=document.querySelector('#mat-compact-'+workId+' .added-materials-empty');
+  var tbody=document.getElementById('mat-rows-'+workId);
+  var hasRows=!!(tbody&&tbody.querySelector('tr'));
+  if(table)table.classList.toggle('mat-empty-table',!hasRows);
+  if(empty)empty.style.display=hasRows?'none':'inline-flex';
+}
+function setMaterialUnitDisplay(el,unit){
+  if(!el)return;
+  unit=unit||'шт';
+  if(el.tagName&&el.tagName.toLowerCase()==='select'){
+    setSelectValueWithOption(el,unit);
+    return;
+  }
+  el.textContent=unit;
+  el.setAttribute('data-value',unit);
+}
 function buildMatsTable(workId,workUnit,customMats){
   var manualOnly=!!CA_MANUAL_MATERIALS_REQUIRED[workId];
   var mats=manualOnly?[]:(WORK_MATS[workId]||[]).map(function(m){return Object.assign({},m);});
   if(!manualOnly&&customMats&&customMats.length)mats=mats.concat(customMats);
   var needsPolicy=!mats.length;
   var matState=getWorkMatState(workId);
-  var packageHtml=renderMaterialPackageSelector(workId);
-  var hasPackage=!!packageHtml;
-  var alertText=matState.message||(manualOnly?'Выберите материалы или отметьте “не нужны”.':'Материалы не найдены. Выберите вручную или отметьте “не нужны”.');
-  var html='<div style="min-width:520px">'
-    +packageHtml
-    +(needsPolicy?(hasPackage?'':'<div class="alert a-amber" style="padding:7px 9px;margin-bottom:7px;font-size:11px">'+htmlEscape(alertText)+'</div>')
-      +'<div class="mat-policy-compact" data-mat-policy-box="'+workId+'" style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:7px">'
-      +'<label class="choice" style="margin:0;background:#fff;padding:7px 9px"><input type="radio" name="mat-policy-'+workId+'" value="required" onchange="onWorkMatPolicyChange('+workId+')"/><span><strong>Нужны</strong></span></label>'
-      +'<label class="choice" style="margin:0;background:#fff;padding:7px 9px"><input type="radio" name="mat-policy-'+workId+'" value="none" onchange="onWorkMatPolicyChange('+workId+')"/><span><strong>Не нужны</strong></span></label>'
-      +'</div>':'')
-    +'<table class="'+(!mats.length?'mat-empty-table':'')+'" style="width:100%;border-collapse:collapse;font-size:11px" id="mat-tbl-'+workId+'">'
-    +'<thead><tr style="background:#F0F4FF">'
-    +'<th style="padding:3px 6px;text-align:left;color:#374151;font-weight:600">№ ОЗМ</th>'
-    +'<th style="padding:3px 6px;text-align:left;color:#374151;font-weight:600">Наименование</th>'
-    +'<th style="padding:3px 6px;text-align:center;color:#374151;font-weight:600">Поставка</th>'
-    +'<th style="padding:3px 6px;text-align:center;color:#374151;font-weight:600">Ед.изм.</th>'
-    +'<th style="padding:3px 6px;text-align:center;color:#374151;font-weight:600">Норма расхода</th>'
-    +'<th style="padding:3px 6px;text-align:center;color:#374151;font-weight:600">Количество</th>'
-    +'<th style="padding:3px 6px"></th>'
+  var packageHtml='';
+  var hasPackage=false;
+  var alertText='Материалы не добавлены';
+  var visiblePolicy=needsPolicy?'<div class="added-mat-policy" data-visible-mat-policy="'+workId+'">'
+    +'<label><input type="radio" name="mat-policy-'+workId+'" value="required" onchange="onWorkMatPolicyChange('+workId+')"/>Требуются</label>'
+    +'<label><input type="radio" name="mat-policy-'+workId+'" value="none" onchange="onWorkMatPolicyChange('+workId+')"/>Не требуются</label>'
+    +'</div>':'';
+  var html='<div class="added-materials" id="mat-compact-'+workId+'">'
+    +'<div class="added-materials-top">'+visiblePolicy+'<div class="added-material-actions">'
+    +'<button class="btn btn-o btn-xs" type="button" onclick="addMatRow('+workId+')">+ Добавить материал</button>'
+    +'<button class="btn btn-o btn-xs" type="button" onclick="openMaterialPicker('+workId+')">Выбрать из каталога</button>'
+    +'</div></div>'
+    +(!mats.length?'<div class="added-materials-empty" data-mat-policy-box="'+workId+'">'+htmlEscape(alertText)+'</div>':'')
+    +'<div class="added-material-table-wrap"><table class="added-mat-table '+(!mats.length?'mat-empty-table':'')+'" id="mat-tbl-'+workId+'">'
+    +'<thead><tr>'
+    +'<th>№ ОЗМ</th>'
+    +'<th>Наименование</th>'
+    +'<th>Поставка</th>'
+    +'<th>Ед.изм.</th>'
+    +'<th>Норма расхода</th>'
+    +'<th>Количество</th>'
+    +'<th></th>'
     +'</tr></thead>'
     +'<tbody id="mat-rows-'+workId+'">';
   mats.forEach(function(m,i){html+=buildMatRow(workId,i,m,0);});
-  html+='</tbody></table>'
-    +'<div class="fc gap8" style="margin-top:5px;flex-wrap:wrap">'
-    +'<button class="btn btn-o btn-xs" style="font-size:10px" onclick="addMatRow('+workId+')">+ Строка вручную</button>'
-    +'<button class="btn btn-p btn-xs" style="font-size:10px" onclick="openMaterialPicker('+workId+')">Выбрать из каталога</button>'
-    +'</div></div>';
+  html+='</tbody></table></div></div>';
   return html;
 }
 
 function buildMatRow(workId,idx,mat,qty){
   var ozm=mat.ozm||'—';
-  var supplyOpts=['Заказчик','Подрядчик'].map(function(s){return '<option'+(mat.supply===s?' selected':'')+'>'+s+'</option>';}).join('');
-  var unitOpts=[mat.unit,'м²','м³','п.м.','шт','т','кг','л'].filter(function(u,i,a){return u&&a.indexOf(u)===i;}).map(function(u){return '<option'+(mat.unit===u?' selected':'')+'>'+u+'</option>';}).join('');
+  var supplyOpts=[
+    {value:'Подрядчик',label:'Подряд'},
+    {value:'Заказчик',label:'Склад'}
+  ].map(function(s){return '<option value="'+s.value+'"'+(mat.supply===s.value?' selected':'')+'>'+s.label+'</option>';}).join('');
   var ozmStyle=mat.supply==='Заказчик'?'style="border-color:var(--blue)"':'';
   var rowBg=mat.fromCatalog===false?'background:#FFFBEB':'background:#F0FDF4';
   var rowBorder=mat.fromCatalog===false?'border-left:3px solid #D97706':'border-left:3px solid #16A34A';
-  var srcTag=mat.fromCatalog===false
-    ?'<span style="font-size:9px;background:#FEF3C7;color:#92400E;padding:1px 4px;border-radius:4px;margin-left:3px">вручную</span>'
-    :'<span style="font-size:9px;background:#DCFCE7;color:#15803D;padding:1px 4px;border-radius:4px;margin-left:3px">каталог</span>';
-  return '<tr id="mat-row-'+workId+'-'+idx+'" style="border-bottom:1px solid #F3F4F6;'+rowBg+';'+rowBorder+'">'
-    +'<td style="padding:3px 4px"><input class="qty-i" style="width:80px;font-size:10px" value="'+ozm+'" '+ozmStyle+' placeholder="ОЗМ-XXXXX"/></td>'
-    +'<td style="padding:3px 4px"><div style="position:relative">'
-    +'<div class="fc gap8"><input class="fi mat-name-inp" style="width:150px;font-size:10px;padding:2px 6px" value="'+htmlEscape(mat.name)+'" placeholder="Материал..." autocomplete="off"/><button class="btn btn-o btn-xs" style="font-size:10px;padding:2px 6px" onclick="openMaterialPicker('+workId+','+idx+')">Выбрать</button></div>'+srcTag
+  var srcTag=mat.fromCatalog===false?'<span class="added-mat-source">вручную</span>':'';
+  return '<tr id="mat-row-'+workId+'-'+idx+'" style="'+rowBg+';'+rowBorder+'">'
+    +'<td><input class="qty-i added-mat-code" value="'+ozm+'" '+ozmStyle+' placeholder="ОЗМ-XXXXX"/></td>'
+    +'<td><div class="added-mat-name-cell">'
+    +'<input class="fi mat-name-inp added-mat-name-input" value="'+htmlEscape(mat.name)+'" placeholder="Материал..." autocomplete="off"/>'+srcTag
     +'<div class="mat-drop" id="mat-drop-'+workId+'-'+idx+'" style="display:none;position:absolute;top:100%;left:0;width:220px;background:#fff;border:1px solid var(--border);border-radius:6px;z-index:99;max-height:160px;overflow-y:auto;box-shadow:0 4px 12px rgba(0,0,0,.1)"></div></div></td>'
-    +'<td style="padding:3px 4px"><select class="fs" style="font-size:10px;padding:2px 5px" onchange="onSupplyChange(this,'+workId+','+idx+')">'+supplyOpts+'</select></td>'
-    +'<td style="padding:3px 4px;text-align:center"><div class="unit-pick unit-pick-sm"><select class="unit-s unit-s-sm" id="mat-unit-'+workId+'-'+idx+'" onchange="recalcMats('+workId+')">'+unitOpts+'</select></div></td>'
-    +'<td style="padding:3px 4px"><input class="qty-i" id="mat-norm-'+workId+'-'+idx+'" style="width:60px;font-size:10px" value="'+mat.norm+'" placeholder="0.0" oninput="recalcMats('+workId+')"/></td>'
-    +'<td style="padding:3px 4px;text-align:center"><span id="mat-qty-'+workId+'-'+idx+'" class="badge b-blue" style="font-size:10px">'+(qty||'—')+'</span></td>'
-    +'<td style="padding:3px 4px"><button class="btn btn-o btn-xs" style="color:var(--red);border-color:#FECACA;font-size:10px" onclick="removeMatRow(this,'+workId+')">x</button></td>'
+    +'<td><select class="fs added-mat-supply" onchange="onSupplyChange(this,'+workId+','+idx+')">'+supplyOpts+'</select></td>'
+    +'<td class="added-mat-unit-cell"><span class="mat-unit-read" id="mat-unit-'+workId+'-'+idx+'" data-value="'+htmlEscape(mat.unit||'шт')+'">'+htmlEscape(mat.unit||'шт')+'</span></td>'
+    +'<td><input class="qty-i added-mat-norm" id="mat-norm-'+workId+'-'+idx+'" value="'+mat.norm+'" placeholder="0" oninput="recalcMats('+workId+')"/></td>'
+    +'<td class="added-mat-qty-cell"><span id="mat-qty-'+workId+'-'+idx+'" class="added-mat-qty">'+(qty||'—')+'</span></td>'
+    +'<td><button class="btn btn-o btn-xs added-mat-remove" onclick="removeMatRow(this,'+workId+')">×</button></td>'
     +'</tr>';
 }
 function removeMatRow(btn,workId){
@@ -6804,6 +7140,8 @@ function removeMatRow(btn,workId){
   var tbl=document.getElementById('mat-tbl-'+workId);
   if(tbody&&tbl&&!tbody.querySelector('tr'))tbl.classList.add('mat-empty-table');
   recalcMats(workId);
+  refreshCompactMaterialPills(workId);
+  syncMaterialEmptyState(workId);
 }
 function togglePackageMaterial(workId,packageIdx,checked){
   var tbody=document.getElementById('mat-rows-'+workId);if(!tbody)return;
@@ -6815,6 +7153,8 @@ function togglePackageMaterial(workId,packageIdx,checked){
     if(existing)existing.remove();
     if(tbl&&!tbody.querySelector('tr'))tbl.classList.add('mat-empty-table');
     recalcMats(workId);
+    refreshCompactMaterialPills(workId);
+    syncMaterialEmptyState(workId);
     return;
   }
   if(existing)return;
@@ -6828,6 +7168,8 @@ function togglePackageMaterial(workId,packageIdx,checked){
   var req=document.querySelector('input[name="mat-policy-'+workId+'"][value="required"]');
   if(req)req.checked=true;
   recalcMats(workId);
+  refreshCompactMaterialPills(workId);
+  syncMaterialEmptyState(workId);
   processDVRowSignal(workId,'materials-package');
 }
 
@@ -6840,6 +7182,8 @@ function addMatRow(workId){
   tbody.appendChild(tmp.firstChild);
   var req=document.querySelector('input[name="mat-policy-'+workId+'"][value="required"]');
   if(req)req.checked=true;
+  refreshCompactMaterialPills(workId);
+  syncMaterialEmptyState(workId);
   return idx;
 }
 function getWorkMatPolicy(workId){
@@ -6852,18 +7196,21 @@ function onWorkMatPolicyChange(workId){
  processDVRowSignal(workId,'materials-policy');
 }
 
-var _matPickerWorkId=null,_matPickerIdx=null,_matPickerSource='manual',_matPickerSection='all',_matPickerCache=null,_matPickerTarget='work',_matPickerReturnModalId=null;
+var _matPickerWorkId=null,_matPickerIdx=null,_matPickerSource='ozm',_matPickerSection='all',_matPickerCache=null,_matPickerTarget='work',_matPickerReturnModalId=null,_matPickerSelected=[];
 function openMaterialPicker(workId,idx){
   _matPickerTarget='work';
   _matPickerReturnModalId=null;
   _matPickerWorkId=workId;
   var tbody=document.getElementById('mat-rows-'+workId);
   if(idx===undefined||idx===null){
-    idx=addMatRow(workId);
+    idx=null;
   }
   _matPickerIdx=idx;
+  _matPickerSelected=[];
   var q=document.getElementById('mp-search');if(q)q.value='';
-  setMaterialSource('ozm');
+  _matPickerSource='ozm';
+  _matPickerSection='all';
+  populateMaterialPickerFilters();
   renderMaterialPickerList();
   document.getElementById('material-picker-modal').classList.add('open');
 }
@@ -6872,14 +7219,13 @@ function openAdminMaterialPicker(){
   _matPickerReturnModalId='admin-edit-modal';
   _matPickerWorkId=null;
   _matPickerIdx=null;
+  _matPickerSelected=[];
   var q=document.getElementById('mp-search');if(q)q.value='';
-  setMaterialSource('ozm');
-  var manualTab=document.getElementById('mat-src-manual');
-  if(manualTab)manualTab.style.display='none';
-  var applyBtn=document.getElementById('mp-manual-apply');
-  if(applyBtn)applyBtn.style.display='none';
+  _matPickerSource='ozm';
+  _matPickerSection='all';
   var adminModal=document.getElementById('admin-edit-modal');
   if(adminModal)adminModal.classList.remove('open');
+  populateMaterialPickerFilters();
   renderMaterialPickerList();
   document.getElementById('material-picker-modal').classList.add('open');
 }
@@ -6891,10 +7237,6 @@ function closeMaterialPicker(){
   }
   _matPickerTarget='work';
   _matPickerReturnModalId=null;
-  var manualTab=document.getElementById('mat-src-manual');
-  if(manualTab)manualTab.style.display='';
-  var applyBtn=document.getElementById('mp-manual-apply');
-  if(applyBtn)applyBtn.style.display='';
 }
 function resetMaterialPickerCache(){
   _matPickerCache=null;
@@ -7015,28 +7357,103 @@ function highlightMaterialPickerSection(){
     if(idx===0)row.style.fontWeight='600';
   });
 }
+function populateMaterialPickerFilters(){
+  var cat=document.getElementById('mp-category-filter');
+  var unit=document.getElementById('mp-unit-filter');
+  var items=getMaterialPickerSourceItems();
+  if(cat){
+    var current=cat.value||'all';
+    var labels={};
+    items.forEach(function(i){labels[i.key]=i.sectionLabel||getMaterialSectionLabel(i.key);});
+    var keys=Object.keys(labels).sort(function(a,b){return labels[a].localeCompare(labels[b]);});
+    cat.innerHTML='<option value="all">Все категории</option>'+keys.map(function(k){return '<option value="'+htmlEscape(k)+'">'+htmlEscape(labels[k])+'</option>';}).join('');
+    cat.value=keys.indexOf(current)>=0?current:'all';
+  }
+  if(unit){
+    var curU=unit.value||'';
+    var units={};
+    items.forEach(function(i){if(i.unit)units[i.unit]=true;});
+    var uKeys=Object.keys(units).sort();
+    unit.innerHTML='<option value="">Все единицы</option>'+uKeys.map(function(u){return '<option>'+htmlEscape(u)+'</option>';}).join('');
+    unit.value=uKeys.indexOf(curU)>=0?curU:'';
+  }
+}
+function setMaterialPickerCategory(value){
+  _matPickerSection=value||'all';
+  renderMaterialPickerList();
+}
+function clearMaterialPickerFilters(){
+  var q=document.getElementById('mp-search');if(q)q.value='';
+  var c=document.getElementById('mp-category-filter');if(c)c.value='all';
+  var u=document.getElementById('mp-unit-filter');if(u)u.value='';
+  _matPickerSection='all';
+  renderMaterialPickerList();
+}
+function getMaterialKey(item){
+  return String(item&&((item.ozm||item.code||'')+'|'+(item.name||'')));
+}
+function isMaterialSelected(item){
+  var key=getMaterialKey(item);
+  return _matPickerSelected.some(function(x){return getMaterialKey(x)===key;});
+}
+function toggleMaterialSelection(key,checked){
+  var items=getMaterialPickerSourceItems();
+  var item=items.find(function(i){return getMaterialKey(i)===key;});
+  if(!item)return;
+  var exists=isMaterialSelected(item);
+  if(checked&&!exists)_matPickerSelected.push(item);
+  if(!checked&&exists)_matPickerSelected=_matPickerSelected.filter(function(x){return getMaterialKey(x)!==key;});
+  renderMaterialPickerSelected();
+  renderMaterialPickerList();
+}
+function clearMaterialPickerSelection(){
+  _matPickerSelected=[];
+  renderMaterialPickerSelected();
+  renderMaterialPickerList();
+}
+function removeMaterialPickerSelected(key){
+  _matPickerSelected=_matPickerSelected.filter(function(x){return getMaterialKey(x)!==key;});
+  renderMaterialPickerSelected();
+  renderMaterialPickerList();
+}
+function renderMaterialPickerSelected(){
+  var count=document.getElementById('mp-selected-count');
+  var pills=document.getElementById('mp-selected-pills');
+  var apply=document.getElementById('mp-apply-selected');
+  if(count)count.textContent='Выбрано: '+_matPickerSelected.length+' '+(_matPickerSelected.length===1?'материал':'материала');
+  if(apply){apply.textContent='Добавить выбранные ('+_matPickerSelected.length+')';apply.disabled=!_matPickerSelected.length;}
+  if(!pills)return;
+  pills.innerHTML=_matPickerSelected.length?_matPickerSelected.map(function(item){
+    var key=getMaterialKey(item);
+    return '<span class="matcat-pill">'+htmlEscape(item.name)+' <button type="button" onclick="removeMaterialPickerSelected(\''+htmlEscape(key).replace(/'/g,'&#39;')+'\')">×</button></span>';
+  }).join(''):'<span class="t-xs t3">Материалы не выбраны</span>';
+}
 function renderMaterialPickerList(){
   var box=document.getElementById('mp-results');if(!box)return;
   var q=((document.getElementById('mp-search')||{}).value||'').toLowerCase();
+  var unitFilter=((document.getElementById('mp-unit-filter')||{}).value||'');
   var items=getMaterialPickerSourceItems().filter(function(i){
     if(_matPickerSection!=='all'&&i.key!==_matPickerSection)return false;
-    return !q||i.name.toLowerCase().includes(q)||String(i.ozm||'').toLowerCase().includes(q);
+    if(unitFilter&&i.unit!==unitFilter)return false;
+    return !q||i.name.toLowerCase().includes(q)||String(i.ozm||'').toLowerCase().includes(q)||String(i.sectionLabel||'').toLowerCase().includes(q);
   });
-  if(!items.length){box.innerHTML='<div style="padding:18px;text-align:center;color:var(--t3)">Материал не найден. Можно внести вручную.</div>';return;}
-  box.innerHTML='';
+  var found=document.getElementById('mp-found-count');
+  if(found)found.textContent='Найдено: '+items.length+' материалов';
+  renderMaterialPickerSelected();
+  if(!items.length){box.innerHTML='<div style="padding:28px;text-align:center;color:var(--t3)">Материал не найден.</div>';return;}
   var shown=items.slice(0,200);
-  var info=document.createElement('div');
-  info.style.cssText='padding:8px 12px;background:#F9FAFB;border-bottom:1px solid var(--border);font-size:12px;color:var(--t3)';
-  info.textContent='Найдено: '+items.length+'. Показаны первые '+shown.length+' — уточните поиск, чтобы быстрее выбрать нужный материал.';
-  box.appendChild(info);
-  shown.forEach(function(item){
-    var row=document.createElement('div');
-    row.style.cssText='display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid #F3F4F6;cursor:pointer';
-    row.innerHTML='<div><div style="font-size:13px;font-weight:600">'+htmlEscape(item.name)+'</div><div style="font-size:11px;color:var(--t3);font-family:monospace">'+htmlEscape(item.ozm)+' · '+htmlEscape(item.unit)+' · '+htmlEscape(item.source)+'</div></div><button class="btn btn-p btn-xs">Выбрать</button>';
-    row.onclick=function(){applyMaterialPickerItem(item);};
-    row.querySelector('button').onclick=function(e){e.stopPropagation();applyMaterialPickerItem(item);};
-    box.appendChild(row);
-  });
+  box.innerHTML='<table class="matcat-table"><thead><tr><th><input class="matcat-check" type="checkbox" onchange="toggleVisibleMaterialSelection(this.checked)"></th><th>Наименование</th><th>Ед. изм.</th><th>Категория</th><th>Код</th></tr></thead><tbody>'
+    +shown.map(function(item){
+      var key=getMaterialKey(item);
+      var checked=isMaterialSelected(item)?' checked':'';
+      return '<tr onclick="toggleMaterialRowClick(event,\''+htmlEscape(key).replace(/'/g,'&#39;')+'\')">'
+        +'<td><input class="matcat-check" type="checkbox" data-mat-key="'+htmlEscape(key)+'"'+checked+' onchange="toggleMaterialSelection(this.getAttribute(\'data-mat-key\'),this.checked);event.stopPropagation()"></td>'
+        +'<td><div class="matcat-material-name">'+htmlEscape(item.name)+'</div></td>'
+        +'<td>'+htmlEscape(item.unit||'—')+'</td>'
+        +'<td>'+htmlEscape(item.sectionLabel||'—')+'</td>'
+        +'<td class="mono">'+htmlEscape(item.ozm||'—')+'</td>'
+        +'</tr>';
+    }).join('')+'</tbody></table>';
 }
 function applyMaterialPickerManual(){
   if(_matPickerSource!=='manual')return;
@@ -7049,7 +7466,71 @@ function applyMaterialPickerManual(){
     fromCatalog:false
   });
 }
+function toggleMaterialRowClick(event,key){
+  if(event&&event.target&&event.target.tagName==='INPUT')return;
+  var checkbox=null;
+  document.querySelectorAll('#mp-results input[data-mat-key]').forEach(function(chk){
+    if(chk.getAttribute('data-mat-key')===key)checkbox=chk;
+  });
+  if(!checkbox)return;
+  checkbox.checked=!checkbox.checked;
+  toggleMaterialSelection(key,checkbox.checked);
+}
+function toggleVisibleMaterialSelection(checked){
+  document.querySelectorAll('#mp-results input[data-mat-key]').forEach(function(chk){
+    var key=chk.getAttribute('data-mat-key');
+    chk.checked=checked;
+    var items=getMaterialPickerSourceItems();
+    var item=items.find(function(i){return getMaterialKey(i)===key;});
+    if(!item)return;
+    var exists=isMaterialSelected(item);
+    if(checked&&!exists)_matPickerSelected.push(item);
+    if(!checked&&exists)_matPickerSelected=_matPickerSelected.filter(function(x){return getMaterialKey(x)!==key;});
+  });
+  renderMaterialPickerSelected();
+  renderMaterialPickerList();
+}
+function insertMaterialIntoWorkRow(workId,idx,item){
+  var row=document.getElementById('mat-row-'+workId+'-'+idx);
+  if(!row)return;
+  var nameInp=row.querySelector('.mat-name-inp');if(nameInp)nameInp.value=item.name||'';
+  var codeInp=row.querySelector('input[placeholder="ОЗМ-XXXXX"]');if(codeInp)codeInp.value=item.ozm||item.code||'—';
+  var unitSel=document.getElementById('mat-unit-'+workId+'-'+idx);
+  setMaterialUnitDisplay(unitSel,item.unit||'шт');
+  row.style.background=item.fromCatalog===false?'#FFFBEB':'#F0FDF4';
+  row.style.borderLeft=item.fromCatalog===false?'3px solid #D97706':'3px solid #16A34A';
+  syncMaterialEmptyState(workId);
+}
+function applySelectedMaterials(){
+  if(!_matPickerSelected.length){showToast('Выберите материалы', 'error');return;}
+  if(_matPickerTarget==='admin'){
+    _matPickerSelected.forEach(function(item){
+      if(!ADMIN_SELECTED_MATERIALS.some(function(x){return String(x.ozm||x.name||'')===String(item.ozm||item.name||'');})){
+        ADMIN_SELECTED_MATERIALS.push({name:item.name||'',ozm:item.ozm||item.code||'—',norm:0,unit:item.unit||'шт',supply:'Заказчик',fromCatalog:item.fromCatalog!==false});
+      }
+    });
+    renderAdminPickedMaterials();
+    closeMaterialPicker();
+    return;
+  }
+  var workId=_matPickerWorkId;
+  if(!workId)return;
+  _matPickerSelected.forEach(function(item,i){
+    var idx=(i===0&&_matPickerIdx!==null&&_matPickerIdx!==undefined)?_matPickerIdx:addMatRow(workId);
+    insertMaterialIntoWorkRow(workId,idx,item);
+  });
+  var req=document.querySelector('input[name="mat-policy-'+workId+'"][value="required"]');
+  if(req)req.checked=true;
+  recalcMats(workId);
+  refreshCompactMaterialPills(workId);
+  syncMaterialEmptyState(workId);
+  processDVRowSignal(workId,'materials-catalog');
+  closeMaterialPicker();
+}
 function applyMaterialPickerItem(item){
+  _matPickerSelected=[item];
+  applySelectedMaterials();
+  return;
   if(_matPickerTarget==='admin'){
     var exists=ADMIN_SELECTED_MATERIALS.some(function(x){
       return String(x.ozm||x.name||'')===String(item.ozm||item.name||'');
@@ -7073,7 +7554,7 @@ function applyMaterialPickerItem(item){
   var nameInp=row.querySelector('.mat-name-inp');if(nameInp)nameInp.value=item.name||'';
   var codeInp=row.querySelector('input[placeholder="ОЗМ-XXXXX"]');if(codeInp)codeInp.value=item.ozm||item.code||'—';
   var unitSel=document.getElementById('mat-unit-'+_matPickerWorkId+'-'+_matPickerIdx);
-  setSelectValueWithOption(unitSel,item.unit||'шт');
+  setMaterialUnitDisplay(unitSel,item.unit||'шт');
   row.style.background=item.fromCatalog===false?'#FFFBEB':'#F0FDF4';
   row.style.borderLeft=item.fromCatalog===false?'3px solid #D97706':'3px solid #16A34A';
   recalcMats(_matPickerWorkId);
@@ -7112,6 +7593,7 @@ function recalcMats(workId){
     var ui=row.querySelector('[id^="mat-unit-"]');var unit=ui?(ui.value||ui.textContent):'';
     qi.textContent=total>0?(Math.round(total*1000)/1000)+' '+unit:'—';
   });
+  refreshCompactMaterialPills(workId);
 }
 
 function recalcWeight(workId){
@@ -7404,19 +7886,78 @@ function renderDVRowSignalStatus(workId){
   status.setAttribute('data-ai-coef','');
  }
  var simple=getSimpleCAStatus(s);
- status.innerHTML='<div class="simple-ca-status">'
-  +'<div class="simple-status-head"><span class="badge '+simple.badge+'">'+simple.label+'</span></div>'
-  +(s.missing.length?'<div class="simple-ca-note">Уточнить: '+htmlEscape(s.missing.slice(0,2).join(', '))+'</div>':'<div class="simple-ca-note">'+htmlEscape(simple.note)+'</div>')
-  +(s.best&&!s.best.missing?'<div class="simple-ca-rate"><span class="mono">'+htmlEscape(s.best.code)+'</span> · '+htmlEscape(s.best.name)+'</div>':'')
-  +'<div class="simple-ca-actions"><button class="btn btn-o btn-xs" onclick="toggleDVRowCard('+workId+')">Подробнее</button></div>'
-  +'</div>';
+ var shortLabel=s.missing.length?((s.missing.join(' ').indexOf('объем')>-1)?'Не заполнен объем':'Нужны данные'):(s.statusKey==='approved'?'Готово':s.template?'Шаблон':'Данные заполнены');
+ var shortCls=s.missing.length?'b-amber':(s.statusKey==='approved'||s.statusKey==='matched'?'b-green':simple.badge);
+ status.innerHTML='<div class="simple-ca-status"><span class="badge '+shortCls+'">'+htmlEscape(shortLabel)+'</span></div>';
 }
 function processDVRowSignal(workId,source){
  ensureDVRowSignal(workId,source);
  renderDVRowSignalStatus(workId);
  logDVRowChanges(workId,source);
  refreshOpenDVRowCard(workId);
- renderFairPanel();
+  renderFairPanel();
+}
+
+function toggleAddedEdit(workId,btn){
+ var el=document.getElementById('work-name-'+workId);
+ var tr=el&&el.closest?el.closest('tr'):null;
+ if(!tr)return;
+ tr.classList.toggle('added-editing');
+ if(btn)btn.textContent=tr.classList.contains('added-editing')?'✓':'✎';
+ if(tr.classList.contains('added-editing')&&el){el.focus();if(el.select)el.select();}
+ else updateAddedSummary(workId);
+}
+function toggleAddedWorkDetails(workId,btn){
+ var tr=(document.getElementById('work-name-'+workId)||{}).closest?document.getElementById('work-name-'+workId).closest('tr'):null;
+ if(!tr)return;
+ tr.classList.toggle('added-expanded');
+ if(btn)btn.textContent=tr.classList.contains('added-expanded')?'⌃':'⌄';
+}
+function updateAddedSummary(workId){
+ var name=((document.getElementById('work-name-'+workId)||{}).value||'').trim();
+ var unit=((document.getElementById('unit-'+workId)||{}).value||'').trim();
+ var qty=((document.getElementById('ca-q-'+workId)||{}).value||'').trim();
+ var title=document.getElementById('added-title-'+workId);if(title)title.textContent=name||'Позиция ДВ';
+ var u=document.getElementById('added-unit-'+workId);if(u)u.textContent=unit||'—';
+ var q=document.getElementById('added-qty-'+workId);if(q)q.textContent=qty||'0';
+ refreshAddedParamChips(workId);
+ refreshCompactMaterialPills(workId);
+}
+function formatPositionCount(n){
+ n=Number(n)||0;
+ var mod10=n%10,mod100=n%100;
+ var word=(mod10===1&&mod100!==11)?'позиция':(mod10>=2&&mod10<=4&&(mod100<12||mod100>14)?'позиции':'позиций');
+ return n+' '+word;
+}
+function updateWorksAddedCount(){
+ var text=formatPositionCount(worksAdded.length);
+ var top=document.getElementById('works-cnt');if(top)top.textContent=text;
+ var bottom=document.getElementById('works-total-bottom');if(bottom)bottom.textContent='Всего позиций: '+worksAdded.length;
+}
+function getAddedWorkSubtitle(w){
+ if(!w)return 'Категория работ';
+ var params=(w.templateFields||w.requiredParams||[]).slice(0,2).map(function(f){return f.label||f.key;}).filter(Boolean);
+ if(params.length)return params.join(', ');
+ var desc=String(w.desc||'').replace(/^Наша типовая работа раздела\s+["«]?(.+?)["»]?\s+для быстрого выбора в ДВ\.?$/i,'$1').trim();
+ return desc||'Категория работ';
+}
+function buildAddedParamChips(workId,w){
+ var fields=(w&&w.templateFields||w&&w.requiredParams||[]).slice(0,4);
+ if(!fields.length)return '';
+ return '<div class="added-param-chips" id="added-param-chips-'+workId+'">'+fields.map(function(f){
+   var key=htmlEscape(f.key||normalizeWorkText(f.label||'param').replace(/\s+/g,'_'));
+   var val='';
+   var inp=findTemplateParamInput(workId,key);
+   if(inp)val=(inp.value||'').trim();
+   var label=f.label||f.key||'Параметр';
+   var missing=!val&&getFieldImportance(f)==='required';
+   return '<span class="added-param-chip '+(missing?'warn':(val?'ok':''))+'" data-param-chip="'+workId+'-'+key+'">'+htmlEscape(label)+': '+htmlEscape(val||'не заполнено')+'</span>';
+ }).join('')+'</div>';
+}
+function refreshAddedParamChips(workId){
+ var w=WORKS_DB.find(function(x){return x.id===workId;});
+ var box=document.getElementById('added-param-chips-'+workId);
+ if(box&&w)box.outerHTML=buildAddedParamChips(workId,w);
 }
 
 document.addEventListener('click',function(e){
@@ -7458,7 +7999,7 @@ function addWorkFromCatalog(w,card,btn){
 
  document.getElementById('works-empty').style.display='none';
  document.getElementById('works-wrap').style.display='block';
- document.getElementById('works-cnt').textContent=worksAdded.length+' позиций';
+ updateWorksAddedCount();
 
  var tbody=document.getElementById('works-tbody');
  var tr=document.createElement('tr');
@@ -7478,7 +8019,7 @@ function addWorkFromCatalog(w,card,btn){
 
  var unitOpts='<option>'+w.unit+'</option><option>м²</option><option>м³</option><option>п.м.</option><option>шт</option><option>т</option><option>кг</option>';
   var templateHtml='';
-  if(w.isTemplate){
+ if(w.isTemplate){
     templateHtml='<div class="tpl-panel">'
      +'<div class="tpl-panel-h"><div class="tpl-panel-t">Параметры</div><span class="badge b-blue" style="font-size:10px">Шаблон</span></div>'
      +'<div class="tpl-panel-b"><div class="tpl-fields">';
@@ -7487,18 +8028,19 @@ function addWorkFromCatalog(w,card,btn){
    });
    templateHtml+='</div></div></div>';
  }
- tr.innerHTML='<td>'+(worksAdded.length)+'</td>'
-  +'<td><div class="work-title-cell">'+(w.isTemplate?'<span class="badge b-blue" style="font-size:10px">Шаблон</span>':w.isUser?'<span class="user-tag">Наша</span>':'')
- +'<input class="fi" id="work-name-'+w.id+'" value="'+htmlEscape(w.name)+'" style="font-size:12px;padding:5px 7px;min-width:240px" oninput="updateWorkAiStatus('+w.id+',\''+htmlEscape(w.name).replace(/'/g,'\\&#39;')+'\')"/>'
- +templateHtml+'</div></td>'
- +'<td><div class="unit-pick"><select class="unit-s" id="unit-'+w.id+'" onchange="recalcMats('+w.id+');recalcWeight('+w.id+')">'+unitOpts+'</select></div></td>'
- +'<td><input class="qty-i" id="ca-q-'+w.id+'" placeholder="0" oninput="recalcMats('+w.id+');recalcWeight('+w.id+')" style="width:65px"/></td>'
+ var paramChips=buildAddedParamChips(w.id,w);
+  tr.innerHTML='<td>'+(worksAdded.length)+'</td>'
+  +'<td><div class="added-work-main"><div class="fc gap8">'+(w.isTemplate?'<span class="badge b-blue added-work-type">Шаблон</span>':w.isUser?'<span class="badge b-blue added-work-type">Наша работа</span>':'')
+ +'<span class="added-title-display" id="added-title-'+w.id+'">'+htmlEscape(w.name)+'</span><input class="fi added-work-name added-edit-control" id="work-name-'+w.id+'" value="'+htmlEscape(w.name)+'" oninput="updateAddedSummary('+w.id+');updateWorkAiStatus('+w.id+',\''+htmlEscape(w.name).replace(/'/g,'\\&#39;')+'\')"/></div>'+paramChips
+  +templateHtml+'</div></td>'
+ +'<td><div class="added-metric"><b class="added-read-value" id="added-unit-'+w.id+'">'+htmlEscape(w.unit||'—')+'</b><div class="unit-pick added-edit-control"><select class="unit-s" id="unit-'+w.id+'" onchange="updateAddedSummary('+w.id+');recalcMats('+w.id+');recalcWeight('+w.id+')">'+unitOpts+'</select></div></div></td>'
+ +'<td><div class="added-metric"><b class="added-read-value" id="added-qty-'+w.id+'">0</b><input class="qty-i added-edit-control" id="ca-q-'+w.id+'" placeholder="0" oninput="updateAddedSummary('+w.id+');recalcMats('+w.id+');recalcWeight('+w.id+')" style="width:86px"/></div></td>'
  +'<td><input class="qty-i" id="wt-unit-'+w.id+'" style="width:70px" placeholder="0" oninput="recalcWeight('+w.id+')"/></td>'
  +'<td><span id="wt-total-'+w.id+'" class="badge b-gray" style="font-size:11px">—</span></td>'
  +'<td id="mats-td-'+w.id+'">'+matsHtml+'</td>'
  +'<td><input class="fi" style="width:140px;font-size:11px;padding:3px 7px" placeholder="Условия производства работ / примечание"/></td>'
- +'<td id="ca-b-'+w.id+'"><span class="badge b-amber">ЦА думает...</span></td>'
- +'<td><button class="btn btn-o btn-xs" style="color:var(--red);border-color:#FECACA" onclick="var r=this.closest(\'tr\');var n=r?r.nextElementSibling:null;if(n&&n.classList.contains(\'dv-row-detail\'))n.remove();if(r)r.remove();workCount--;renderFairPanel();">x</button></td>';
+ +'<td id="ca-b-'+w.id+'"><span class="badge b-amber">Проверить</span></td>'
+ +'<td><div class="added-card-row-actions"><button class="btn btn-o added-icon-btn" type="button" title="Изменить" onclick="toggleAddedEdit('+w.id+',this)">✎</button><button class="btn btn-o added-icon-btn" type="button" title="Удалить" style="color:var(--red);border-color:#FECACA" onclick="removeWorkRow(this,'+w.id+')">⌫</button></div></td>';
   tbody.appendChild(tr);
   processDVRowSignal(w.id,'row-added');
 
@@ -7534,6 +8076,7 @@ function onTemplateFieldChange(workId){
   var nameInp=document.getElementById('work-name-'+workId);
   if(nameInp)nameInp.value=fillTemplateName(w.name,getTemplateFieldValues(workId));
   updateWorkAiStatus(workId,w.name);
+  refreshAddedParamChips(workId);
   if(workId===201){
     var vals=getTemplateFieldValues(workId);
     var thickness=parseFloat(vals.thickness)||0;
@@ -7608,6 +8151,37 @@ function getCAPlanFromSearchQuery(q){
  var qv=extractCAQtyUnit(q,work.unit);
  return {work:work,segment:q,qty:qv.qty,unit:qv.unit||work.unit,confidence:'Средняя',missing:[],catalogSource:'Каталог работ ДВ',rateSource:'Внутренний подбор ЦА'};
 }
+function getCAPlansFromSearchQuery(q){
+ var plans=buildCAPreparedCatalogPlan(q).slice(0,6);
+ var seen={};
+ plans.forEach(function(p){if(p&&p.work)seen[p.work.id]=true;});
+ var smart=getSmartSearchWorks(q)
+   .filter(function(w){return isWorkAvailable(w);})
+   .map(function(w){return {w:w,score:scoreWorkSearch(w,q)+(w.isUser?8:18)};})
+   .filter(function(x){return x.score>0;})
+   .sort(function(a,b){return b.score-a.score;});
+ smart.forEach(function(x){
+   if(plans.length>=6)return;
+   if(!x.w||seen[x.w.id])return;
+   seen[x.w.id]=true;
+   var qv=extractCAQtyUnit(q,x.w.unit);
+   plans.push({
+     work:x.w,
+     segment:q,
+     qty:qv.qty,
+     unit:qv.unit||x.w.unit,
+     confidence:x.score>80?'Высокая':(x.score>45?'Средняя':'Низкая'),
+     missing:[],
+     catalogSource:'ЦА',
+     rateSource:'Скрытая нормативная база'
+   });
+ });
+ if(!plans.length){
+   var fallback=getCAPlanFromSearchQuery(q);
+   if(fallback)plans.push(fallback);
+ }
+ return plans.slice(0,6);
+}
 function humanizeCARecommendation(p,sourceText){
  var s=normalizeWorkText(sourceText||'');
  if(/труб|трубопровод/.test(s)){
@@ -7620,9 +8194,10 @@ function humanizeCARecommendation(p,sourceText){
  if(/клад|кирпич|стен/.test(s))return 'Кладка стен';
  return p&&p.work?p.work.name:'Позиция ДВ';
 }
-function renderCARecommendationRow(drop,q,plan){
- caSearchRecommendations=[plan];
+function renderCARecommendationRow(drop,q,plan,index){
+ caSearchRecommendations[index]=plan;
  var title=humanizeCARecommendation(plan,q);
+ if(plan&&plan.work&&plan.work.name&&title==='Позиция ДВ')title=plan.work.name;
  plan.displayName=title;
  var params=[];
  if(plan.qty&&plan.qty!=='—')params.push('объем '+plan.qty+' '+(plan.unit||plan.work.unit||''));
@@ -7634,10 +8209,10 @@ function renderCARecommendationRow(drop,q,plan){
  var item=document.createElement('div');
  item.style.cssText='padding:12px 14px;border-bottom:1px solid var(--border);background:#F8FBFF';
  item.innerHTML='<div style="display:flex;align-items:flex-start;gap:12px;justify-content:space-between">'
-  +'<div style="min-width:0"><div style="font-size:10px;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:.35px;margin-bottom:5px">ЦА подобрал позицию</div>'
+  +'<div style="min-width:0"><div style="font-size:10px;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:.35px;margin-bottom:5px">Вариант ЦА '+(index+1)+'</div>'
   +'<div style="font-size:13px;font-weight:800;color:var(--text);line-height:1.35">'+htmlEscape(title)+'</div>'
-  +'<div style="font-size:11px;color:var(--t3);line-height:1.45;margin-top:4px">Понял: '+htmlEscape(params.join(' · ')||q)+'. Материалы не выбираются автоматически.</div></div>'
-  +'<div class="fc gap8"><button class="btn btn-p btn-sm" onclick="chooseCASearchRecommendation(0)">Добавить позицию</button><button class="btn btn-o btn-sm" onclick="toggleManual()">Изменить вручную</button></div>'
+  +'<div style="font-size:11px;color:var(--t3);line-height:1.45;margin-top:4px">'+htmlEscape((params.join(' · ')||'Похоже по описанию')+' · '+(plan.confidence||'Средняя')+' уверенность')+'</div></div>'
+  +'<div class="fc gap8"><button class="btn btn-p btn-sm" onclick="chooseCASearchRecommendation('+index+')">Добавить</button></div>'
   +'</div>';
  drop.appendChild(item);
 }
@@ -7652,24 +8227,19 @@ function chooseCASearchRecommendation(index){
 function doGlobalSearchNow(q){
  var drop=document.getElementById('global-sdrop');if(!q.trim()){drop.style.display='none';return;}
  if(normalizeWorkText(q).length<2){drop.style.display='none';return;}
- var all=getSmartSearchWorks(q);
- var userF=all.filter(function(w){return w.isUser;});
- var plan=getCAPlanFromSearchQuery(q);
- var sorted=userF;
+ var plans=getCAPlansFromSearchQuery(q);
  drop.style.display='block';drop.innerHTML='';
- if(plan)renderCARecommendationRow(drop,q,plan);
- if(!sorted.length&&!plan){drop.innerHTML='<div style="padding:12px 14px;font-size:12px;color:var(--t3)">Похожих позиций не найдено — <button class="btn btn-o btn-xs" onclick="toggleManual()">введите вручную</button></div>';return;}
- var shownDvSep=false;
- sorted.slice(0,12).forEach(function(w,i){
- if(w.isUser&&!shownDvSep){shownDvSep=true;var s1=document.createElement('div');s1.style.cssText='padding:4px 12px;font-size:10px;font-weight:700;color:var(--purple);background:var(--purple-l);text-transform:uppercase;letter-spacing:.4px;border-top:1px solid var(--border)';s1.textContent=' Наши работы ДВ';drop.appendChild(s1);}
-  var item=document.createElement('div');
-  item.style.cssText='display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--border);cursor:pointer'+(w.isUser?';background:var(--purple-l)':'');
-  item.onmouseenter=function(){this.style.background=w.isUser?'#EDE9FE':'#F0F9FF';};item.onmouseleave=function(){this.style.background=w.isUser?'var(--purple-l)':'';};
-  item.innerHTML='<div style="flex:1;font-size:13px">'+(w.isTemplate?'<span class="badge b-blue" style="font-size:10px;margin-right:4px">Шаблон</span>':'<span class="user-tag" style="margin-right:4px">Наша ДВ</span>')+htmlEscape(w.name)+' <span style="color:var(--t3);font-size:11px">· '+htmlEscape(w.unit)+'</span></div><button class="btn btn-p btn-sm">+ Добавить</button>';
- item.querySelector('button').onclick=function(e){e.stopPropagation();addWorkFromCatalog(w,null,null);document.getElementById('cat-search').value='';drop.style.display='none';};
- item.onclick=function(){addWorkFromCatalog(w,null,null);document.getElementById('cat-search').value='';drop.style.display='none';};
-  drop.appendChild(item);
-  });
+ if(!plans.length){drop.innerHTML='<div style="padding:12px 14px;font-size:12px;color:var(--t3)">ЦА не нашел похожих вариантов — <button class="btn btn-o btn-xs" onclick="toggleManual()">ввести вручную</button></div>';return;}
+ var head=document.createElement('div');
+ head.style.cssText='padding:9px 14px;font-size:11px;color:var(--t3);background:#F8FAFC;border-bottom:1px solid var(--border)';
+ head.innerHTML='<strong style="color:var(--blue)">ЦА подобрал похожие варианты</strong><br>Нормативная база используется внутри ЦА и не показывается заявителю.';
+ drop.appendChild(head);
+ caSearchRecommendations=[];
+ plans.forEach(function(plan,i){renderCARecommendationRow(drop,q,plan,i);});
+ var foot=document.createElement('div');
+ foot.style.cssText='padding:10px 14px;background:#fff';
+ foot.innerHTML='<button class="btn btn-o btn-sm" onclick="toggleManual()">Ввести вручную</button>';
+ drop.appendChild(foot);
 }
 
 // РУЧНОЙ ВВОД 
@@ -7687,7 +8257,7 @@ function addManual(){
  worksAdded.push(manualId);workCount++;
  document.getElementById('works-empty').style.display='none';
  document.getElementById('works-wrap').style.display='block';
- document.getElementById('works-cnt').textContent=worksAdded.length+' позиций';
+ updateWorksAddedCount();
   var tbody=document.getElementById('works-tbody');
   var tr=document.createElement('tr');
   tr.setAttribute('data-manual-work','true');
@@ -7706,17 +8276,16 @@ function addManual(){
  var matsHtml=buildMatsTable(manualId,unit,mats);
  var unitOpts='<option>'+unit+'</option><option>м²</option><option>м³</option><option>п.м.</option><option>шт</option><option>т</option><option>кг</option>';
   tr.innerHTML='<td>'+workCount+'</td>'
-  +'<td><span class="badge b-amber" style="font-size:9px">ручной ввод</span><input class="fi" id="work-name-'+manualId+'" value="'+htmlEscape(name)+'" style="font-size:12px;padding:5px 7px;min-width:240px;margin-top:5px" oninput="updateWorkAiStatus('+manualId+',\''+htmlEscape(name).replace(/'/g,'\\&#39;')+'\')"/>'
-  +(closest&&closest.score>=50?'<div class="t-xs t3 mt8">Похоже: '+htmlEscape(closest.work.name)+' · '+closest.score+'%</div>':'')
-  +(policy==='none'?'<div class="t-xs" style="color:var(--green);margin-top:6px">Материалы не нужны</div>':'<div class="t-xs" style="color:var(--amber);margin-top:6px">Добавьте материалы</div>')+'</td>'
- +'<td><div class="unit-pick"><select class="unit-s" id="unit-'+manualId+'" onchange="recalcMats('+manualId+');recalcWeight('+manualId+')">'+unitOpts+'</select></div></td>'
- +'<td><input class="qty-i" id="ca-q-'+manualId+'" value="'+htmlEscape(qty)+'" placeholder="0" oninput="recalcMats('+manualId+');recalcWeight('+manualId+')" style="width:65px"/></td>'
+  +'<td><div class="added-work-main"><div class="fc gap8"><span class="badge b-amber">Ручной ввод</span><span class="added-title-display" id="added-title-'+manualId+'">'+htmlEscape(name)+'</span><input class="fi added-work-name added-edit-control" id="work-name-'+manualId+'" value="'+htmlEscape(name)+'" oninput="updateAddedSummary('+manualId+');updateWorkAiStatus('+manualId+',\''+htmlEscape(name).replace(/'/g,'\\&#39;')+'\')"/></div>'
+  +'<div class="added-work-sub">'+(closest&&closest.score>=50?'Похоже: '+htmlEscape(closest.work.name)+' · '+closest.score+'%':(policy==='none'?'Материалы не требуются':'Материалы нужно добавить'))+'</div></div></td>'
+ +'<td><div class="added-metric"><b class="added-read-value" id="added-unit-'+manualId+'">'+htmlEscape(unit||'—')+'</b><div class="unit-pick added-edit-control"><select class="unit-s" id="unit-'+manualId+'" onchange="updateAddedSummary('+manualId+');recalcMats('+manualId+');recalcWeight('+manualId+')">'+unitOpts+'</select></div></div></td>'
+ +'<td><div class="added-metric"><b class="added-read-value" id="added-qty-'+manualId+'">'+htmlEscape(qty||'0')+'</b><input class="qty-i added-edit-control" id="ca-q-'+manualId+'" value="'+htmlEscape(qty)+'" placeholder="0" oninput="updateAddedSummary('+manualId+');recalcMats('+manualId+');recalcWeight('+manualId+')" style="width:86px"/></div></td>'
  +'<td><input class="qty-i" id="wt-unit-'+manualId+'" style="width:70px" placeholder="0" oninput="recalcWeight('+manualId+')"/></td>'
  +'<td><span id="wt-total-'+manualId+'" class="badge b-gray" style="font-size:11px">—</span></td>'
  +'<td id="mats-td-'+manualId+'">'+matsHtml+'</td>'
  +'<td><input class="fi" style="width:140px;font-size:11px;padding:3px 7px" placeholder="Условия"/></td>'
- +'<td id="ca-b-'+manualId+'"><span class="badge b-amber">ЦА проверяет...</span></td>'
-  +'<td><button class="btn btn-o btn-xs" style="color:var(--red);border-color:#FECACA" onclick="removeWorkRow(this,'+manualId+')">x</button></td>';
+ +'<td id="ca-b-'+manualId+'"><span class="badge b-amber">Проверить</span></td>'
+  +'<td><div class="added-card-row-actions"><button class="btn btn-o added-icon-btn" type="button" title="Изменить" onclick="toggleAddedEdit('+manualId+',this)">✎</button><button class="btn btn-o added-icon-btn" type="button" title="Удалить" style="color:var(--red);border-color:#FECACA" onclick="removeWorkRow(this,'+manualId+')">⌫</button></div></td>';
  tbody.appendChild(tr);
  processDVRowSignal(manualId,'manual-row-added');
  recalcMats(manualId);
@@ -7782,7 +8351,7 @@ function removeWorkRow(btn,workId){
  if(tr)tr.remove();
  worksAdded=worksAdded.filter(function(id){return id!==workId;});
  workCount=Math.max(0,workCount-1);
- var cnt=document.getElementById('works-cnt');if(cnt)cnt.textContent=worksAdded.length+' позиций';
+ updateWorksAddedCount();
  if(!worksAdded.length){
    var empty=document.getElementById('works-empty');if(empty)empty.style.display='block';
    var wrap=document.getElementById('works-wrap');if(wrap)wrap.style.display='none';
@@ -9043,20 +9612,20 @@ function restoreWorksRows(dvId){
    var tr=document.createElement('tr');
    tr.setAttribute('data-restored-dv-work','true');
    tr.innerHTML='<td>'+(i+1)+'</td>'
-    +'<td><input class="fi" id="work-name-'+id+'" value="'+htmlEscape(it.name||'')+'" style="font-size:12px;padding:5px 7px;min-width:240px" oninput="updateWorkAiStatus('+id+',this.value)"/></td>'
-    +'<td><div class="unit-pick"><select class="unit-s" id="unit-'+id+'" onchange="recalcMats('+id+');recalcWeight('+id+')">'+unitOpts+'</select></div></td>'
-    +'<td><input class="qty-i" id="ca-q-'+id+'" value="'+htmlEscape(it.qty||'')+'" style="width:65px" oninput="recalcMats('+id+');recalcWeight('+id+')"/></td>'
+    +'<td><div class="added-work-main"><div class="fc gap8"><span class="badge b-blue">Сохранено</span><span class="added-title-display" id="added-title-'+id+'">'+htmlEscape(it.name||'')+'</span><input class="fi added-work-name added-edit-control" id="work-name-'+id+'" value="'+htmlEscape(it.name||'')+'" oninput="updateAddedSummary('+id+');updateWorkAiStatus('+id+',this.value)"/></div><div class="added-work-sub">'+htmlEscape(it.note||'Позиция из сохраненной ДВ')+'</div></div></td>'
+    +'<td><div class="added-metric"><b class="added-read-value" id="added-unit-'+id+'">'+htmlEscape(unit||'—')+'</b><div class="unit-pick added-edit-control"><select class="unit-s" id="unit-'+id+'" onchange="updateAddedSummary('+id+');recalcMats('+id+');recalcWeight('+id+')">'+unitOpts+'</select></div></div></td>'
+    +'<td><div class="added-metric"><b class="added-read-value" id="added-qty-'+id+'">'+htmlEscape(it.qty||'0')+'</b><input class="qty-i added-edit-control" id="ca-q-'+id+'" value="'+htmlEscape(it.qty||'')+'" style="width:86px" oninput="updateAddedSummary('+id+');recalcMats('+id+');recalcWeight('+id+')"/></div></td>'
     +'<td><input class="qty-i" id="wt-unit-'+id+'" style="width:70px" placeholder="0" oninput="recalcWeight('+id+')"/></td>'
     +'<td><span id="wt-total-'+id+'" class="badge b-gray" style="font-size:11px">—</span></td>'
     +'<td id="mats-td-'+id+'">'+matsHtml+'</td>'
     +'<td><input class="fi" value="'+htmlEscape(it.note||'')+'" style="width:140px;font-size:11px;padding:3px 7px" placeholder="Условия / примечание"/></td>'
-    +'<td id="ca-b-'+id+'"><span class="badge b-blue">Сохранено</span></td>'
-    +'<td><button class="btn btn-o btn-xs" style="color:var(--red);border-color:#FECACA" onclick="var r=this.closest(\'tr\');var n=r?r.nextElementSibling:null;if(n&&n.classList.contains(\'dv-row-detail\'))n.remove();if(r)r.remove();workCount--;renderFairPanel();">x</button></td>';
+    +'<td id="ca-b-'+id+'"><span class="badge b-green">Готово</span></td>'
+    +'<td><div class="added-card-row-actions"><button class="btn btn-o added-icon-btn" type="button" title="Изменить" onclick="toggleAddedEdit('+id+',this)">✎</button><button class="btn btn-o added-icon-btn" type="button" title="Удалить" style="color:var(--red);border-color:#FECACA" onclick="removeWorkRow(this,'+id+')">⌫</button></div></td>';
    tbody.appendChild(tr);
    recalcMats(id);
    processDVRowSignal(id,'restore');
  });
- var cnt=document.getElementById('works-cnt');if(cnt)cnt.textContent=worksAdded.length+' позиций';
+ updateWorksAddedCount();
  return true;
 }
 
