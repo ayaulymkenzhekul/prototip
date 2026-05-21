@@ -3349,6 +3349,63 @@ var currentRouteDV=null;
 var inboxFilter='all';
 var currentSideDVId=null,currentSideStage=null,currentSideTab='info';
 var defectCAChatLog=[],defectCADraft=null,caDocZoom='100';
+function getAssistantProxyUrl(){
+ var configured=(window.CA_PROXY_URL||'');
+ try{configured=configured||localStorage.getItem('CA_PROXY_URL')||'';}catch(e){}
+ if(configured)return configured;
+ if(location.protocol==='file:')return 'http://127.0.0.1:3001/api/defect-assistant';
+ return '/api/defect-assistant';
+}
+function extractAssistantText(value){
+ if(value===null||value===undefined)return '';
+ if(typeof value==='string')return value;
+ if(Array.isArray(value)){
+   for(var i=0;i<value.length;i++){var arrText=extractAssistantText(value[i]);if(arrText)return arrText;}
+   return '';
+ }
+ if(typeof value==='object'){
+   var preferred=['answer','message','content','text','result','response','output'];
+   for(var p=0;p<preferred.length;p++){
+     var key=preferred[p];
+     if(value[key]){
+       var found=extractAssistantText(value[key]);
+       if(found)return found;
+     }
+   }
+   if(value.data){
+     var nested=extractAssistantText(value.data);
+     if(nested)return nested;
+   }
+ }
+ return '';
+}
+async function askAssistantProxy(message,options){
+ var controller=new AbortController();
+ var timer=setTimeout(function(){controller.abort();},(options&&options.timeout)||25000);
+ try{
+   var res=await fetch(getAssistantProxyUrl(),{
+     method:'POST',
+     headers:{'accept':'application/json','Content-Type':'application/json'},
+     body:JSON.stringify({
+       assistantId:6500,
+       message:message,
+       utcOffset:0,
+       agentMode:false,
+       contextId:0,
+       useInternet:false,
+       problemRouter:false
+     }),
+     signal:controller.signal
+   });
+   var payload=await res.json().catch(function(){return null;});
+   if(!res.ok||!payload||payload.ok===false)throw new Error((payload&&payload.error)||('ЦА API '+res.status));
+   return {ok:true,text:extractAssistantText(payload),payload:payload};
+ }catch(err){
+   return {ok:false,error:err&&err.message?err.message:'ЦА API недоступен'};
+ }finally{
+   clearTimeout(timer);
+ }
+}
 var activeCatalogTab='pending',expandedAdminWorkId=null,adminInnerTabs={},adminFilterState={q:'',f:'',p:'',s:'default'};
 var activeCatSection=null,activeCatSectionIds=null,activeCatTab='user',openNodes={};
 var currentLeftTab='works'; // 'works' or 'mats'
@@ -3730,7 +3787,7 @@ function buildDefectCADraft(text){
  var note='Все работы выполнять с соблюдением требований техники безопасности и охраны труда. Доступ к объекту согласовать с ответственным лицом участка за 24 часа. Материалы с неуказанными параметрами требуют проверки перед отправкой.';
  return {num:num,obj:objTitle+', основной участок',area:area,date:today,ent:'АО «Промышленное предприятие»',cur:currentUser&&USERS[currentUser]?USERS[currentUser].name:'Иванова С.М.',appr:'Петров А.В.',department:'Служба главного механика',status:'created',cnt:items.length,items:items,materials:mats,note:note,sourceText:text};
 }
-function sendDefectCAMessage(){
+async function sendDefectCAMessage(){
  var input=document.getElementById('defect-ca-input');
  if(!input)return;
  var text=input.value.trim();
@@ -3738,17 +3795,29 @@ function sendDefectCAMessage(){
  defectCAChatLog.push({role:'user',text:text});
  addMemoryEvent('user_text',{text:text,source:'ca-defect-chat'});
  input.value='';
+ defectCAChatLog.push({role:'ai',text:'Подключаю ЦА и анализирую описание...'});
+ renderDefectCAChat();
+ var apiResult=await askAssistantProxy(text,{timeout:30000});
+ if(defectCAChatLog.length&&defectCAChatLog[defectCAChatLog.length-1].text==='Подключаю ЦА и анализирую описание...')defectCAChatLog.pop();
  if(!defectCADraft){
    defectCADraft=buildDefectCADraft(text);
    step1Cache={num:defectCADraft.num,obj:defectCADraft.obj,date:new Date().toISOString().split('T')[0],year:'2026',ent:defectCADraft.ent,cur:defectCADraft.cur,appr:defectCADraft.appr,note:defectCADraft.note};
    currentDVId=defectCADraft.num;
    caPreparedSourceText=text;
-   defectCAChatLog.push({role:'ai',text:'Я приняла описание и собрала черновик ДВ: '+defectCADraft.num+'. Нашла '+defectCADraft.items.length+' позиций работ и '+defectCADraft.materials.length+' материалов. Требуют проверки: материал для герметизации и объем строительного мусора.'});
+   var apiText=apiResult.ok?String(apiResult.text||'').trim():'';
+   if(apiText){
+     defectCAChatLog.push({role:'ai',text:apiText});
+   } else {
+     defectCAChatLog.push({role:'ai',text:'Я приняла описание и собрала черновик ДВ: '+defectCADraft.num+'. Нашла '+defectCADraft.items.length+' позиций работ и '+defectCADraft.materials.length+' материалов. Требуют проверки: материал для герметизации и объем строительного мусора.'});
+     if(!apiResult.ok)defectCAChatLog.push({role:'ai',text:'Внешний ЦА сейчас недоступен, поэтому использую локальный режим прототипа. Документ можно проверить и отправить дальше.'});
+   }
    defectCAChatLog.push({role:'ai',text:'Можете уточнить данные здесь или открыть готовый документ для проверки и отправки на согласование.',ready:true});
    addMemoryEvent('ca_answer',{text:'ЦА подготовил черновик ДВ '+defectCADraft.num,source:'ca-defect-chat'});
  } else {
    defectCADraft.note+=' Уточнение пользователя: '+text;
-   defectCAChatLog.push({role:'ai',text:'Уточнение приняла и добавила в примечания ДВ. Предпросмотр документа обновлен.'});
+   var clarificationText=apiResult.ok?String(apiResult.text||'').trim():'';
+   defectCAChatLog.push({role:'ai',text:clarificationText||'Уточнение приняла и добавила в примечания ДВ. Предпросмотр документа обновлен.'});
+   if(!apiResult.ok)defectCAChatLog.push({role:'ai',text:'Внешний ЦА недоступен, уточнение сохранено локально.'});
    addMemoryEvent('user_clarification',{text:text,source:'ca-defect-chat'});
  }
  renderDefectCAChat();

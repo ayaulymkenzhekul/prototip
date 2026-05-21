@@ -1,0 +1,13 @@
+{
+  "name": "defect-registry-prototype",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Single-file defect registry prototype with AI assistant proxy",
+  "scripts": {
+    "start": "node api/server.js",
+    "proxy": "node api/server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
