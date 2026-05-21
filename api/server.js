@@ -8,7 +8,14 @@ const ASSISTANT_ID = Number(process.env.CA_ASSISTANT_ID || 6500);
 const AUTH_TOKEN = process.env.CA_AUTH_TOKEN || '';
 const AUTH_HEADER = process.env.CA_AUTH_HEADER || 'Authorization';
 const AUTH_SCHEME = process.env.CA_AUTH_SCHEME || 'Bearer';
+const COOKIE_HEADER = process.env.CA_COOKIE || '';
+const ORIGIN_HEADER = process.env.CA_ORIGIN || 'https://ai-test.erg.kz';
+const REFERER_HEADER = process.env.CA_REFERER || 'https://ai-test.erg.kz/api/assistant-core/swagger/index.html';
 const ROOT = path.resolve(__dirname, '..');
+
+if (process.env.CA_INSECURE_TLS === '1') {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+}
 
 const mimeTypes = {
   '.html': 'text/html; charset=utf-8',
@@ -59,6 +66,30 @@ function safeStaticPath(urlPath) {
   return full;
 }
 
+function getAuthHeaderValue() {
+  if (!AUTH_TOKEN) return '';
+  const trimmed = String(AUTH_TOKEN).trim();
+  if (!AUTH_SCHEME) return trimmed;
+  if (/^(Bearer|Basic)\s+/i.test(trimmed)) return trimmed;
+  return `${AUTH_SCHEME} ${trimmed}`;
+}
+
+function getProxyStatus() {
+  return {
+    ok: true,
+    upstreamUrl: UPSTREAM_URL,
+    assistantId: ASSISTANT_ID,
+    hasCookie: Boolean(COOKIE_HEADER),
+    cookieLength: COOKIE_HEADER.length,
+    hasAuth: Boolean(AUTH_TOKEN),
+    authHeader: AUTH_HEADER,
+    authScheme: AUTH_SCHEME,
+    authLength: AUTH_TOKEN.length,
+    origin: ORIGIN_HEADER,
+    referer: REFERER_HEADER
+  };
+}
+
 async function handleAssistant(req, res) {
   try {
     const raw = await readBody(req);
@@ -81,10 +112,16 @@ async function handleAssistant(req, res) {
 
     const upstreamHeaders = {
       accept: 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      origin: ORIGIN_HEADER,
+      referer: REFERER_HEADER
     };
-    if (AUTH_TOKEN) {
-      upstreamHeaders[AUTH_HEADER] = AUTH_SCHEME ? `${AUTH_SCHEME} ${AUTH_TOKEN}` : AUTH_TOKEN;
+    const authValue = getAuthHeaderValue();
+    if (authValue) {
+      upstreamHeaders[AUTH_HEADER] = authValue;
+    }
+    if (COOKIE_HEADER) {
+      upstreamHeaders.Cookie = COOKIE_HEADER;
     }
 
     const upstreamResponse = await fetch(UPSTREAM_URL, {
@@ -107,10 +144,11 @@ async function handleAssistant(req, res) {
       data
     });
   } catch (error) {
+    const cause = error && error.cause && error.cause.message ? error.cause.message : undefined;
     sendJson(res, 502, {
       ok: false,
-      error: error && error.message ? error.message : 'Assistant proxy error',
-      cause: error && error.cause && error.cause.message ? error.cause.message : undefined
+      error: cause ? `${error && error.message ? error.message : 'Assistant proxy error'}: ${cause}` : (error && error.message ? error.message : 'Assistant proxy error'),
+      cause
     });
   }
 }
@@ -134,6 +172,10 @@ function handleStatic(req, res) {
 const server = http.createServer((req, res) => {
   if (req.method === 'OPTIONS') {
     send(res, 204, '');
+    return;
+  }
+  if (req.url && req.url.startsWith('/api/assistant-status')) {
+    sendJson(res, 200, getProxyStatus());
     return;
   }
   if (req.url && req.url.startsWith('/api/defect-assistant')) {

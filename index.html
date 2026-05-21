@@ -3398,7 +3398,7 @@ async function askAssistantProxy(message,options){
      signal:controller.signal
    });
    var payload=await res.json().catch(function(){return null;});
-   if(!res.ok||!payload||payload.ok===false)throw new Error((payload&&payload.error)||('ЦА API '+res.status));
+   if(!res.ok||!payload||payload.ok===false)throw new Error((payload&&payload.error)||((payload&&payload.cause)||('ЦА API '+res.status)));
    return {ok:true,text:extractAssistantText(payload),payload:payload};
  }catch(err){
    return {ok:false,error:err&&err.message?err.message:'ЦА API недоступен'};
@@ -3775,6 +3775,22 @@ function buildDefectCADraft(text){
      {n:7,name:'Монтаж плинтуса по периметру комнаты',unit:'м.п.',qty:'—',note:'Уточнить периметр'}
    ];
  }
+ if(/душ|сануз|сантех|труб|унитаз|раковин|смесител|канализац|водоснаб/i.test(text)){
+   obj={label:'Душевая комната'};
+   area='Санитарно-бытовой участок';
+   items=[
+     {n:1,name:'Демонтаж существующих санитарно-технических приборов',unit:'компл',qty:'1',note:'Унитаз, раковина, смесители и комплектующие'},
+     {n:2,name:'Демонтаж существующих трубопроводов водоснабжения',unit:'м.п.',qty:'—',note:'Уточнить протяженность труб'},
+     {n:3,name:'Демонтаж существующих трубопроводов канализации',unit:'м.п.',qty:'—',note:'Уточнить протяженность и диаметр'},
+     {n:4,name:'Прокладка трубопроводов холодного и горячего водоснабжения',unit:'м.п.',qty:'—',note:'Материал и диаметр уточнить'},
+     {n:5,name:'Прокладка трубопроводов канализации',unit:'м.п.',qty:'—',note:'ПВХ/ПП трубы, диаметр уточнить'},
+     {n:6,name:'Установка унитаза с подключением',unit:'шт',qty:'1',note:'Комплект крепления и гибкая подводка'},
+     {n:7,name:'Установка раковины с подключением',unit:'шт',qty:'1',note:'Сифон, смеситель, гибкая подводка'},
+     {n:8,name:'Установка запорной арматуры',unit:'шт',qty:'—',note:'Количество вентилей уточнить'},
+     {n:9,name:'Герметизация примыканий санитарных приборов',unit:'м.п.',qty:'—',note:'Санитарный герметик'},
+     {n:10,name:'Пусконаладка и проверка герметичности соединений',unit:'компл',qty:'1',note:'Проверка протечек после монтажа'}
+   ];
+ }
  var mats=[
    {n:1,name:'Праймер битумный',unit:'кг',qty:'145',supply:'Подрядчик',link:'№3'},
    {n:2,name:'Техноэласт ЭПП 4,0 мм',unit:'м²',qty:'1067',supply:'Подрядчик',link:'№4, №5'},
@@ -3783,6 +3799,20 @@ function buildDefectCADraft(text){
    {n:5,name:'Пленка полиэтиленовая 150 мкм',unit:'м²',qty:'140',supply:'Подрядчик',link:'№9'},
    {n:6,name:'Тент ПВХ усиленный',unit:'м²',qty:'55',supply:'Подрядчик',link:'№11'}
  ];
+ if(/душ|сануз|сантех|труб|унитаз|раковин|смесител|канализац|водоснаб/i.test(text)){
+   mats=[
+     {n:1,name:'Труба водоснабжения полипропиленовая',unit:'м.п.',qty:'по факту',supply:'Подрядчик',link:'№4'},
+     {n:2,name:'Фитинги и соединительные элементы для водоснабжения',unit:'компл',qty:'1',supply:'Подрядчик',link:'№4'},
+     {n:3,name:'Труба канализационная ПВХ',unit:'м.п.',qty:'по факту',supply:'Подрядчик',link:'№5'},
+     {n:4,name:'Фитинги канализационные ПВХ',unit:'компл',qty:'1',supply:'Подрядчик',link:'№5'},
+     {n:5,name:'Унитаз напольный в комплекте',unit:'шт',qty:'1',supply:'Заказчик',link:'№6'},
+     {n:6,name:'Раковина с комплектом крепления',unit:'шт',qty:'1',supply:'Заказчик',link:'№7'},
+     {n:7,name:'Смеситель для раковины',unit:'шт',qty:'1',supply:'Заказчик',link:'№7'},
+     {n:8,name:'Сифон для раковины',unit:'шт',qty:'1',supply:'Подрядчик',link:'№7'},
+     {n:9,name:'Запорная арматура',unit:'шт',qty:'по факту',supply:'Подрядчик',link:'№8'},
+     {n:10,name:'Герметик санитарный',unit:'туба',qty:'2',supply:'Подрядчик',link:'№9'}
+   ];
+ }
  var objTitle=obj.label||'Склад УСХ';
  var note='Все работы выполнять с соблюдением требований техники безопасности и охраны труда. Доступ к объекту согласовать с ответственным лицом участка за 24 часа. Материалы с неуказанными параметрами требуют проверки перед отправкой.';
  return {num:num,obj:objTitle+', основной участок',area:area,date:today,ent:'АО «Промышленное предприятие»',cur:currentUser&&USERS[currentUser]?USERS[currentUser].name:'Иванова С.М.',appr:'Петров А.В.',department:'Служба главного механика',status:'created',cnt:items.length,items:items,materials:mats,note:note,sourceText:text};
@@ -3797,9 +3827,18 @@ async function sendDefectCAMessage(){
  input.value='';
  defectCAChatLog.push({role:'ai',text:'Подключаю ЦА и анализирую описание...'});
  renderDefectCAChat();
- var apiResult=await askAssistantProxy(text,{timeout:30000});
+ var apiResult=await askAssistantProxy(text,{timeout:90000});
  if(defectCAChatLog.length&&defectCAChatLog[defectCAChatLog.length-1].text==='Подключаю ЦА и анализирую описание...')defectCAChatLog.pop();
- if(!defectCADraft){
+ var hasDraftSignal=hasMeaningfulWorkSignal(text)||/(сгенерируй|создай|оформи|дв|дефект|ведомост|замен|ремонт|требует|поврежд|протеч|сантехник|труб|унитаз|раковин)/i.test(text);
+ var shouldRebuildDraft=defectCADraft&&hasDraftSignal&&!hasMeaningfulWorkSignal(defectCADraft.sourceText||'');
+ if(!defectCADraft&&!hasDraftSignal){
+   var greetingText=apiResult.ok?String(apiResult.text||'').trim():'';
+   defectCAChatLog.push({role:'ai',text:greetingText||'Опишите объект, участок, дефект, что нужно сделать и примерный объем. После этого я соберу черновик ДВ.'});
+   if(!apiResult.ok)defectCAChatLog.push({role:'ai',text:'Внешний ЦА недоступен ('+(apiResult.error||'ошибка запроса')+'), но чат готов принять описание дефекта.'});
+   renderDefectCAChat();
+   return;
+ }
+ if(!defectCADraft||shouldRebuildDraft){
    defectCADraft=buildDefectCADraft(text);
    step1Cache={num:defectCADraft.num,obj:defectCADraft.obj,date:new Date().toISOString().split('T')[0],year:'2026',ent:defectCADraft.ent,cur:defectCADraft.cur,appr:defectCADraft.appr,note:defectCADraft.note};
    currentDVId=defectCADraft.num;
@@ -3809,7 +3848,7 @@ async function sendDefectCAMessage(){
      defectCAChatLog.push({role:'ai',text:apiText});
    } else {
      defectCAChatLog.push({role:'ai',text:'Я приняла описание и собрала черновик ДВ: '+defectCADraft.num+'. Нашла '+defectCADraft.items.length+' позиций работ и '+defectCADraft.materials.length+' материалов. Требуют проверки: материал для герметизации и объем строительного мусора.'});
-     if(!apiResult.ok)defectCAChatLog.push({role:'ai',text:'Внешний ЦА сейчас недоступен, поэтому использую локальный режим прототипа. Документ можно проверить и отправить дальше.'});
+     if(!apiResult.ok)defectCAChatLog.push({role:'ai',text:'Внешний ЦА сейчас недоступен ('+(apiResult.error||'ошибка запроса')+'), поэтому использую локальный режим прототипа. Документ можно проверить и отправить дальше.'});
    }
    defectCAChatLog.push({role:'ai',text:'Можете уточнить данные здесь или открыть готовый документ для проверки и отправки на согласование.',ready:true});
    addMemoryEvent('ca_answer',{text:'ЦА подготовил черновик ДВ '+defectCADraft.num,source:'ca-defect-chat'});
@@ -3817,7 +3856,7 @@ async function sendDefectCAMessage(){
    defectCADraft.note+=' Уточнение пользователя: '+text;
    var clarificationText=apiResult.ok?String(apiResult.text||'').trim():'';
    defectCAChatLog.push({role:'ai',text:clarificationText||'Уточнение приняла и добавила в примечания ДВ. Предпросмотр документа обновлен.'});
-   if(!apiResult.ok)defectCAChatLog.push({role:'ai',text:'Внешний ЦА недоступен, уточнение сохранено локально.'});
+   if(!apiResult.ok)defectCAChatLog.push({role:'ai',text:'Внешний ЦА недоступен ('+(apiResult.error||'ошибка запроса')+'), уточнение сохранено локально.'});
    addMemoryEvent('user_clarification',{text:text,source:'ca-defect-chat'});
  }
  renderDefectCAChat();
