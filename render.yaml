@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: defect-assistant-proxy
+    env: node
+    plan: free
+    buildCommand: ""
+    startCommand: "npm start"
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: CA_UPSTREAM_URL
+        value: https://ai-test.erg.kz/api/assistant-core/chats/ask-assistant
+      - key: CA_ASSISTANT_ID
+        value: 6500
+      - key: CA_ORIGIN
+        value: https://ai-test.erg.kz
+      - key: CA_REFERER
+        value: https://ai-test.erg.kz/api/assistant-core/swagger/index.html
+      - key: CA_ALLOWED_ORIGINS
+        value: https://ayaulymkenzhekul.github.io,http://127.0.0.1:3001,http://localhost:3001
+      - key: CA_COOKIE
+        sync: false
+      - key: CA_AUTH_TOKEN
+        sync: false

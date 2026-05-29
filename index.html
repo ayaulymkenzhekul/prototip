@@ -965,7 +965,7 @@ body.ui-night .added-mat-qty{background:rgba(91,124,250,.16);color:#AFC0FF}
 .defect-chat-messages{display:flex;flex-direction:column;gap:12px;max-width:980px;margin:0 auto;padding:0 0 22px}
 .defect-msg{display:flex;gap:10px;align-items:flex-start}
 .defect-msg.user{justify-content:flex-end}
-.defect-bubble{max-width:min(720px,78%);border:1px solid var(--border);border-radius:16px;padding:12px 14px;background:#fff;color:var(--text);font-size:14px;line-height:1.5;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+.defect-bubble{max-width:min(720px,78%);border:1px solid var(--border);border-radius:16px;padding:12px 14px;background:#fff;color:var(--text);font-size:14px;line-height:1.5;box-shadow:0 1px 2px rgba(15,23,42,.04);white-space:pre-line}
 .defect-msg.user .defect-bubble{background:#EEF4FF;border-color:#C7D7FE}
 .defect-bubble-k{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--t3);font-weight:800;margin-bottom:5px}
 .defect-quick{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
@@ -3351,7 +3351,15 @@ var currentSideDVId=null,currentSideStage=null,currentSideTab='info';
 var defectCAChatLog=[],defectCADraft=null,caDocZoom='100';
 function getAssistantProxyUrl(){
  var configured=(window.CA_PROXY_URL||'');
- try{configured=configured||localStorage.getItem('CA_PROXY_URL')||'';}catch(e){}
+ try{
+   var params=new URLSearchParams(location.search||'');
+   var fromQuery=params.get('ca_proxy')||params.get('CA_PROXY_URL')||'';
+   if(fromQuery){
+     localStorage.setItem('CA_PROXY_URL',fromQuery);
+     configured=configured||fromQuery;
+   }
+   configured=configured||localStorage.getItem('CA_PROXY_URL')||'';
+ }catch(e){}
  if(configured)return configured;
  if(location.protocol==='file:')return 'http://127.0.0.1:3001/api/defect-assistant';
  return '/api/defect-assistant';
@@ -3378,6 +3386,81 @@ function extractAssistantText(value){
    }
  }
  return '';
+}
+function cleanDefectCAReply(text){
+ var s=String(text||'').replace(/\\n/g,'\n').replace(/\r/g,'').trim();
+ if(!s)return '';
+ var cutMarkers=['works_44','materials_2025','RESURS','SWORK','RSIZE','[{','{"CDE"',',"NKZ"',',"RES"'];
+ var cutAt=-1;
+ for(var i=0;i<cutMarkers.length;i++){
+   var idx=s.indexOf(cutMarkers[i]);
+   if(idx>=0&&(cutAt<0||idx<cutAt))cutAt=idx;
+ }
+ if(cutAt>0)s=s.slice(0,cutAt).trim();
+ s=s.replace(/\s*\|\s*$/,'');
+ s=s.replace(/\n{3,}/g,'\n\n');
+ s=s.replace(/\s+(Что заполнено:)/g,'\n$1');
+ s=s.replace(/\s+(Что нужно уточнить:)/g,'\n$1');
+ s=s.replace(/\s+(Предложенные работы:)/g,'\n$1');
+ s=s.replace(/\s+(Возможные материалы:)/g,'\n$1');
+ s=s.replace(/\s+(Следующее действие:)/g,'\n$1');
+ if(s.length>900)s=s.slice(0,900).replace(/\s+\S*$/,'')+'...';
+ return s;
+}
+function formatRealCAReply(text){
+ var s=String(text||'').replace(/\\n/g,'\n').replace(/\r/g,'').trim();
+ if(!s)return '';
+ var technicalMarkers=[
+   'Точные позиции',
+   'Близкие, но менее подходящие позиции',
+   'works_44',
+   'materials_2025',
+   'ТРВОК',
+   'OBOSNOV',
+   'RESURS',
+   'SWORK',
+   'RSIZE',
+   '[{',
+   '{"CDE"',
+   ',"NRU"',
+   ',"RES"'
+ ];
+ var cutAt=-1;
+ for(var i=0;i<technicalMarkers.length;i++){
+   var idx=s.indexOf(technicalMarkers[i]);
+   if(idx>=0&&(cutAt<0||idx<cutAt))cutAt=idx;
+ }
+ if(cutAt>0){
+   s=s.slice(0,cutAt).trim();
+   s+='\n\nПодбор позиций РСНБ получен от ЦА. Технические таблицы скрыты из чата, чтобы не перегружать интерфейс.';
+ }
+ s=s.replace(/\n{3,}/g,'\n\n');
+ s=s.replace(/\s+(Что понял:)/g,'\n$1');
+ s=s.replace(/\s+(Что заполнено:)/g,'\n$1');
+ s=s.replace(/\s+(Что нужно уточнить:)/g,'\n$1');
+ s=s.replace(/\s+(Предложенные работы:)/g,'\n$1');
+ s=s.replace(/\s+(Возможные материалы:)/g,'\n$1');
+ s=s.replace(/\s+(Следующее действие:)/g,'\n$1');
+ if(s.length>1300)s=s.slice(0,1300).replace(/\s+\S*$/,'')+'...';
+ return s;
+}
+function getDraftSummaryText(){
+ if(!defectCADraft)return '';
+ var checks=[];
+ var missingQty=defectCADraft.items.filter(function(x){return !x.qty||x.qty==='—';}).length;
+ var missingMat=defectCADraft.items.filter(function(x){return /материал|уточнить|не указан/i.test(x.note||'');}).length;
+ if(missingMat)checks.push('материалы/параметры');
+ if(missingQty)checks.push('объемы');
+ var reviewText=checks.length?'Требуют проверки: '+checks.join(', ')+'.':'Критичных уточнений не найдено.';
+ return 'Я приняла описание и собрала черновик ДВ: '+defectCADraft.num+'.\n'+
+   'Найдено: '+defectCADraft.items.length+' позиций работ и '+defectCADraft.materials.length+' материалов.\n'+
+   reviewText;
+}
+function isNewDefectDescription(text){
+ var s=String(text||'');
+ if(!hasMeaningfulWorkSignal(s))return false;
+ if(s.length<35)return false;
+ return /(создай|сгенерируй|оформи|дв|дефект|нужно|требует|поврежд|просел|просад|разобрать|замен|ремонт|восстанов|улож|устроить|выполнить)/i.test(s);
 }
 async function askAssistantProxy(message,options){
  var controller=new AbortController();
@@ -3625,6 +3708,103 @@ function cloneDvWorkSections(){
  return DV_WORK_SECTIONS.map(function(s){return Object.assign({},s,{sections:s.sections.slice()});});
 }
 var WORK_SECTIONS=cloneDvWorkSections();
+var GROUPS_TREE=[],GROUPS_LOADED=false,GROUPS_LOADING=false,openGroupNodes={};
+
+function normalizeGroupRow(row){
+ var id=String(row.id||row.OBOSNOV||row.obosnov||'').trim();
+ var parentRaw=row.parentId||row.PARENT||row.parent||'';
+ var parentId=String(parentRaw||'').trim();
+ if(parentId.toUpperCase()==='NULL')parentId='';
+ return {
+   id:id,
+   nameRu:String(row.nameRu||row.RU||row.ru||id).trim(),
+   nameKz:String(row.nameKz||row.KZ||row.kz||'').trim(),
+   level:Number(row.level||row.LEVEL||0),
+   parentId:parentId||null,
+   children:[]
+ };
+}
+function buildGroupsTreeClient(rows){
+ var normalized=(rows||[]).map(normalizeGroupRow).filter(function(g){return g.id&&(g.level===1||g.level===2);});
+ var byId={},roots=[];
+ normalized.forEach(function(g){byId[g.id]=Object.assign({},g,{children:[]});});
+ normalized.forEach(function(g){
+   var item=byId[g.id],parent=g.parentId?byId[g.parentId]:null;
+   if(parent&&item.level>parent.level)parent.children.push(item);else roots.push(item);
+ });
+ function sort(list){list.sort(function(a,b){return String(a.id).localeCompare(String(b.id),'ru');});list.forEach(function(x){sort(x.children||[]);});}
+ sort(roots);
+ return roots;
+}
+function loadGroupsCatalog(){
+ if(GROUPS_LOADED||GROUPS_LOADING)return;
+ GROUPS_LOADING=true;
+ fetch('/api/groups').then(function(r){
+   if(!r.ok)throw new Error('api groups '+r.status);
+   return r.json();
+ }).catch(function(){
+   return fetch('data/groups.json').then(function(r){return r.json();}).then(function(rows){
+     return {ok:true,groups:buildGroupsTreeClient(Array.isArray(rows)?rows:(rows.groups||[]))};
+   });
+ }).then(function(data){
+   GROUPS_TREE=(data&&Array.isArray(data.groups))?data.groups:[];
+   GROUPS_LOADED=true;
+   GROUPS_LOADING=false;
+   renderWorksSections();
+ }).catch(function(err){
+   console.warn('GROUPS не загружен, оставлен старый каталог',err);
+   GROUPS_TREE=[];
+   GROUPS_LOADED=true;
+   GROUPS_LOADING=false;
+   renderWorksSections();
+ });
+}
+function getGroupSectionIds(group){
+ if(!group||!group.id)return [];
+ if(Number(group.level)===2)return [String(group.id)];
+ var prefix=String(group.id).split('-')[0];
+ var matched=[];
+ (DV_WORK_SECTIONS||[]).forEach(function(sec){
+   var code=String(sec.code||'');
+   var ids=sec.sections||[];
+   if(code.indexOf(prefix)!==-1||ids.indexOf(prefix)!==-1||ids.some(function(id){return String(id).indexOf(prefix)===0;})){
+     matched=matched.concat(ids);
+   }
+ });
+ if(!matched.length)matched=[prefix];
+ return Array.from(new Set(matched));
+}
+function renderGroupWorkSections(wrap){
+ wrap.innerHTML='';
+ function drawNode(group,depth){
+   var sectionIds=getGroupSectionIds(group);
+   var hasChildren=group.children&&group.children.length;
+   var exactWorkCnt=WORKS_DB.filter(function(w){return isWorkAvailable(w)&&sectionIds.indexOf(w.section)>=0;}).length;
+   var countText=hasChildren?String(group.children.length):(exactWorkCnt?String(exactWorkCnt):'');
+   var isOpen=!!openGroupNodes[group.id];
+   var isActive=activeCatSection===group.id;
+   var div=document.createElement('div');
+   div.className='section-item'+(isActive?' active':'');
+   div.style.cssText='display:grid;grid-template-columns:18px minmax(0,1fr) auto;align-items:center;gap:8px;padding:10px 14px;cursor:pointer;font-size:13px;color:'+(isActive?'var(--blue)':'var(--t2)')+';border-left:3px solid '+(isActive?'var(--blue)':'transparent')+';background:'+(isActive?'var(--blue-l)':'transparent')+';font-weight:'+(isActive?'650':'500')+';transition:all .15s';
+   div.innerHTML='<span style="color:var(--t3);font-size:11px">'+(hasChildren?(isOpen?'▾':'▸'):'')+'</span><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+group.nameRu+'">'+group.nameRu+'</span><span style="font-size:12px;color:var(--t3);font-weight:500">'+countText+'</span>';
+   div.onmouseenter=function(){if(!isActive)div.style.background='#F9FAFB';};
+   div.onmouseleave=function(){if(!isActive)div.style.background='transparent';};
+   div.onclick=function(e){
+     e.stopPropagation();
+     if(hasChildren)openGroupNodes[group.id]=!openGroupNodes[group.id];
+     activeCatSection=group.id;
+     activeCatSectionIds=sectionIds;
+     showWorksPanel();
+     loadSectionWorksByIds(sectionIds,group.nameRu);
+     renderWorksSections();
+   };
+   wrap.appendChild(div);
+   if(hasChildren&&isOpen){
+     (group.children||[]).forEach(function(child){drawNode(child,depth+1);});
+   }
+ }
+ GROUPS_TREE.forEach(function(group){drawNode(group,0);});
+}
 
 function switchLeftTab(tab){
   currentLeftTab=tab;
@@ -3706,6 +3886,7 @@ function inferObjectFromCARequest(text){
  if(/котельн/.test(s))return {id:'aok-kotel',label:'Котельная'};
  if(/гараж/.test(s))return {id:'aok-garazh',label:'Гараж'};
  if(/насосн/.test(s))return {id:'dgok-nasosn',label:'Насосная станция'};
+ if(/комнат|помещен|кабинет/.test(s))return {id:'room',label:'Комната'};
  return null;
 }
 
@@ -3750,6 +3931,9 @@ function buildDefectCADraft(text){
  var num=makeDVNumber();
  var today=new Date().toLocaleDateString('ru-RU');
  var area=inferAreaFromCARequest(text);
+ var isFloorScreed=/стяжк|цементно|цементн|песчан.*стяж|грунтовк|основан/i.test(text)&&/пол|стяжк|основан|м2|м²/i.test(text);
+ var isPaving=/тротуар|плитк|брусчат|песчан|просел|просад|основан|уплотнен|уплотн|склад/i.test(text)&&/плитк|брусчат|тротуар/i.test(text);
+ var isRoomWindowFloor=/комнат|помещен|кабинет/i.test(text)&&/окн|окон|пол|напольн|покрыт|линолеум|ламинат|плитк/i.test(text)&&!/душ|сануз|сантех|унитаз|раковин/i.test(text);
  var items=[
    {n:1,name:'Демонтаж рулонного покрытия кровли',unit:'м²',qty:'485',note:'Старое покрытие удалить до основания'},
    {n:2,name:'Очистка основания от мусора и пыли',unit:'м²',qty:'485',note:'Перед устройством нового покрытия'},
@@ -3791,6 +3975,57 @@ function buildDefectCADraft(text){
      {n:10,name:'Пусконаладка и проверка герметичности соединений',unit:'компл',qty:'1',note:'Проверка протечек после монтажа'}
    ];
  }
+ if(isRoomWindowFloor){
+   var roomQty=extractCAQtyUnit(text,'м²');
+   var floorArea=roomQty.qty&&roomQty.qty!=='—'?roomQty.qty:'—';
+   obj={label:'Комната'};
+   area='Помещение / окно и пол';
+   items=[
+     {n:1,name:'Демонтаж существующего оконного блока',unit:'шт',qty:/окн/i.test(text)?'1':'—',note:'Снять старый оконный блок без повреждения проема'},
+     {n:2,name:'Подготовка оконного проема к монтажу',unit:'шт',qty:/окн/i.test(text)?'1':'—',note:'Очистка, выравнивание и подготовка примыканий'},
+     {n:3,name:'Установка нового оконного блока',unit:'шт',qty:/окн/i.test(text)?'1':'—',note:'Параметры окна уточнить по замеру'},
+     {n:4,name:'Герметизация монтажных швов оконного блока',unit:'м.п.',qty:'—',note:'Уточнить периметр оконного блока'},
+     {n:5,name:'Демонтаж существующего напольного покрытия',unit:'м²',qty:floorArea,note:'Ванная и туалет в объем работ не входят'},
+     {n:6,name:'Подготовка основания пола',unit:'м²',qty:floorArea,note:'Очистка и локальное выравнивание основания'},
+     {n:7,name:'Устройство нового напольного покрытия',unit:'м²',qty:floorArea,note:'Тип покрытия уточнить: линолеум, ламинат или плитка'},
+     {n:8,name:'Монтаж плинтуса по периметру комнаты',unit:'м.п.',qty:'—',note:'Уточнить периметр комнаты'},
+     {n:9,name:'Вывоз строительного мусора',unit:'м³',qty:'—',note:'Уточнить объем после демонтажа'},
+     {n:10,name:'Проверка качества выполненных работ',unit:'компл',qty:'1',note:'Акт осмотра после завершения работ'}
+   ];
+ }
+ if(isFloorScreed&&!isPaving){
+   var screedQty=extractCAQtyUnit(text,'м²');
+   var screedArea=screedQty.qty&&screedQty.qty!=='—'?screedQty.qty:'120';
+   var screedThickness=extractCAThickness(text)||'50 мм';
+   var workshop=(String(text).match(/цех[а-я\s]*№?\s*\d+/i)||[])[0];
+   obj={label:workshop?workshop.replace(/\s+/g,' ').trim():'Цех'};
+   area='Полы / стяжка';
+   items=[
+     {n:1,name:'Разборка существующей цементной стяжки пола',unit:'м²',qty:screedArea,note:'Демонтаж старой стяжки на поврежденном участке'},
+     {n:2,name:'Очистка основания от строительного мусора и пыли',unit:'м²',qty:screedArea,note:'Подготовка основания перед грунтованием'},
+     {n:3,name:'Грунтовка основания под устройство стяжки',unit:'м²',qty:screedArea,note:'Грунтовка глубокого проникновения'},
+     {n:4,name:'Устройство цементно-песчаной стяжки пола',unit:'м²',qty:screedArea,note:'Толщина слоя '+screedThickness},
+     {n:5,name:'Уход за цементно-песчаной стяжкой',unit:'м²',qty:screedArea,note:'Увлажнение и защита до набора прочности'},
+     {n:6,name:'Вывоз строительного мусора от разборки стяжки',unit:'м³',qty:'—',note:'Уточнить объем после демонтажа'},
+     {n:7,name:'Проверка ровности и качества выполненной стяжки',unit:'компл',qty:'1',note:'Контроль отметок и акт осмотра'}
+   ];
+ }
+ if(isPaving){
+   var pavingQty=extractCAQtyUnit(text,'м²');
+   var pavingArea=pavingQty.qty&&pavingQty.qty!=='—'?pavingQty.qty:'25';
+   obj=/склад/i.test(text)?{label:'Территория склада'}:obj;
+   area='Наружное благоустройство';
+   items=[
+     {n:1,name:'Разборка тротуарной плитки',unit:'м²',qty:pavingArea,note:'Снять плитку на просевшем участке с сохранением пригодного материала'},
+     {n:2,name:'Разборка поврежденного песчаного основания',unit:'м²',qty:pavingArea,note:'Толщину основания уточнить при вскрытии'},
+     {n:3,name:'Вывоз строительного мусора и непригодного материала',unit:'м³',qty:'—',note:'Уточнить объем после демонтажа'},
+     {n:4,name:'Устройство песчаного основания под покрытие',unit:'м²',qty:pavingArea,note:'Слой основания принять по факту/проекту'},
+     {n:5,name:'Укладка тротуарной плитки повторно',unit:'м²',qty:pavingArea,note:'С использованием пригодной снятой плитки'},
+     {n:6,name:'Заполнение швов песком',unit:'м²',qty:pavingArea,note:'Песок мелкозернистый'},
+     {n:7,name:'Уплотнение покрытия виброплитой',unit:'м²',qty:pavingArea,note:'Контроль ровности после уплотнения'},
+     {n:8,name:'Проверка отметок и водоотвода покрытия',unit:'компл',qty:'1',note:'Акт осмотра после восстановления'}
+   ];
+ }
  var mats=[
    {n:1,name:'Праймер битумный',unit:'кг',qty:'145',supply:'Подрядчик',link:'№3'},
    {n:2,name:'Техноэласт ЭПП 4,0 мм',unit:'м²',qty:'1067',supply:'Подрядчик',link:'№4, №5'},
@@ -3813,6 +4048,40 @@ function buildDefectCADraft(text){
      {n:10,name:'Герметик санитарный',unit:'туба',qty:'2',supply:'Подрядчик',link:'№9'}
    ];
  }
+ if(isRoomWindowFloor){
+   mats=[
+     {n:1,name:'Оконный блок',unit:'шт',qty:/окн/i.test(text)?'1':'по замеру',supply:'Заказчик',link:'№3'},
+     {n:2,name:'Монтажная пена',unit:'баллон',qty:'2',supply:'Подрядчик',link:'№4'},
+     {n:3,name:'Герметик для оконных примыканий',unit:'туба',qty:'2',supply:'Подрядчик',link:'№4'},
+     {n:4,name:'Грунтовка глубокого проникновения',unit:'кг',qty:'по расчету',supply:'Подрядчик',link:'№6'},
+     {n:5,name:'Напольное покрытие',unit:'м²',qty:floorArea&&floorArea!=='—'?floorArea:'по замеру',supply:'Заказчик',link:'№7'},
+     {n:6,name:'Клей/подложка для напольного покрытия',unit:'компл',qty:'по типу покрытия',supply:'Подрядчик',link:'№7'},
+     {n:7,name:'Плинтус напольный',unit:'м.п.',qty:'по периметру',supply:'Заказчик',link:'№8'}
+   ];
+ }
+ if(isFloorScreed&&!isPaving){
+   var screedMatQty=extractCAQtyUnit(text,'м²');
+   var screedMatArea=screedMatQty.qty&&screedMatQty.qty!=='—'?screedMatQty.qty:'120';
+   mats=[
+     {n:1,name:'Грунтовка глубокого проникновения',unit:'кг',qty:'по расчету',supply:'Подрядчик',link:'№3'},
+     {n:2,name:'Цемент ПЦ 400',unit:'кг',qty:'по расчету',supply:'Подрядчик',link:'№4'},
+     {n:3,name:'Песок строительный',unit:'м³',qty:'по расчету',supply:'Подрядчик',link:'№4'},
+     {n:4,name:'Вода техническая',unit:'м³',qty:'по факту',supply:'Подрядчик',link:'№4, №5'},
+     {n:5,name:'Демпферная лента',unit:'м.п.',qty:'по периметру',supply:'Подрядчик',link:'№4'},
+     {n:6,name:'Пленка полиэтиленовая для ухода за стяжкой',unit:'м²',qty:screedMatArea,supply:'Подрядчик',link:'№5'}
+   ];
+ }
+ if(isPaving){
+   var matQty=extractCAQtyUnit(text,'м²');
+   var baseArea=matQty.qty&&matQty.qty!=='—'?matQty.qty:'25';
+   mats=[
+     {n:1,name:'Песок строительный для основания',unit:'м³',qty:'по расчету',supply:'Подрядчик',link:'№4, №6'},
+     {n:2,name:'Тротуарная плитка пригодная повторного применения',unit:'м²',qty:baseArea,supply:'Заказчик',link:'№5'},
+     {n:3,name:'Песок мелкозернистый для заполнения швов',unit:'кг',qty:'по расчету',supply:'Подрядчик',link:'№6'},
+     {n:4,name:'Вода для увлажнения основания',unit:'м³',qty:'по факту',supply:'Подрядчик',link:'№4, №7'},
+     {n:5,name:'Плитка тротуарная для замены поврежденной',unit:'м²',qty:'резерв',supply:'Заказчик',link:'№5'}
+   ];
+ }
  var objTitle=obj.label||'Склад УСХ';
  var note='Все работы выполнять с соблюдением требований техники безопасности и охраны труда. Доступ к объекту согласовать с ответственным лицом участка за 24 часа. Материалы с неуказанными параметрами требуют проверки перед отправкой.';
  return {num:num,obj:objTitle+', основной участок',area:area,date:today,ent:'АО «Промышленное предприятие»',cur:currentUser&&USERS[currentUser]?USERS[currentUser].name:'Иванова С.М.',appr:'Петров А.В.',department:'Служба главного механика',status:'created',cnt:items.length,items:items,materials:mats,note:note,sourceText:text};
@@ -3830,9 +4099,10 @@ async function sendDefectCAMessage(){
  var apiResult=await askAssistantProxy(text,{timeout:90000});
  if(defectCAChatLog.length&&defectCAChatLog[defectCAChatLog.length-1].text==='Подключаю ЦА и анализирую описание...')defectCAChatLog.pop();
  var hasDraftSignal=hasMeaningfulWorkSignal(text)||/(сгенерируй|создай|оформи|дв|дефект|ведомост|замен|ремонт|требует|поврежд|протеч|сантехник|труб|унитаз|раковин)/i.test(text);
- var shouldRebuildDraft=defectCADraft&&hasDraftSignal&&!hasMeaningfulWorkSignal(defectCADraft.sourceText||'');
+ var shouldRebuildDraft=defectCADraft&&isNewDefectDescription(text);
+ if(shouldRebuildDraft)defectCADraft=null;
  if(!defectCADraft&&!hasDraftSignal){
-   var greetingText=apiResult.ok?String(apiResult.text||'').trim():'';
+   var greetingText=apiResult.ok?cleanDefectCAReply(apiResult.text):'';
    defectCAChatLog.push({role:'ai',text:greetingText||'Опишите объект, участок, дефект, что нужно сделать и примерный объем. После этого я соберу черновик ДВ.'});
    if(!apiResult.ok)defectCAChatLog.push({role:'ai',text:'Внешний ЦА недоступен ('+(apiResult.error||'ошибка запроса')+'), но чат готов принять описание дефекта.'});
    renderDefectCAChat();
@@ -3840,21 +4110,23 @@ async function sendDefectCAMessage(){
  }
  if(!defectCADraft||shouldRebuildDraft){
    defectCADraft=buildDefectCADraft(text);
+   if(apiResult.ok&&apiResult.text)defectCADraft.realCAAnswer=String(apiResult.text||'');
    step1Cache={num:defectCADraft.num,obj:defectCADraft.obj,date:new Date().toISOString().split('T')[0],year:'2026',ent:defectCADraft.ent,cur:defectCADraft.cur,appr:defectCADraft.appr,note:defectCADraft.note};
    currentDVId=defectCADraft.num;
    caPreparedSourceText=text;
-   var apiText=apiResult.ok?String(apiResult.text||'').trim():'';
-   if(apiText){
-     defectCAChatLog.push({role:'ai',text:apiText});
+   if(apiResult.ok&&apiResult.text){
+     defectCAChatLog.push({role:'ai',text:formatRealCAReply(apiResult.text)});
+     defectCAChatLog.push({role:'ai',text:'Ответ получен от внешнего ЦА. Предпросмотр ДВ в прототипе доступен отдельно для проверки.',ready:true});
    } else {
-     defectCAChatLog.push({role:'ai',text:'Я приняла описание и собрала черновик ДВ: '+defectCADraft.num+'. Нашла '+defectCADraft.items.length+' позиций работ и '+defectCADraft.materials.length+' материалов. Требуют проверки: материал для герметизации и объем строительного мусора.'});
-     if(!apiResult.ok)defectCAChatLog.push({role:'ai',text:'Внешний ЦА сейчас недоступен ('+(apiResult.error||'ошибка запроса')+'), поэтому использую локальный режим прототипа. Документ можно проверить и отправить дальше.'});
+     defectCAChatLog.push({role:'ai',text:getDraftSummaryText()});
+     defectCAChatLog.push({role:'ai',text:'Внешний ЦА сейчас недоступен ('+(apiResult.error||'ошибка запроса')+'), поэтому использую локальный режим прототипа. Документ можно проверить и отправить дальше.'});
+     defectCAChatLog.push({role:'ai',text:'Можете уточнить данные здесь или открыть готовый документ для проверки и отправки на согласование.',ready:true});
    }
-   defectCAChatLog.push({role:'ai',text:'Можете уточнить данные здесь или открыть готовый документ для проверки и отправки на согласование.',ready:true});
    addMemoryEvent('ca_answer',{text:'ЦА подготовил черновик ДВ '+defectCADraft.num,source:'ca-defect-chat'});
  } else {
    defectCADraft.note+=' Уточнение пользователя: '+text;
-   var clarificationText=apiResult.ok?String(apiResult.text||'').trim():'';
+   if(apiResult.ok&&apiResult.text)defectCADraft.realCAAnswer=String(apiResult.text||'');
+   var clarificationText=apiResult.ok?formatRealCAReply(apiResult.text):'';
    defectCAChatLog.push({role:'ai',text:clarificationText||'Уточнение приняла и добавила в примечания ДВ. Предпросмотр документа обновлен.'});
    if(!apiResult.ok)defectCAChatLog.push({role:'ai',text:'Внешний ЦА недоступен ('+(apiResult.error||'ошибка запроса')+'), уточнение сохранено локально.'});
    addMemoryEvent('user_clarification',{text:text,source:'ca-defect-chat'});
@@ -4187,6 +4459,7 @@ function runPendingCACreateText(){
 function inferAreaFromCARequest(text){
  var s=String(text||'').toLowerCase();
  if(/кровл|рулон|протеч/.test(s))return 'Кровля';
+ if(/тротуар|плитк|брусчат|благоустр|песчан/.test(s))return 'Наружное благоустройство';
  if(/пол|стяжк|напольн/.test(s))return 'Полы / стяжка';
  if(/труб|отоп|водоснаб|канализац/.test(s))return 'Трубопроводы';
  if(/окн|двер|проем|проём/.test(s))return 'Окна / проемы';
@@ -5328,6 +5601,15 @@ function renderWorksSections(){
   syncCatalogTabs();
   var wrap=document.getElementById('works-sections-list');if(!wrap)return;
   wrap.innerHTML='';
+  if(!GROUPS_LOADED){
+    wrap.innerHTML='<div style="padding:14px 16px;color:var(--t3);font-size:13px">Загружаю справочник GROUPS...</div>';
+    loadGroupsCatalog();
+    return;
+  }
+  if(GROUPS_TREE&&GROUPS_TREE.length){
+    renderGroupWorkSections(wrap);
+    return;
+  }
   WORK_SECTIONS.forEach(function(sec,idx){
     var cnt=WORKS_DB.filter(function(w){return !w.isUser&&sec.sections.includes(w.section);}).length;
     var userCnt=WORKS_DB.filter(function(w){return w.isUser&&isWorkAvailable(w)&&sec.sections.includes(w.section);}).length;
@@ -5556,7 +5838,16 @@ function loadSectionWorksByIds(sectionIds,label){
   var body=document.getElementById('cat-works-body');if(!body)return;
   activeCatSectionIds=(sectionIds||[]).slice();
   activeCatSection=activeCatSectionIds[0]||null;
-  renderWorksPanel(getWorksForSections(activeCatSectionIds,activeCatTab),body);
+  var works=getWorksForSections(activeCatSectionIds,activeCatTab);
+  if(GROUPS_TREE&&GROUPS_TREE.length&&!works.length){
+    body.innerHTML='<div style="padding:34px 24px;text-align:center;color:var(--t3);font-size:13px;line-height:1.6">'
+      +'<strong style="display:block;color:var(--text);font-size:15px;margin-bottom:6px">Раздел выбран</strong>'
+      +'Это подраздел из справочника GROUPS. Работы из таблиц РСНБ для этого подраздела еще не привязаны в прототипе.'
+      +'<div style="margin-top:8px;font-size:12px">Код: '+htmlEscape((activeCatSectionIds&&activeCatSectionIds[0])||'—')+'</div>'
+      +'</div>';
+  } else {
+    renderWorksPanel(works,body);
+  }
   return;
   body.innerHTML='';
   var works=WORKS_DB.filter(function(w){
@@ -6302,7 +6593,7 @@ function hasMeaningfulWorkSignal(text){
  var hasRu=/[\u0400-\u04FF]{3,}/.test(s);
  var hasQty=/\d/.test(s);
  var hasUnit=/(м2|м²|м3|м³|п\.?\s*м|мм|шт|кг|т|метр|квадрат|куб)/i.test(text);
- var workWords=/(замен|демонт|разбор|разоб|устрой|монтаж|проклад|кладк|стяжк|кровл|труб|бетон|фундамент|отделк|покрас|штукатур|пол|стен|кирпич|цемент|ремонт|засып|планиров|изоляц|кабель|светильник|двер|окн)/i;
+ var workWords=/(замен|демонт|разбор|разоб|устрой|монтаж|проклад|кладк|стяжк|кровл|труб|бетон|фундамент|отделк|покрас|штукатур|пол|стен|кирпич|цемент|ремонт|засып|планиров|изоляц|кабель|светильник|двер|окн|плитк|тротуар|брусчат|просел|просад|основан|уплотн|уклад)/i;
  if(workWords.test(s))return true;
  if(hasRu&&hasQty&&hasUnit)return true;
  if(tokens.length>=3&&hasRu)return true;
