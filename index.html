@@ -1322,6 +1322,49 @@ body.ui-night .dv-edit-input:focus,body.ui-night .dv-edit-area:focus{border-colo
 .dv-ref-form label{display:grid;gap:6px;font-size:11px;text-transform:uppercase;font-weight:900;color:#667085}
 .dv-ref-form input,.dv-ref-form select,.dv-ref-form textarea{border:1px solid #D9E3F0;border-radius:10px;background:#fff;color:#111827;padding:9px 10px;font:inherit;text-transform:none;font-weight:600}
 .dv-ref-form textarea{min-height:74px;resize:vertical}
+.dv-work-ref-card{width:min(100%,1040px);margin:0 auto 24px;background:#fff;border:1px solid #DDE5EF;border-radius:22px;box-shadow:0 18px 42px rgba(15,23,42,.10);padding:28px clamp(22px,3vw,34px);color:#1F2937}
+.dv-work-ref-head{display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:20px;align-items:start;border-bottom:1px solid #E5EAF2;padding-bottom:22px;margin-bottom:18px}
+.dv-work-depth{border:1px solid #8AC9D5;border-radius:12px;background:linear-gradient(180deg,#EAF9FB,#F7FDFF);padding:14px 16px;color:#111827}
+.dv-work-depth small{display:block;text-transform:uppercase;letter-spacing:.08em;font-size:10px;font-weight:900;color:#5795A3;margin-bottom:6px}
+.dv-work-depth b{display:block;font-size:28px;line-height:1;color:#111827}.dv-work-depth span{font-size:11px;color:#667085}
+.dv-work-bar{display:grid;grid-template-columns:minmax(240px,1fr) auto;gap:12px;align-items:center;margin:16px 0 12px}
+.dv-work-breadcrumb{display:flex;align-items:center;gap:8px;flex-wrap:wrap;color:#667085;font-size:12px;font-weight:750}
+.dv-work-breadcrumb b{color:#111827}.dv-work-breadcrumb span{color:#A0A8B5}
+.dv-work-view{display:inline-flex;border:1px solid #D9E3F0;border-radius:10px;overflow:hidden;background:#F7FAFF}
+.dv-work-view button{height:34px;border:0;background:transparent;color:#667085;padding:0 12px;font-weight:900;cursor:pointer}
+.dv-work-view button.active{background:#3867E8;color:#fff}
+.dv-work-tools{display:grid;grid-template-columns:minmax(240px,1fr) auto auto auto;gap:10px;margin-bottom:12px}
+.dv-work-search{height:40px;border:1px solid #D9E3F0;border-radius:10px;background:#fff;color:#111827;padding:0 12px;font:inherit;outline:none}
+.dv-work-search:focus{border-color:#3867E8;box-shadow:0 0 0 3px rgba(56,103,232,.12)}
+.dv-work-layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);gap:16px;align-items:start}
+.dv-work-tree,.dv-work-detail{border:1px solid #DDE5EF;border-radius:14px;background:#fff;min-height:360px;overflow:hidden}
+.dv-work-tree-head{height:42px;display:grid;grid-template-columns:1fr auto;align-items:center;padding:0 14px;background:#F8FAFD;border-bottom:1px solid #E5EAF2;color:#667085;font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:950}
+.dv-work-tree-body{padding:10px 12px 14px;max-height:520px;overflow:auto}
+.dv-work-node{display:grid;grid-template-columns:18px auto auto 1fr auto;gap:7px;align-items:center;min-height:34px;border-radius:9px;padding:6px 8px;margin:2px 0;color:#263244;font-size:13px;font-weight:850;cursor:pointer}
+.dv-work-node:hover{background:#F7FAFF}.dv-work-node.active{background:#EAF0FF;color:#1F4ED8;box-shadow:inset 3px 0 0 #3867E8}
+.dv-work-node.work{grid-template-columns:18px 58px minmax(0,1fr) auto 10px;font-weight:800}
+.dv-work-indent-0{margin-left:0}.dv-work-indent-1{margin-left:20px}.dv-work-indent-2{margin-left:40px}.dv-work-indent-3{margin-left:60px}.dv-work-indent-4{margin-left:80px}
+.dv-work-caret{color:#8A94A6;font-size:12px}.dv-work-code{font-family:'JetBrains Mono',monospace;font-size:11px;color:#667085;background:#F1F5FA;border-radius:7px;padding:3px 6px}
+.dv-work-tag{font-size:10px;font-weight:950;text-transform:uppercase;letter-spacing:.04em;border-radius:7px;padding:3px 6px;background:#EAF0FF;color:#3156D4}
+.dv-work-tag.sub{background:#E8F7F5;color:#168A7A}.dv-work-tag.group{background:#F1EDFF;color:#6D4DD8}
+.dv-work-count{color:#98A2B3;font-weight:900}.dv-work-dot{width:8px;height:8px;border-radius:99px;background:#3BAA65}
+.dv-work-columns{display:grid;grid-template-columns:minmax(170px,.9fr) minmax(0,1.35fr);min-height:420px}
+.dv-work-columns.sections-only{display:block}
+.dv-work-column{border-right:1px solid #E5EAF2}.dv-work-column:last-child{border-right:0}
+.dv-work-col-title{padding:12px 14px;background:#F8FAFD;border-bottom:1px solid #E5EAF2;color:#98A2B3;font-size:10px;text-transform:uppercase;letter-spacing:.08em;font-weight:950}
+.dv-work-column-row{display:flex;align-items:center;gap:12px;min-height:46px;border-radius:10px;padding:8px 14px;margin:4px 8px;color:#263244;font-size:15px;font-weight:850;cursor:pointer}
+.dv-work-column-row:hover{background:#F7FAFF}.dv-work-column-row.active{background:#EAF0FF;color:#1F4ED8;box-shadow:inset 3px 0 0 #3867E8}
+.dv-work-column-row .dv-work-tag{flex:0 0 auto}.dv-work-column-row span:last-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dv-work-detail{padding:18px;display:flex;flex-direction:column;gap:14px}
+.dv-work-detail-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.dv-work-detail h3{margin:0;font-size:18px;line-height:1.2;color:#111827}.dv-work-path{font-size:11px;color:#8A94A6;margin-bottom:8px}
+.dv-work-status{background:#E8F7EE;color:#168A4A;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:950}
+.dv-work-stat-grid{display:grid;grid-template-columns:1fr 1fr;border:1px solid #E5EAF2;border-radius:12px;overflow:hidden}
+.dv-work-stat{padding:12px;border-right:1px solid #E5EAF2;border-bottom:1px solid #E5EAF2}.dv-work-stat:nth-child(2n){border-right:0}.dv-work-stat:nth-last-child(-n+2){border-bottom:0}
+.dv-work-stat small{display:block;text-transform:uppercase;letter-spacing:.06em;color:#98A2B3;font-size:10px;font-weight:950;margin-bottom:6px}.dv-work-stat b{font-size:13px;color:#1F2937}
+.dv-work-field{border:1px solid #DDE5EF;background:#F8FAFD;border-radius:10px;padding:10px 12px}.dv-work-field small{display:block;text-transform:uppercase;color:#98A2B3;font-size:10px;font-weight:950;margin-bottom:6px}.dv-work-field div{font-size:13px;color:#344054;font-weight:750;line-height:1.35}
+.dv-work-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto}.dv-work-empty{min-height:300px;display:grid;place-items:center;text-align:center;color:#8A94A6;font-size:13px;line-height:1.45;padding:30px}
+@media(max-width:1180px){.dv-work-ref-head,.dv-work-layout{grid-template-columns:1fr}.dv-work-tools{grid-template-columns:1fr 1fr}.dv-work-bar{grid-template-columns:1fr}.dv-work-view{justify-self:start}}
 body.ui-night .doc-preview-page,body.ui-night .dv-workspace{background:#111827!important}
 body.ui-night .dv-doc-main{background:#172033}
 body.ui-night .dv-context-panel,body.ui-night .dv-doc-head,body.ui-night .dv-doc-tabs,body.ui-night .dv-process-flow,body.ui-night .dv-ai-panel,body.ui-night .dv-ai-head,body.ui-night .dv-ai-tabs button,body.ui-night .dv-ai-composer{background:#1F2937;border-color:rgba(255,255,255,.08)}
@@ -4477,7 +4520,7 @@ var currentUser=null,selectedObjs={};
 var currentRouteDV=null;
 var inboxFilter='all';
 var currentSideDVId=null,currentSideStage=null,currentSideTab='info';
-var defectCAChatLog=[],defectCADraft=null,caDocZoom='100',caDocEditMode=false,caDocReadOnly=false,caDocLeftMode='statements',caDocReferenceTab='materials',caDocSelectedReferenceCode='',caDocDuplicateResolved=false,caDocReturnFlow='',caDocPreviewMode='draft',caDocExtraMessages=[];
+var defectCAChatLog=[],defectCADraft=null,caDocZoom='100',caDocEditMode=false,caDocReadOnly=false,caDocLeftMode='statements',caDocReferenceTab='materials',caDocSelectedReferenceCode='',caDocDuplicateResolved=false,caDocReturnFlow='',caDocPreviewMode='draft',caDocExtraMessages=[],caDocWorksView='tree',caDocWorksExpanded=true;
 function getAssistantProxyUrl(){
  var configured=(window.CA_PROXY_URL||'');
  try{
@@ -6326,7 +6369,175 @@ function renderCADocReferenceNav(){
   +'<div class="dv-ref-heading">Качество данных</div>'
   +quality.map(function(x){return '<div class="dv-ref-item"><span>'+htmlEscape(x.label)+'</span><span class="dv-ref-count">'+x.count+'</span></div>';}).join('');
 }
+function getCADocWorkClassifier(){
+ return [
+  {id:'dem',type:'section',label:'Демонтажные работы',count:4,directCount:3,units:'м², шт',children:[]},
+  {id:'finish',type:'section',label:'Отделочные работы',count:12,directCount:3,units:'м², м',children:[
+   {id:'fin-wall',type:'sub',label:'Стены',count:4,children:[]},
+   {id:'fin-ceil',type:'sub',label:'Потолки',count:2,children:[]}
+  ]},
+  {id:'install',type:'section',label:'Монтажные работы',count:2,directCount:1,units:'шт, м',children:[
+   {id:'install-open',type:'sub',label:'Проёмы и блоки',count:2,children:[
+    {id:'WRK-301',type:'work',code:'WRK-301',label:'Ремонт дверного блока и регулировка фурнитуры',unit:'шт',basis:'ГЭСН 10-01-039',uses:'21 ведом.',level:'Работа',status:'Approved',characteristic:'Регулировка, восстановление креплений и фурнитуры',materials:'Фурнитура дверная',path:['Монтажные работы','Проёмы и блоки']}
+   ]}
+  ]},
+  {id:'eng',type:'section',label:'Инженерные системы',count:2,directCount:1,units:'шт, м',children:[
+   {id:'eng-power',type:'sub',label:'Электроснабжение',count:2,children:[
+    {id:'WRK-401',type:'work',code:'WRK-401',label:'Замена светильника внутреннего освещения',unit:'шт',basis:'ГЭСНм 08-03-594',uses:'16 ведом.',level:'Работа',status:'Approved',characteristic:'Демонтаж и установка светильника',materials:'Светильник, клеммы',path:['Инженерные системы','Электроснабжение']}
+   ]}
+  ]}
+ ];
+}
+function flattenCADocWorkClassifier(nodes,parent,out){
+ out=out||[];
+ (nodes||[]).forEach(function(node){
+   var copy=Object.assign({},node);
+   copy.parent=parent||'';
+   out.push(copy);
+   flattenCADocWorkClassifier(node.children||[],node.id,out);
+ });
+ return out;
+}
+function findCADocWorkNode(id){
+ return flattenCADocWorkClassifier(getCADocWorkClassifier()).find(function(x){return x.id===id||x.code===id;})||null;
+}
+function getCADocWorkPathLabels(id){
+ var path=[];
+ function walk(nodes){
+   for(var i=0;i<(nodes||[]).length;i++){
+     var node=nodes[i];
+     path.push(node.label);
+     if(node.id===id||node.code===id)return true;
+     if(walk(node.children||[]))return true;
+     path.pop();
+   }
+   return false;
+ }
+ walk(getCADocWorkClassifier());
+ return path;
+}
+function getCADocWorkPathNodes(id){
+ var path=[];
+ function walk(nodes){
+   for(var i=0;i<(nodes||[]).length;i++){
+     var node=nodes[i];
+     path.push(node);
+     if(node.id===id||node.code===id)return true;
+     if(walk(node.children||[]))return true;
+     path.pop();
+   }
+   return false;
+ }
+ walk(getCADocWorkClassifier());
+ return path;
+}
+function findFirstCADocWork(nodes){
+ var flat=flattenCADocWorkClassifier(nodes||getCADocWorkClassifier());
+ return flat.find(function(x){return x.type==='work';})||flat[0]||null;
+}
+function countCADocWorkLeaves(node){
+ if(!node)return 0;
+ if(node.type==='work')return 1;
+ return (node.children||[]).reduce(function(sum,ch){return sum+countCADocWorkLeaves(ch);},0);
+}
+function getCADocWorkUnits(node){
+ var units={};
+ (function walk(x){
+   if(!x)return;
+   if(x.type==='work'&&x.unit)units[x.unit]=true;
+   (x.children||[]).forEach(walk);
+ })(node);
+ return Object.keys(units).join(', ')||'—';
+}
+function getCADocWorkSelected(){
+ var selected=findCADocWorkNode(caDocSelectedReferenceCode);
+ if(!selected)selected=findCADocWorkNode('WRK-301')||findFirstCADocWork();
+ if(selected)caDocSelectedReferenceCode=selected.id;
+ return selected;
+}
+function renderCADocWorkNode(node,level,query){
+ var q=String(query||'').toLowerCase().trim();
+ var children=node.children||[];
+ var isWork=node.type==='work';
+ var childHtml=children.map(function(ch){return renderCADocWorkNode(ch,level+1,q);}).join('');
+ var selfMatch=!q||[node.label,node.code,node.basis,node.characteristic].join(' ').toLowerCase().indexOf(q)>-1;
+ if(q&&!selfMatch&&!childHtml)return '';
+ var active=node.id===caDocSelectedReferenceCode?' active':'';
+ var tag=node.type==='section'?'раздел':node.type==='sub'?'подраздел':node.type==='group'?'группа':'';
+ var onclick=isWork?'openCADocReferenceRow(\''+htmlEscape(node.id)+'\',\''+htmlEscape(node.label).replace(/'/g,'&#39;')+'\')':'selectCADocWorkGroup(\''+htmlEscape(node.id)+'\')';
+ if(isWork){
+   return '<div class="dv-work-node work dv-work-indent-'+Math.min(level,4)+active+'" data-work-search="'+htmlEscape([node.label,node.code,node.basis,node.characteristic].join(' ')).toLowerCase()+'" onclick="'+onclick+'"><span></span><span class="dv-work-code">'+htmlEscape(node.code)+'</span><span>'+htmlEscape(node.label)+'</span><span>'+htmlEscape(node.unit)+'</span><span class="dv-work-dot"></span></div>';
+ }
+ return '<div class="dv-work-node dv-work-indent-'+Math.min(level,4)+active+'" data-work-search="'+htmlEscape(node.label).toLowerCase()+'" onclick="'+onclick+'"><span class="dv-work-caret">'+(caDocWorksExpanded?'⌄':'›')+'</span><span class="dv-work-tag '+(node.type==='sub'?'sub':node.type==='group'?'group':'')+'">'+htmlEscape(tag)+'</span><span>'+htmlEscape(node.label)+'</span><span></span><span class="dv-work-count">'+htmlEscape(String(node.count||children.length||0))+'</span></div>'+(caDocWorksExpanded?childHtml:'');
+}
+function renderCADocWorkColumns(nodes,selected){
+ nodes=nodes||getCADocWorkClassifier();
+ var pathNodes=getCADocWorkPathNodes(selected&&selected.id);
+ var current=pathNodes.find(function(n){return n.type==='section';})||findCADocWorkNode('finish')||nodes[0];
+ return '<div class="dv-work-columns sections-only"><div class="dv-work-column"><div class="dv-work-col-title">Разделы</div>'+nodes.map(function(n){
+   var active=current&&current.id===n.id?' active':'';
+   return '<div class="dv-work-column-row'+active+'" data-work-search="'+htmlEscape(n.label).toLowerCase()+'" onclick="selectCADocWorkGroup(\''+htmlEscape(n.id)+'\')"><span class="dv-work-tag">раздел</span><span>'+htmlEscape(n.label)+'</span></div>';
+ }).join('')+'</div></div>';
+}
+function renderCADocWorkDetail(work){
+ if(!work)return '<aside class="dv-work-detail"><div class="dv-work-empty">Выберите работу в дереве слева, чтобы увидеть единицу измерения, нормативное основание и типовые материалы.</div></aside>';
+ if(work.type!=='work'){
+   var worksTotal=typeof work.count==='number'?work.count:countCADocWorkLeaves(work);
+   var direct=typeof work.directCount==='number'?work.directCount:(work.children||[]).filter(function(x){return x.type!=='work';}).length;
+   var units=work.units||getCADocWorkUnits(work);
+   var tag=work.type==='section'?'раздел':work.type==='sub'?'подраздел':'группа';
+   var path=getCADocWorkPathLabels(work.id).slice(0,-1).join(' › ')||'Классификатор работ';
+   return '<aside class="dv-work-detail"><div class="dv-work-path">'+htmlEscape(path)+'</div><div class="dv-work-detail-top"><div><h3>'+htmlEscape(work.label)+'</h3><div class="muted">Узел классификатора · '+htmlEscape(work.id)+'</div></div><span class="dv-work-tag">'+htmlEscape(tag)+'</span></div>'
+    +'<div class="dv-work-stat-grid"><div class="dv-work-stat"><small>Работ в узле</small><b>'+worksTotal+'</b></div><div class="dv-work-stat"><small>Прямых подразделов</small><b>'+direct+'</b></div><div class="dv-work-stat"><small>Единицы измерения</small><b>'+htmlEscape(units)+'</b></div><div class="dv-work-stat"><small>Уровень</small><b>'+htmlEscape(tag)+'</b></div></div>'
+    +'<div class="dv-work-actions"><button class="dv-btn primary" type="button" onclick="expandCADocWorkClassifier()">Раскрыть узел</button><button class="dv-btn secondary" type="button" onclick="addCADocReferenceRecord()">+ Работа в этот узел</button></div></aside>';
+ }
+ return '<aside class="dv-work-detail"><div class="dv-work-path">'+htmlEscape((work.path||[]).join(' › '))+'</div><div class="dv-work-detail-top"><div><h3>'+htmlEscape(work.label)+'</h3><div class="muted">'+htmlEscape(work.code)+'</div></div><span class="dv-work-status">'+htmlEscape(work.status||'Approved')+'</span></div>'
+  +'<div class="dv-work-stat-grid"><div class="dv-work-stat"><small>Единица</small><b>'+htmlEscape(work.unit||'—')+'</b></div><div class="dv-work-stat"><small>Норм. основание</small><b>'+htmlEscape(work.basis||'—')+'</b></div><div class="dv-work-stat"><small>Использований</small><b>'+htmlEscape(work.uses||'0 ведом.')+'</b></div><div class="dv-work-stat"><small>Уровень</small><b>'+htmlEscape(work.level||'Работа')+'</b></div></div>'
+  +'<div class="dv-work-field"><small>Характеристика</small><div>'+htmlEscape(work.characteristic||'—')+'</div></div>'
+  +'<div class="dv-work-field"><small>Типовые материалы</small><div>'+htmlEscape(work.materials||'Материалы не привязаны.')+'</div></div>'
+  +'<div class="dv-work-actions"><button class="dv-btn primary" type="button" onclick="addCADocWorkToDraft(\''+htmlEscape(work.id)+'\')">Добавить в ведомость</button><button class="dv-btn secondary" type="button" onclick="moveCADocWorkSection(\''+htmlEscape(work.id)+'\')">Перенести в раздел</button><button class="dv-btn secondary" type="button" onclick="archiveCADocWork(\''+htmlEscape(work.id)+'\')">Архивировать</button></div></aside>';
+}
+function renderCADocWorksReference(){
+ var nodes=getCADocWorkClassifier();
+ var selected=getCADocWorkSelected();
+ var query=((document.getElementById('ca-work-ref-search')||{}).value||'');
+ var crumb=(selected&&selected.path?selected.path.concat(selected.type==='work'?[selected.label]:[]):getCADocWorkPathLabels(selected&&selected.id)).slice(-5);
+ return '<article class="dv-work-ref-card"><div class="dv-work-ref-head"><div><h2 class="dv-ref-title">Справочник работ · классификатор</h2><div class="dv-ref-sub">Работы сгруппированы в дерево «раздел → подраздел → группа → подгруппа → работа» с нормативным основанием и типовыми материалами — заявитель выбирает работу из классификатора, а не пишет вручную.</div></div><div class="dv-work-depth"><small>Глубина</small><b>5 ур.</b><span>разделов · подразделов · групп · работ</span></div></div>'
+  +'<div class="dv-ref-tabs">'+['objects','materials','works','units'].map(function(key){var c=getCADocReferenceConfig(key);return '<button class="dv-ref-tab '+(caDocReferenceTab===key?'active':'')+'" type="button" onclick="setCADocReferenceTab(\''+key+'\')">'+htmlEscape(c.title)+'</button>';}).join('')+'</div>'
+  +'<div class="dv-work-bar"><div class="dv-work-breadcrumb"><span>▦ Все разделы</span>'+crumb.map(function(x,i){return '<span>›</span><b>'+htmlEscape(x)+'</b>';}).join('')+'</div><div class="dv-work-view"><button class="'+(caDocWorksView==='tree'?'active':'')+'" onclick="setCADocWorksView(\'tree\')">Дерево</button><button class="'+(caDocWorksView==='columns'?'active':'')+'" onclick="setCADocWorksView(\'columns\')">Колонки</button></div></div>'
+  +'<div class="dv-work-tools"><input class="dv-work-search" id="ca-work-ref-search" value="'+htmlEscape(query)+'" placeholder="Поиск по названию, коду или ГЭСН" oninput="filterCADocWorkClassifier(this.value)"><button class="dv-btn secondary" type="button" onclick="expandCADocWorkClassifier()">Развернуть всё</button><button class="dv-btn secondary" type="button" onclick="collapseCADocWorkClassifier()">Свернуть</button><button class="dv-btn primary" type="button" onclick="addCADocReferenceRecord()">+ Добавить работу</button></div>'
+  +'<div class="dv-work-layout"><div class="dv-work-tree"><div class="dv-work-tree-head"><span>'+(caDocWorksView==='tree'?'Классификатор работ':'Разделы и группы')+'</span><span>'+flattenCADocWorkClassifier(nodes).filter(function(x){return x.type==='work';}).length+' работ</span></div><div class="dv-work-tree-body" id="ca-work-tree-body">'+(caDocWorksView==='columns'?renderCADocWorkColumns(nodes,selected):nodes.map(function(node){return renderCADocWorkNode(node,0,query);}).join(''))+'</div></div>'+renderCADocWorkDetail(selected)+'</div></article>';
+}
+function setCADocWorksView(view){
+ caDocWorksView=view==='columns'?'columns':'tree';
+ if(caDocWorksView==='columns'){
+   var selected=findCADocWorkNode(caDocSelectedReferenceCode);
+   if(!selected||selected.type!=='section')caDocSelectedReferenceCode='finish';
+ }
+ renderCADocumentPreview();
+}
+function expandCADocWorkClassifier(){caDocWorksExpanded=true;renderCADocumentPreview();}
+function collapseCADocWorkClassifier(){caDocWorksExpanded=false;renderCADocumentPreview();}
+function selectCADocWorkGroup(id){caDocSelectedReferenceCode=id;renderCADocumentPreview();}
+function filterCADocWorkClassifier(query){
+ query=String(query||'').toLowerCase().trim();
+ document.querySelectorAll('#ca-work-tree-body [data-work-search]').forEach(function(row){
+   row.style.display=!query||row.getAttribute('data-work-search').indexOf(query)>-1?'':'none';
+ });
+}
+function addCADocWorkToDraft(id){
+ var work=findCADocWorkNode(id);
+ if(!work||work.type!=='work')return;
+ var dv=collectCADocEdits();
+ if(!dv.items)dv.items=[];
+ dv.items.push({n:String(dv.items.length+1),name:work.label,unit:work.unit||'ед.',qty:'1',note:work.characteristic||'',materialText:work.materials||'Не требуется'});
+ defectCADraft=dv;
+ showToast('Работа добавлена в ведомость','success',work.code);
+}
+function moveCADocWorkSection(id){var work=findCADocWorkNode(id);showToast('Перенос в раздел','info',work?work.label:'Работа');}
+function archiveCADocWork(id){var work=findCADocWorkNode(id);showToast('Работа отправлена в архив','warning',work?work.code:id);}
 function renderCADocReferences(){
+ if(caDocReferenceTab==='works')return renderCADocWorksReference();
  var cfg=getCADocReferenceConfig(caDocReferenceTab);
  var selected=caDocSelectedReferenceCode||((caDocReferenceTab==='materials')?'MAT-D-04':'');
  var selectedRow=(cfg.rows||[]).find(function(row){return row[0]===selected;})||(cfg.rows||[])[0];
