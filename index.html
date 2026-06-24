@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Цифровой сметчик — Прототип</title>
+<title>Цифровой ассистент — Прототип</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 :root {
@@ -2081,9 +2081,9 @@ body.ui-night .nav-empty{background:var(--surface-soft)!important;border-color:v
 
 /* Sidebar brand */
 .sb-logo{
-  height:72px;
-  min-height:72px;
-  padding:18px 20px;
+  height:56px;
+  min-height:56px;
+  padding:8px 20px;
   border-bottom:1px solid var(--border);
   display:flex;
   align-items:center;
@@ -2093,6 +2093,7 @@ body.ui-night .nav-empty{background:var(--surface-soft)!important;border-color:v
 }
 .sb-logo:before,.sb-logo-t,.sb-logo-s{display:none!important}
 .sb-brand{
+  display:none;
   color:#3867E8;
   font-size:26px;
   font-weight:850;
@@ -2253,7 +2254,7 @@ body.ui-night .smax-info{background:rgba(79,125,243,.14);border-color:rgba(91,12
 <!-- SIDEBAR -->
 <aside class="sb">
  <div class="sb-logo">
- <div class="sb-brand">Смета РК</div>
+ <div class="sb-brand"></div>
  <button class="sb-toggle" id="sb-toggle" onclick="toggleSidebar()" title="Свернуть меню" type="button">‹</button>
  </div>
  <nav class="sb-nav" id="sb-nav"></nav>
@@ -2377,7 +2378,7 @@ body.ui-night .smax-info{background:rgba(79,125,243,.14);border-color:rgba(91,12
    <aside class="fair-dv-chat iv-side-panel">
     <div class="fair-dv-assistant-head">
      <div class="fair-assistant-avatar">Ц</div>
-     <div><div class="fair-assistant-title">Цифровой сметчик</div><div class="fair-assistant-sub">онлайн · помогает заполнить ДВ</div></div>
+     <div><div class="fair-assistant-title">Цифровой ассистент</div><div class="fair-assistant-sub">онлайн · помогает заполнить ДВ</div></div>
      <button class="icon-btn" type="button" onclick="renderFairPanel()">↻</button>
     </div>
     <div class="fair-dv-tabs"><button class="fair-dv-tab active" type="button">Подсказки</button><button class="fair-dv-tab" type="button">Вопросы (2)</button></div>
@@ -2386,7 +2387,7 @@ body.ui-night .smax-info{background:rgba(79,125,243,.14);border-color:rgba(91,12
      <div class="fair-block soft"><div class="fair-k">Проверка материалов</div><div class="fair-v">По строке №4 подобраны возможные материалы. Проверьте соответствие:</div><div class="fair-list mt8"><div class="fair-item"><span class="fair-dot"></span>Эмаль ПФ-115 — 2,5 кг</div><div class="fair-item"><span class="fair-dot"></span>Растворитель Р-4 — 1 л</div></div><button class="btn btn-o btn-xs mt8" onclick="showToast('Материалы','success','Материалы подтверждены.')">Подтвердить материалы</button></div>
      <div class="fair-block soft"><div class="fair-k">Общая проверка</div><div class="fair-v">✓ 1 строка требует уточнения<br>✓ Ошибок не найдено</div><button class="btn btn-o btn-xs mt8" onclick="ivCheckWorkspace()">Смотреть все проверки</button></div>
     </div>
-    <div class="fair-dv-composer"><input class="fi" id="fair-list-chat-input" placeholder="Задайте вопрос цифровому сметчику..."><button class="fair-send-round" type="button" onclick="ivAskAssistant()">➤</button></div>
+    <div class="fair-dv-composer"><input class="fi" id="fair-list-chat-input" placeholder="Задайте вопрос цифровому ассистенту..."><button class="fair-send-round" type="button" onclick="ivAskAssistant()">➤</button></div>
    </aside>
  </div>
  </div>
@@ -2575,7 +2576,7 @@ body.ui-night .smax-info{background:rgba(79,125,243,.14);border-color:rgba(91,12
    </div>
    <div class="fair-dv-assistant-head">
     <div class="fair-assistant-avatar">Ц</div>
-    <div><div class="fair-assistant-title">Цифровой сметчик</div><div class="fair-assistant-sub">онлайн · помогает заполнить ДВ</div></div>
+    <div><div class="fair-assistant-title">Цифровой ассистент</div><div class="fair-assistant-sub">онлайн · помогает заполнить ДВ</div></div>
     <button class="icon-btn" type="button" onclick="renderFairPanel()">↻</button>
    </div>
   </div>
@@ -2682,7 +2683,7 @@ body.ui-night .smax-info{background:rgba(79,125,243,.14);border-color:rgba(91,12
      <div class="fair-block soft"><div class="fair-k">Проверка материалов</div><div class="fair-v">По строке №4 подобраны возможные материалы. Проверьте соответствие:</div><div class="fair-list mt8"><div class="fair-item"><span class="fair-dot"></span>Эмаль ПФ-115 — 2,5 кг</div><div class="fair-item"><span class="fair-dot"></span>Растворитель Р-4 — 1 л</div></div><button class="btn btn-o btn-xs mt8" onclick="showToast('Материалы','success','Материалы подтверждены.')">Подтвердить материалы</button></div>
      <div class="fair-block soft"><div class="fair-k">Общая проверка</div><div class="fair-v">✓ 1 строка требует уточнения<br>✓ Ошибок не найдено</div><button class="btn btn-o btn-xs mt8" onclick="ivCheckWorkspace()">Смотреть все проверки</button></div>
     </div>
-    <div class="fair-dv-composer"><input class="fi" id="fair-list-chat-input" placeholder="Задайте вопрос цифровому сметчику..."><button class="fair-send-round" type="button" onclick="ivAskAssistant()">➤</button></div>
+    <div class="fair-dv-composer"><input class="fi" id="fair-list-chat-input" placeholder="Задайте вопрос цифровому ассистенту..."><button class="fair-send-round" type="button" onclick="ivAskAssistant()">➤</button></div>
    </aside>
   </div>
  </div>
@@ -2690,12 +2691,12 @@ body.ui-night .smax-info{background:rgba(79,125,243,.14);border-color:rgba(91,12
 
  <!-- ШАГ 0: ЦА — ГЛАВНЫЙ ВХОД -->
  <div class="page" id="pg-new0">
-<div class="ts">Создание ДВ через Цифровой сметчик</div>
-<div class="ss">Основной сценарий: опишите задачу обычным языком, Цифровой сметчик подготовит документ на проверку.</div>
+<div class="ts">Создание ДВ через Цифровой ассистент</div>
+<div class="ss">Основной сценарий: опишите задачу обычным языком, Цифровой ассистент подготовит документ на проверку.</div>
  <div class="ca-start">
  <div class="ca-start-main">
  <div class="ca-start-h">
- <div><div class="ca-start-title">Опишите, какую ДВ нужно создать</div><div class="ca-start-sub">Цифровой сметчик попробует определить объект, участок, работы и объемы. Если данных не хватит, он задаст уточняющие вопросы на следующем шаге.</div></div>
+ <div><div class="ca-start-title">Опишите, какую ДВ нужно создать</div><div class="ca-start-sub">Цифровой ассистент попробует определить объект, участок, работы и объемы. Если данных не хватит, он задаст уточняющие вопросы на следующем шаге.</div></div>
  <span class="badge b-blue">AI</span>
  </div>
  <div class="ca-start-b">
@@ -2704,19 +2705,19 @@ body.ui-night .smax-info{background:rgba(79,125,243,.14);border-color:rgba(91,12
  <div class="ca-example-k">Демо-сценарий</div>
  <div class="ca-example-v">Создай ДВ по складу УСХ: протечка кровли, заменить 750 м2 рулонного покрытия, разобрать стяжку 500 м2 толщиной 30 мм</div>
  <div class="ca-example-row">
- <span class="ca-example-hint">Нажмите, и Цифровой сметчик сам соберет ДВ.</span>
+ <span class="ca-example-hint">Нажмите, и Цифровой ассистент сам соберет ДВ.</span>
  <button class="btn btn-p btn-sm" type="button">Запустить демо</button>
  </div>
  </div>
  <div class="ca-start-actions">
-<button class="btn btn-p" onclick="startDVFromCA()">Создать через Цифровой сметчик →</button>
+<button class="btn btn-p" onclick="startDVFromCA()">Создать через Цифровой ассистент →</button>
 <button class="btn btn-o" onclick="startManualDV()">Создать вручную</button>
 <span class="t-xs t3">Ручная форма остается запасным режимом, если нужно сразу открыть поля.</span>
  </div>
  </div>
  </div>
  <div class="ca-start-side">
- <div class="ca-start-side-t">Что сделает Цифровой сметчик</div>
+ <div class="ca-start-side-t">Что сделает Цифровой ассистент</div>
  <div class="ca-start-step"><div class="ca-start-num">1</div><div class="ca-start-txt">Примет сообщение как Signal и создаст черновик ДВ.</div></div>
  <div class="ca-start-step"><div class="ca-start-num">2</div><div class="ca-start-txt">Заполнит шапку тем, что понял из текста.</div></div>
  <div class="ca-start-step"><div class="ca-start-num">3</div><div class="ca-start-txt">Перейдет к работам и начнет разбор через чат.</div></div>
@@ -2725,14 +2726,14 @@ body.ui-night .smax-info{background:rgba(79,125,243,.14);border-color:rgba(91,12
  </div>
  </div>
 
- <!-- ЦИФРОВОЙ СМЕТЧИК: ЧАТ СОЗДАНИЯ ДВ -->
+ <!-- ЦИФРОВОЙ АССИСТЕНТ: ЧАТ СОЗДАНИЯ ДВ -->
  <div class="page" id="pg-caChat">
  <div class="defect-chat-shell">
  <div class="defect-chat-main">
  <div class="defect-chat-head">
  <div class="defect-agent">
- <img src="assets/ca-avatar.png" alt="Цифровой сметчик"/>
- <div><div class="defect-agent-title">Цифровой сметчик</div><div class="defect-agent-sub">Помогает оформить дефект и подготовить черновик дефектной ведомости по описанию пользователя. Анализирует текст, задает уточнения и собирает документ.</div></div>
+ <img src="assets/ca-avatar.png" alt="Цифровой ассистент"/>
+ <div><div class="defect-agent-title">Цифровой ассистент</div><div class="defect-agent-sub">Помогает оформить дефект и подготовить черновик дефектной ведомости по описанию пользователя. Анализирует текст, задает уточнения и собирает документ.</div></div>
  </div>
  <div class="defect-chat-tools">
  <button class="icon-btn" type="button" title="Обновить" onclick="renderDefectCAChat()">↻</button>
@@ -2745,8 +2746,8 @@ body.ui-night .smax-info{background:rgba(79,125,243,.14);border-color:rgba(91,12
  <div class="defect-chat-messages" id="defect-ca-messages"></div>
  </div>
  <aside class="defect-agent-panel">
- <img src="assets/ca-avatar.png" alt="Цифровой сметчик"/>
- <div class="defect-agent-name">Цифровой сметчик</div>
+ <img src="assets/ca-avatar.png" alt="Цифровой ассистент"/>
+ <div class="defect-agent-name">Цифровой ассистент</div>
  <div class="defect-agent-chip">Live draft assistant</div>
  <div class="defect-model-row"><span>Логика</span><b>gpt-5.4</b></div>
  <div class="defect-model-row"><span>Режим</span><b>ДВ</b></div>
@@ -2826,15 +2827,15 @@ body.ui-night .smax-info{background:rgba(79,125,243,.14);border-color:rgba(91,12
  <div class="dv-ai-head">
  <div class="dv-ai-avatar">Ц</div>
  <div>
- <div class="dv-ai-name">Цифровой сметчик <span>AI</span></div>
- <div class="dv-ai-sub">цифровой сметчик · trust layer on</div>
+ <div class="dv-ai-name">Цифровой ассистент <span>AI</span></div>
+ <div class="dv-ai-sub">цифровой ассистент · trust layer on</div>
  </div>
  <button class="dv-icon-btn" id="ca-doc-close-btn" type="button" onclick="goBackFromCADoc()" title="Закрыть">×</button>
  </div>
  <div class="dv-ai-tabs"><button class="active" type="button">Подсказки</button><button type="button">Вопросы (2)</button></div>
  <div class="dv-ai-messages" id="ca-doc-chat-messages"></div>
  <div class="dv-ai-composer">
- <input id="ca-doc-chat-input" placeholder="Задайте вопрос цифровому сметчику..." onkeydown="if(event.key==='Enter')sendCADocChatMessage()"/>
+ <input id="ca-doc-chat-input" placeholder="Задайте вопрос цифровому ассистенту..." onkeydown="if(event.key==='Enter')sendCADocChatMessage()"/>
  <button type="button" onclick="sendCADocChatMessage()">➤</button>
  </div>
  </aside>
@@ -2857,7 +2858,7 @@ body.ui-night .smax-info{background:rgba(79,125,243,.14);border-color:rgba(91,12
  <div class="card-b">
  <div class="alert a-red" id="err-banner" style="display:none"> Заполните обязательные поля для продолжения</div>
  <div class="fg">
- <div class="f"><label class="fl">Номер ведомости <span class="req">*</span></label><input class="fi" id="f-num" placeholder="AOK-ES-2026-C-XX-XXX"/><div class="fhint" id="h-num">Обязательное поле</div></div>
+ <div class="f"><label class="fl">Номер ведомости <span class="req">*</span></label><input class="fi" id="f-num" placeholder="ДВ-2026-06-001"/><div class="fhint" id="h-num">Обязательное поле</div></div>
  <div class="f"><label class="fl">Дата <span class="req">*</span></label><input class="fi" id="f-date" type="date"/></div>
  <div class="f full">
  <label class="fl">Объект <span class="req">*</span></label>
@@ -2876,7 +2877,7 @@ body.ui-night .smax-info{background:rgba(79,125,243,.14);border-color:rgba(91,12
  <div class="f"><label class="fl">Предприятие</label><input class="fi" id="f-ent" placeholder="Название предприятия"/></div>
  <div class="f"><label class="fl">Утверждающий</label><input class="fi" id="f-appr" placeholder="ФИО утверждающего"/></div>
  <div class="f"><label class="fl">Куратор</label><input class="fi" id="f-cur" placeholder="ФИО куратора"/></div>
- <div class="f"><label class="fl">Год сметирования</label><select class="fs" id="f-year"><option>2026</option><option>2027</option><option>2028</option></select></div>
+ <div class="f"><label class="fl">Год реализации</label><select class="fs" id="f-year"><option>2026</option><option>2027</option><option>2028</option></select></div>
  </div>
  <hr class="div"/>
  <div class="fb">
@@ -3054,7 +3055,7 @@ body.ui-night .smax-info{background:rgba(79,125,243,.14);border-color:rgba(91,12
  <div class="ca-review-field"><div class="ca-review-k">Объект</div><div class="ca-review-v" id="ca-r-obj">—</div></div>
  <div class="ca-review-field"><div class="ca-review-k">Участок</div><div class="ca-review-v" id="ca-r-area">—</div></div>
  <div class="ca-review-field"><div class="ca-review-k">Дата</div><div class="ca-review-v" id="ca-r-date">—</div></div>
- <div class="ca-review-field"><div class="ca-review-k">Год сметирования</div><div class="ca-review-v" id="ca-r-year">—</div></div>
+ <div class="ca-review-field"><div class="ca-review-k">Год реализации</div><div class="ca-review-v" id="ca-r-year">—</div></div>
  <div class="ca-review-field"><div class="ca-review-k">Предприятие</div><div class="ca-review-v" id="ca-r-ent">—</div></div>
  <div class="ca-review-field"><div class="ca-review-k">Куратор</div><div class="ca-review-v" id="ca-r-cur">—</div></div>
  <div class="ca-review-field"><div class="ca-review-k">Ответственный</div><div class="ca-review-v" id="ca-r-owner">—</div></div>
@@ -3094,7 +3095,7 @@ body.ui-night .smax-info{background:rgba(79,125,243,.14);border-color:rgba(91,12
  </div>
 
  <!-- ШАГ 3: ПРИМЕЧАНИЯ -->
- <!-- ЦИФРОВОЙ СМЕТЧИК: ПОДГОТОВЛЕННЫЙ ДОКУМЕНТ -->
+ <!-- ЦИФРОВОЙ АССИСТЕНТ: ПОДГОТОВЛЕННЫЙ ДОКУМЕНТ -->
  <div class="page" id="pg-caReview">
  <div class="ca-review-head">
  <div>
@@ -3120,7 +3121,7 @@ body.ui-night .smax-info{background:rgba(79,125,243,.14);border-color:rgba(91,12
  <div class="ca-review-field"><div class="ca-review-k">Объект</div><div class="ca-review-v" id="ca-r-obj">—</div></div>
  <div class="ca-review-field"><div class="ca-review-k">Участок</div><div class="ca-review-v" id="ca-r-area">—</div></div>
  <div class="ca-review-field"><div class="ca-review-k">Дата</div><div class="ca-review-v" id="ca-r-date">—</div></div>
- <div class="ca-review-field"><div class="ca-review-k">Год сметирования</div><div class="ca-review-v" id="ca-r-year">—</div></div>
+ <div class="ca-review-field"><div class="ca-review-k">Год реализации</div><div class="ca-review-v" id="ca-r-year">—</div></div>
  <div class="ca-review-field"><div class="ca-review-k">Предприятие</div><div class="ca-review-v" id="ca-r-ent">—</div></div>
  <div class="ca-review-field"><div class="ca-review-k">Куратор</div><div class="ca-review-v" id="ca-r-cur">—</div></div>
  <div class="ca-review-field"><div class="ca-review-k">Ответственный</div><div class="ca-review-v" id="ca-r-owner">—</div></div>
@@ -3249,7 +3250,7 @@ body.ui-night .smax-info{background:rgba(79,125,243,.14);border-color:rgba(91,12
  <div><div class="ts">Маршрут дефектной ведомости</div><div class="ss">ЕСЭД → СМАКС → входящие сметчика</div></div>
  <div class="fc gap8">
  <button class="btn btn-o" onclick="gotoPage('list')">← Дефектные ведомости</button>
-<button class="btn btn-p" onclick="startNewDV()">+ Создать через Цифровой сметчик</button>
+<button class="btn btn-p" onclick="startNewDV()">+ Создать через Цифровой ассистент</button>
  </div>
  </div>
  <div class="card mb14">
@@ -3432,7 +3433,7 @@ body.ui-night .smax-info{background:rgba(79,125,243,.14);border-color:rgba(91,12
 
  <div class="page" id="pg-rules">
  <div class="fb mb18">
- <div><div class="ts">Правила цифрового сметчика</div><div class="ss">Указания старшего сметчика для подбора расценок и проверки спорных случаев</div></div>
+ <div><div class="ts">Правила цифрового ассистента</div><div class="ss">Указания старшего сметчика для подбора расценок и проверки спорных случаев</div></div>
  <button class="btn btn-o btn-sm" onclick="gotoPage('admin')">← К каталогу</button>
  </div>
  <div class="card mb14"><div class="card-h"><div class="card-t">Активные указания</div><button class="btn btn-p btn-sm" onclick="addAiRule()">+ Правило</button></div><div id="rules-list"></div></div>
@@ -3864,12 +3865,12 @@ var BREAD={
  tasks:'Главная / <span>Задачи</span>',
  reports:'Главная / <span>Отчеты</span>',
  settings:'Главная / <span>Настройки</span>',
- caChat:'Ведомости / <span>Чат цифрового сметчика</span>',
+ caChat:'Ведомости / <span>Чат цифрового ассистента</span>',
  caDoc:'Ведомости / <span>Предпросмотр документа ДВ</span>',
- new0:'Ведомости / <span>Новая ведомость — Цифровой сметчик</span>',
+ new0:'Ведомости / <span>Новая ведомость — Цифровой ассистент</span>',
  new1:'Ведомости / <span>Новая ведомость — Шапка</span>',
  new2:'Ведомости / <span>Новая ведомость — Работы</span>',
- caReview:'Ведомости / <span>Цифровой сметчик подготовил ДВ</span>',
+ caReview:'Ведомости / <span>Цифровой ассистент подготовил ДВ</span>',
  new3:'Ведомости / <span>Новая ведомость — Примечания</span>',
  new4:'Ведомости / <span>Новая ведомость — Согласование</span>',
  sent:'Ведомости / <span>Маршрут ДВ</span>',
@@ -5047,7 +5048,7 @@ function makeDVNumber(){
  var d=new Date();
  var yy=d.getFullYear();
  var tail=String(Math.floor(Math.random()*900)+100);
- return 'AOK-ES-'+yy+'-C-'+String(d.getMonth()+1).padStart(2,'0')+'-'+tail;
+ return 'ДВ-'+yy+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+tail;
 }
 
 function inferObjectFromCARequest(text){
@@ -5311,7 +5312,7 @@ function renderDefectCAChat(){
  if(!defectCAChatLog.length)defectCAChatLog=[{role:'ai',text:'Опишите дефект, и я подготовлю черновик дефектной ведомости.'}];
  box.innerHTML=defectCAChatLog.map(function(m){
    var cls=m.role==='user'?'user':'ai';
-   var title=m.role==='user'?'Вы':'Цифровой сметчик';
+   var title=m.role==='user'?'Вы':'Цифровой ассистент';
    var actions=m.ready?'<div class="defect-msg-actions"><button class="btn btn-p btn-sm" type="button" onclick="openCADocumentPreview()">Открыть готовый ДВ</button><button class="btn btn-o btn-sm" type="button" onclick="document.getElementById(\'defect-ca-input\').focus()">Уточнить</button></div>':'';
    var ready=m.ready?'<div class="defect-ready-card"><div class="defect-ready-title">Черновик готов</div><div class="defect-ready-sub">Проверьте документ, затем отправьте его на согласование.</div></div>':'';
    return '<div class="defect-msg '+cls+'"><div class="defect-bubble"><div class="defect-bubble-k">'+title+'</div><div>'+htmlEscape(m.text)+'</div>'+ready+actions+'</div></div>';
@@ -5592,7 +5593,7 @@ function renderCAPositionSuggestions(plan){
     var missing=(p.missing||[]).length?'<div class="ca-suggest-meta">Нужно уточнить: '+htmlEscape(p.missing.join(', '))+'</div>':'';
     return '<div class="ca-suggest-item">'
      +'<div class="ca-suggest-name">'+htmlEscape(p.work.name||'—')+'</div>'
-     +'<div class="ca-suggest-meta">Объем из запроса: <strong>'+htmlEscape(p.qty||'—')+' '+htmlEscape(p.unit||p.work.unit||'')+'</strong><br>Уверенность цифрового сметчика: '+htmlEscape(p.confidence||'—')+'</div>'
+     +'<div class="ca-suggest-meta">Объем из запроса: <strong>'+htmlEscape(p.qty||'—')+' '+htmlEscape(p.unit||p.work.unit||'')+'</strong><br>Уверенность цифрового ассистента: '+htmlEscape(p.confidence||'—')+'</div>'
      +'<div class="ca-suggest-mats"><strong>Материалы:</strong> выберите после добавления.</div>'
      +missing
      +'<div class="ca-suggest-actions"><button class="btn btn-p btn-sm" onclick="chooseCAPositionSuggestion('+i+')">Выбрать позицию</button><button class="btn btn-o btn-sm" onclick="toggleManualCatalog()">Выбрать вручную</button></div>'
@@ -5608,7 +5609,7 @@ function chooseCAPositionSuggestion(index){
  caSuggestedPlan.splice(index,1);
  renderCAPositionSuggestions(caSuggestedPlan);
  _fairChatLog.push({role:'ai',text:'Позиция добавлена: '+p.work.name+'. Материалы выберите отдельно.'});
- addMemoryEvent('user_confirmed',{source:'ca-suggestion',text:'Пользователь выбрал позицию цифрового сметчика: '+p.work.name,workId:workId});
+ addMemoryEvent('user_confirmed',{source:'ca-suggestion',text:'Пользователь выбрал позицию цифрового ассистента: '+p.work.name,workId:workId});
  renderFairPanel();
  showToast('Позиция добавлена','success','Материалы нужно выбрать вручную или подтвердить отсутствие.');
 }
@@ -5687,7 +5688,7 @@ function getCAPreparedMissingItems(rows,source){
  if(!s.num)missing.push('номер ДВ');
  if(!s.obj)missing.push('объект');
  if(!s.date)missing.push('дата');
- if(!s.year)missing.push('год сметирования');
+ if(!s.year)missing.push('год реализации');
  if(!inferAreaFromCARequest(source)||inferAreaFromCARequest(source)==='Уточнить участок')missing.push('участок работ');
  if(!rows.length)missing.push('список работ');
  rows.forEach(function(r,i){
@@ -6142,7 +6143,7 @@ function renderCADocumentPreview(){
  if(editBtn)editBtn.style.display=caDocReadOnly?'none':'';
  if(badge)badge.className='dv-chip '+(caDocPreviewMode==='smax'?'info':'warning');
  host.innerHTML=(caDocReadOnly?'':renderCADocReadinessCard(dv,warnRows))+'<article class="dv-live-card">'
-  +'<div class="dv-live-brand">СМЕТА РК · ЦИФРОВОЙ СМЕТЧИК</div>'
+  +'<div class="dv-live-brand">СМЕТА РК · ЦИФРОВОЙ АССИСТЕНТ</div>'
   +'<h1 class="dv-live-title">ДЕФЕКТНАЯ ВЕДОМОСТЬ</h1>'
   +'<div class="dv-live-num">№ '+htmlEscape(dv.num||'—')+' от '+htmlEscape(dv.date||'—')+'</div>'
   +'<section class="dv-section" id="doc-sec-general"><h2>01. Общие сведения</h2><div class="dv-info-grid">'
@@ -6189,11 +6190,11 @@ function renderCADocReadinessCard(dv,warnRows){
   ['ok','✓','Объемы проставлены по всем работам','Единицы измерения сверены со справочником.',''],
   ['err','×','У дефекта «Дверной блок» нет работ','Нужно выбрать вариант: ремонт фурнитуры или замена блока.','Решить'],
   ['warn','!','3 работы требуют уточнения','Укладка плитки и шпаклевка потолка зависят от источника протечки.',''],
-  ['warn','!','Материалы требуют подтверждения','Тип плитки нужно уточнить в комментарии или принять подбор МЕСАЛИНЫ.','']
+  ['warn','!','Материалы требуют подтверждения','Тип плитки нужно уточнить в комментарии или принять подбор цифрового ассистента.','']
  ];
  return '<section class="dv-readiness-card" id="doc-readiness-card">'
-  +'<div class="dv-readiness-head"><div class="dv-readiness-ring"><span>'+percent+'%</span></div><div><div class="dv-readiness-title">Готовность к осмечиванию</div><div class="dv-readiness-sub">'+(blocked?'Есть блокирующие пункты — отправка недоступна':'Критичных блокеров нет — можно отправлять')+'</div></div><div class="dv-readiness-actions"><button class="dv-btn secondary" type="button" onclick="toggleCADocReadiness()">Свернуть</button><button class="dv-btn secondary" type="button" onclick="runCADocReadinessCheck()">Проверить заново</button></div></div>'
-  +'<div class="dv-check-list" id="doc-readiness-list">'+rows.map(function(r){return '<div class="dv-check-row"><div class="dv-check-icon '+(r[0]==='ok'?'':r[0])+'">'+r[1]+'</div><div class="dv-check-main"><b>'+htmlEscape(r[2])+'</b><span>'+htmlEscape(r[3])+'</span></div>'+(r[4]?'<button class="dv-check-link" type="button" onclick="handleCADocAssistantAction(\''+(r[4]==='Решить'?'resolveDoor':'showDuplicate')+'\')">'+r[4]+'</button>':'<span></span>')+'</div>';}).join('')+'</div>'
+  +'<div class="dv-readiness-head"><div class="dv-readiness-ring"><span>'+percent+'%</span></div><div><div class="dv-readiness-title">Готовность к осмечиванию</div><div class="dv-readiness-sub">'+(blocked?'Есть блокирующие пункты — отправка недоступна':'Критичных блокеров нет — можно отправлять')+'</div></div><div class="dv-readiness-actions"><button class="dv-btn secondary" id="doc-readiness-toggle" type="button" onclick="toggleCADocReadiness()">Развернуть</button><button class="dv-btn secondary" type="button" onclick="runCADocReadinessCheck()">Проверить заново</button></div></div>'
+  +'<div class="dv-check-list" id="doc-readiness-list" style="display:none">'+rows.map(function(r){return '<div class="dv-check-row"><div class="dv-check-icon '+(r[0]==='ok'?'':r[0])+'">'+r[1]+'</div><div class="dv-check-main"><b>'+htmlEscape(r[2])+'</b><span>'+htmlEscape(r[3])+'</span></div>'+(r[4]?'<button class="dv-check-link" type="button" onclick="handleCADocAssistantAction(\''+(r[4]==='Решить'?'resolveDoor':'showDuplicate')+'\')">'+r[4]+'</button>':'<span></span>')+'</div>';}).join('')+'</div>'
   +'</section>';
 }
 function infoCell(label,value){
@@ -6310,7 +6311,7 @@ function getCADocReferenceConfig(tab){
   },
   materials:{
    title:'Материалы',count:542,quality:'94%',action:'+ Добавить материал',
-   subtitle:'Материалы, которые заявитель использует в ведомости и цифровой сметчик сопоставляет со сметными материалами.',
+   subtitle:'Материалы, которые заявитель использует в ведомости и цифровой ассистент сопоставляет со сметными материалами.',
    columns:['Код','Наименование','Ед.','Категория','Статус','Действия'],
    rows:[
     ['MAT-001','Плитка керамическая 300x300 мм','м²','Отделочные','Утверждено','Открыть'],
@@ -6721,6 +6722,8 @@ function toggleCADocReadiness(){
  if(!list)return;
  var hidden=list.style.display==='none';
  list.style.display=hidden?'':'none';
+ var btn=document.getElementById('doc-readiness-toggle');
+ if(btn)btn.textContent=hidden?'Свернуть':'Развернуть';
  showToast(hidden?'Проверки раскрыты':'Проверки свернуты','info');
 }
 function runCADocReadinessCheck(){
@@ -6759,7 +6762,7 @@ function handleCADocAssistantAction(action){
  }
  defectCADraft=dv;
  renderCADocumentPreview();
- showToast('Цифровой сметчик','success','Действие применено.');
+ showToast('Цифровой ассистент','success','Действие применено.');
 }
 function sendCADocChatMessage(){
  var input=document.getElementById('ca-doc-chat-input');
@@ -6774,7 +6777,7 @@ function sendCADocChatMessage(){
  renderCADocumentPreview();
 }
 function acceptCADocHints(){
- showToast('Подсказки цифрового сметчика приняты');
+ showToast('Подсказки цифрового ассистента приняты');
 }
 function checkCADocErrors(){
  var dv=collectCADocEdits();
@@ -7611,7 +7614,7 @@ function showSSCPanel(q){
   renderSSCTreeLeft(q);
   // Правая: анимация ЦА
   var bc=document.getElementById('cat-bc');
- if(bc){bc.style.display='';bc.textContent='Цифровой сметчик анализирует каталог ССЦ...';}
+ if(bc){bc.style.display='';bc.textContent='Цифровой ассистент анализирует каталог ССЦ...';}
   var body=document.getElementById('cat-works-body');
   if(body){body.style.display='';body.innerHTML='<div style="padding:20px;text-align:center"><div class="status-dot-anim" style="display:inline-block;margin-right:8px"></div><span style="font-size:13px;color:var(--blue)">ЦА подбирает материалы...</span></div>';}
   return; // результаты подгружаются через matSearch таймаут
@@ -8868,7 +8871,7 @@ function getSimpleCAStatus(state){
  var key=state&&state.statusKey||'draft';
  var map={
    draft:{label:'ЦА думает',badge:'b-blue',note:'Строка создана, идет разбор.'},
-   parsing:{label:'Анализ',badge:'b-blue',note:'Цифровой сметчик анализирует работу.'},
+   parsing:{label:'Анализ',badge:'b-blue',note:'Цифровой ассистент анализирует работу.'},
    need:{label:'Нужно уточнить',badge:'b-amber',note:'Ответьте в чате ЦА или заполните поле в строке.'},
    ambiguous:{label:'Проверьте',badge:'b-amber',note:'Есть несколько подходящих вариантов.'},
    notmatched:{label:'Проверьте',badge:'b-red',note:'ЦА не нашел уверенное соответствие.'},
@@ -9009,7 +9012,7 @@ function buildWorkerAnswer(worker,text){
    if(analysis&&analysis.work)return 'Explainer: ЦА выбрал “'+analysis.work.name+'”, потому что текст совпал с признаками работы, параметрами и связанными расценками. '+(analysis.missing.length?'Перед итогом нужно уточнить: '+analysis.missing.map(function(p){return p.label;}).join(', ')+'.':'Данных достаточно для чернового сопоставления.');
    return 'Explainer: я объясняю, почему выбрана работа, материал или расценка. Сначала нужна распознанная строка ДВ.';
  }
- return 'Цифровой сметчик: уточните вопрос по строке ДВ.';
+ return 'Цифровой ассистент: уточните вопрос по строке ДВ.';
 }
 function fairMsgHtml(role,title,text,actions){
  var head=role==='user'?'<div class="fair-msg-head"><span>'+htmlEscape(title)+'</span><span class="fair-msg-time">'+fairNowTime()+'</span></div>':'';
@@ -9041,7 +9044,7 @@ function fairCheckDraft(){
  var rows=Array.from(document.querySelectorAll('#works-tbody tr')).filter(function(tr){return !tr.classList.contains('dv-row-detail');});
  if(!rows.length){showToast('Проверка','error','Добавьте хотя бы одну работу.');return;}
  renderFairPanel();
- showToast('Проверка завершена','success','Цифровой сметчик обновил подсказки справа.');
+ showToast('Проверка завершена','success','Цифровой ассистент обновил подсказки справа.');
 }
 function fairSendToEstimate(){
  validateStep2BeforeNext();
@@ -9097,7 +9100,7 @@ function renderFairPanel(){
  _fairChatLog.slice(-6).forEach(function(m){
    messages+=body.classList.contains('fair-dv-chat-scroll')
      ? fairPanelBubbleHtml(m.role,htmlEscape(m.text))
-     : fairMsgHtml(m.role,m.role==='user'?'Вы':'Цифровой сметчик',htmlEscape(m.text),'');
+     : fairMsgHtml(m.role,m.role==='user'?'Вы':'Цифровой ассистент',htmlEscape(m.text),'');
  });
  var summary='<strong>'+s.rows.length+'</strong> позиций в ДВ.';
  var cards='';
@@ -9121,8 +9124,8 @@ function renderFairPanel(){
    body.scrollTop=body.scrollHeight;
    return;
  }
- messages+=fairMsgHtml('ai','Цифровой сметчик',cards,actions);
- body.innerHTML='<div class="fair-chat-main"><div class="fair-agent-card"><div class="fair-agent-pic"><img src="assets/ca-avatar.png" alt="Цифровой сметчик"></div><div><div class="fair-agent-name">Цифровой сметчик</div><div class="fair-agent-desc">Создает строки и задает вопросы.</div></div></div><div class="fair-messages" id="fair-messages">'+messages+'</div></div>';
+ messages+=fairMsgHtml('ai','Цифровой ассистент',cards,actions);
+ body.innerHTML='<div class="fair-chat-main"><div class="fair-agent-card"><div class="fair-agent-pic"><img src="assets/ca-avatar.png" alt="Цифровой ассистент"></div><div><div class="fair-agent-name">Цифровой ассистент</div><div class="fair-agent-desc">Создает строки и задает вопросы.</div></div></div><div class="fair-messages" id="fair-messages">'+messages+'</div></div>';
  var sc=document.getElementById('fair-messages');
  if(sc)sc.scrollTop=sc.scrollHeight;
 }
@@ -9192,7 +9195,7 @@ function ivCheckWorkspace(){
  showToast('Проверка завершена','success','Найдена 1 строка, которая требует уточнения.');
 }
 function ivSendToEstimate(){
- showToast('Отправлено на осмечивание','success','Дефектная ведомость передана цифровому сметчику.');
+ showToast('Отправлено на осмечивание','success','Дефектная ведомость передана цифровому ассистенту.');
 }
 function ivCopyRow(btn){
  var tr=btn&&btn.closest?btn.closest('tr'):null;
@@ -9230,7 +9233,7 @@ function ivAskAssistant(){
  var text=input.value.trim();
  if(!text)return;
  input.value='';
- showToast('Цифровой сметчик','info','Вопрос принят: '+text);
+ showToast('Цифровой ассистент','info','Вопрос принят: '+text);
 }
 
 function buildUnifiedCAAnswer(text){
@@ -10199,7 +10202,7 @@ function getDVRowData(workId){
  var history=[
    'Строка добавлена в ДВ',
    'Статус строки: '+(s.rowStatus||'Draft'),
-   'Последняя обработка цифрового сметчика: работа → шаблон → параметры → материалы → расценки'
+   'Последняя обработка цифрового ассистента: работа → шаблон → параметры → материалы → расценки'
  ];
  var causality=_dvCausalityLog[workId]||[];
  var memory=getMemoryEvents({workId:workId});
@@ -12198,7 +12201,7 @@ function getDraftStatusHtml(tr,code,name,qty){
  var curatorName=tr.getAttribute('data-curator-name')||'Позиция ДВ';
  return '<div class="draft-status-main"></div>'
   +'<div class="draft-rec">Куратор: '+htmlEscape(curatorName)+'</div>'
-  +'<div class="draft-rec">Рекомендация цифрового сметчика: <span class="mono">'+htmlEscape(aiCode)+'</span> · '+htmlEscape(aiName)+'</div>'
+  +'<div class="draft-rec">Рекомендация цифрового ассистента: <span class="mono">'+htmlEscape(aiCode)+'</span> · '+htmlEscape(aiName)+'</div>'
   +renderAiReasoningHtml(aiCode,aiName,curatorName,qty||'',false)
   +'<textarea class="ft draft-reason" placeholder="Причина выбора другой расценки..." style="display:none" oninput="saveDraftOverrideReason(this)"></textarea>';
 }
@@ -12356,7 +12359,7 @@ function renderConfirmOverview(){
    var changed=changedRows;
    log.innerHTML=changed.length?changed.map(function(r){
      return '<div class="alert a-amber" style="margin-bottom:8px"><div><strong>'+htmlEscape(r.code)+' · '+htmlEscape(r.name)+'</strong>'
-      +'<div style="margin-top:5px">Рекомендация цифрового сметчика: <span class="mono">'+htmlEscape(r.aiCode)+'</span> · '+htmlEscape(r.aiName)+'</div>'
+      +'<div style="margin-top:5px">Рекомендация цифрового ассистента: <span class="mono">'+htmlEscape(r.aiCode)+'</span> · '+htmlEscape(r.aiName)+'</div>'
       +'<div style="margin-top:5px">Причина: '+htmlEscape(r.reason||'не указана')+'</div></div></div>';
    }).join(''):'<div class="alert a-green" style="margin-bottom:0">Отклонений от рекомендаций ЦА нет.</div>';
  }
@@ -14220,4 +14223,5 @@ applyThemeMode();
 </script>
 </body>
 </html>
+
 
