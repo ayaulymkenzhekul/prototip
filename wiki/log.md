@@ -1,5 +1,12 @@
 # Log
 
+## [2026-06-26] update | Добавлен workflow обработки исторических чатов
+
+- Источник: инструкция разработчика, файл `Промт анализ чата.md`, статья Karpathy LLM Wiki.
+- Что добавлено: `raw/`, `raw/chats/`, правила классификации чатов A/B и порядок ingest.
+- Новые страницы: `raw/README.md`, `raw/chats/README.md`, `wiki/chat-ingest.md`.
+- Обновленные страницы: `wiki/schema.md`, `wiki/README.md`, `wiki/index.md`, `wiki/sources.md`, `wiki/log.md`.
+
 ## [2026-06-25] update | Прочитаны новые PDF и обновлена база знаний
 
 - Источники: `NEW USE CASE_b6de946fe5014d5cb38f654c5c764f9f-250626-0917-1006.pdf`, `336714740_1271de45d1964bf386869c0c3ab98298-250626-0918-1008.pdf`.

@@ -22,6 +22,7 @@
 | [assistant-rules.md](assistant-rules.md) | Правила ЦА Дефектовщика и ЦА Сметчика. |
 | [access-audit-security.md](access-audit-security.md) | Права доступа, журнал действий, аудит и безопасность. |
 | [metrics.md](metrics.md) | Метрики процесса, качества данных и рекомендаций ЦА. |
+| [chat-ingest.md](chat-ingest.md) | Правила обработки исторических чатов и пополнения wiki из переписок. |
 | [decisions.md](decisions.md) | Продуктовые и UI-решения из чатов с Codex. |
 | [sources.md](sources.md) | Источники знаний проекта. |
 | [log.md](log.md) | Журнал изменений wiki. |
@@ -33,4 +34,5 @@
 3. Прочитать [business-flow.md](business-flow.md), [statuses.md](statuses.md) и [use-case-model.md](use-case-model.md).
 4. Для UI-задач читать [ui-rules.md](ui-rules.md) и [pages.md](pages.md).
 5. Для backend/API читать [integration.md](integration.md) и [access-audit-security.md](access-audit-security.md).
-6. Перед изменениями проверить [decisions.md](decisions.md), чтобы не откатить важные договоренности.
+6. Для переноса чатов читать [chat-ingest.md](chat-ingest.md) и `raw/chats/README.md`.
+7. Перед изменениями проверить [decisions.md](decisions.md), чтобы не откатить важные договоренности.
